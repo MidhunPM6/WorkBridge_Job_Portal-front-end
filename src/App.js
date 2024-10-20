@@ -1,10 +1,19 @@
+import { Routes  ,Route} from "react-router-dom";
 import Home from "./Pages/Home";
+import ServicePage from "./Components/Services/Services";
+
 
 
 function App() {
   return (
-    <>
-    <Home/>
+    <> 
+
+
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/service" element={<ServicePage/>} />
+
+    </Routes>
     </>
   );
 }
