@@ -1,7 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { NavHashLink } from 'react-router-hash-link';
 
+
 const NavBar = () => {
+  const navigate = useNavigate()
+
+  
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center p-6 border-b-2 border-gray-200 h-auto lg:h-20">
@@ -23,7 +29,7 @@ const NavBar = () => {
 
   <div className="flex justify-between w-full lg:w-auto mt-4 lg:mt-0">
     <div className="pr-0 lg:pr-16 font-poppins">
-      <button className="text-lg bg-violet-600 py-2 px-6 lg:px-10 text-white rounded-md shadow-md hover:bg-violet-700">
+      <button onClick={()=>navigate('/signup')} className="text-lg bg-violet-600 py-2 px-6 lg:px-10 text-white rounded-md shadow-md hover:bg-violet-700">
         Login
       </button>
     </div>
