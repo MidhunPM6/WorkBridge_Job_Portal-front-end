@@ -6,7 +6,7 @@ import githubimg from '../../assets/github.png'
 const SocialBar = () => {
   return (
     <>
-    <div className='flex justify-end pr-6 h-15 '>
+    <div className='lg:flex lg:justify-end lg:pr-20 h-15  flex justify-center  '>
         <img src={instagramimg} alt=""  className='w-5 m-3 hover:cursor-pointer mt-4'/>
         <img src={linkedinimg} alt=""  className='w-5 m-3 hover:cursor-pointer mt-4'/>
         <img src={githubimg} alt=""  className='w-5 m-3 hover:cursor-pointer mt-4'/>
