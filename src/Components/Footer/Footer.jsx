@@ -23,8 +23,8 @@ const Footer = () => {
     </div>
   </div>
   <div className='flex flex-col items-center lg:items-center lg:mr-52 lg:pt-10'>
-    <h1 className='text-4xl lg:text-5xl'>TaskEasy</h1>
-    <p className='text-sm pt-1 text-center'>Innovative task management tool</p>
+    <h1 className='text-4xl lg:text-5xl'>WorkBridge</h1>
+    <p className='text-sm pt-1 text-center'>Job Seeking Platform</p>
   </div>
 </div>
 
