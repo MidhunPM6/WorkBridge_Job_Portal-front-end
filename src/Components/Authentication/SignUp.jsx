@@ -1,15 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import googleimg from "../../assets/google.png";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 const SignUp = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+  const [formData, SetFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handlechange = (e) => {
+    SetFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post("http://localhost:5001/api/auth/register", formData)
+      .then((response) => {
+        alert("User registered successfully");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data.message || "Something went wrong");
+        } else if (error.request) {
+          console.log("No response from server");
+        } else {
+          console.log("error");
+        }
+
+        console.error(error);
+      });
+  };
+
   return (
     <>
       <div className="lg:flex font-poppins">
         <div className="h-32 lg:w-[40vw] lg:h-[100vh] bg-violet-600 opacity-75 place-content-center lg">
-          <h1 className="lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center">WorkBridge</h1>
+          <h1 className="lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center">
+            WorkBridge
+          </h1>
         </div>
         <div className="lg:w-[60vw] lg:h-[100vh]  lg: flex flex-col items-center lg:pt-36 pt-4 bg-slate-100 ">
           <div className="flex flex-col place-items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-lg">
@@ -21,22 +58,37 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="Enter your name"
+                name="name"
+                onChange={handlechange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300  "
               />
               <input
                 type="email"
                 placeholder="Enter your email"
+                name="email"
+                onChange={handlechange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
               <input
                 type="password"
                 placeholder="Enter new password"
+                name="password"
+                onChange={handlechange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
-              <button className="m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600">
+              <button
+                type="submit"
+                className="m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600"
+                onClick={handleSubmit}
+              >
                 Sign Up
               </button>
-             <button onClick={()=>navigate("/login")} className="pt-4 lg:hover:underline ">Already Account ?</button>
+              <button
+                onClick={() => navigate("/login")}
+                className="pt-4 lg:hover:underline "
+              >
+                Already Account ?
+              </button>
 
               <h1>or</h1>
               <div className="flex p-2 mt-2 border-2 border-gray-200 rounded-full ">
