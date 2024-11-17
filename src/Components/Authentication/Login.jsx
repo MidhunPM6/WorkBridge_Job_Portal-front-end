@@ -2,31 +2,54 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import googleimg from "../../assets/google.png";
 import axios from "axios";
+import {LoginValidation} from '../Authentication/Validation'
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const [error,setError]=useState('')
+
+ const[loginForm,SetLoginForm]=useState({
+  email:"",
+  password:"",
+ })
+  
+ const handleOnchange=(e)=>{
+    const validationErrors={...loginForm,[e.target.name]:e.target.value}
+    SetLoginForm(validationErrors)
+
+ }
+
+  
+
+  const handleValidation=(e)=>{
+    e.preventDefault();
+    const errors=LoginValidation(loginForm)
+    setError(errors)
+    return Object.keys(errors).length === 0
+
+
+  }
 
   const handlelogin = async (e) => {
     e.preventDefault();
+    if (!handleValidation(e)) return
+
     await axios
-      .post("http://localhost:5001/api/auth/login", {
-        email,
-        password,
-      })
+      .post("http://localhost:5001/api/auth/login",loginForm)
       .then((response) => {
         if (response.status === 200) {
           alert("Login Successfully");
+          navigate('/')
         } else {
           alert("Login failed");
         }
       })
-      .catch((error) => {
-        alert("login failed");
+      .catch((error) => {     
+        alert("login failed"); 
         console.log("Login Failed" + error);
       });
+      
   };
 
   return (
@@ -43,23 +66,30 @@ const Login = () => {
             <form
               action=""
               className="flex flex-col place-items-center p-4 lg:pt-6 "
+              onSubmit={handlelogin}
             >
               <input
+              
                 type="email"
+                name="email"
                 placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+              
+                onChange={handleOnchange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
+              {error.email && <p className="text-red-800">{error.email}</p>}
               <input
                 type="password"
+                name="password"
                 placeholder="Enter new password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+             
+                onChange={handleOnchange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
+              {error.password && <p className="text-red-800">{error.password}</p>}
               <button
-                onClick={handlelogin}
+              type="submit"
+                
                 className="m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600"
               >
                 Login

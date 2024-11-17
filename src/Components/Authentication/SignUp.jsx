@@ -2,29 +2,43 @@ import React, { useState } from "react";
 import googleimg from "../../assets/google.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { registerValidation } from "./Validation";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [formData, SetFormData] = useState({
+  const [error,setError]=useState({})
+
+  // Craeted State for form data to store
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const handlechange = (e) => {
-    SetFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // Onchange event
+  const handleChange = (e) => {
+    const newobj = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newobj);
+
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  //Vallidation of input feild
+  const handleValidation=(e)=>{
+    e.preventDefault()
+    const errors = registerValidation(formData);
+    setError(errors);
+    return Object.keys(errors).length === 0
+    }
 
+  // Subimition of form data to the back-end
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    if (!handleValidation(e)) return
     await axios
       .post("http://localhost:5001/api/auth/register", formData)
       .then((response) => {
         alert("User registered successfully");
+        navigate("/login");
         console.log(response.data);
       })
       .catch((error) => {
@@ -38,6 +52,7 @@ const SignUp = () => {
 
         console.error(error);
       });
+    
   };
 
   return (
@@ -54,28 +69,32 @@ const SignUp = () => {
             <form
               action="submit"
               className="flex flex-col place-items-center p-4 lg:pt-6 "
+              onSubmit={handleValidation}
             >
               <input
                 type="text"
                 placeholder="Enter your name"
                 name="name"
-                onChange={handlechange}
+                onChange={handleChange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300  "
               />
+              {error.name && <p className="text-red-800">{error.name}</p>}
               <input
                 type="email"
                 placeholder="Enter your email"
                 name="email"
-                onChange={handlechange}
+                onChange={handleChange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
+              {error.email && <p className="text-red-800">{error.email}</p>}
               <input
                 type="password"
                 placeholder="Enter new password"
                 name="password"
-                onChange={handlechange}
+                onChange={handleChange}
                 className="m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300"
               />
+              {error.password && <p className="text-red-800">{error.password}</p>}
               <button
                 type="submit"
                 className="m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600"
@@ -101,6 +120,5 @@ const SignUp = () => {
       </div>
     </>
   );
-};
-
+}
 export default SignUp;
