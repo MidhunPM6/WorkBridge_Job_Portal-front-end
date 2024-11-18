@@ -11,6 +11,7 @@ const Login = () => {
 
 const [error,setError]=useState('')
 
+  // Login form data
  const[loginForm,SetLoginForm]=useState({
   email:"",
   password:"",
@@ -23,7 +24,7 @@ const [error,setError]=useState('')
  }
 
   
-
+  //Handler of validation 
   const handleValidation=(e)=>{
     e.preventDefault();
     const errors=LoginValidation(loginForm)
@@ -32,7 +33,8 @@ const [error,setError]=useState('')
 
 
   }
-
+  
+  //Handler of login through axios
   const handlelogin = async (e) => {
     e.preventDefault();
     if (!handleValidation(e)) return
