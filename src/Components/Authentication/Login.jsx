@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import googleimg from "../../assets/google.png";
 import axios from "axios";
 import {LoginValidation} from '../Authentication/Validation'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,15 +41,17 @@ const [error,setError]=useState('')
       .post("http://localhost:5001/api/auth/login",loginForm)
       .then((response) => {
         if (response.status === 200) {
-          alert("Login Successfully");
-          navigate('/')
-        } else {
-          alert("Login failed");
-        }
+          toast.success('Login Success',{
+            onClose:()=>navigate('/')
+
+
+          })
+        } 
       })
-      .catch((error) => {     
-        alert("login failed"); 
-        console.log("Login Failed" + error);
+      .catch((error) => {   
+        toast.error('Invaild Credential',{
+         
+        })  
       });
       
   };
@@ -55,6 +59,18 @@ const [error,setError]=useState('')
   return (
     <>
       <div className="lg:flex font-poppins">
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
         <div className="h-32 lg:w-[40vw] lg:h-[100vh] bg-violet-600 opacity-75 place-content-center">
           <h1 className="lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center">
             WorkBridge

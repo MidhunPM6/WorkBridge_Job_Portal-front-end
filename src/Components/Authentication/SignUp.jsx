@@ -3,10 +3,14 @@ import googleimg from "../../assets/google.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { registerValidation } from "./Validation";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [error,setError]=useState({})
+
 
   // Craeted State for form data to store
   const [formData, setFormData] = useState({
@@ -37,20 +41,22 @@ const SignUp = () => {
     await axios
       .post("http://localhost:5001/api/auth/register", formData)
       .then((response) => {
-        alert("User registered successfully");
-        navigate("/login");
-        console.log(response.data);
+        if(response.email===formData.email){
+          return alert("Already registered")
+
+        }
+        toast.success('Sucess',{
+          onClose:()=>navigate('/login')
+
+        })
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response.data.message || "Something went wrong");
-        } else if (error.request) {
-          console.log("No response from server");
-        } else {
-          console.log("error");
+          toast.warning("Check your email again ")
+        } else if (error.request){
+          toast.warning("No response from server")
         }
-
-        console.error(error);
+       
       });
     
   };
@@ -58,6 +64,17 @@ const SignUp = () => {
   return (
     <>
       <div className="lg:flex font-poppins">
+        <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"/>
         <div className="h-32 lg:w-[40vw] lg:h-[100vh] bg-violet-600 opacity-75 place-content-center lg">
           <h1 className="lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center">
             WorkBridge
