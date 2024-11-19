@@ -16,7 +16,7 @@ const HomeMain = () => {
       At <span className='text-4xl lg:text-6xl font-semibold bg-gradient-to-r from-violet-900 to-violet-600 bg-clip-text text-transparent'>WorkBridge</span>, Connecting opportunities with talent, our platform bridges dreams and possibilities, helping job seekers find their path and companies build their future.
     </p>
     <div className='lg:flex lg:flex-row flex flex-col lg:pt-5 pt-2  '>
-    <button className='text-lg lg:p-2 p-4 lg:mr-6 lg:ml-2  bg-violet-600 lg:py-2 lg:px-10 text-white rounded-md shadow-md hover:bg-violet-700 '>Employer</button>
+    <button onClick={()=>navigate('/employer')}className='text-lg lg:p-2 p-4 lg:mr-6 lg:ml-2  bg-violet-600 lg:py-2 lg:px-10 text-white rounded-md shadow-md hover:bg-violet-700 '>Employer</button>
     <button onClick={()=>navigate('/login')} className='text-lg lg:p-2 p-4 lg:py-2 lg:px-10  lg:mt-0 mt-2 border-2 border-violet-700 rounded-md shadow-md hover:bg-gray-100'>Job Seeker Login</button>
     </div>
     
