@@ -4,6 +4,9 @@ import ServicePage from "./Components/Services/Services";
 import Siginup from "./Pages/Siginup";
 import Login from "./Pages/Loginn";
 import EmployerHome from "./Pages/EmployerHome";
+import EmployerLogin from "./Pages/EmployerLogin";
+import EmployerSignup from "./Pages/EmployerSignup";
+
 
 
 
@@ -22,6 +25,10 @@ function App() {
       <Route path="/signup" element={<Siginup/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/employer" element={<EmployerHome/>} />
+      <Route path="/employerlogin" element={<EmployerLogin/>} />
+      <Route path="/employersignin" element={<EmployerSignup/>} />
+
+
 
 
    

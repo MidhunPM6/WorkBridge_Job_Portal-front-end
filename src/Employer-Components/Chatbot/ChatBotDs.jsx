@@ -23,7 +23,7 @@ const ChatBotDs = () => {
               quick and efficient assistance.
             </p>
             <div className='pt-5'>
-            <button className='py-2 px-71 text-black rounded-sm bg-gray-200 hover:bg-white '>Chat now</button>
+            <button className='py-2 px-7 text-black rounded-sm bg-gray-200 hover:bg-white '>Chat now</button>
             </div>
             
           </div>
