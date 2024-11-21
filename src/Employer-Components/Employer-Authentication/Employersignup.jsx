@@ -1,11 +1,29 @@
 import React, { useState } from 'react'
 import googleimg from '../../assets/google.png'
+import axios from 'axios'
+import { axiosAuth } from '../../Axios/Axios-instance'
+
+
+
+
 const Employersignup = () => {
   const [empLoginData, setEmpLoginData] = useState({
     name: '',
     email: '',
     password: ''
   })
+
+  const handleOnchage=(e)=>{
+    const changeData={...empLoginData,[e.target.name]:e.target.value}
+    setEmpLoginData(changeData)
+  }
+   
+  const handleSubmit=async(e)=>{
+    e.preventDefault()
+     await axiosAuth.post
+
+  }
+
 
   return (
     <>
@@ -19,18 +37,21 @@ const Employersignup = () => {
             <input
               type='text'
               name="name"
+              onChange={handleOnchage}
               placeholder='Enter Your Name '
               className='py-1 px-8 outline-none rounded-sm  focus: border-2 border-gray-200'
             />
             <input
               type='email'
               name='email'
+              onChange={handleOnchage}
               placeholder='Enter Your Email'
               className='mt-6 py-1 px-8 outline-none rounded-sm  focus: border-2 border-gray-200'
             />
             <input
               type='password'
               name='password'
+              onChange={handleOnchage}
               placeholder='Enter Your Password'
               className='mt-6 py-1 px-8 outline-none rounded-sm  focus: border-2 border-gray-200'
             />
@@ -49,6 +70,7 @@ const Employersignup = () => {
           <div className='flex p-2 mt-2 border-2 border-gray-200 rounded-full  bg-white text-black'>
             <img src={googleimg} alt='' className='w-6 mr-2' />
             <p>Sign in with google</p>
+            
           </div>
         </div>
       </div>

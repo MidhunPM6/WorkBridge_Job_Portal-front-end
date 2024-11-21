@@ -5,6 +5,8 @@ import axios from "axios";
 import { registerValidation } from "./Validation";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosAuth } from "../../Axios/Axios-instance";
+
 
 
 const SignUp = () => {
@@ -35,23 +37,28 @@ const SignUp = () => {
     }
 
   // Subimition of form data to the back-end
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e)=> {
     e.preventDefault(); 
     if (!handleValidation(e)) return
-    await axios
-      .post("http://localhost:5001/api/auth/register", formData)
+      await axiosAuth
+      .post("/register", formData)
       .then((response) => {
-        if(response.email===formData.email){
-          return alert("Already registered")
+        
+        if(response.data.user.email===formData.email){
+          return alert("sme email")
 
         }
-        toast.success('Sucess',{
-          onClose:()=>navigate('/login')
-
+       
+        toast.success('Success',{
+          onClose:()=>{
+            navigate('/login')
+          }
         })
       })
       .catch((error) => {
         if (error.response) {
+    
+          
           toast.warning("Check your email again ")
         } else if (error.request){
           toast.warning("No response from server")

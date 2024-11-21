@@ -26,7 +26,7 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="/employer" element={<EmployerHome/>} />
       <Route path="/employerlogin" element={<EmployerLogin/>} />
-      <Route path="/employersignin" element={<EmployerSignup/>} />
+      <Route path="/employersignup" element={<EmployerSignup/>} />
 
 
 

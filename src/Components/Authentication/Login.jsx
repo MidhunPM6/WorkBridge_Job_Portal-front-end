@@ -5,6 +5,8 @@ import axios from "axios";
 import {LoginValidation} from '../Authentication/Validation'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosAuth } from "../../Axios/Axios-instance";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,8 +41,8 @@ const [error,setError]=useState('')
     e.preventDefault();
     if (!handleValidation(e)) return
 
-    await axios
-      .post("http://localhost:5001/api/auth/login",loginForm)
+    await axiosAuth
+      .post("/login",loginForm)
       .then((response) => {
         if (response.status === 200) {
           toast.success('Login Success',{

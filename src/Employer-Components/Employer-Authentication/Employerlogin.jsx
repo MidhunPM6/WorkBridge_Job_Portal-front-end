@@ -20,11 +20,12 @@ const Employerlogin = () => {
               placeholder='Enter Your Password'
               className='mt-4 py-1 px-8 outline-none rounded-sm  focus: border-2 border-gray-200'
             />
-          
+          <h1 className='mt-8 mb-2 text-white'>Create an Account</h1>
           <div className='mb-4'>
+          
           <button
             type='submit'
-            className='bg-violet-800 items-center mt-10 py-2 px-7 rounded-md hover:bg-violet-900 text-white '
+            className='bg-violet-800 items-center py-2 px-7 rounded-md hover:bg-violet-900 text-white '
           >
             Login
           </button>
