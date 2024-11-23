@@ -1,8 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 
 
 const Navbar = () => {
+  const navigate =useNavigate()
   return (
     <>
       <div className='lg:flex lg:justify-between font-poppins shadow-sm lg:h-[13vh] '>
@@ -14,7 +16,7 @@ const Navbar = () => {
         </div>
        
         <div className='p-8 lg:pr-32'>
-       <button className='px-10 py-2 rounded-sm text-lg text-white bg-violet-600'>login</button>
+       <button onClick={()=>navigate('/employerlogin')} className='px-10 py-2 rounded-sm text-lg text-white bg-violet-600'>login</button>
        </div>
       </div>
     </>
