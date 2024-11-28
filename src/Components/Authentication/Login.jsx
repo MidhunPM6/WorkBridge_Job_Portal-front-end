@@ -5,11 +5,17 @@ import { LoginValidation } from '../Authentication/Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../Axios/Axios-instance'
+import { useContext } from 'react'
+import {ContextSeekerName} from '../../Context/SeekerUsernameContext'
+
+
 
 const Login = () => {
   const navigate = useNavigate()
 
   const [error, setError] = useState('')
+  const {setSavedUsername}=useContext(ContextSeekerName)
+  
 
   // Login form data
   const [loginForm, SetLoginForm] = useState({
@@ -36,11 +42,16 @@ const Login = () => {
     if (!handleValidation(e)) return
     try {
       const response = await axiosAuth.post('/login', loginForm)
+
+      setSavedUsername(response.data.username)
+      console.log(response)
+
       if (response.status === 200) {
         toast.success('Login Success', {
           autoClose:1000,
-          onClose: () => navigate('/')
+          onClose:()=>navigate('/')
         })
+
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Server Error', {
@@ -96,11 +107,11 @@ const Login = () => {
                 <p className='text-red-800'>{error.password}</p>
               )}
               <button
-                type='submit'
-                className='m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600'
-              >
-                Login
-              </button>
+              type='submit'
+              className='m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600'
+            >
+              Login
+            </button>
               <button
                 onClick={() => navigate('/signup')}
                 className='pt-4 hover:underline '

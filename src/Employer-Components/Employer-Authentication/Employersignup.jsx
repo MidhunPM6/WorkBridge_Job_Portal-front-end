@@ -57,7 +57,7 @@ const Employersignup = () => {
 
   return (
     <>
-      <div className=' flex flex-col items-center pt-10 h-[100vh] bg-violet-500 font-poppins text-white  '>
+      <div className=' flex flex-col items-center pt-10 h-[100vh] bg-gradient-to-r from-violet-200                   to-violet-800 font-poppins text-white  '>
       <ToastContainer
           position='top-right'
           autoClose={1000}

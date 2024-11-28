@@ -6,6 +6,7 @@ import Login from "./Pages/Loginn";
 import EmployerHome from "./Pages/EmployerHome";
 import EmployerLogin from "./Pages/EmployerLogin";
 import EmployerSignup from "./Pages/EmployerSignup";
+import SeekerUsernameContext from "./Context/SeekerUsernameContext";
 
 
 
@@ -18,7 +19,7 @@ function App() {
   return (
     <> 
 
-
+    <SeekerUsernameContext>
     <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/service" element={<ServicePage/>} />
@@ -28,14 +29,8 @@ function App() {
       <Route path="/employerlogin" element={<EmployerLogin/>} />
       <Route path="/employersignup" element={<EmployerSignup/>} />
 
-
-
-
-   
-
-
-
     </Routes>
+    </SeekerUsernameContext>
     </>
   );
 }
