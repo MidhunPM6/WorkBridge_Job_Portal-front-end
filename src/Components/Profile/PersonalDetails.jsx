@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const PersonalDetails = () => {
+  
   return (
     <>
       <div className='ml-64 h-[89.8vh] w-[82.2vw] font-poppins text-lg'>
         <div className='flex flex-col'>
           <form action='' className='mt-8 ml-32'>
-            <h1 className='mb-3 text-2xl font-semibold'>
+            <h1 className='mb-3 text-2xl font-light text-violet-500'>
               Enter Your Personal Details
             </h1>
-            <div className='flex'>
+            <div className='flex text-gray-600' >
               <div className='flex flex-col '>
                 <label htmlFor=''>First Name</label>
                 <input
@@ -28,7 +29,7 @@ const PersonalDetails = () => {
               </div>
               
             </div>
-            <div className='flex mt-7'>
+            <div className='flex mt-7 text-gray-600'>
               <div className='flex flex-col'>
                 <label htmlFor=''>Job Title </label>
                 <input
@@ -46,7 +47,7 @@ const PersonalDetails = () => {
                 />
               </div>
             </div>
-            <div className='flex mt-7'>
+            <div className='flex mt-7 text-gray-600' >
               <div className='flex flex-col'>
                 <label htmlFor=''>Mobile</label>
                 <input
@@ -64,7 +65,7 @@ const PersonalDetails = () => {
                 />
               </div>
             </div>
-            <div className='flex mt-7'>
+            <div className='flex mt-7 text-gray-600'>
               <div className='flex flex-col'>
                 <label htmlFor=''>Location</label>
                 <input

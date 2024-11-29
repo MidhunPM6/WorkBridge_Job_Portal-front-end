@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import PersonalDetails from './PersonalDetails';
+import ExperienceComp from './ExperienceComp';
 
 const SideMenu = () => {
     const [isOpen, setIsOpen] = useState(true);  
@@ -10,8 +11,12 @@ const SideMenu = () => {
         switch (activeComponent) {
             case "PersonalDetails":
                 return <PersonalDetails/>
+
+            case "Experience":
+                return <ExperienceComp/>
         
             default:
+              return <PersonalDetails/>
                 
         }
     }
@@ -34,7 +39,7 @@ const SideMenu = () => {
               </button>
             </li>
             <li>
-            <button  className="flex items-center text-lg hover:text-gray-300">
+            <button onClick={()=>setActiveComponent('Experience')} className="flex items-center text-lg hover:text-gray-300">
                 <span className="mr-2">🧑🏻‍💻</span> Experience
               </button>
             </li>
