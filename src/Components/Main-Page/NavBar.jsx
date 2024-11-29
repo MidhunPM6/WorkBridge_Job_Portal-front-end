@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavHashLink } from 'react-router-hash-link';
 import { ContextSeekerName } from "../../Context/SeekerUsernameContext";
+import customerCareImg from '../../assets/customercare.png'
 
 
 
@@ -45,7 +46,7 @@ const NavBar = () => {
     savedUsername ?
   <div className="lg:ml-40 flex flex-row">
 
-    <button className="flex flex-row mr-2  py-2 px-4 border-2 border-violet-600 hover:bg-violet-600 hover:text-white rounded-md lg:ml-32 ">
+    <button onClick={()=>navigate('/profile')} className="flex flex-row mr-2  py-2 px-4 border-2 border-violet-600 hover:bg-violet-600 hover:text-white rounded-md lg:ml-32 ">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 mr-2">
   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
 </svg>
@@ -58,7 +59,7 @@ const NavBar = () => {
   
 
   <div className="flex justify-between w-full lg:w-auto mt-4 lg:mt-0">
-    <div className="pr-0 lg:pr-16 font-poppins flex items-center">
+    <div className="pr-0 lg:pr-8 font-poppins flex items-center">
       <button  className="text-lg lg:p-2 p-4 bg-violet-600 py-6 lg:px-4   text-white rounded-full  hover:bg-violet-700  " >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 ">
   <path d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 0 0-1.032-.211 50.89 50.89 0 0 0-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 0 0 2.433 3.984L7.28 21.53A.75.75 0 0 1 6 21v-4.03a48.527 48.527 0 0 1-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979Z" />
@@ -66,6 +67,11 @@ const NavBar = () => {
 </svg>
     
       </button>
+      
+    </div>
+    <div>
+      <img src={customerCareImg} alt=""  className="w-12 mr-10 cursor-pointer"/>
+
     </div>
 
     <div className="lg:hidden flex items-center">

@@ -7,7 +7,7 @@ import EmployerHome from "./Pages/EmployerPages/EmployerHome";
 import EmployerLogin from "./Pages/EmployerPages/EmployerLogin";
 import EmployerSignup from "./Pages/EmployerPages/EmployerSignup";
 import SeekerUsernameContext from "./Context/SeekerUsernameContext";
-import UserProfile from "./Pages/SideMenuUser";
+import UserProfile from "./Pages/UserProfile";
 
 
 

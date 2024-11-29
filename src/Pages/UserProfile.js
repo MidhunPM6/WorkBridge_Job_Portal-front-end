@@ -2,7 +2,7 @@ import React from 'react'
 import Userprofile from '../Components/Profile/SideMenu'
 import NavBar from '../Components/Main-Page/NavBar'
 
-const SidemenuUser = () => {
+const UserProfile = () => {
   return (
     <div>
         <NavBar />
@@ -12,4 +12,4 @@ const SidemenuUser = () => {
   )
 }
 
-export default SidemenuUser
+export default UserProfile

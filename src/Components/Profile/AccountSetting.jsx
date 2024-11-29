@@ -1,8 +1,20 @@
 import React, { useContext } from 'react'
 import { ContextSeekerName } from '../../Context/SeekerUsernameContext'
+import { useNavigate } from 'react-router-dom'
 
 const AccountSetting = () => {
-  const { savedUsername } = useContext(ContextSeekerName)
+  const { savedUsername,setSavedUsername} = useContext(ContextSeekerName)
+  const navigate=useNavigate()
+  const handleLogout=(e)=>{
+    e.preventDefault()
+    localStorage.removeItem('Username')
+    setSavedUsername(null)
+    navigate('/')
+    window.location.reload()
+    
+
+    
+  }
 
   return (
     <>
@@ -49,7 +61,7 @@ const AccountSetting = () => {
           />
         </div>
         <div className='mt-10'>
-            <button type="button " className=' text-red-600 font-semibold text-sm p-1 rounded-md  px-7'>Logout</button>
+            <button onClick={handleLogout} type="button " className=' text-red-600 font-semibold text-sm p-1 rounded-md px-7'>Logout</button>
         </div>
         <div>
             <button className='mt-2 text'>Delete your account</button>
