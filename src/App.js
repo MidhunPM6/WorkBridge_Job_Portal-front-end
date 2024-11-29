@@ -3,18 +3,11 @@ import Home from "./Pages/Home";
 import ServicePage from "./Components/Services/Services";
 import Siginup from "./Pages/Siginup";
 import Login from "./Pages/Loginn";
-import EmployerHome from "./Pages/EmployerHome";
-import EmployerLogin from "./Pages/EmployerLogin";
-import EmployerSignup from "./Pages/EmployerSignup";
+import EmployerHome from "./Pages/EmployerPages/EmployerHome";
+import EmployerLogin from "./Pages/EmployerPages/EmployerLogin";
+import EmployerSignup from "./Pages/EmployerPages/EmployerSignup";
 import SeekerUsernameContext from "./Context/SeekerUsernameContext";
 import UserProfile from "./Pages/SideMenuUser";
-
-
-
-
-
-
-
 
 
 

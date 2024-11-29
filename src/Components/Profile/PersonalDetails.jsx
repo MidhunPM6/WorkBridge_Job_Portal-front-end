@@ -4,7 +4,7 @@ const PersonalDetails = () => {
   
   return (
     <>
-      <div className='ml-64 h-[89.8vh] w-[82.2vw] font-poppins text-lg'>
+      <div className='ml-64 h-[89.8vh] w-[82.2vw] font-poppins text-md'>
         <div className='flex flex-col'>
           <form action='' className='mt-8 ml-32'>
             <h1 className='mb-3 text-2xl font-light text-violet-500'>

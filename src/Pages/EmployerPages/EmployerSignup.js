@@ -1,5 +1,5 @@
 import React from 'react'
-import Employersignup from '../Employer-Components/Employer-Authentication/Employersignup'
+import Employersignup from '../../Employer-Components/Employer-Authentication/Employersignup'
 
 const EmployerSignup = () => {
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 const ExperienceComp = () => {
   return (
-    <div className='ml-64 h-[89.8vh] w-[82.2vw] font-poppins text-lg'>
+    <div className='ml-64 h-[89.8vh] w-[82.2vw] font-poppins text-md'>
       <div className='flex flex-col'>
         <form action='' className='mt-8 ml-32'>
           <div>
@@ -73,7 +73,7 @@ const ExperienceComp = () => {
                   clipRule='evenodd'
                 />
               </svg>
-              Add
+              Add More
             </button>
           </div>
           <div>
