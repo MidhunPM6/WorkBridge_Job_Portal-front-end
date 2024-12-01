@@ -8,6 +8,7 @@ import EmployerLogin from "./Pages/EmployerPages/EmployerLogin";
 import EmployerSignup from "./Pages/EmployerPages/EmployerSignup";
 import SeekerUsernameContext from "./Context/SeekerUsernameContext";
 import UserProfile from "./Pages/UserProfile";
+import Jobview from "./Pages/Jobview";
 
 
 
@@ -22,6 +23,9 @@ function App() {
       <Route path="/signup" element={<Siginup/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/profile" element={<UserProfile/>} />
+      <Route path="/jobview" element={<Jobview/>} />
+
+      
 
 
       <Route path="/employer" element={<EmployerHome/>} />

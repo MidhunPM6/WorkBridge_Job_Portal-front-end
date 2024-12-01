@@ -9,22 +9,16 @@ import customerCareImg from '../../assets/customercare.png'
 const NavBar = () => {
   const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {savedUsername,setSavedUsername}=useContext(ContextSeekerName)
+  const {savedUsername}=useContext(ContextSeekerName)
   
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   
-  const handleLogout=()=>{
-    setSavedUsername("")
-    
-    
-
-  }
 
 
-
+ 
   
   return (
     <>
