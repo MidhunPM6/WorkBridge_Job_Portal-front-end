@@ -16,7 +16,7 @@ const ExperienceComp = () => {
               <input
                 type='text'
                 placeholder='Your company'
-                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2'
+                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
               />
             </div>
             <div className='ml-12 flex flex-col'>
@@ -24,7 +24,7 @@ const ExperienceComp = () => {
               <input
                 type='text'
                 placeholder='Enter your designation'
-                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2'
+                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
               />
             </div>
           </div>
@@ -35,7 +35,7 @@ const ExperienceComp = () => {
               <input
                 type='date'
                 placeholder='Your company'
-                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2'
+                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
               />
             </div>
             <div className='ml-[7vw] flex flex-col'>
@@ -43,7 +43,7 @@ const ExperienceComp = () => {
               <input
                 type='date'
                 placeholder='Enter your designation'
-                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2'
+                className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
               />
             </div>
           </div>
@@ -52,13 +52,13 @@ const ExperienceComp = () => {
             <textarea
               name=''
               id=''
-              className='w-[47.8vw] outline-none border border-gray-400 mt-2 py-4'
+              className='w-[47.8vw] outline-none border border-gray-400 mt-2 py-4 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
             ></textarea>
           </div>
           <div>
             <button
               type='button'
-              className=' flex mt-2 pt-2 text-md text-sky-600'
+              className=' flex mt-2 pt-2 text-md text-sky-600 hover:text-sky-700'
             >
               {' '}
               <svg
@@ -79,7 +79,7 @@ const ExperienceComp = () => {
           <div>
             <button
               type='button'
-              className=' mt-4 bg-violet-600 text-white py-2 p-3 rounded-md '
+              className=' mt-4 bg-violet-600 text-white py-2 p-3 rounded-md hover:bg-violet-700'
             >
               Save changes
             </button>

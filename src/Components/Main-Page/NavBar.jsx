@@ -24,7 +24,7 @@ const NavBar = () => {
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center p-6 border-b-2 border-gray-200 h-auto lg:h-20 lg:sticky top-0 z-50 bg-white ">
   <div className="flex flex-col lg:flex-row items-center w-full lg:w-auto">
-    <h1 className="text-3xl lg:text-4xl font-poppins font-semibold text-violet-600 m-6 mb-2 lg:mb-7 tracking-[.1em]">
+    <h1 onClick={()=>navigate('/')} className="text-3xl lg:text-4xl font-poppins font-semibold text-violet-600 m-6 mb-2 lg:mb-7 tracking-[.1em] cursor-pointer">
       WorkBridge
     </h1>
 

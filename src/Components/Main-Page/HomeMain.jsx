@@ -21,10 +21,10 @@ const HomeMain = () => {
     <div className='lg:flex lg:flex-row flex flex-col lg:pt-5 pt-2  '>
     <button onClick={()=>navigate('/employer')}className='text-lg lg:p-2 p-4 lg:mr-6 lg:ml-2  bg-violet-600 lg:py-2 lg:px-10 text-white rounded-md shadow-md hover:bg-violet-700 '>Employer</button>
     {savedUsername ? 
-    <button  className='text-lg lg:p-2 p-4 lg:py-2 lg:px-10  lg:mt-0 mt-2 border-2 border-violet-700 rounded-md shadow-md hover:bg-gray-100'>Find Jobs</button>
+    <button  onClick={()=>navigate('/jobview')} className='text-lg lg:p-2 p-4 lg:py-2 lg:px-10  lg:mt-0 mt-2 border-2 border-violet-700 rounded-md shadow-md hover:bg-gray-100'>Find Jobs</button>
     : 
     <button onClick={()=>navigate('/login')} className='text-lg lg:p-2 p-4 lg:py-2 lg:px-10  lg:mt-0 mt-2 border-2 border-violet-700 rounded-md shadow-md hover:bg-gray-100'>Job Seeker Login</button>
-}
+} 
     </div>
     
   

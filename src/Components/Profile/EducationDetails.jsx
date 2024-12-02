@@ -17,7 +17,7 @@ const EducationDetails = () => {
                 <input
                   type='text'
                   placeholder='Your institute'
-                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2'
+                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
                 />
               </div>
               <div className='ml-12 flex flex-col'>
@@ -25,7 +25,7 @@ const EducationDetails = () => {
                 <input
                   type='text'
                   placeholder='Enter your Stream'
-                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2'
+                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
                 />
               </div>
               
@@ -36,7 +36,7 @@ const EducationDetails = () => {
                 <input
                   type='date'
                   
-                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2'
+                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm  mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
                 />
               </div>
               <div className='ml-24 flex flex-col'>
@@ -44,7 +44,7 @@ const EducationDetails = () => {
                 <input
                   type='date'
                 
-                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2'
+                  className=' outline-none border border-gray-400 py-1 px-12 rounded-sm mt-2 hover:border-violet-600 focus:border-violet-800 focus:shadow-md'
                 />
               </div>
               
@@ -52,7 +52,7 @@ const EducationDetails = () => {
             <div>
             <button
               type='button'
-              className=' flex mt-2 pt-2 text-md text-sky-600'
+              className=' flex mt-2 pt-2 text-md text-sky-600 hover:text-sky-700'
             >
               {' '}
               <svg
@@ -73,7 +73,7 @@ const EducationDetails = () => {
           <div>
               <button
                 type='button'
-                className=' mt-4 bg-violet-600 text-white py-2 p-3 rounded-md '
+                className=' mt-4 bg-violet-600 text-white py-2 p-3 rounded-md hover:bg-violet-700 '
               >
                 Save changes
               </button>

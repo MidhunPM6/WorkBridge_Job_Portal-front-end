@@ -1,6 +1,6 @@
 import React from 'react'
-import Userprofile from '../Components/Profile/SideMenu'
-import NavBar from '../Components/Main-Page/NavBar'
+import Userprofile from '../../Components/Profile/SideMenu'
+import NavBar from '../../Components/Main-Page/NavBar'
 
 const UserProfile = () => {
   return (
