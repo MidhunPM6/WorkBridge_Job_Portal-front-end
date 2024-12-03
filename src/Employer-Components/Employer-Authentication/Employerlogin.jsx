@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import googleimg from '../../assets/google.png'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../Axios/Axios-instance'
 import { loginValidation } from './Validation'
+import {EmpAuth} from '../../Context/EmployerUsername'
+
+
 
 
 
@@ -16,6 +19,8 @@ const Employerlogin = () => {
     password:"",
   })
   const [error,setError]=useState("")
+
+  const {setEmpUsername}=useContext(EmpAuth)
 
 
 
@@ -32,12 +37,16 @@ const Employerlogin = () => {
     if (!handleValidation(e)) return
     try {
       const response=await axiosAuth.post('/emplogin',empLoginForm)
-      
+
+      setEmpUsername(response.data.username) 
+      console.log(response)
+
       if(response.status===200){
          toast.success("Login successfull",{
           onClose:()=>navigate('/employer')
         
          })
+        
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Server Error")
