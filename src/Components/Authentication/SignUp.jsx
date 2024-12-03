@@ -71,6 +71,7 @@ const SignUp = () => {
           <h1 className='lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center'>
             WorkBridge
           </h1>
+         
         </div>
         <div className='lg:w-[60vw] lg:h-[100vh]  lg: flex flex-col items-center lg:pt-36 pt-4 bg-slate-100 '>
           <div className='flex flex-col place-items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-lg'>
