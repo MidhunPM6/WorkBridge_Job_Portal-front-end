@@ -8,6 +8,7 @@ const ProfileMainpage = () => {
     <div>
       <Navbar />
       <ProfileMainPage />
+      
     </div>
   )
 }

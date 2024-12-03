@@ -12,6 +12,9 @@ import Jobview from './Pages/UserPages/Jobview'
 import Applyjob from './Pages/UserPages/Applyjob'
 import EmployerUsername from './Context/EmployerUsername'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
+import Postjob from './Pages/EmployerPages/Postjob'
+
+
 
 function App () {
   return (
@@ -33,6 +36,8 @@ function App () {
           <Route path='/employerlogin' element={<EmployerLogin />} />
           <Route path='/employersignup' element={<EmployerSignup />} />
           <Route path='/employerprofile' element={<ProfileMainpage />} />
+          <Route path='/postjob' element={<Postjob />} />
+
 
 
         </Routes>
