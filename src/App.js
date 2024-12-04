@@ -13,12 +13,17 @@ import Applyjob from './Pages/UserPages/Applyjob'
 import EmployerUsername from './Context/EmployerUsername'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
 import Postjob from './Pages/EmployerPages/Postjob'
+import JobpostContext from './Context/JobpostContext'
+
+
+
 
 
 
 function App () {
   return (
     <>
+     <JobpostContext>
       <EmployerUsername>
       <SeekerUsernameContext>
         <Routes>
@@ -43,6 +48,7 @@ function App () {
         </Routes>
       </SeekerUsernameContext>
       </EmployerUsername>
+      </JobpostContext>
     </>
   )
 }

@@ -1,5 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { axiosJobPost } from '../../Axios/Axios-instance'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { jobDetailsContext } from '../../Context/JobpostContext';
+
+
+
 
 const PostJob = () => {
   const [postform, setPostForm] = useState({
@@ -11,6 +17,8 @@ const PostJob = () => {
     job_type: ''
   })
 
+ 
+
   const handleOnchange = e => {
     const onchangeData = { ...postform, [e.target.name]: e.target.value }
     setPostForm(onchangeData)
@@ -20,15 +28,30 @@ const PostJob = () => {
     e.preventDefault()
     try {
       const response = await axiosJobPost.post('/jobpost', postform)
-      console.log(response.data.message)
+      console.log(response);
+      
+      toast.success("Posted job sucessfully")
     } catch (error) {
-      alert('not successfull')
-    }
+      toast.error("You must fill all feilds to continue")
+     
+    } 
   }
 
   return (
     <>
       <div className='flex justify-center pt-10 min-h-screen bg-purple-200 bg-opacity-25 font-poppins'>
+      <ToastContainer
+          position='top-right'
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='dark'
+        />
         <div className=' max-w-xl h-[73vh] p-6 rounded-lg shadow-lg bg-gradient-to-r from-violet-600 to-purple-600'>
           <h1 className='text-3xl font-semibold text-white text-center mb-6'>
             Post a Job
@@ -92,6 +115,7 @@ const PostJob = () => {
             >
               Post Job
             </button>
+            
           </div>
         </div>
       </div>
