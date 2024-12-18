@@ -3,7 +3,7 @@ import React from 'react'
 const ProfileMainPage = () => {
   return (
     <>
-      <div className="flex justify-center pt-10 pb-64 min-h-screen bg-purple-200 bg-opacity-25 font-poppins">
+      <div className="flex justify-center pt-10 pb-64 min-h-screen bg-purple-200 bg-opacity- font-poppins">
   <div className="w-full max-w-4xl p-6 rounded-lg shadow-lg bg-gradient-to-r from-violet-600 to-purple-600">
     <h1 className="text-3xl font-semibold text-white text-center mb-6">
       Company Profile

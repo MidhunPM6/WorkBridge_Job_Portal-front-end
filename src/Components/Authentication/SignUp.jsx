@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import googleimg from '../../assets/google.png'
 import { useNavigate } from 'react-router-dom'
-
 import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../Axios/Axios-instance'
 
-const SignUp = () => {
+
+
+  const SignUp = () => {
   const navigate = useNavigate()
   const [error, setError] = useState({})
+
 
   // Craeted State for form data to store
   const [formData, setFormData] = useState({
@@ -40,6 +42,7 @@ const SignUp = () => {
     try {
        const response = await axiosAuth.post('/register', formData)
        console.log(response);
+       
        
         toast.success('Login Successful', {
             onClose: () => {

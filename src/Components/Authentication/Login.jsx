@@ -6,7 +6,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../Axios/Axios-instance'
 import { useContext } from 'react'
-import {ContextSeekerName} from '../../Context/SeekerUsernameContext'
+import {ContextSeekerName} from '../../Context/SeekerContext'
+import { UserContext } from '../../Context/UserDetailsContext'
 
 
 
@@ -15,6 +16,7 @@ const Login = () => {
 
   const [error, setError] = useState('')
   const {setSavedUsername}=useContext(ContextSeekerName)
+  const {setUserDetails}=useContext(UserContext)
   
 
   // Login form data
@@ -44,7 +46,10 @@ const Login = () => {
       const response = await axiosAuth.post('/login', loginForm)
 
       setSavedUsername(response.data.username)
-      console.log(response)
+      setUserDetails(response.data.user)
+      
+      console.log(response.data.user)
+     
 
       if (response.status === 200) {
         toast.success('Login Success', {

@@ -1,7 +1,7 @@
 import React from 'react'
 import Heroimg from '../../assets/Hero-img.png'
 import { useNavigate } from 'react-router-dom'
-import {ContextSeekerName} from '../../Context/SeekerUsernameContext'
+import {ContextSeekerName} from '../../Context/SeekerContext'
 import { useContext } from 'react'
 
 

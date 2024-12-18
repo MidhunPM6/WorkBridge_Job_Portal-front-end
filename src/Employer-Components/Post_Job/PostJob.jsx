@@ -39,7 +39,7 @@ const PostJob = () => {
 
   return (
     <>
-      <div className='flex justify-center pt-10 min-h-screen bg-purple-200 bg-opacity-25 font-poppins'>
+      <div className='flex justify-center pt-10 min-h-screen bg-purple-200 opacity-100 font-poppins'>
       <ToastContainer
           position='top-right'
           autoClose={2000}

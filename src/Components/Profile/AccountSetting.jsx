@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
-import { ContextSeekerName } from '../../Context/SeekerUsernameContext'
+import { ContextSeekerName } from '../../Context/SeekerContext'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../Context/UserDetailsContext'
 
 const AccountSetting = () => {
-  const { savedUsername,setSavedUsername} = useContext(ContextSeekerName)
+  const {userDetails,setUserDetails} = useContext(UserContext)
   const navigate=useNavigate()
   const handleLogout=(e)=>{
     e.preventDefault()
     localStorage.removeItem('Username')
-    setSavedUsername(null)
+    setUserDetails(null)
     navigate('/')
     window.location.reload()
     
@@ -28,7 +29,7 @@ const AccountSetting = () => {
           <div>
             <label htmlFor=''>Username </label>
             <p className='bg-slate-100 pl-2 py-1 rounded-md shadow-md'>
-              {savedUsername}
+              {userDetails.name}
             </p>
           </div>
           <div className='place-content-center ml-12 text-sm'>
