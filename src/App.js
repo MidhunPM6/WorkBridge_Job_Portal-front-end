@@ -15,12 +15,7 @@ import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
 import Postjob from './Pages/EmployerPages/Postjob'
 import JobpostContext from './Context/JobpostContext'
 import UserDetailsContext from './Context/UserDetailsContext'
-
-
-
-
-
-
+import SeletedJobContext from './Context/SeletedJobContext'
 
 
 
@@ -30,7 +25,8 @@ function App () {
      <JobpostContext>
       <EmployerUsername>
       <SeekerUsernameContext>
-      <UserDetailsContext>        
+      <UserDetailsContext>
+        <SeletedJobContext>        
         <Routes>
           {/*User routes */}
           <Route path='/' element={<Home />} />
@@ -51,6 +47,7 @@ function App () {
 
 
         </Routes>
+        </SeletedJobContext>
         </UserDetailsContext>
       </SeekerUsernameContext>
       </EmployerUsername>

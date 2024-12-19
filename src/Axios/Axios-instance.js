@@ -18,3 +18,9 @@ export const axiosJobDetails=axios.create({
     
 })
 
+export const axiosJobApplication=axios.create({
+
+    baseURL :process.env.REACT_APP_AXIOS_JOBAPPLICATION_URL
+    
+})
+

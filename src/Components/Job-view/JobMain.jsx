@@ -1,32 +1,28 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { jobDetailsContext } from '../../Context/JobpostContext'
-import { axiosJobDetails } from '../../Axios/Axios-instance'
+import { axiosJobApplication, axiosJobDetails } from '../../Axios/Axios-instance'
 import { UserContext } from '../../Context/UserDetailsContext'
+import { Selectedjob } from '../../Context/SeletedJobContext'
 
 
 
 const JobMain = () => {
   const navigate = useNavigate()
   const { jobDetails, setJobDetails } = useContext(jobDetailsContext)
-  const {userDetails}=useContext(UserContext)
+  const {selectedJob,setSelectedJob} =useContext(Selectedjob)
   
-  
-
-  const handleApply=async(jobId)=>{
-    try {
-      
-    } catch (error) {
-      alert('No data found')
-    }
-   
+  const handleApply=(job)=>{
+    setSelectedJob(job)
+    console.log(selectedJob)
+    console.log(job._id)
     
+  
+    navigate('/applyjob')
+
   }
 
-  useEffect(()=>{
-   console.log(userDetails)
-  },[])
 
   useEffect(() => {
     const fetchJobDetails = async () => {
@@ -34,7 +30,7 @@ const JobMain = () => {
         const jobDetailsResponse = await axiosJobDetails.get(
           '/storedjobdetails'
         )
-        
+
         console.log(jobDetailsResponse.data)
         if (jobDetailsResponse.status === 200) {
           setJobDetails(jobDetailsResponse.data)
@@ -71,7 +67,7 @@ const JobMain = () => {
 
             <div className='flex flex-col items-start md:items-end gap-2'>
               <button
-                onClick={handleApply}
+                onClick={()=>handleApply(jobObj)}
                 className='bg-violet-600 text-white px-4 py-2 rounded hover:bg-violet-700'
               >
                 Apply now
