@@ -24,3 +24,10 @@ export const axiosJobApplication=axios.create({
     
 })
 
+export const axiosRecivedApllication=axios.create({
+
+    baseURL :process.env.REACT_APP_AXIOS_RECIVEDAPPLICATION_URL
+    
+})
+
+
