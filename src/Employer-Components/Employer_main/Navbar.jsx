@@ -1,24 +1,24 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import {EmpAuth} from '../../Context/EmployerUsername'
+import {EmpAuth} from '../../Context/EmployerUserDetails'
 
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const {empUsername,setEmpUsername}=useContext(EmpAuth)
+  const {EmpUserDetails,setEmpUserDetails}=useContext(EmpAuth)
 
   const handleLogout=(e)=>{
     e.preventDefault()
-    localStorage.removeItem('username')
-    setEmpUsername("")
+    localStorage.removeItem('userdata')
+    setEmpUserDetails("")
   }
 
   return (
     <>
       <div className="lg:flex lg:justify-between font-poppins shadow-sm lg:h-[13vh] text-white p-4">
   
-  <div className="flex items-center">
+  <div className="flex items-center">  
     <h1 className="text-3xl lg:text-4xl font-semibold tracking-wider text-violet-600">
       WorkBridge<span className="text-lg font-light text-violet-600">.employer</span>
     </h1>
@@ -49,24 +49,24 @@ const Navbar = () => {
 
 
   <div className="flex items-center gap-4 mt-4 lg:mt-0">
-    {empUsername ? (
+    {EmpUserDetails ? (
       <>
         <button
           onClick={() => navigate("/postjob")}
-          className="px-4 py-2 rounded-full  text-black text-sm hover:underline underline-offset-4"
+          className="px-4 py-2 rounded-full  text-black text-base font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-violet-500"
         >
           Post Job
         </button>
         <button
           onClick={() => navigate("/employerprofile")}
-          className="px-4 py-2 rounded-full text-black  transition  text-sm  hover:underline underline-offset-4"
+          className="px-4 py-2 rounded-full text-black  transition  text-lg font-semibold hover:scale-105   hover:underline underline-offset-4"
         >
-         <span className='text-violet-600 font-semibold text-lg'>Profile: </span> {empUsername}
+         <span className='text-violet-600 font-semibold text-lg'>Profile: </span> {EmpUserDetails.name}
         </button>
       
         <button
           onClick={handleLogout}
-          className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white text-sm shadow-lg"
+          className="px-4 py-2 rounded-full bg-violet-500 hover:bg-violet-700 text-white text-sm shadow-lg"
         >
           Logout
         </button>

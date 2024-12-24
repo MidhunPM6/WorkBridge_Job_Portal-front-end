@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../Axios/Axios-instance'
 import { loginValidation } from './Validation'
-import {EmpAuth} from '../../Context/EmployerUsername'
+import {EmpAuth} from '../../Context/EmployerUserDetails'
 
 
 
@@ -20,7 +20,7 @@ const Employerlogin = () => {
   })
   const [error,setError]=useState("")
 
-  const {setEmpUsername}=useContext(EmpAuth)
+  const {setEmpUserDetails}=useContext(EmpAuth)
 
 
 
@@ -38,7 +38,7 @@ const Employerlogin = () => {
     try {
       const response=await axiosAuth.post('/emplogin',empLoginForm)
 
-      setEmpUsername(response.data.username) 
+      setEmpUserDetails(response.data.user) 
       console.log(response)
 
       if(response.status===200){

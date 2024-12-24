@@ -26,25 +26,28 @@ const JobMain = () => {
 
   useEffect(() => {
     const fetchJobDetails = async () => {
+      
       try {
         const jobDetailsResponse = await axiosJobDetails.get(
           '/storedjobdetails'
         )
+       
 
         console.log(jobDetailsResponse.data)
         if (jobDetailsResponse.status === 200) {
-          setJobDetails(jobDetailsResponse.data)
+          setJobDetails(jobDetailsResponse.data)  
         }
       } catch (error) {
         alert(error + 'ERROR')
       }
     }
     fetchJobDetails()
-  }, [setJobDetails])
+  },[])
 
   return (
     <>
       <div className='flex flex-col items-center py-6 h-screen overflow-auto bg-gray-100 font-poppins   [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100  [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 '>
+        
         {jobDetails.map((jobObj, index) => (
           <div
             key={jobObj._id}
@@ -74,6 +77,8 @@ const JobMain = () => {
               </button>
             </div>
           </div>
+
+        
         ))}
       </div>
     </>

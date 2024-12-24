@@ -3,9 +3,9 @@ import React from 'react'
 const ProfileMainPage = () => {
   return (
     <>
-      <div className="flex justify-center pt-10 pb-64 min-h-screen bg-purple-200 bg-opacity- font-poppins">
-  <div className="w-full max-w-4xl p-6 rounded-lg shadow-lg bg-gradient-to-r from-violet-600 to-purple-600">
-    <h1 className="text-3xl font-semibold text-white text-center mb-6">
+      <div className="flex justify-center pt-10 pb-64 min-h-screen - font-poppins bg-slate-50">
+  <div className="w-full max-w-4xl p-6 rounded-lg bg-gradient-to-r from-gray-50  to-gray-100 shadow-lg ">
+    <h1 className="text-3xl font-semibold text-violet-500 text-center mb-6">
       Company Profile
     </h1>
 
@@ -33,7 +33,7 @@ const ProfileMainPage = () => {
      
           />
         </div>
-        <p className="text-white text-sm mt-3 text-center lg:text-left">
+        <p className="text-sm mt-3 text-center lg:text-left">
           Upload a company logo or profile photo .
         </p>
       </div>
@@ -44,12 +44,12 @@ const ProfileMainPage = () => {
           <input
             type="text"
             placeholder="Enter company name"
-            className="p-3 w-full rounded-md outline-none"
+            className="p-2 w-full rounded-md outline-none border border-gray-200"
           />
           <input
             type="text"
             placeholder="Enter recruiter name"
-            className="p-3 w-full rounded-md outline-none"
+            className="p-2 w-full rounded-md outline-none border border-gray-200"
           />
         </div>
 
@@ -57,23 +57,23 @@ const ProfileMainPage = () => {
           <input
             type="text"
             placeholder="Company location"
-            className="p-3 w-full rounded-md outline-none"
+            className="p-2 w-full rounded-md outline-none border border-gray-200"
           />
           <input
             type="text"
             placeholder="Important links"
-            className="p-3 w-full rounded-md outline-none"
+            className="p-2 w-full rounded-md outline-none border border-gray-200"
           />
         </div>
 
         <textarea
           placeholder="Description"
-          className="p-3 w-full rounded-md outline-none mb-4"
+          className="p-3 w-full rounded-md outline-none mb-4 border border-gray-200"
           rows="5"
         ></textarea>
 
         <div className="flex justify-center">
-          <button className="px-6 py-2 text-white bg-violet-900 rounded-md hover:bg-violet-800 shadow-lg shadow-violet-500">
+          <button className="px-6 py-2 text-white bg-violet-500 rounded-md hover:bg-violet-600 hover:scale-105 ">
             Save Profile
           </button>
         </div>
