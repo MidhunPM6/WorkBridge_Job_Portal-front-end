@@ -5,7 +5,7 @@ import { axiosRecivedApllication } from '../../Axios/Axios-instance'
 const RecAppliction = () => {
   const { EmpUserDetails } = useContext(EmpAuth)
   const [applications, setApplications] = useState('')
-  const currentUser = EmpUserDetails._id
+  
 
   useEffect(() => {
     const fetchRecivedApplication = async () => {
@@ -27,15 +27,12 @@ const RecAppliction = () => {
 
   return (
     <>
-      {applications &&
-        applications.map((obj,intex) => {
-          return(
-          <div key={intex}>
-            <h1>{obj.jobid.tittle}</h1>
-          </div>
-          )
+      <div className=''>
+
+      </div>
           
-        })}
+        
+
     </>
   )
 }

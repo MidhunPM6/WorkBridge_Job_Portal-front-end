@@ -8,10 +8,10 @@ const AccountSetting = () => {
   const navigate=useNavigate()
   const handleLogout=(e)=>{
     e.preventDefault()
-    localStorage.removeItem('Username')
+    localStorage.removeItem('User')
     setUserDetails(null)
     navigate('/')
-    window.location.reload()
+   
     
 
     
