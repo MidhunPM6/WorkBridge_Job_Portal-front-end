@@ -1,5 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Model from 'react-modal'
+import RecApplication from '../../Employer-Components/RecApplication/RecAppliction'
 
 import {EmpAuth} from '../../Context/EmployerUserDetails'
 
@@ -7,6 +9,44 @@ import {EmpAuth} from '../../Context/EmployerUserDetails'
 const Navbar = () => {
   const navigate = useNavigate()
   const {EmpUserDetails,setEmpUserDetails}=useContext(EmpAuth)
+  const [visible,setVisible]=useState(false)
+
+  const customStyles = {
+    overlay:{
+      "opacity":"100%",
+     "transition": "opacity 2000ms ease-in-out",
+     "overflow-y": "auto",
+     "border" : "none"
+     
+     
+      
+    },
+    content: {
+      "top": '50%',
+      "left": '50%',
+      "right": 'auto',
+      "bottom": 'auto',
+      "transform": 'translate(-50%, -50%)',
+      "border":"none",
+      "max-height":"90vh",
+      "transition": ".5s",
+      "overflow" : "auto", 
+      "scrollbar-width": "thin"
+       
+      
+    
+      
+    },
+  };
+
+  
+  const modelOpen=()=>{
+    setVisible(true)
+  }
+
+  const modelClose=()=>{
+    setVisible(false)
+  }
 
   const handleLogout=(e)=>{
     e.preventDefault()
@@ -50,13 +90,40 @@ const Navbar = () => {
 
   <div className="flex items-center gap-4 mt-4 lg:mt-0">
     {EmpUserDetails ? (
+      
       <>
-        <button
+      <button
           onClick={() => navigate("/postjob")}
-          className="px-4 py-2 rounded-full  text-black text-base font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-violet-500"
+          className="px-4 py-2 rounded-full  text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-violet-500"
         >
           Post Job
         </button>
+        <button
+          onClick={() => navigate("/postjob")}
+          className="px-4 py-2 rounded-full  text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-violet-500"
+        >
+        All Jobs
+        </button>
+      
+        <button
+          onClick={modelOpen}
+          className="px-4 py-2 rounded-full  text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-violet-500"
+        >
+          Recived Applications
+        </button>
+        <Model
+        isOpen={visible}
+        onRequestClose={modelClose}
+       
+        
+        
+        style={customStyles}>
+
+           <RecApplication/>
+         
+          
+        </Model>
+        
         <button
           onClick={() => navigate("/employerprofile")}
           className="px-4 py-2 rounded-full text-black  transition  text-lg font-semibold hover:scale-105   hover:underline underline-offset-4"

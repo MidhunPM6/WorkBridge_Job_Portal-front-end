@@ -17,7 +17,8 @@ import { axiosAuth } from '../../Axios/Axios-instance'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    mobile :'',
   })
 
   // Onchange event
@@ -99,7 +100,16 @@ import { axiosAuth } from '../../Axios/Axios-instance'
                 onChange={handleChange}
                 className='m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300'
               />
+              
+
               {error.email && <p className='text-red-800'>{error.email}</p>}
+              <input
+                type='number'
+                placeholder='Enter your number'
+                name='mobile'
+                onChange={handleChange}
+                className='m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300'
+              />
               <input
                 type='password'
                 placeholder='Enter new password'
