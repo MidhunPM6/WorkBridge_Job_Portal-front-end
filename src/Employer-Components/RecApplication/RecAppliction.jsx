@@ -34,7 +34,7 @@ const RecAppliction = () => {
           applications.map((application, index) => (
             <div
               key={application._id}
-              className='flex flex-col bg-gray-100 w-auto m-3 p-4 shadow-2xl text-base rounded text-black '
+              className='flex flex-col bg-white w-auto m-3 p-4 shadow-2xl text-base rounded text-black '
             >
               <div className='flex shadow-sm p-2 rounded-md'>
                 <h1 className='w-72 hover:underline decoration-gray-300 underline-offset-[5px]  cursor-pointer '>

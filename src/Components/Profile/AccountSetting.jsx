@@ -1,20 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ContextSeekerName } from '../../Context/SeekerContext'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserDetailsContext'
+import { axiosResumeUpload } from '../../Axios/Axios-instance'
+import axios from 'axios'
+
 
 const AccountSetting = () => {
-  const {userDetails,setUserDetails} = useContext(UserContext)
-  const navigate=useNavigate()
-  const handleLogout=(e)=>{
+  const { userDetails, setUserDetails } = useContext(UserContext)
+  const [file, setFile] = useState('')
+  const navigate = useNavigate()
+
+  const handleLogout = e => {
     e.preventDefault()
     localStorage.removeItem('User')
     setUserDetails(null)
     navigate('/')
-   
-    
+  }
 
-    
+  const handleFile = async () => {
+    if (!file) {
+      alert('Please select a file first.')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('pdf', file)
+    try {
+      const response = await axios.post('/fileupload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log(response);
+      
+      alert('File upload successfully')
+    } catch (error) {
+  console.error(error)
+    }
   }
 
   return (
@@ -53,19 +76,31 @@ const AccountSetting = () => {
         </div>
 
         <div className='mt-10 flex-col  '>
-          <label htmlFor='' className='mr-5'>
-            Resume Upload
-          </label>
           <input
             type='file'
+            name='pdf'
             class=' text-gray-500 font-medium w-56 file:w-28 text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-violet-600 file:hover:bg-violet-700 file:text-white rounded'
+            onChange={e => setFile(e.target.files[0])}
           />
+
+          <button
+            onClick={handleFile}
+            className='ml-4 border border-violet-500 text-sm p-1 rounded hover:bg-violet-600 hover:text-white'
+          >
+            Upload resume{' '}
+          </button>
         </div>
         <div className='mt-10'>
-            <button onClick={handleLogout} type="button " className=' text-red-600 font-semibold text-sm p-1 rounded-md px-7'>Logout</button>
+          <button
+            onClick={handleLogout}
+            type='button '
+            className=' text-red-600 font-semibold text-sm p-1 rounded-md px-7'
+          >
+            Logout
+          </button>
         </div>
         <div>
-            <button className='mt-2 text'>Delete your account</button>
+          <button className='mt-2 text'>Delete your account</button>
         </div>
       </div>
     </>

@@ -31,3 +31,10 @@ export const axiosRecivedApllication=axios.create({
 })
 
 
+export const axiosResumeUpload=axios.create({
+    
+    baseURL :process.env.REACT_APP_AXIOS_RESUMEUPLOAD_URL
+
+})
+
+
