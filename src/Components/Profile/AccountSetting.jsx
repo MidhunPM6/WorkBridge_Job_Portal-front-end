@@ -3,7 +3,8 @@ import { ContextSeekerName } from '../../Context/SeekerContext'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserDetailsContext'
 import { axiosResumeUpload } from '../../Axios/Axios-instance'
-import axios from 'axios'
+
+
 
 
 const AccountSetting = () => {
@@ -19,6 +20,7 @@ const AccountSetting = () => {
   }
 
   const handleFile = async () => {
+   
     if (!file) {
       alert('Please select a file first.')
       return
@@ -27,7 +29,7 @@ const AccountSetting = () => {
     const formData = new FormData()
     formData.append('pdf', file)
     try {
-      const response = await axios.post('/fileupload', formData, {
+      const response = await axiosResumeUpload.post('/fileupload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
