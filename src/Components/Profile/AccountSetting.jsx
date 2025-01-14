@@ -9,6 +9,7 @@ import { axiosResumeUpload } from '../../Axios/Axios-instance'
 
 const AccountSetting = () => {
   const { userDetails, setUserDetails } = useContext(UserContext)
+  
   const [file, setFile] = useState('')
   const navigate = useNavigate()
 
@@ -28,8 +29,10 @@ const AccountSetting = () => {
 
     const formData = new FormData()
     formData.append('pdf', file)
+    formData.append('userid', userDetails._id)
     try {
-      const response = await axiosResumeUpload.post('/fileupload', formData, {
+      const response = await axiosResumeUpload.post('/fileupload',formData,{
+        
         headers: {
           'Content-Type': 'multipart/form-data'
         }

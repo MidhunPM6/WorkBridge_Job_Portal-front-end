@@ -7,11 +7,12 @@ import { EmpAuth } from '../../Context/EmployerUserDetails'
 
 
 
+
 const ApplyJob = () => {
   const { userDetails } = useContext(UserContext)
   const { selectedJob } = useContext(Selectedjob)
-  
- 
+
+
 
 
   const submitApplication = async () => {
@@ -27,16 +28,19 @@ const ApplyJob = () => {
       const response = await axiosJobApplication.post('/appliedjob', {
         UserID: userDetails._id,
         JobID: selectedJob._id,
-        EmpID:selectedJob.EmpID
-       
+        EmpID:selectedJob.EmpID,
+        
+        
+ 
       })
       if (response.status === 201) {
+        
         alert('Application successfully applied')
         
         
       }
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error)
     }
   }
 
