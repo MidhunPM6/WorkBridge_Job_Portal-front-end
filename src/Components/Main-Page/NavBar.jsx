@@ -38,7 +38,7 @@ const NavBar = () => {
     </div>
   </div>
   {
-    userDetails ?
+    userDetails &&
   <div className="lg:ml-40 flex flex-row">
 
     <button onClick={()=>navigate('/profile')} className="flex flex-row mr-2  py-2 px-4 border-2 border-violet-600 hover:bg-violet-600 hover:text-white rounded-md  lg:text-sm ">
@@ -50,9 +50,7 @@ const NavBar = () => {
     </button>
     
     </div>
-    : 
-
-   ""
+  
   }
   
 

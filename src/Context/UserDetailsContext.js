@@ -5,7 +5,7 @@ export const UserContext=createContext(null)
 const UserDetailsContext = ({children}) => {
   const [userDetails,setUserDetails]=useState(()=>{
     const user=localStorage.getItem('User')
-    return user ? JSON.parse(user) : []
+    return user ? JSON.parse(user) : null
   }
     
   )
@@ -17,7 +17,7 @@ const UserDetailsContext = ({children}) => {
         localStorage.removeItem('User')
 
        }
-  })
+  },[userDetails])
 
   return (
     <UserContext.Provider value={{userDetails,setUserDetails}}>

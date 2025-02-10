@@ -8,8 +8,10 @@ import { axiosAuth } from '../../Axios/Axios-instance'
 import { useContext } from 'react'
 import {ContextSeekerName} from '../../Context/SeekerContext'
 import { UserContext } from '../../Context/UserDetailsContext'
+import axios from 'axios'
 
 
+axios.defaults.withCredentials = true;
 
 const Login = () => {
   const navigate = useNavigate()
@@ -43,7 +45,7 @@ const Login = () => {
     e.preventDefault()
     if (!handleValidation(e)) return
     try {
-      const response = await axiosAuth.post('/login', loginForm)
+      const response = await axiosAuth.post('/login', loginForm, { withCredentials:true })
 
       setSavedUsername(response.data.username)
       setUserDetails(response.data.user)
