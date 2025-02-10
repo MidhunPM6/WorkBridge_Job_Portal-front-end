@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react'
 import { ContextSeekerName } from '../../Context/SeekerContext'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserDetailsContext'
-import { axiosResumeUpload } from '../../Axios/Axios-instance'
-
-
+import { axiosAuth, axiosResumeUpload } from '../../Axios/Axios-instance'
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 
 const AccountSetting = () => {
@@ -13,11 +13,19 @@ const AccountSetting = () => {
   const [file, setFile] = useState('')
   const navigate = useNavigate()
 
-  const handleLogout = e => {
-    e.preventDefault()
-    localStorage.removeItem('User')
+  const handleLogout =async() => {
+
+    try {
+    const response =  await axiosAuth.post('/logout',{},{withCredentials: true})
+    console.log(response)
     setUserDetails(null)
+    localStorage.removeItem('User')
     navigate('/')
+    } catch (error) {
+      console.log(error);
+      alert('Something  went wrong')
+    }
+    
   }
 
   const handleFile = async () => {
