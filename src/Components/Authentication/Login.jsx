@@ -68,20 +68,29 @@ const Login = () => {
 
   // Google Authentication
 
-  const handleGoogleAuth = async () => {
+  const handleGoogleAuth = async response => {
     try {
-      const response = await axiosgGoogleAuth.post(
+      const res = await axiosgGoogleAuth.post(
         '/google',
+        { token: response.credential },
         { withCredentials: true },
-        { token: response.credential }
+        
       )
+      setSavedUsername(res.data.Username)
+      setUserDetails(res.data.User)
+
+      console.log('Google Auth Success:', res.data)
+      alert ("successfull")
+      
     } catch (error) {
+      console.log("error" + error)
       alert('Invalid user')
     }
   }
 
   return (
     <>
+    <GoogleOAuthProvider clientId='283509074295-2c14a2o5saenni3ri9qgjl0l61rm47or.apps.googleusercontent.com'>
       <div className='lg:flex font-poppins'>
         <ToastContainer
           position='top-right'
@@ -141,21 +150,22 @@ const Login = () => {
 
               <h1>or</h1>
               <div>
-                <GoogleOAuthProvider clientId='283509074295-2c14a2o5saenni3ri9qgjl0l61rm47or.apps.googleusercontent.com'>
+                
                   <GoogleLogin
+                    ux_mode="popup"
+                    usefqdn ={true}
                     onSuccess={handleGoogleAuth}
-                    redirectUri="http://localhost:5001/auth/callback" 
-
                     onError={() => {
                       console.log('Login Failed')
                     }}
-                  />
-                </GoogleOAuthProvider>
+                  /> 
+                
               </div>
             </form>
           </div>
         </div>
       </div>
+      </GoogleOAuthProvider>
     </>
   )
 }

@@ -134,11 +134,7 @@ import { axiosAuth } from '../../Axios/Axios-instance'
                 Already Account ?
               </button>
 
-              <h1>or</h1>
-              <div className='flex p-2 mt-2 border-2 border-gray-200 rounded-full '>
-                <img src={googleimg} alt='' className='w-6 mr-2' />
-                <p>Sign in with google</p>
-              </div>
+          
             </form>
           </div>
         </div>
