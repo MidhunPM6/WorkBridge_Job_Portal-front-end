@@ -21,8 +21,9 @@ const AccountSetting = () => {
     setUserDetails(null)
     localStorage.removeItem('User')
     navigate('/')
+    window.location.reload()
     } catch (error) {
-      console.log(error);
+      console.log(error);  
       alert('Something  went wrong')
     }
     

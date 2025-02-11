@@ -25,7 +25,7 @@ const NavBar = () => {
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center p-6 border-b-2 border-gray-200 h-auto lg:h-20 lg:sticky top-0 z-50 bg-white ">
   <div className="flex flex-col lg:flex-row items-center w-full lg:w-auto">
-    <h1 onClick={()=>navigate('/')} className="text-3xl lg:text-4xl font-poppins font-semibold text-violet-600 m-6 mb-2 lg:mb-7 tracking-[.1em] cursor-pointer">
+    <h1 onClick={()=>navigate('/')} className="text-3xl lg:text-3xl font-poppins font-semibold text-violet-600 m-6 mb-2 lg:mb-7 tracking-[.1em] cursor-pointer">
       WorkBridge
     </h1>
 
@@ -41,7 +41,7 @@ const NavBar = () => {
     userDetails &&
   <div className="lg:ml-40 flex flex-row">
 
-    <button onClick={()=>navigate('/profile')} className="flex flex-row mr-2  py-2 px-4 border-2 border-violet-600 hover:bg-violet-600 hover:text-white rounded-md  lg:text-sm ">
+    <button onClick={()=>navigate('/profile')} className="flex flex-row mr-2  py-2 px-4  shadow-lg rounded-md hover:scale-105 hover:transition-all hover:duration-300 lg:text-sm ">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 mr-2">
   <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
 </svg>
