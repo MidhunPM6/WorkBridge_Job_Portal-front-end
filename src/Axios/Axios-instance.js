@@ -37,6 +37,12 @@ export const axiosResumeUpload=axios.create({
 
 })
 
+export const axiosgGoogleAuth=axios.create({
+
+    baseURL :process.env.REACT_APP_AXIOS_GOOGLE_AUTH
+    
+})
+
 
 
 
