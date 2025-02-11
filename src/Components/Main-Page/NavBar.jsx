@@ -4,6 +4,7 @@ import { NavHashLink } from 'react-router-hash-link';
 import { ContextSeekerName } from "../../Context/SeekerContext";
 import customerCareImg from '../../assets/customercare.png'
 import { UserContext } from "../../Context/UserDetailsContext";
+import logo from '../../assets/Logo.png'
 
 
 
@@ -24,22 +25,25 @@ const NavBar = () => {
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center p-6 border-b-2 border-gray-200 h-auto lg:h-20 lg:sticky top-0 z-50 bg-white ">
-  <div className="flex flex-col lg:flex-row items-center w-full lg:w-auto">
-    <h1 onClick={()=>navigate('/')} className="text-3xl lg:text-3xl font-poppins font-semibold text-violet-600 m-6 mb-2 lg:mb-7 tracking-[.1em] cursor-pointer">
+  <div className="flex flex-col lg:flex-row  items-center w-full lg:w-auto">
+    <div className=" flex items-center ">
+      
+    <h1 onClick={()=>navigate('/')} className="text-sm lg:text-2xl font-poppins font-semibold text-violet-600  sh m-6 mb-2 lg:mb-7 tracking-[.1em] cursor-pointer">
       WorkBridge
     </h1>
+    </div>
 
-    <div className="hidden lg:flex space-x-10 ml-0 lg:ml-20 font-poppins mt-4 lg:mt-0 text-gray-600">
-      <button className="text-md hover:text-violet-600">Home</button>
-      <NavHashLink to="#service" className="text-md hover:text-violet-600 place-content-center" smooth>Service</NavHashLink>
-      <NavHashLink to="#about" className="text-md hover:text-violet-600 place-content-center" smooth>About Us</NavHashLink>
-      <NavHashLink to="#contact" className="text-md hover:text-violet-600 place-content-center" smooth>Contact Us</NavHashLink>
+    <div className="hidden lg:flex space-x-10 ml-0 lg:ml-6 font-poppins mt-4 lg:mt-0 text-gray-500">
+      <button className="text-sm hover:text-gray-700 hover:underline underline-offset-4">Home</button>
+      <NavHashLink to="#service" className="text-sm hover:text-gray-700 place-content-center hover:underline underline-offset-4 " smooth>Service</NavHashLink>
+      <NavHashLink to="#about" className="text-sm hover:text-gray-700 place-content-center hover:underline underline-offset-4 " smooth>About Us</NavHashLink>
+      <NavHashLink to="#contact" className="text-sm hover:text-gray-700 place-content-center hover:underline underline-offset-4 " smooth>Contact Us</NavHashLink>
      
     </div>
   </div>
   {
     userDetails &&
-  <div className="lg:ml-40 flex flex-row">
+  <div className="lg:ml-auto mr-10 flex flex-row">
 
     <button onClick={()=>navigate('/profile')} className="flex flex-row mr-2  py-2 px-4  shadow-lg rounded-md hover:scale-105 hover:transition-all hover:duration-300 lg:text-sm ">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 mr-2">
@@ -83,10 +87,10 @@ const NavBar = () => {
             isMenuOpen ? "flex" : "hidden"
           }`}
         >
-          <NavHashLink to="#home" className="text-md hover:text-violet-600 place-content-center" smooth>Home</NavHashLink>
-      <NavHashLink to="#service" className="text-md hover:text-violet-600 place-content-center" smooth>Service</NavHashLink>
-      <NavHashLink to="#about" className="text-md hover:text-violet-600 place-content-center" smooth>About Us</NavHashLink>
-      <NavHashLink to="#contact" className="text-md hover:text-violet-600 place-content-center" smooth>Contact Us</NavHashLink>
+          <NavHashLink to="#home" className="text-sm hover:text-violet-600 place-content-center" smooth>Home</NavHashLink>
+      <NavHashLink to="#service" className="text-sm hover:text-violet-600 place-content-center" smooth>Service</NavHashLink>
+      <NavHashLink to="#about" className="text-sm hover:text-violet-600 place-content-center" smooth>About Us</NavHashLink>
+      <NavHashLink to="#contact" className="text-sm hover:text-violet-600 place-content-center" smooth>Contact Us</NavHashLink>
      
         </div>
 </div>
