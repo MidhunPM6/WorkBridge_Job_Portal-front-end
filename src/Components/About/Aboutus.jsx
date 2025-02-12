@@ -23,7 +23,7 @@ const Aboutus = () => {
           Experience tailored job matches with our advanced filtering tools that connect you with opportunities aligned to your skills and goals. Access valuable resources, including resume-building tools and skill assessments, to enhance your job search. Receive real-time job alerts to stay updated on the latest openings that fit your profile. Enjoy seamless application tracking to manage your progress effortlessly. Join us and connect with top employers looking for talent like you.
           </p>
 
-          <button className="mt-4 mb-8 lg:mb-2 text-md  shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] hover:text-violet-600 py-2 px-6 lg:px-8 rounded-md text-gray-600 hover:underline underline-offset-8 ">
+          <button className="mt-4 mb-8 lg:mb-2 text-md  shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] hover:text-violet-600 py-2 px-6 lg:px-8 rounded-md text-gray-600 hover:underline underline-offset-8   ">
             Learn More
           </button>
         </div>

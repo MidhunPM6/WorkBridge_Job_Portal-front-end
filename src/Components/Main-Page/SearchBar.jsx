@@ -2,7 +2,7 @@ import React from 'react'
 
 const SearchBar = () => {
   return (
-    <div className='flex place-content-center mt-4 '>
+    <div className='flex place-content-center pt-8 '>
       <div class='relative flex'>
         <input
           type='search'

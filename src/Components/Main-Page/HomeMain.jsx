@@ -34,7 +34,7 @@ const HomeMain = () => {
     
   
   </div>
-  <div className='flex mt-10 lg:mt-12 lg:mr-20'>
+  <div className='flex mt-10 lg:mt-0 lg:mr-20'>
     <img src={Heroimg} alt="" className='w-[80vw] lg:w-[60vh]' />
   </div>
 </div>
