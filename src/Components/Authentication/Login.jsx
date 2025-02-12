@@ -91,7 +91,7 @@ const Login = () => {
   return (
     <>
     <GoogleOAuthProvider clientId='283509074295-2c14a2o5saenni3ri9qgjl0l61rm47or.apps.googleusercontent.com'>
-      <div className='lg:flex font-poppins'>
+      <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>
         <ToastContainer
           position='top-right'
           autoClose={5000}
@@ -104,52 +104,69 @@ const Login = () => {
           pauseOnHover
           theme='dark'
         />
-        <div className='h-32 lg:w-[40vw] lg:h-[100vh] bg-violet-600 opacity-75 place-content-center'>
-          <h1 className='lg:flex lg:place-content-center text-white lg:text-6xl lg:mb-32 font-Kaushan text-3xl flex place-content-center'>
-            WorkBridge
-          </h1>
-        </div>
-        <div className='lg:w-[60vw] lg:h-[100vh]  lg: flex flex-col items-center lg:pt-36 pt-4 bg-slate-100 '>
-          <div className='flex flex-col place-items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-lg'>
-            <h1 className='text-2xl lg:text-3xl font-semibold  '>Login</h1>
+        <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-600 to-black shadow-2xl'>
+  <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
+    WorkBridge
+  </h1>
+  <p className='flex flex-col items-center text-sm text-white '>
+    <span>Log in to continue your job search.</span> 
+    Find the right job faster with personalized recommendations.
+  </p>
+</div>
+        
+        <div className='lg:w-[35vw]  lg: flex flex-col justify-center items-center lg:pt-0 pt-4 bg-slate-50 '>
+          <div className='flex flex-col items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-md'>
+            <h1 className='text-2xl lg:text-2xl font-bold  '>Login</h1>
             <form
               action=''
               className='flex flex-col place-items-center p-4 lg:pt-6 '
               onSubmit={handlelogin}
             >
+              <div className='flex flex-col'>
+
+              
               <input
                 type='email'
                 name='email'
                 placeholder='Enter your email'
                 onChange={handleOnchange}
-                className='m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300'
+                className= {`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${error.email ? `border-red-600`:""}`}
               />
-              {error.email && <p className='text-red-800'>{error.email}</p>}
+              {error.email && <p className='text-red-600 ml-2 text-sm'>{error.email}</p>}
+
+              </div>
+              <div>
               <input
                 type='password'
                 name='password'
                 placeholder='Enter new password'
                 onChange={handleOnchange}
-                className='m-2 py-2 lg:m-2 lg:py-2 lg:px-11 rounded-md flex text-start outline-none border-2  border-gray-200 hover:border-violet-200 focus:border-violet-300'
+                className= {`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${error.password ? `border-red-600`:""}`}
               />
-              {error.password && (
-                <p className='text-red-800'>{error.password}</p>
-              )}
+              {error.password && <p className='text-red-600 ml-2 text-sm'>{error.password}</p>}
+
+              </div>
+              
               <button
                 type='submit'
-                className='m-2 py-2 px-7 bg-violet-500 rounded-md text-white mt-3 hover:bg-violet-600'
+                className='m-2 py-1 px-5 bg-violet-600 rounded-md text-white mt-6 hover:bg-violet-700 shadow'
               >
                 Login
               </button>
               <button
                 onClick={() => navigate('/signup')}
-                className='pt-4 hover:underline '
+                className='pt-4 hover:underline hover:underline-offset-2  text-gray-600 hover:text-black text-sm '
               >
+                
                 Create new account ?
               </button>
-
-              <h1>or</h1>
-              <div>
+               <div className='flex  items-center gap-2  '>
+               <hr class="h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700"></hr>
+               <h1 className='text-gray-500'>or</h1>
+               <hr class="h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700"></hr>
+               </div>
+              
+              <div className='mt-4'>
                 
                   <GoogleLogin
                     ux_mode="popup"
