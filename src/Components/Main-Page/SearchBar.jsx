@@ -6,7 +6,7 @@ const SearchBar = () => {
       <div class='relative flex'>
         <input
           type='search'
-          class='relative m-0 block flex-auto rounded-l-md  pl-3 bg-transparent bg-clip-padding w-60 py-[0.50rem] outline-none focus:ring-1 focus:ring-gray-300 shadow-lg border  '
+          class='relative m-0 block flex-auto rounded-l-md  pl-3 bg-transparent bg-clip-padding w-60 py-[0.50rem] outline-none focus:border focus:border-gray-400 shadow-lg border transition-all duration-300  '
           placeholder='Job tittle'
           aria-label='Search'
           id='exampleFormControlInput2'
@@ -14,7 +14,7 @@ const SearchBar = () => {
         />
         <input
           type='search'
-          class='relative m-0 block flex-auto rounded-r-md  pl-3 bg-transparent bg-clip-padding w-60 py-[0.50rem] outline-none focus:ring-1 focus:ring-gray-300 shadow-lg border'
+          class='relative m-0 block flex-auto rounded-r-md  pl-3 bg-transparent bg-clip-padding w-60 py-[0.50rem] outline-none focus:boder focus:border-gray-400 shadow-lg border'
           placeholder='Location'
           aria-label='Search'
           id='exampleFormControlInput2'

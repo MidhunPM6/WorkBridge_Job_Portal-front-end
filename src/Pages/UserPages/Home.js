@@ -12,9 +12,9 @@ import SearchBar from '../../Components/Main-Page/SearchBar'
 const Home = () => {
   return (
     <div>
-      <NavBar    />
+      <NavBar  />
       <SearchBar  />
-      <SocialBar  />
+      
       <HomeMain />
       <Services/>
       <About/>

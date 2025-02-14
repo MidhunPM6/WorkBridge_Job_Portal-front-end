@@ -99,7 +99,7 @@ const SignUp = () => {
             pauseOnHover
             theme='dark'
           />
-          <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-600 to-black shadow-2xl'>
+          <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
             <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
               WorkBridge
             </h1>
