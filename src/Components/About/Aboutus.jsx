@@ -4,7 +4,7 @@ import aboutimg from "../../assets/About/aboutimg.png";
 const Aboutus = () => {
   return (
     <>
-      <div className="flex flex-col lg:flex-row font-poppins mt-4 text-sm" id="about">
+      <div className="flex flex-col lg:flex-row font-poppins mt-4 text-sm  pb-20" id="about">
         <div className="place-items-center">
           <img src={aboutimg} alt="" className="w-[90vh] lg:m-10 lg:mt-32 " />
         </div>
