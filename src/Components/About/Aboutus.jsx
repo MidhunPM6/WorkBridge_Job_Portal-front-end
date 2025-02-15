@@ -9,16 +9,18 @@ const Aboutus = () => {
           <img src={aboutimg} alt="" className="w-[90vh] lg:m-10 lg:mt-32 " />
         </div>
         <div className="lg:mt-20 lg:w-[55vh] flex flex-col items-center lg:items-start">
-          <h1 className="text-2xl  font-semibold text-violet-600 text-center lg:text-left mb-4 lg:mb-0">
+          <h1 className="text-xl  font-semibold text-violet-950 text-center lg:text-left mb-4 lg:mb-0">
             About Us
           </h1>
           <p className="p-4 text-gray-600 text-center  lg:text-left">
           Our job portal features advanced filtering options for job seekers, allowing users to narrow down opportunities based on location, industry, experience, and more. We offer skill assessments and resources like resume-building tools, interview guides, and career advice to empower candidates in their job search. With real-time job alerts and application tracking, candidates stay updated on the latest opportunities and follow their application progress easily.
           </p>
-
-          <h1 className="text-2xl l font-semibold text-violet-600 text-center lg:text-left mt-6 lg:mt-12">
+          
+          <h1 className="text-xl l font-semibold text-violet-950 text-center lg:text-left mt-6 lg:mt-12">
             Why Choose Us?
           </h1>
+        
+          
           <p className="p-4 text-gray-600 text-center lg:text-left">
           Experience tailored job matches with our advanced filtering tools that connect you with opportunities aligned to your skills and goals. Access valuable resources, including resume-building tools and skill assessments, to enhance your job search. Receive real-time job alerts to stay updated on the latest openings that fit your profile. Enjoy seamless application tracking to manage your progress effortlessly. Join us and connect with top employers looking for talent like you.
           </p>

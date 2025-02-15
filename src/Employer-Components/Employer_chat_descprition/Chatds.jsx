@@ -4,7 +4,7 @@ import chatbox from '../../assets/employer-mainpage/chat-box.png'
 const Chatds = () => {
   return (
     <>
-      <div className='lg:flex lg:flex-row font-poppins flex flex-col  lg:h-[100vh] text-gray-800 place-items-center lg:mt-0 mt-10'>
+      <div className='lg:flex lg:flex-row font-poppins flex flex-col  lg:h-[100vh] bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-cyan-950 via-black to-black text-white place-items-center lg:mt-0 mt-10'>
         
         <div className='lg:ml-32 lg:m-32 lg:mt-56 items-center'>
           <div className='place-items-center pb-5'>

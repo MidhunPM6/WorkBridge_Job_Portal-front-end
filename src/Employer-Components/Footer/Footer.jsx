@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
     <div
-        className='lg:h-[40vh] bg-gradient-to-b from-violet-600 to-black  text-white font-poppins flex flex-col lg:flex  items-center lg:mt-20 p-8 lg:p-0 justify-center'
+        className='lg:h-[40vh] bg-gradient-to-b from-black to-slate-900  text-white font-poppins flex flex-col lg:flex  items-center lg:mt-0 p-8 lg:p-0 justify-center'
         id='contact'
       >
         <div className='flex flex-col items-center lg:items-center lg:mr-0 lg:pt-4'>

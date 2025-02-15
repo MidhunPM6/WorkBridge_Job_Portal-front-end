@@ -4,7 +4,7 @@ import chatbot from '../../assets/employer-mainpage/chat-bot.png'
 const ChatBotDs = () => {
   return (
     <div>
-      <div className='lg:flex lg:flex-row font-poppins flex flex-col bg-violet-500 lg:h-[100vh] text-white place-items-center'>
+      <div className='lg:flex lg:flex-row font-poppins flex flex-col bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-cyan-950 via-black to-black lg:h-[100vh] text-white place-items-center'>
         <div>
           <img src={chatbot} alt='' className='lg:w-[32vw] lg:m-20' />
         </div>

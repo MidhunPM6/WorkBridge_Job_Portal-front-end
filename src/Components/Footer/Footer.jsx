@@ -23,7 +23,7 @@ const Footer = () => {
             <button className='hover:underline'>Help</button>
           </div>
           <div>
-            <p className='text-sm text-gray-400'> © 2025 WorkBrigde.com. All rights reserved. All trademarks and registered trademarks are the property of their respective owners.</p>
+            <p className='text-xs text-gray-400'> © 2025 WorkBrigde.com. All rights reserved. All trademarks and registered trademarks are the property of their respective owners.</p>
           </div>
           
         </div>

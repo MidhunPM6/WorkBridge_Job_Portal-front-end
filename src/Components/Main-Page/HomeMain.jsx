@@ -18,7 +18,7 @@ const HomeMain = () => {
   <div className='flex flex-col items-center mx-6 lg:mx-24 lg:w-[70vh] h-auto lg:h-96 space-y-2 font-poppins mt-20 lg:mt-15'>
     
     <p className='text-lg lg:text-[16px] leading-loose mt-10 lg:mt-2'>
-      At <span className='text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-violet-950 to-violet-600 bg-clip-text text-transparent'>WorkBridge</span>, Connecting opportunities with talent, our platform bridges dreams and possibilities, helping job seekers find their path and companies build their future.
+      At <span className='text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-violet-950 to-violet-800 bg-clip-text text-transparent'>WorkBridge</span>, Connecting opportunities with talent, our platform bridges dreams and possibilities, helping job seekers find their path and companies build their future.
     </p>
     <div className='lg:flex lg:flex-row flex flex-col lg:pt-5 pt-2  '>
     

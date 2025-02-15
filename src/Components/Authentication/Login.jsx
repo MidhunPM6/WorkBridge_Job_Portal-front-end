@@ -10,6 +10,7 @@ import { UserContext } from '../../Context/UserDetailsContext'
 import axios from 'axios'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { axiosgGoogleAuth } from '../../Axios/Axios-instance'
+import logo from '../../assets/lightlogo.png'
 
 axios.defaults.withCredentials = true
 
@@ -106,9 +107,13 @@ const Login = () => {
             theme='dark'
           />
           <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
+            <div className='flex flex-col items-center'>
+            <img src={logo} alt=""  className='w-24'/>
             <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
               WorkBridge
             </h1>
+            </div>
+            
             <p className='flex flex-col items-center text-sm text-gray-200 tracking-wider  '>
               <span>Log in to continue your job search.</span>
               Find the right job faster with personalized recommendations.
@@ -156,7 +161,7 @@ const Login = () => {
 
                 <button
                   type='submit'
-                  className='m-2 py-1 px-5 bg-violet-600 rounded-md text-white mt-6 hover:bg-violet-700 shadow'
+                  className='m-2 py-1 px-5 bg-violet-900 rounded-md text-white mt-6 hover:bg-violet-800 shadow'
                 >
                   Login
                 </button>

@@ -51,12 +51,12 @@ const Navbar = () => {
   const handleLogout=(e)=>{
     e.preventDefault()
     localStorage.removeItem('userdata')
-    setEmpUserDetails("")
+    setEmpUserDetails('')
   }
 
   return (
     <>
-      <div className="lg:flex lg:justify-between font-poppins shadow-sm lg:h-[13vh] text-white p-4">
+      <div className="lg:flex lg:justify-around font-poppins lg:h-[13vh] text-white p-4 shadow-2xl">
   
   <div className="flex items-center">  
     <h1 className="text-3xl lg:text-4xl font-semibold tracking-wider text-violet-600">

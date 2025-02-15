@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import googleimg from '../../assets/google.png'
+
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
@@ -8,7 +8,7 @@ import { axiosAuth, axiosgGoogleAuth } from '../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { ContextSeekerName } from '../../Context/SeekerContext'
 import { UserContext } from '../../Context/UserDetailsContext'
-
+import logo from '../../assets/lightlogo.png'
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -57,7 +57,7 @@ const SignUp = () => {
       toast.error(error.response?.data?.message || 'Server Error')
     }
   }
-  
+
   // Google authentication
   const handleGoogleAuth = async response => {
     try {
@@ -69,14 +69,12 @@ const SignUp = () => {
       setSavedUsername(res.data.Username)
       setUserDetails(res.data.User)
 
-      toast.success('Logged In',{
+      toast.success('Logged In', {
         onClose: () => {
           navigate('/')
         },
         autoClose: 1000
       })
-      
-      
     } catch (error) {
       console.log('error' + error)
       alert('Invalid user')
@@ -100,9 +98,12 @@ const SignUp = () => {
             theme='dark'
           />
           <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
-            <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
-              WorkBridge
-            </h1>
+            <div className='flex flex-col items-center'>
+              <img src={logo} alt='' className='w-24' />
+              <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
+                WorkBridge
+              </h1>
+            </div>
             <p className='flex flex-col items-center text-sm  text-gray-200 tracking-wider '>
               <span className=''>Join WorkBridge Today!</span>
               Create an account to discover new job opportunities and grow your
@@ -143,9 +144,7 @@ const SignUp = () => {
                     }`}
                   />
                   {error.email && (
-                    <p className='text-red-600 ml-2 text-sm'>
-                      {error.email}
-                    </p>
+                    <p className='text-red-600 ml-2 text-sm'>{error.email}</p>
                   )}
                 </div>
 
@@ -168,7 +167,7 @@ const SignUp = () => {
 
                 <button
                   type='submit'
-                  className='m-2 py-1 px-5 bg-violet-600 rounded-md text-white mt-6 hover:bg-violet-700 shadow'
+                  className='m-2 py-1 px-5 bg-violet-900 rounded-md text-white mt-6 hover:bg-violet-800 shadow'
                 >
                   SignUp
                 </button>
