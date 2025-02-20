@@ -4,13 +4,13 @@ import sortIimg from '../../assets/employer-mainpage/resume-sorting.png'
 const SortingDes = () => {
   return (
     <>
-      <div className='lg:flex lg:flex-row font-poppins flex flex-col bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-black via-black to-black lg:h-[100vh] text-white place-items-center lg:mt-0 mt-10'>
+      <div className='lg:flex lg:flex-row  flex flex-col bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-black via-black to-black lg:h-[100vh] text-white place-items-center lg:mt-0 pt-10'>
         <div className='lg:ml-32 lg:m-32 lg:mt-56 items-center'>
           <div className='place-items-center pb-5'>
             <h1 className='text-xl font-semibold  '>Resume Sorting </h1>
           </div>
 
-          <p className='leading-loose'>
+          <p className='leading-loose text-lg'>
             The resume sorting feature simplifies recruitment by organizing and{' '}
             <br />
             categorizing resumes based on predefined criteria such as skills,{' '}

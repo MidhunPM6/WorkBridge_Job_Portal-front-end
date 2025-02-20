@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './Pages/UserPages/Home'
-import ServicePage from './Components/Services/Services'
+import ServicePage from './Components/Jobseeker-Components/Services/Services'
 import Siginup from './Pages/UserPages/Siginup'
 import Login from './Pages/UserPages/Loginn'
 import EmployerHome from './Pages/EmployerPages/EmployerHome'
@@ -60,3 +60,4 @@ function App () {
 }
 
 export default App
+ 

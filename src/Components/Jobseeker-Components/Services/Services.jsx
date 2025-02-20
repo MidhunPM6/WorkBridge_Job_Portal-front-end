@@ -1,10 +1,10 @@
 import React from "react";
-import jobsearch_img from'../../assets/services/Job_Search.png'
-import resume_buildimg from'../../assets/services/resume.png'
-import assessment_img from'../../assets/services/assessment.png'
-import notification_img from'../../assets/services/notification.png'
-import  tracking_img from'../../assets/services/tracking.png'
-import careergd_img from'../../assets/services/career_guidance.png'
+import jobsearch_img from'../../../assets/services/Job_Search.png'
+import resume_buildimg from'../../../assets/services/resume.png'
+import assessment_img from'../../../assets/services/assessment.png'
+import notification_img from'../../../assets/services/notification.png'
+import  tracking_img from'../../../assets/services/tracking.png'
+import careergd_img from'../../../assets/services/career_guidance.png'
 
 
 

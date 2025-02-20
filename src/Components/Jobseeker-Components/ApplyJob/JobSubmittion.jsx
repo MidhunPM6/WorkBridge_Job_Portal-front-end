@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { UserContext } from '../../Context/UserDetailsContext'
-import { Selectedjob } from '../../Context/SeletedJobContext'
-import { axiosJobApplication } from '../../Axios/Axios-instance'
-import {jobDetailsContext} from '../../Context/JobpostContext'
-import { EmpAuth } from '../../Context/EmployerUserDetails'
+import { UserContext } from '../../../Context/UserDetailsContext'
+import { Selectedjob } from '../../../Context/SeletedJobContext'
+import { axiosJobApplication } from '../../../Axios/Axios-instance'
+import {jobDetailsContext} from '../../../Context/JobpostContext'
+import { EmpAuth } from '../../../Context/EmployerUserDetails'
 
 
 

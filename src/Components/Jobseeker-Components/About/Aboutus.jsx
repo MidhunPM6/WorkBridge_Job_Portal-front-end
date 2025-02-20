@@ -1,12 +1,12 @@
 import React from "react";
-import aboutimg from "../../assets/About/aboutimg.png";
+import aboutimg from "../../../assets/About/aboutimg.png";
 
 const Aboutus = () => {
   return (
     <>
-      <div className="flex flex-col lg:flex-row font-poppins mt-4 text-sm  pb-20" id="about">
-        <div className="place-items-center">
-          <img src={aboutimg} alt="" className="w-[90vh] lg:m-10 lg:mt-32 " />
+      <div className="flex flex-col  justify-around lg:flex-row font-poppins mt-4 text-sm  pb-20" id="about">
+        <div className="">
+          <img src={aboutimg} alt="" className="w-[85vh] lg:m-10 lg:mt-32 " />
         </div>
         <div className="lg:mt-20 lg:w-[55vh] flex flex-col items-center lg:items-start">
           <h1 className="text-xl  font-semibold text-violet-950 text-center lg:text-left mb-4 lg:mb-0">

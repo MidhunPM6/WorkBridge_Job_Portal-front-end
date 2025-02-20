@@ -18,7 +18,7 @@ const SearchBar = () => {
           placeholder='Location'
           aria-label='Search'
           id='exampleFormControlInput2'
-          aria-describedby='button-addon2'
+          aria-describedby='button-addon2' 
         />
         <span
           class='flex items-center whitespace-nowrap px-3 py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5 cursor-pointer'

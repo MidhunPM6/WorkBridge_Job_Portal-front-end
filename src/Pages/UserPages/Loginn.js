@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../../Components/Authentication/Login'
+import Login from '../../Components/Jobseeker-Components/Authentication/Login'
 import { ContextSeekerName } from '../../Context/SeekerContext'
 
 const Loginn = () => {
@@ -12,3 +12,4 @@ const Loginn = () => {
 }
 
 export default Loginn
+ 

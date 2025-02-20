@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { axiosAuth, axiosgGoogleAuth } from '../../Axios/Axios-instance'
+import { axiosAuth, axiosgGoogleAuth } from '../../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
-import { ContextSeekerName } from '../../Context/SeekerContext'
-import { UserContext } from '../../Context/UserDetailsContext'
-import logo from '../../assets/lightlogo.png'
+import { ContextSeekerName } from '../../../Context/SeekerContext'
+import { UserContext } from '../../../Context/UserDetailsContext'
+import logo from '../../../assets/lightlogo.png'
 
 const SignUp = () => {
   const navigate = useNavigate()

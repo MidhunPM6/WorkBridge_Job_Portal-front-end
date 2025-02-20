@@ -1,6 +1,6 @@
 import React from 'react'
-import ApplyJob from '../../Components/ApplyJob/JobSubmittion'
-import NavBar from '../../Components/Main-Page/NavBar'
+import ApplyJob from '../../Components/Jobseeker-Components/ApplyJob/JobSubmittion'
+import NavBar from '../../Components/Jobseeker-Components/Main-Page/NavBar'
 
 
 
