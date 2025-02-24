@@ -1,85 +1,116 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ProfileMainPage = () => {
+
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setPreview(URL.createObjectURL(selectedFile));
+    }
+  };
   return (
     <>
-      <div className="flex justify-center pt-10 pb-64 min-h-screen - font-poppins bg-slate-50">
-  <div className="w-full max-w-4xl p-6 rounded-lg bg-gradient-to-r from-gray-50  to-gray-100 shadow-lg ">
-    <h1 className="text-3xl font-semibold text-violet-500 text-center mb-6">
-      Company Profile
-    </h1>
+      <div className='flex justify-center  pt-10   '>
+       
+        <div className='flex flex-col lg:w-[40vw] h-auto lg:p-6 p-6  rounded-md text  shadow-2xl bg-white    '>
+          <h1 className='text-2xl font-semibold  text-center mb-6  '>
+            Company Profile
+          </h1>
+           <div className=' flex justify-center'> 
+            {
+              preview ?
+              <div className='w-28  overflow-hidden '>
+                <img src={preview} alt="" className='' />
+              </div>
+            :
+            <div className='flex justify-center items-center w-28 h-28 rounded-sm border-2 border-gray-300 hover:border-gray-50 hover:bg-black hover:bg-opacity-60 transition-all duration-300 hover:text-white shadow-md  bg-gray-50 overflow-hidden'>
+             <label for="fileupload">  upload
+             <input  id="fileupload" type="file" className='hidden ' placeholder='' onChange={handleFileChange} />
+             </label>
+            </div>
+            }
+           </div>
+          <div className='flex-col gap-10 mt-10'>
+            <div className='lg:flex-row flex flex-col  gap-6 '>
+              <input
+                type='text'
+                name='company'
+                placeholder='Company Name '
+               
+                className=' text-sm  p-2  bg-gray-50 shadow  rounded-sm outline-none border border-gray-200'
+              />
+              <input
+                type='text'
+                name='location'
+                
+                placeholder='Location'
+                className=' text-sm  p-2 w-full bg-gray-50 shadow rounded-sm outline-none border border-gray-200'
+              />
+            </div>
+            <div className='lg:flex-row flex flex-col gap-6 mt-4'>
+              <input
+                type='text'
+                placeholder='Location (City, State)'
+                name='location'
+              
+                className=' text-sm  p-2  bg-gray-50 shadow rounded-sm outline-none border border-gray-200'
+              />
+              <input
+                type='text'
+                name='salary'
+                placeholder='Salary Range'
+                
+                className=' text-sm  p-2 w-full bg-gray-50 shadow  rounded-sm outline-none border border-gray-200'
+              />
+            </div>
 
-    <div className="flex flex-col lg:flex-row lg:space-x-8">
+            <div className='flex gap-6 mt-4'>
+              <input
+                type='text'
+                name='job_type'
+               
+                placeholder='Job Type (e.g., Full-time, Part-time)'
+                className=' text-sm  w-full  p-2  bg-gray-50 shadow  rounded-sm outline-none border border-gray-200'
+              />
+            </div>
+            <div>
+            <textarea
+              placeholder='Job Description'
+              name='job_description'
+              
+              className='text-sm  w-full max-h-60 h-24 bg-gray-50 shadow mt-6 p-3 rounded-sm outline-none border border-gray-200'
+              rows='5'
+            ></textarea>
+            </div>
+          </div>
+          
+            
 
-      <div className="flex flex-col items-center lg:items-start w-full lg:w-1/3 mb-6 lg:mb-0">
-        <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-md">
-          <img
-            src="https://via.placeholder.com/150" 
-            alt="Profile"
-            id="profilePreview"
-            className="w-full h-full object-cover"
-          />
-          <label
-            htmlFor="photoUpload"
-            className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white text-sm font-semibold opacity-0 hover:opacity-100 cursor-pointer transition-opacity duration-200"
-          >
-            Upload Photo
-          </label>
-          <input
-            type="file"
-            id="photoUpload"
-            className="hidden"
-            accept="image/*"
-     
-          />
+
+          <div className='flex flex-col  items-center mt-6'>
+            <button
+              
+              className='px-3 py-1 text-white bg-violet-900 hover:bg-violet-800 rounded-md shadow-lg '
+            >
+              Post Job
+            </button>
+            <div className='lg:mt-6 text-xs text-slate-600'>
+              <p>
+                <span className='font-semibold'>
+                  Please Note Before Posting :{' '}
+                </span>
+                All job listings must follow our guidelines. Discriminatory or
+                misleading content will be removed. Ensure accuracy and
+                transparency.
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="text-sm mt-3 text-center lg:text-left">
-          Upload a company logo or profile photo .
-        </p>
-      </div>
-
- 
-      <div className="w-full lg:w-2/3">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            placeholder="Enter company name"
-            className="p-2 w-full rounded-md outline-none border border-gray-200"
-          />
-          <input
-            type="text"
-            placeholder="Enter recruiter name"
-            className="p-2 w-full rounded-md outline-none border border-gray-200"
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            placeholder="Company location"
-            className="p-2 w-full rounded-md outline-none border border-gray-200"
-          />
-          <input
-            type="text"
-            placeholder="Important links"
-            className="p-2 w-full rounded-md outline-none border border-gray-200"
-          />
-        </div>
-
-        <textarea
-          placeholder="Description"
-          className="p-3 w-full rounded-md outline-none mb-4 border border-gray-200"
-          rows="5"
-        ></textarea>
-
-        <div className="flex justify-center">
-          <button className="px-6 py-2 text-white bg-violet-500 rounded-md hover:bg-violet-600 hover:scale-105 ">
-            Save Profile
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+   
 </div>
 
 

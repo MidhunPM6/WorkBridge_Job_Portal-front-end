@@ -59,7 +59,7 @@ const Navbar = () => {
               <input
                 type='text'
                 placeholder='Search'
-                className=' w-64 py-1 pl-2 rounded bg-gray-100 focus:bg-gray-50 text-gray-700  border border-gray-200 outline-none focus:border-gray-300'
+                className=' w-64 py-1 pl-2 rounded bg-gray-100 focus:bg-gray-50 text-gray-700  border border-gray-200 outline-none focus:border-gray-300 focus:w-80 transition-all duration-200'
               />
               <svg
                 xmlns='http://www.w3.org/2000/svg'

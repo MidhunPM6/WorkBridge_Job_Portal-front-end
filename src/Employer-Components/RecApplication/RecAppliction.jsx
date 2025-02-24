@@ -35,7 +35,7 @@ const RecAppliction = () => {
           applications.map((application, index) => (
             <div
               key={application._id}
-              className='flex flex-col  mt-5  w-auto m-3 p-4 border border-slate-200   text-sm rounded shadow-[0px_0px_22px_2px_rgba(148,148,148,1)]  '
+              className='flex flex-col  mt-5  w-auto m-3 p-4 border border-slate-200   bg-gray-100 bg-opacity-0 hover:bg-opacity-90  transition-all duration-500 hover:scale-105  text-sm rounded shadow-[0px_0px_22px_2px_rgba(148,148,148,1)]  '
             >
               <div className='flex  mt-1 rounded-md'>
                 <h1 className='w-72  decoration-gray-300  cursor-pointer border p-2 bg-gray-50 text-sm rounded-sm'>
@@ -49,7 +49,7 @@ const RecAppliction = () => {
                   : {application.userid.email}
                 </p>
               </div>
-              <div className='mt-4 flex  mt-1 rounded-md'>
+              <div className='mt-4 flex   rounded-md'>
                 <h1 className='w-72  decoration-gray-300 cursor-pointer border border-grey-200 p-2 bg-gray-50 rounded '>
                   <span className=' font-semibold outline-none'>
                     Mob Number
@@ -63,7 +63,7 @@ const RecAppliction = () => {
                   : mmdnkvcn
                 </h1>
               </div>
-              <div className='mt-4 flex  mt-1 rounded-md'>
+              <div className='mt-4 flex  rounded-md'>
                 <h1 className='w-72  decoration-gray-300 cursor-pointer border border-grey-200 p-2 bg-gray-50 rounded '>
                   <span className=' font-semibold outline-none'>
                     Job title
