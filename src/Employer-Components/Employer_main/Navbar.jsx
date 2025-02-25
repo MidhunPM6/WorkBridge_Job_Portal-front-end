@@ -10,6 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const { EmpUserDetails, setEmpUserDetails } = useContext(EmpAuth)
   const [visible, setVisible] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false)
 
   const customStyles = {
     overlay: {
@@ -44,6 +45,19 @@ const Navbar = () => {
     e.preventDefault()
     localStorage.removeItem('userdata')
     setEmpUserDetails('')
+  }
+
+  let timeoutId
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutId) // Prevent premature closing
+    setProfileOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutId = setTimeout(() => {
+      setProfileOpen(false)
+    }, 200) // Add slight delay to allow smooth transition
   }
 
   return (
@@ -113,22 +127,47 @@ const Navbar = () => {
                 </motion.div>
               </Model>
 
-              <button
-                onClick={() => navigate('/employerprofile')}
-                className='px-4 py-2 rounded-full text-black  transition  text-lg font-semibold hover:scale-105   hover:underline underline-offset-4 hover:text-gray-600'
+              <div
+                className='relative '
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
-                <span className='hover:text-gray-600 font-semibold text-lg'>
-                  Profile:{' '}
-                </span>{' '}
-                {EmpUserDetails.name}
-              </button>
+                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black  transition-all duration-300  text-lg font-semibold hover:scale-105   hover:underline underline-offset-4 '>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='size-6'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
 
-              <button
-                onClick={handleLogout}
-                className='px-4 py-2 rounded-full bg-violet-900 hover:bg-violet-800 text-white text-sm shadow-lg'
-              >
-                Logout
-              </button>
+                  {EmpUserDetails.name}
+                </button>
+                {profileOpen && (
+                  <div className='absolute flex  flex-col left-0 mt-2 w-32 bg-neutral-100   shadow-lg border rounded-sm  z-50'>
+                    <button
+                      className=' rounded-sm transition-all duration-300  text-black   text-sm p-2 hover:bg-neutral-200 '
+                      onClick={() => navigate('/employerprofile')}
+                    >
+                      Profile
+                    </button>
+                    <button className='   rounded-sm transition-all duration-300  text-black   text-sm p-2 hover:bg-neutral-200'>
+                      Account setting
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className='  rounded-sm m-2 mt-3 p-1 bg-red-700 hover:bg-red-800 text-white text-sm shadow-lg'
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <button

@@ -39,11 +39,11 @@ const PersonalDetails = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full h-auto '>
-        <div className='relative flex justify-center items-center lg:h-[33vh]  h-32 bg-violet-950 rounded-t-sm  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] w-full  overflow-hidden'>
+      <div className='flex flex-col w-full lg:h-screen  '>
+        <div className='relative flex justify-center items-center lg:h-[25vh]  h-32 bg-violet-950 rounded-t-sm  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] w-full  overflow-hidden'>
           <h1 className='text-3xl text-white font-bold'>Cover Photo</h1>
 
-          <div className='absolute lg:top-1 top-0 left-0  w-full flex justify-between items-end pr-10  '>
+          <div className='absolute lg:top-0 top-0 bottom-0 m-5  w-full flex justify-between items-end pr-10  '>
             <div className='lg:w-32 lg:h-32 h-20 w-20 ml-4 mt-5 shadow-md   bg-gray-200 flex rounded-sm items-end justify-end   border-gray-200'>
               <label
                 for='profileUpload'
@@ -80,7 +80,7 @@ const PersonalDetails = () => {
           </div>
         </div>
 
-        <div className='lg:w-full  h-auto w-auto flex-col  lg:h-full  border shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  rounded-b-sm  pl-8 p-3'>
+        <div className='lg:w-full  h-auto w-auto flex-col  lg:h-auto  border shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  rounded-b-sm  pl-8 p-3'>
           <div className='flex justify-between w-full'>
             <h1 className='lg:text-3xl text-2xl font-semibold'>Midhun P M</h1>
             <svg
@@ -96,47 +96,62 @@ const PersonalDetails = () => {
           <div className='flex text-gray-400'>
             <h1>Web Developer</h1>
           </div>
-          <div className='lg:flex-row flex flex-col flex-wrap lg:gap-28 gap-2 mt-5 text-sm  '>
+          <div className='lg:flex-row flex flex-col flex-wrap lg:gap-28 gap-2 mt-5   '>
             <div className='flex flex-col gap-2  lg:min-w-32  '>
-              <h1>
-                <span className='font-semibold'>Email :</span>{' '}
-                midhunpm6060@gmail.com{' '}
-              </h1>
-
-              <h1>
-                <span className='font-semibold'>Location :</span> Palakkad
-              </h1>
-
-              <h1 className='w-48'>
-                <span className='font-semibold'>Skills : </span>
-                Java,Python,Mongodb,Javascript,AI, Machine Learning
-              </h1>
+              <div className='flex flex-col gap-1 mt-2'>
+                <h1 className='text-black font-semibold  '>
+                  <span>Email</span>
+                </h1>
+                <h2 className='text-gray-500'>midhunpm6060@gmail.com</h2>
+              </div>
+              <div className='flex flex-col gap-1 '>
+                <h1 className='text-black font-semibold  '>
+                  <span>Location</span>
+                </h1>
+                <h2 className='text-gray-500'>Palakkad</h2>
+              </div>
+              <div className='flex flex-col gap-1 w-48 '>
+                <h1 className='text-black font-semibold  '>
+                  <span>Skills</span>
+                </h1>
+                <h2 className='text-gray-500'>Java,Python,Mongodb,Javascript,AI, Machine Learning</h2>
+              </div>
+            
             </div>
             <div className='flex flex-col gap-2 flex-wrap '>
+              <div className='flex flex-col'>
+
               <h1 className=''>
-                <span className='font-semibold'>Portfolio :</span>{' '}
-                <a
+                <span className='font-semibold'>Portfolio </span>{' '}
+                
+              </h1>
+              <a
                   href='https://portfoliomidhun.vercel.app/'
-                  className='hover:underline break-all lg:break-normal text-sky-600 font-bold'
+                  className='hover:underline break-all lg:break-normal text-sky-600 font-semibold'
                 >
                   https://portfoliomidhun.vercel.app/
                 </a>
-              </h1>
+              </div>
+              <div className='flex flex-col'>
 
-              <h1 className=' flex-wrap '>
-                <span className='font-semibold '>LinkIn : </span>
-                <a
-                  href='https://www.linkedin.com/in/midhunpm6060/'
-                  className='hover:underline break-all lg:break-normal text-sky-600 font-bold'
-                >
-                  https://www.linkedin.com/in/midhunpm6060/{' '}
-                </a>
+              <h1 className=''>
+                <span className='font-semibold'>LinkIn </span>{' '}
+                
               </h1>
+              <a
+                  href='https://portfoliomidhun.vercel.app/'
+                  className='hover:underline break-all lg:break-normal text-sky-600 font-semibold'
+                >
+                https://www.linkedin.com/in/midhunpm6060/
+                </a>
+              </div>
+
+              
             </div>
           </div>
           <div className='mt-4 '>
             <h1 className='text-xl font-semibold'>About Me</h1>
-            <div className='w-full text-sm mt-2 rounded-md h-auto  '>
+            <div className='w-full text-gray-500 mt-2 rounded-md h-auto  '>
               <h1>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
                 eos numquam explicabo, commodi assumenda voluptate illo saepe
@@ -148,7 +163,7 @@ const PersonalDetails = () => {
                 quo sint itaque? Optio, repellat?
               </h1>
             </div>
-            <div className='mt-10 flex text-sm '>
+            <div className='mt-10 flex mb-5 '>
               <div className=''>
                 <label
                   for='fileUpload2'

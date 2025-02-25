@@ -36,7 +36,7 @@ const PersonalPopUp = () => {
   }
   return (
     <div>
-      <div className='  flex flex-col items-center  '>
+      <div className='  flex flex-col p-5 '>
         <div className='flex justify-center'>
           <h1 className='text-xl font-semibold'>Personal Details</h1>
         </div>
