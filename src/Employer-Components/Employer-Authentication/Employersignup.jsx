@@ -154,7 +154,7 @@ const Employersignup = () => {
               />
        
             </div>
-            <div className=' mt-10 text-sm'>
+            <div className=' flex justify-center mt-10 text-sm'>
               <p className='text-gray-600'>By Signing in, you agree to our <a href="" className='font-bold leading-loose text-blue-600'>Terms & Conditions.</a></p>
             </div>
           </form>
