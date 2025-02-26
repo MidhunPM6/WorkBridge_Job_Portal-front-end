@@ -83,7 +83,7 @@ const SignUp = () => {
 
   return (
     <>
-      <GoogleOAuthProvider clientId='283509074295-2c14a2o5saenni3ri9qgjl0l61rm47or.apps.googleusercontent.com'>
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID }>
         <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>
           <ToastContainer
             position='top-right'
