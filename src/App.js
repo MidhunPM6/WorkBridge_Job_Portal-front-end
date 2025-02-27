@@ -17,6 +17,8 @@ import JobpostContext from './Context/JobpostContext'
 import UserDetailsContext from './Context/UserDetailsContext'
 import SeletedJobContext from './Context/SeletedJobContext'
 import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
+import AccountSettings from './Pages/EmployerPages/AccountSettings'
+
 
 function App () {
   return (
@@ -49,6 +51,11 @@ function App () {
                     path='/recApplication'
                     element={<RecivedApplication />}
                   />
+                  <Route
+                    path='/profile/accountsetting'
+                    element={<AccountSettings/>}
+                  />
+                
                 </Routes>
               </SeletedJobContext>
             </UserDetailsContext>
@@ -60,4 +67,3 @@ function App () {
 }
 
 export default App
- 

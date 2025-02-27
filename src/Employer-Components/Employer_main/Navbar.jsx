@@ -156,7 +156,7 @@ const Navbar = () => {
                     >
                       Profile
                     </button>
-                    <button className='   rounded-sm transition-all duration-300  text-black   text-sm p-2 hover:bg-neutral-200'>
+                    <button onClick={()=>navigate('/profile/accountsetting')} className='   rounded-sm transition-all duration-300  text-black   text-sm p-2 hover:bg-neutral-200'>
                       Account setting
                     </button>
                     <button

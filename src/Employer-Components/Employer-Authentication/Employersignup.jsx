@@ -75,7 +75,7 @@ const Employersignup = () => {
         </div>
         <div className='flex flex-col justify-center mt-10 lg:mt-0   items-center w-full lg:w-1/3 px-6 sm:px-10 md:px-16 lg:px-20'>
           <form
-            className='lg:w-full lg:max-w-md  bg-white p-6 rounded-md m-10 lg:m-0  '
+            className='lg:w-full lg:max-w-md  p-6 rounded-md  m-10 lg:m-0  '
             onSubmit={handleValidation}
           >
 
