@@ -37,9 +37,16 @@ const ProfileMainPage = () => {
     <>
       <div className='lg:flex-row flex flex-col   lg:m-0 m-8 lg:justify-center lg:items-start items-center gap-10 lg:pt-10 lg:h-screen   '>
         <div className='shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] rounded-t-md '>
-          <div className=' relative  flex flex-col items-end overflow-hidden lg:w-[55vw] lg:h-[25vh] w-full h-[20vh]  bg-sky-600 rounded-t-md'>
+          <div className=' relative  flex flex-col items-end overflow-hidden lg:w-[55vw] lg:h-[25vh] w-full h-[20vh]  bg-yellow-400 rounded-t-md'>
             <div className='absolute  left-0 bottom-0 flex justify-between items-end  p-2  w-full'>
               <div className='   w-32 h-32 bg-gray-200 lg:ml-3 lg:mb-2 rounded-sm flex justify-end items-end'>
+                <div className='flex-col justify-center items-center '>
+
+                <img src={img2} alt=""  className='w-48 '/>
+                </div>
+                <div>
+
+                
                  <label for="PhotoUpload">
                    <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -55,6 +62,7 @@ const ProfileMainPage = () => {
                 </svg>
                 <input type="file" name="" id="PhotoUpload" className='hidden'/>
                  </label>
+                 </div>
                 
               </div>
               <div>
@@ -139,7 +147,7 @@ const ProfileMainPage = () => {
           </div>
         </div>
 
-        <div className='flex flex-col items-center  pt-4 lg:h-auto border border-stone-300  lg:w-[18vw] w-full p-6 h-auto  bg-stone-100 rounded-sm '>
+        <div className='flex flex-col items-center  pt-4 lg:h-auto border border-stone-100  lg:w-[18vw] w-full p-6 h-auto  bg-gray-50 rounded-sm '>
           <h1 className='font-semibold text-xl'> Job seekers</h1>
           <hr class='h-px my-2 w-full  bg-gray-300 border-0 dark:bg-gray-700'></hr>
           <div className='flex  items-center mt-6 gap-6 min-w-10 '>

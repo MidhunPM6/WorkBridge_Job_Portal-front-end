@@ -36,7 +36,7 @@ const EducationDetails = () => {
     <>
       <div className='flex flex-col w-full h-auto'>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
-          <div className='flex justify-between p-2 items-center  bg-black bg-opacity-60 rounded-sm text-white h-16'>
+          <div className='flex justify-between p-2 items-center  bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-violet-950  rounded-sm text-white h-16'>
             <h1 className='text-2xl font-semibold'>Education</h1>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -53,7 +53,7 @@ const EducationDetails = () => {
             </svg>
           </div>
           <div className='mt-10 flex flex-col gap-4'>
-            <div className='flex flex-col text-sm gap-3 border  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] p-4 rounded-sm '>
+            <div className='flex flex-col  gap-3 border  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] p-4 rounded-sm '>
               <h1>
                 <span className='font-semibold'> University or College : </span>{' '}
                 Anna University

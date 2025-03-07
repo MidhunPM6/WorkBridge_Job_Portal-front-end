@@ -20,6 +20,7 @@ import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 
 
+
 function App () {
   return (
     <>
@@ -28,6 +29,7 @@ function App () {
           <SeekerUsernameContext>
             <UserDetailsContext>
               <SeletedJobContext>
+                
                 <Routes>
                   {/*User routes */}
                   <Route path='/' element={<Home />} />

@@ -30,9 +30,9 @@ const SideMenu = () => {
       <div className='lg:flex-row flex flex-col  '>
         {/* Side Menu */}
         <div
-          className={`  text-black p-6  rounded-sm   border border-gray-300
+          className={`  text-black p-6    rounded-sm
             ${isOpen ? 'block' : 'hidden'} 
-            sm:block lg:w-[17vw] max-w-full min-h-auto lg:h-auto  `}
+            sm:block lg:w-[17vw] max-w-full min-h-auto lg:h-auto text-white bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black`}
         >
           <ul className='space-y-4 lg:text-sm  text-xs lg:flex-col flex gap-2'>
             <li className='border-b-2 p-1  lg:flex justify-center  font-semibold text-lg lg:visible hidden'>

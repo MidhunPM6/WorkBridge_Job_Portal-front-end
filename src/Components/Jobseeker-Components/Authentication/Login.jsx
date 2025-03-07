@@ -50,6 +50,7 @@ const Login = () => {
       })
 
       setSavedUsername(response.data.username)
+      
       setUserDetails(response.data.user)
 
       console.log(response.data.user)
