@@ -1,20 +1,24 @@
 import React, { useContext, useState } from 'react'
-import { ContextSeekerName } from '../../../../Context/SeekerContext'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../../../Context/UserDetailsContext'
-import { axiosAuth, axiosResumeUpload } from '../../../../Axios/Axios-instance'
+
 import axios from 'axios'
 import UserNameChange from './UserNameChange'
 import Modal from 'react-modal'
 import ChangePassword from './ChangePassword'
+import { useDispatch, useSelector } from 'react-redux'
+import {logout} from '../../../../Redux/UserSlice' 
+
+
+
 axios.defaults.withCredentials = true
 
 const AccountSetting = () => {
   const navigate = useNavigate()
-  const { userDetails, setUserDetails } = useContext(UserContext)
+  const user =useSelector((state)=>state.user)
+
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-
+  const dispatch =useDispatch()
   //Custom Styles for First Modal
   const customStyles = {
     overlay: {
@@ -75,21 +79,10 @@ const AccountSetting = () => {
 
   //Logout handling
   const handleLogout = async () => {
-    try {
-      const response = await axiosAuth.post(
-        '/logout',
-        {},
-        { withCredentials: true }
-      )
-      console.log(response)
-      setUserDetails(null)
-      localStorage.removeItem('User')
-      navigate('/')
-      window.location.reload()
-    } catch (error) {
-      console.log(error)
-      alert('Something  went wrong')
-    }
+    
+   dispatch(logout())
+   
+   navigate('/')
   }
 
   return (
@@ -104,7 +97,7 @@ const AccountSetting = () => {
               <label htmlFor=''>Username</label>
               <input
                 type='text'
-                value={userDetails && userDetails.name}
+                value={user && user.name}
                 className='py-2 px-3 mt-2 border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
               />
             </div>

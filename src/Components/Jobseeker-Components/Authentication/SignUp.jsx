@@ -6,15 +6,14 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth, axiosgGoogleAuth } from '../../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
-import { ContextSeekerName } from '../../../Context/SeekerContext'
-import { UserContext } from '../../../Context/UserDetailsContext'
+import { setUserDetails } from '../../../Redux/UserSlice'
 import logo from '../../../assets/lightlogo.png'
+import { useDispatch } from 'react-redux'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const [error, setError] = useState({})
-  const { setSavedUsername } = useContext(ContextSeekerName)
-  const { setUserDetails } = useContext(UserContext)
+  const dispatch = useDispatch()
 
   // Craeted State for form data to store
   const [formData, setFormData] = useState({
@@ -66,8 +65,7 @@ const SignUp = () => {
         { token: response.credential },
         { withCredentials: true }
       )
-      setSavedUsername(res.data.Username)
-      setUserDetails(res.data.User)
+      dispatch(setUserDetails(res.data.User))
 
       toast.success('Logged In', {
         onClose: () => {
@@ -83,7 +81,7 @@ const SignUp = () => {
 
   return (
     <>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID }>
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
         <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>
           <ToastContainer
             position='top-right'

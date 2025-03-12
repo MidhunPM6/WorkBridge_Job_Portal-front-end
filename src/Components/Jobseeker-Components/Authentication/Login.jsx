@@ -4,22 +4,24 @@ import { LoginValidation } from '../Authentication/Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { axiosAuth } from '../../../Axios/Axios-instance'
-import { useContext } from 'react'
-import { ContextSeekerName } from '../../../Context/SeekerContext'
-import { UserContext } from '../../../Context/UserDetailsContext'
 import axios from 'axios'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { axiosgGoogleAuth } from '../../../Axios/Axios-instance'
 import logo from '../../../assets/lightlogo.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserDetails } from '../../../Redux/UserSlice'
+
 
 axios.defaults.withCredentials = true
 
+
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch=useDispatch()
+  const user =useSelector((state)=>state.user)
 
   const [error, setError] = useState('')
-  const { setSavedUsername } = useContext(ContextSeekerName)
-  const { setUserDetails } = useContext(UserContext)
+ 
 
   // Login form data
   const [loginForm, SetLoginForm] = useState({
@@ -48,12 +50,11 @@ const Login = () => {
       const response = await axiosAuth.post('/login', loginForm, {
         withCredentials: true
       })
+       
+      dispatch(setUserDetails(response.data.user))
+       console.log(user)
 
-      setSavedUsername(response.data.username)
-      
-      setUserDetails(response.data.user)
-
-      console.log(response.data.user)
+      console.log(response.data)
 
       if (response.status === 200) {
         toast.success('Login Success', {
@@ -77,11 +78,12 @@ const Login = () => {
         { token: response.credential },
         { withCredentials: true }
       )
-      setSavedUsername(res.data.Username)
-      setUserDetails(res.data.User)
+      dispatch(setUserDetails(res.data.User))
+      
+      
       toast.success('Logged In', {
         onClose: () => {
-          navigate('/')
+          navigate('/') 
         },
         autoClose: 1000
       })
