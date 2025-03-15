@@ -1,12 +1,11 @@
 import React from 'react'
 import { axiosJobApplication } from '../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const ApplyJob = ({ setIsOpen }) => {
-
-  const navigate =useNavigate()
+  const navigate = useNavigate()
   // Fetching Redux states
   const user = useSelector(state => state.user.user)
   const selectjob = useSelector(state => state.selectedjob?.jobSelected)
@@ -33,40 +32,37 @@ const ApplyJob = ({ setIsOpen }) => {
         EmpID: selectjob.EmpID
       })
       if (response.status === 201) {
-        toast.success('Application successfully applied',{
+        toast.success('Application successfully applied', {
           onClose: () => {
-            navigate('/jobview') 
+            navigate('/jobview')
             window.location.reload()
           },
           autoClose: 1000
         })
-      
       }
-
     } catch (error) {
-     toast.error(error.response.data.message,{
-      autoClose:1000
-     })
-      console.log()
+      toast.error(error.response.data.message, {
+        autoClose: 1000
+      })
     }
   }
 
   return (
     <>
-     <ToastContainer
-                 position='top-center'
-                 autoClose={5000}
-                 hideProgressBar={false}
-                 newestOnTop={false}
-                 closeOnClick
-                 rtl={false}
-                 pauseOnFocusLoss
-                 draggable
-                 pauseOnHover
-                 theme='dark'
-               />
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
       <div className='flex place-content-center   font-poppins'>
-        <div className=' flex flex-col  items-center max-h-auto w-[30vw] p-6 border  '>
+        <div className=' flex flex-col  items-center max-h-auto  w-full lg:w-[25vw] p-6   '>
           <div className=' text-2xl w-full h-14  flex justify-center items-center text-white bg-gradient-to-b from-violet-950 to-black rounded-md'>
             <h1 className=' font-semibold '>Confirmation </h1>
           </div>

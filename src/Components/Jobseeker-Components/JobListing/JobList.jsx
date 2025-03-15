@@ -16,9 +16,9 @@ import { useDispatch } from 'react-redux'
 const JobMain = () => {
  
   const [ jobDetails, setJobDetails ] = useState([])
-  const dispatch = useDispatch()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [modalIsOpen, setIsOpen] = React.useState(false)
+  const dispatch = useDispatch()
   
  
   const options = [
@@ -29,14 +29,15 @@ const JobMain = () => {
     'Sales',
     'Service'
   ]
-
+ 
+  // Modal Styles 
   const customStyles = {
     overlay: {
       opacity: '100%',
       transition: 'opacity 3000ms ease-in-out',
       'overflow-y': 'auto',
       border: 'none',
-      backdropFilter: 'blur(2px)'
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     content: {
       top: '50%',
@@ -104,12 +105,14 @@ const JobMain = () => {
       <div>
         <SearchBar></SearchBar>
       </div>
-      <div className='flex  justify-center  items-center'>
-        <div className='flex flex-col  bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] w-[20vw] rounded-md m-10 text-white p-4'>
-          <div className='flex justify-center'>
+      <div className='lg:flex-row flex flex-col gap-7 justify-center  items-center '>
+        <div className='lg:flex-col flex flex-row  justify-center   lg:gap-0 gap-10 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] lg:w-[20vw] w-full rounded-sm text-white p-10 lg:m-0 m-10'>
+          <div className='lg:flex hidden justify-center'>
             <img src={logo} alt='' className='w-24' />
           </div>
-          <div className='flex justify-center mb-3 w-3/4  bg-slate-900 p-1 rounded-full '>
+          <div className='text-sm'>
+
+          <div className='flex justify-center items-center mb-3  lg:w-3/4 w-full  bg-slate-900 p-1 rounded-full '>
             <label htmlFor=''> Select your position</label>
           </div>
           <div className='flex justify-center'>
@@ -117,29 +120,30 @@ const JobMain = () => {
               options={options}
               placeholder='Select Category'
               onChange={handleDropdownChange}
-              className='text-sm  custom-dropdown w-[15vw] '
-              menuClassName='h-32'
-            />
+              className='custom-dropdown lg:w-[15vw] w-[32vw] text-xs  '
+              menuClassName='lg:h-32 h-20'
+              />
           </div>
           <div
-            className={`flex flex-col items-center transition-all duration-200 ${
-              isDropdownOpen ? 'mt-36' : 'mt-4'
+            className={`flex flex-col items-center transition-all duration-200  ${
+              isDropdownOpen ? 'lg:mt-36 mt-28' : 'mt-4'
             }`}
           >
-            <button className='bg-violet-900 hover:bg-violet-800 w-20 py-1 rounded shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] '>
+            <button className='bg-violet-900 hover:bg-violet-800 flex justify-center w-20 py-1 rounded shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] '>
               search
             </button>
           </div>
-          <div className='flex flex-col items-center text-lg tracking-wide pt-10 '>
+              </div>
+          <div className='lg:flex flex-col items-center text-lg tracking-wide pt-10 hidden  '>
             <h1>Filter</h1>
             <hr class='h-px my-2 w-40  bg-gray-400 border-0 dark:bg-gray-700'></hr>
           </div>
-          <div className='p-4'>
+          <div className='lg:p-4 text-sm'>
             <form action=''>
               <h1 className='text-md bg-slate-900 p-1 rounded-full'>Skills</h1>
               <input
                 type='text'
-                className='mt-3 py-1 outline-none bg-slate-200 rounded text-gray-800 placeholder:p-2'
+                className='mt-3 p-2 outline-none bg-slate-50 rounded text-gray-800 placeholder:p-2'
                 placeholder='Enter skills'
               />
               <h1 className='mt-6 text-md bg-slate-900 p-1  rounded-full'>
@@ -169,7 +173,7 @@ const JobMain = () => {
           </div>
         </div>
 
-        <div className='flex flex-col items-center py-6 h-screen overflow-auto  bg-gray- font-poppins w-[90%] md:w-[50vw]  [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100  [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10 mt-10'>
+        <div className='flex flex-col items-center py-6 h-screen overflow-auto  bg-gray- font-poppins  lg:w-[50vw] w-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100  [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10 '>
           {jobDetails.map((jobObj, index) => (
             <div
               key={jobObj._id}
