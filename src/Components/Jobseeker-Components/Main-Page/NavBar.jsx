@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 const NavBar = () => {
   const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user.user)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)

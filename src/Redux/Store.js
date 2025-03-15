@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './UserSlice.js'
+import selectedJobReducer from './SelectedJobSlice.js'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -12,7 +13,8 @@ const persistedReducer = persistReducer(presistConfig, userReducer)
 
 const store = configureStore({
   reducer: {
-    user: persistedReducer
+    user: persistedReducer,
+    selectedjob:selectedJobReducer
   }
 })
 

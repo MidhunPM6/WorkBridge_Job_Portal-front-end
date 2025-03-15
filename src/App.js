@@ -6,7 +6,6 @@ import Login from './Pages/UserPages/Loginn'
 import EmployerHome from './Pages/EmployerPages/EmployerHome'
 import EmployerLogin from './Pages/EmployerPages/EmployerLogin'
 import EmployerSignup from './Pages/EmployerPages/EmployerSignup'
-import SeekerUsernameContext from './Context/SeekerContext'
 import UserProfile from './Pages/UserPages/UserProfile'
 import Jobview from './Pages/UserPages/Jobview'
 import Applyjob from './Pages/UserPages/Applyjob'
@@ -14,8 +13,6 @@ import EmployerUserDetails from './Context/EmployerUserDetails'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
 import Postjob from './Pages/EmployerPages/Postjob'
 import JobpostContext from './Context/JobpostContext'
-
-import SeletedJobContext from './Context/SeletedJobContext'
 import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 
@@ -26,9 +23,8 @@ function App () {
     <>
       <JobpostContext>
         <EmployerUserDetails>
-          <SeekerUsernameContext>
+        
             
-              <SeletedJobContext>
                 
                 <Routes>
                   {/*User routes */}
@@ -59,8 +55,8 @@ function App () {
                   />
                 
                 </Routes>
-              </SeletedJobContext>
-          </SeekerUsernameContext>
+             
+          
         </EmployerUserDetails>
       </JobpostContext>
     </>

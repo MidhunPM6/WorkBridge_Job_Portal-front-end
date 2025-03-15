@@ -12,13 +12,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../../Redux/UserSlice'
 
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true 
 
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch=useDispatch()
-  const user =useSelector((state)=>state.user)
+  const user =useSelector((state)=>state.user.user)
 
   const [error, setError] = useState('')
  
@@ -52,9 +52,11 @@ const Login = () => {
       })
        
       dispatch(setUserDetails(response.data.user))
-       console.log(user)
+       console.log(user);
+       
+       
 
-      console.log(response.data)
+      
 
       if (response.status === 200) {
         toast.success('Login Success', {

@@ -15,7 +15,7 @@ const SignUp = () => {
   const [error, setError] = useState({})
   const dispatch = useDispatch()
 
-  // Craeted State for form data to store
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

@@ -1,14 +1,11 @@
-import React, { useContext } from 'react'
-import { Selectedjob } from '../../../Context/SeletedJobContext'
+import React from 'react'
 import { axiosJobApplication } from '../../../Axios/Axios-instance'
-import { jobDetailsContext } from '../../../Context/JobpostContext'
-import { EmpAuth } from '../../../Context/EmployerUserDetails'
 import { useSelector } from 'react-redux'
 
 const ApplyJob = ({ setIsOpen }) => {
-  const { selectedJob } = useContext(Selectedjob)
-  const user = useSelector(state => state.user)
-
+  
+  const user = useSelector(state => state.user.user)
+  const selectjob = useSelector(state => state.selectedjob?.jobSelected)
   const handleClose = () => {
     setIsOpen(false)
   }
@@ -18,15 +15,15 @@ const ApplyJob = ({ setIsOpen }) => {
       console.error('User details or _id is missing')
       return
     }
-    if (!selectedJob || !selectedJob._id) {
+    if (!selectjob || !selectjob._id) {
       console.error('Selected job or _id is missing')
       return
     }
     try {
       const response = await axiosJobApplication.post('/appliedjob', {
         UserID: user._id,
-        JobID: selectedJob._id,
-        EmpID: selectedJob.EmpID
+        JobID: selectjob._id,
+        EmpID: selectjob.EmpID
       })
       if (response.status === 201) {
         alert('Application successfully applied')
@@ -35,6 +32,7 @@ const ApplyJob = ({ setIsOpen }) => {
       alert(error)
     }
   }
+
 
   return (
     <>
@@ -45,19 +43,19 @@ const ApplyJob = ({ setIsOpen }) => {
           </div>
           <div className='flex flex-col items-center mt-6 text-gray-700'>
             <h1 className='font-semibold text-black text-lg'>
-              {selectedJob.tittle}
+              {selectjob.tittle}
             </h1>
             <label className='text-sm mt-6'>
               <span className='font-semibold '>Applying company :</span>{' '}
-              {selectedJob.comapany_name}
+              {selectjob.comapany_name}
             </label>
             <label htmlFor='' className='mt-2 text-sm'>
               <span className='font-semibold'>Location : </span>{' '}
-              {selectedJob.location}
+              {selectjob.location}
             </label>
             <label htmlFor='' className='mt-2  font-OpenSans text-sm '>
               <span className='font-semibold'>Salary : </span> ₹{' '}
-              {selectedJob.salary}
+              {selectjob.salary}
             </label>
             <div className='flex  items-center'>
               <button

@@ -1,24 +1,27 @@
-import { useContext, useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { jobDetailsContext } from '../../../Context/JobpostContext'
 import { axiosJobDetails } from '../../../Axios/Axios-instance'
+import { setSelectedJob } from '../../../Redux/SelectedJobSlice'
 
-import { Selectedjob } from '../../../Context/SeletedJobContext'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import logo from '../../../assets/lightlogo.png'
 import Modal from 'react-modal'
 import JobSubmittion from '../ApplyJob/JobSubmittion'
 import SearchBar from '../Main-Page/SearchBar'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const JobMain = () => {
  
-  const { jobDetails, setJobDetails } = useContext(jobDetailsContext)
-  const { selectedJob, setSelectedJob } = useContext(Selectedjob)
+  const [ jobDetails, setJobDetails ] = useState([])
+  const dispatch = useDispatch()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [modalIsOpen, setIsOpen] = React.useState(false)
-
+  const selectjob = useSelector((state) => state.selectjob)
+ 
   const options = [
     'Software Engineer',
     'IT Support',
@@ -56,9 +59,10 @@ const JobMain = () => {
   }
 
   const handleApply = job => {
-    setSelectedJob(job)
-    console.log(selectedJob)
-    console.log(job._id)
+    console.log(job);
+    
+    dispatch(setSelectedJob(job))
+    
     setIsOpen(true)
   }
 
@@ -78,6 +82,7 @@ const JobMain = () => {
     }
     fetchJobDetails()
   }, [])
+
 
   useEffect(() => {
     const checkDropdownOpen = () => {

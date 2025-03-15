@@ -121,7 +121,7 @@ const SideMenu = () => {
         </div>
 
         {/* Main Content Area */}
-        <div className='bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center  '>
+        <div className=' bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center   '>
           {renderComponent()}
         </div>
       </div>

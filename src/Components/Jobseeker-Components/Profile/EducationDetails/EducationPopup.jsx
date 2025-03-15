@@ -16,18 +16,18 @@ const EducationPopup = () => {
                 <input
                   type='text'
                   placeholder='University or college'
-                  className='py-2 px-3  border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
+                  className='py-2 w-52 p-2 border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
                 />
                 <input
                   type='text'
                   placeholder='Stream  '
-                  className='py-2 px-3  border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
+                  className='py-2 w-52  p-2 border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
                 />
               </div>
               <div className='flex  mt-4 gap-5 text-xs'>
                 <div className='flex flex-col'>
                   <label htmlFor=''>Start Date</label>
-                  <DatePicker className='w-56 mt-1'></DatePicker>
+                  <DatePicker className='w-52 mt-1'></DatePicker>
                 </div>
                 <div className='flex flex-col'>
                   <label htmlFor=''>Passed out</label>

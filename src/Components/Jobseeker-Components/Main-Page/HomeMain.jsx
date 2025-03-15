@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Heroimg from '../../../assets/Hero-img.png'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 const HomeMain = () => {
  
   const navigate=useNavigate()
-  const user =useSelector((state)=>state.user)
+  const user =useSelector((state)=>state.user.user)
 
   return (
     <>
@@ -25,7 +25,7 @@ const HomeMain = () => {
     </p>
     <div className='lg:flex lg:flex-row flex flex-col lg:pt-5 pt-2  '>
     
-    {user ?.name ?
+    {user?.name ?
     <button  onClick={()=>navigate('/jobview')} className=' group  lg:p-2 p-4 lg:py-2 lg:px-8  lg:mt-0 mt-2  rounded-md hover:scale-105 hover:border-none  hover:bg-gray-50 shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)]'>Find Jobs
     <div class="bg-violet-900 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div></button>
     : 

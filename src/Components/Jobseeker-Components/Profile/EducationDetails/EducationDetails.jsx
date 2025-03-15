@@ -34,7 +34,7 @@ const EducationDetails = () => {
   }
   return (
     <>
-      <div className='flex flex-col w-full h-auto'>
+      <div className='flex flex-col  w-full h-auto'>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
           <div className='flex justify-between p-2 items-center  bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-violet-950  rounded-sm text-white h-16'>
             <h1 className='text-2xl font-semibold'>Education</h1>
@@ -53,20 +53,20 @@ const EducationDetails = () => {
             </svg>
           </div>
           <div className='mt-10 flex flex-col gap-4'>
-            <div className='flex flex-col  gap-3 border  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] p-4 rounded-sm '>
-              <h1>
-                <span className='font-semibold'> University or College : </span>{' '}
+            <div className='flex flex- gap-12 border  text-sm  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] p-4 rounded-sm '>
+              <h1 className='flex flex-col'>
+                <span className='font-bold'> University or College  </span>{' '}
                 Anna University
               </h1>
-              <h1>
-                <span className='font-semibold'>Stream : </span> Bsc Computer
+              <h1 className='flex flex-col'>
+                <span className='font-bold'>Stream</span> Bsc Computer
                 Application
               </h1>
-              <h1>
-                <span className='font-semibold'>Start Date : </span> 12/02/2023
+              <h1 className='flex flex-col'>
+                <span className='font-bold'>Start Date</span> 12/02/2023
               </h1>
-              <h1>
-                <span className='font-semibold'> End Date : </span> 30/12/2024
+              <h1 className='flex flex-col'>
+                <span className='font-bold'> End Date</span> 30/12/2024
               </h1>
               <div className='  lg:flex-row flex flex-col'>
                 <div className='flex lg:justify-end lg:items-end lg:ml-auto justify-center mt-3 lg:mt-0'>
@@ -74,7 +74,7 @@ const EducationDetails = () => {
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
-                    className='size-6 cursor-pointer'
+                    className='size-6 cursor-pointer text-red-600 '
                   >
                     <path
                       fillRule='evenodd'
@@ -84,6 +84,7 @@ const EducationDetails = () => {
                   </svg>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
