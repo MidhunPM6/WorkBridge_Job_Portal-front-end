@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { jobDetailsContext } from '../../../Context/JobpostContext'
+
 import { axiosJobDetails } from '../../../Axios/Axios-instance'
 import { setSelectedJob } from '../../../Redux/SelectedJobSlice'
 
@@ -11,7 +10,7 @@ import logo from '../../../assets/lightlogo.png'
 import Modal from 'react-modal'
 import JobSubmittion from '../JobSubmit/JobSubmittion'
 import SearchBar from '../Main-Page/SearchBar'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 
 const JobMain = () => {
@@ -105,7 +104,7 @@ const JobMain = () => {
       <div>
         <SearchBar></SearchBar>
       </div>
-      <div className='flex  justify-center'>
+      <div className='flex  justify-center  items-center'>
         <div className='flex flex-col  bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black shadow-[0px_0px_16px_0px_rgba(0,0,0,0.3)] w-[20vw] rounded-md m-10 text-white p-4'>
           <div className='flex justify-center'>
             <img src={logo} alt='' className='w-24' />
@@ -170,7 +169,7 @@ const JobMain = () => {
           </div>
         </div>
 
-        <div className='flex flex-col items-center py-6 h-screen overflow-auto bg-gray- font-poppins   [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100  [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10 mt-10'>
+        <div className='flex flex-col items-center py-6 h-screen overflow-auto  bg-gray- font-poppins w-[90%] md:w-[50vw]  [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100  [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10 mt-10'>
           {jobDetails.map((jobObj, index) => (
             <div
               key={jobObj._id}
@@ -202,6 +201,7 @@ const JobMain = () => {
               </div>
             </div>
           ))}
+          
         </div>
         <Modal
           isOpen={modalIsOpen}
