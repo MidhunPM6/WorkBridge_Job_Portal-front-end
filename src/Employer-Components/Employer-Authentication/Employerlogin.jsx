@@ -1,15 +1,14 @@
 import React, { useContext, useState } from 'react'
-import googleimg from '../../assets/google.png'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { axiosAuth } from '../../Axios/Axios-instance'
 import { loginValidation } from './Validation'
 import {EmpAuth} from '../../Context/EmployerUserDetails'
 import authPoster from '../../assets/authimg.png'
 import logo from '../../assets/lightlogo.png'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
 
 
@@ -39,7 +38,7 @@ const Employerlogin = () => {
     e.preventDefault()
     if (!handleValidation(e)) return
     try {
-      const response=await axiosAuth.post('/emplogin',empLoginForm)
+      const response=await axios.post('/emplogin',empLoginForm)
 
       setEmpUserDetails(response.data.user) 
       console.log(response)

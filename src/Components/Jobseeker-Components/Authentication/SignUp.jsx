@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { axiosAuth, axiosgGoogleAuth } from '../../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { setUserDetails } from '../../../Redux/UserSlice'
 import logo from '../../../assets/lightlogo.png'
 import { useDispatch } from 'react-redux'
+import {axiosInstance} from '../../../Axios/Axios-instance'
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ const SignUp = () => {
 
     if (!handleValidation(e)) return
     try {
-      const response = await axiosAuth.post('/register', formData)
+      const response = await axiosInstance.post('/api/signup', formData)
       console.log(response)
 
       toast.success('Login Successful', {
@@ -53,6 +53,7 @@ const SignUp = () => {
         autoClose: 1000
       })
     } catch (error) {
+      console.log(error)
       toast.error(error.response?.data?.message || 'Server Error')
     }
   }
@@ -60,11 +61,11 @@ const SignUp = () => {
   // Google authentication
   const handleGoogleAuth = async response => {
     try {
-      const res = await axiosgGoogleAuth.post(
+      const res = await axiosInstance.post(
         '/google',
         { token: response.credential },
         { withCredentials: true }
-      )
+      ) 
       dispatch(setUserDetails(res.data.User))
 
       toast.success('Logged In', {
@@ -123,7 +124,7 @@ const SignUp = () => {
                     name='name'
                     placeholder='Enter your name'
                     onChange={handleChange}
-                    className={`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${
+                    className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
                       error.email ? `border-red-600` : ''
                     }`}
                   />
@@ -137,7 +138,7 @@ const SignUp = () => {
                     name='email'
                     placeholder='Enter your email'
                     onChange={handleChange}
-                    className={`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${
+                    className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  transition-all duration-300 ${
                       error.password ? `border-red-600` : ''
                     }`}
                   />
@@ -152,7 +153,7 @@ const SignUp = () => {
                     name='password'
                     placeholder='Enter a new password'
                     onChange={handleChange}
-                    className={`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${
+                    className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
                       error.password ? `border-red-600` : ''
                     }`}
                   />
@@ -185,7 +186,7 @@ const SignUp = () => {
                   <GoogleLogin
                     ux_mode='popup'
                     usefqdn={true}
-                    onSuccess={handleGoogleAuth}
+                     onSuccess={handleGoogleAuth}
                     onError={() => {
                       console.log('Login Failed')
                     }}

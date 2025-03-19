@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import React from 'react'
 
-import { axiosJobDetails } from '../../../Axios/Axios-instance'
 import { setSelectedJob } from '../../../Redux/SelectedJobSlice'
 
 import Dropdown from 'react-dropdown'
@@ -9,8 +8,9 @@ import 'react-dropdown/style.css'
 import logo from '../../../assets/lightlogo.png'
 import Modal from 'react-modal'
 import JobSubmittion from '../JobSubmit/JobSubmittion'
-import SearchBar from '../Main-Page/SearchBar'
+import SearchBar from '../LandingPage/SearchBar'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 
 const JobMain = () => {
@@ -69,7 +69,7 @@ const JobMain = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const jobDetailsResponse = await axiosJobDetails.get(
+        const jobDetailsResponse = await axios.get(
           '/storedjobdetails'
         )
         console.log(jobDetailsResponse.data)

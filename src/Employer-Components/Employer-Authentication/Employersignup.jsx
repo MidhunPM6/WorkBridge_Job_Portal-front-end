@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import googleimg from '../../assets/google.png'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { axiosAuth } from '../../Axios/Axios-instance'
+
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import authPoster from '../../assets/authimg.png'
 import logo from '../../assets/lightlogo.png'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
 const Employersignup = () => {
   const navigate = useNavigate()
@@ -31,7 +31,7 @@ const Employersignup = () => {
 
     if (!handleValidation(e)) return
     try {
-      const response = await axiosAuth.post('/empregister', empSignupform)
+      const response = await axios.post('/empregister', empSignupform)
       console.log(response)
 
       toast.success('Sign Up Successfull', {

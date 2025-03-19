@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { EmpAuth } from '../../Context/EmployerUserDetails'
-import { axiosRecivedApllication } from '../../Axios/Axios-instance'
+import axios from 'axios'
+
 
 const RecAppliction = () => {
   const { EmpUserDetails } = useContext(EmpAuth)
@@ -9,7 +10,7 @@ const RecAppliction = () => {
   useEffect(() => {
     const fetchRecivedApplication = async () => {
       try {
-        const response = await axiosRecivedApllication.post(
+        const response = await axios.post(
           '/recivedapplication',
           {
             currentEmpID: EmpUserDetails._id

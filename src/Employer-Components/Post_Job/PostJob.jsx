@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { axiosJobPost } from '../../Axios/Axios-instance'
+
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { EmpAuth } from '../../Context/EmployerUserDetails'
+import axios from 'axios'
 
 const PostJob = () => {
   const { EmpUserDetails } = useContext(EmpAuth)
@@ -24,7 +25,7 @@ const PostJob = () => {
   const handlePost = async e => {
     e.preventDefault()
     try {
-      const response = await axiosJobPost.post('/jobpost', postform)
+      const response = await axios.post('/jobpost', postform)
       console.log(response)
 
       toast.success('Posted job sucessfully')

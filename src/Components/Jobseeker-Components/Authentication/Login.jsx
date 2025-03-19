@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { LoginValidation } from '../Authentication/Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { axiosAuth } from '../../../Axios/Axios-instance'
 import axios from 'axios'
+import { axiosInstance } from '../../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
-import { axiosgGoogleAuth } from '../../../Axios/Axios-instance'
 import logo from '../../../assets/lightlogo.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../../Redux/UserSlice'
@@ -47,7 +46,7 @@ const Login = () => {
     e.preventDefault()
     if (!handleValidation(e)) return
     try {
-      const response = await axiosAuth.post('/login', loginForm, {
+      const response = await axiosInstance.post('/login', loginForm, {
         withCredentials: true
       })
        
@@ -75,7 +74,7 @@ const Login = () => {
 
   const handleGoogleAuth = async response => {
     try {
-      const res = await axiosgGoogleAuth.post(
+      const res = await axios.post(
         '/google',
         { token: response.credential },
         { withCredentials: true }
@@ -139,7 +138,7 @@ const Login = () => {
                     name='email'
                     placeholder='Enter your email'
                     onChange={handleOnchange}
-                    className={`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${
+                    className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
                       error.email ? `border-red-600` : ''
                     }`}
                   />
@@ -153,7 +152,7 @@ const Login = () => {
                     name='password'
                     placeholder='Enter new password'
                     onChange={handleOnchange}
-                    className={`  m-2 py-1 px-8 rounded flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  ${
+                    className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  transition-all duration-300  ${
                       error.password ? `border-red-600` : ''
                     }`}
                   />
@@ -162,6 +161,10 @@ const Login = () => {
                       {error.password}
                     </p>
                   )}
+                  <div className='flex justify-end text-sm text-blue-800 cursor-pointer hover:underline m-2'>
+
+                  <h2>Forgotten password?</h2>
+                  </div>
                 </div>
 
                 <button

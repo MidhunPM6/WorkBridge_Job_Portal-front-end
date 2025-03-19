@@ -13,7 +13,7 @@ const Services = () => {
         className='flex flex-col font-poppins bg-slate-50 relative'
         id='service'
       >
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-20 pb-28 max-w-4xl mx-auto text-sm'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-20 pb-28 max-w-4xl mx-auto w-[70vw] text-sm '>
           <div className='p-6 border-2 border-slate-300 hover:border-slate-200 flex flex-col items-center bg-white rounded-md shadow-md hover:scale-105 transition-all duration-500'>
             <img
               src={jobsearch_img}

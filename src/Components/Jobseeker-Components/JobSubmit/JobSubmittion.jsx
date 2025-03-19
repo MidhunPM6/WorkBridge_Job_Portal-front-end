@@ -1,8 +1,9 @@
 import React from 'react'
-import { axiosJobApplication } from '../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
 
 const ApplyJob = ({ setIsOpen }) => {
   const navigate = useNavigate()
@@ -26,7 +27,7 @@ const ApplyJob = ({ setIsOpen }) => {
       return
     }
     try {
-      const response = await axiosJobApplication.post('/appliedjob', {
+      const response = await axios.post('/appliedjob', {
         UserID: user._id,
         JobID: selectjob._id,
         EmpID: selectjob.EmpID

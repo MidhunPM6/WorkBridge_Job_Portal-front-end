@@ -39,8 +39,9 @@ const PersonalDetails = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full lg:h-screen    '>
-        <div className='relative flex justify-center items-center lg:h-[25vh] h-32 bg-violet-950 rounded-t-sm  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] w-full overflow-hidden'>
+      <div className='flex flex-col w-full lg:h-screen   '>
+      <div className='relative flex-col lg:justify-normal justify-center  lg:p-1  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
+        <div className='relative flex justify-center items-center lg:h-[25vh] h-32 bg-violet-950 rounded-t-sm   w-full overflow-hidden'>
           <h1 className='text-3xl text-white font-bold'>Cover Photo</h1>
 
           <div className='absolute lg:top-0 top-0 bottom-0 m-5  w-full flex justify-between items-end pr-10  '>
@@ -80,7 +81,7 @@ const PersonalDetails = () => {
           </div>
         </div>
 
-        <div className='lg:w-full  h-auto w-auto flex-col  lg:h-auto  border shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  rounded-b-sm  pl-8 p-3'>
+        <div className='lg:w-full  h-auto w-auto flex-col  lg:h-auto rounded-b-sm  pl-8 p-3'>
           <div className='flex justify-between w-full'>
             <h1 className='lg:text-3xl text-2xl font-semibold'>Midhun P M</h1>
             <svg
@@ -198,6 +199,7 @@ const PersonalDetails = () => {
               </button>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
