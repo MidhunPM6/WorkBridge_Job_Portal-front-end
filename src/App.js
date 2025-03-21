@@ -12,6 +12,7 @@ import Postjob from './Pages/EmployerPages/Postjob'
 import JobpostContext from './Context/JobpostContext'
 import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
+import GoogleAuth from './Pages/common/Googleauth'
 
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
@@ -47,6 +48,9 @@ function App () {
                 path='/profile/accountsetting'
                 element={<AccountSettings />}
               />
+              {/* Common routes */}
+
+              <Route path='/callback' element={<GoogleAuth></GoogleAuth>}/>
             </Routes>
           </Suspense>
         </EmployerUserDetails>

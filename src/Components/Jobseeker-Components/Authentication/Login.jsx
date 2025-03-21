@@ -7,20 +7,20 @@ import axios from 'axios'
 import { axiosInstance } from '../../../Axios/Axios-instance'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import logo from '../../../assets/lightlogo.png'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserDetails } from '../../../Redux/UserSlice'
+import GoogleButton from '../../GoogleAuth/GoogleButton'
+import { authRedirect } from '../../GoogleAuth/googleAuth'
 
 
-axios.defaults.withCredentials = true 
-
+axios.defaults.withCredentials = true
 
 const Login = () => {
   const navigate = useNavigate()
-  const dispatch=useDispatch()
-  const user =useSelector((state)=>state.user.user)
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user.user)
 
   const [error, setError] = useState('')
- 
 
   // Login form data
   const [loginForm, SetLoginForm] = useState({
@@ -46,16 +46,12 @@ const Login = () => {
     e.preventDefault()
     if (!handleValidation(e)) return
     try {
-      const response = await axiosInstance.post('/login', loginForm, {
+      const response = await axiosInstance.post('api/auth/login', loginForm, {
         withCredentials: true
       })
-       
-      dispatch(setUserDetails(response.data.user))
-       console.log(user);
-       
-       
-
-      
+      console.log(response)
+      dispatch(setUserDetails(response.data.candidate))
+      console.log(response)
 
       if (response.status === 200) {
         toast.success('Login Success', {
@@ -80,11 +76,10 @@ const Login = () => {
         { withCredentials: true }
       )
       dispatch(setUserDetails(res.data.User))
-      
-      
+
       toast.success('Logged In', {
         onClose: () => {
-          navigate('/') 
+          navigate('/')
         },
         autoClose: 1000
       })
@@ -96,7 +91,7 @@ const Login = () => {
 
   return (
     <>
-      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      
         <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>
           <ToastContainer
             position='top-right'
@@ -112,12 +107,12 @@ const Login = () => {
           />
           <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
             <div className='flex flex-col items-center'>
-            <img src={logo} alt=""  className='w-24'/>
-            <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
-              WorkBridge
-            </h1>
+              <img src={logo} alt='' className='w-24' />
+              <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
+                WorkBridge
+              </h1>
             </div>
-            
+
             <p className='flex flex-col items-center text-sm text-gray-200 tracking-wider  '>
               <span>Log in to continue your job search.</span>
               Find the right job faster with personalized recommendations.
@@ -162,8 +157,7 @@ const Login = () => {
                     </p>
                   )}
                   <div className='flex justify-end text-sm text-blue-800 cursor-pointer hover:underline m-2'>
-
-                  <h2>Forgotten password?</h2>
+                    <h2>Forgotten password?</h2>
                   </div>
                 </div>
 
@@ -184,22 +178,16 @@ const Login = () => {
                   <h1 className='text-gray-500'>or</h1>
                   <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
                 </div>
+              </form>
 
                 <div className='mt-4'>
-                  <GoogleLogin
-                    ux_mode='popup'
-                    usefqdn={true}
-                    onSuccess={handleGoogleAuth}
-                    onError={() => {
-                      console.log('Login Failed')
-                    }}
-                  />
+                
+                <GoogleButton onClick={authRedirect}></GoogleButton>
                 </div>
-              </form>
             </div>
           </div>
         </div>
-      </GoogleOAuthProvider>
+     
     </>
   )
 }

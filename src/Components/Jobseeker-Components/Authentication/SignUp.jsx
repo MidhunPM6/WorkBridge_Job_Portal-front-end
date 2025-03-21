@@ -20,7 +20,7 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
-    mobile: ''
+   
   })
 
   // Onchange event
@@ -43,7 +43,7 @@ const SignUp = () => {
 
     if (!handleValidation(e)) return
     try {
-      const response = await axiosInstance.post('/api/signup', formData)
+      const response = await axiosInstance.post('/api/auth/signup', formData)
       console.log(response)
 
       toast.success('Login Successful', {
