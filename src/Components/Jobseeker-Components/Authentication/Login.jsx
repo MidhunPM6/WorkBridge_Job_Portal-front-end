@@ -12,7 +12,6 @@ import { setUserDetails } from '../../../Redux/UserSlice'
 import GoogleButton from '../../GoogleAuth/GoogleButton'
 import { authRedirect } from '../../GoogleAuth/googleAuth'
 
-
 axios.defaults.withCredentials = true
 
 const Login = () => {

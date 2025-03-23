@@ -2,6 +2,10 @@ import React, { useEffect } from 'react'
 import LazyLoad from '../lazyLoading/Loading'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../Axios/Axios-instance'
+import  axios  from 'axios'
+
+axios.defaults.withCredentials = true
+
 
 const Callback = () => {
   const navigate = useNavigate('')
@@ -10,7 +14,7 @@ const Callback = () => {
       const urlParms = new URLSearchParams(window.location.search)
       const code = urlParms.get('code')
       if (!code) {
-        console.error('Authorization code missing')
+        console.error('Authorization code missing') 
         navigate('/')
         return
       }
@@ -26,8 +30,10 @@ const Callback = () => {
 
         const response = await axiosInstance.post('/api/auth/oauth', {
           code,
-          codeVerifier
-        })
+          codeVerifier,
+          
+          
+        },{withCredentials: true})
         console.log(response)
 
         localStorage.removeItem('code_verifier')
