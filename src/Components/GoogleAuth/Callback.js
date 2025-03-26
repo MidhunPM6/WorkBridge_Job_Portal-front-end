@@ -11,15 +11,15 @@ const Callback = () => {
   const navigate = useNavigate('')
   useEffect(() => {
     const handleAuthCallback = async () => {
-      const urlParms = new URLSearchParams(window.location.search)
-      const code = urlParms.get('code')
+      const urlParams = new URLSearchParams(window.location.search)
+      const code = urlParams.get('code')
       if (!code) {
         console.error('Authorization code missing') 
         navigate('/')
         return
       }
       try {
-        const codeVerifier = localStorage.getItem('code_verifier')
+        const codeVerifier = sessionStorage.getItem('code_verifier')
         if (!codeVerifier) {
           console.error('Code verifier missing.')
           navigate('/')

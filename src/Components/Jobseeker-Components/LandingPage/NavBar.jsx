@@ -21,34 +21,42 @@ const NavBar = () => {
             <img src={logo} alt='' className='w-28 ' />
           </div>
 
-          <div className='hidden lg:flex space-x-10 ml-0 lg:ml-6 mt-4 lg:mt-0 text-gray-500 text-sm'>
+          <div className='hidden lg:flex space-x-10 ml-0 lg:ml-6 mt-4 lg:mt-0 text-gray-500 '>
             <NavHashLink
               to='/#home'
-              className=' hover:text-gray-700 place-content-center hover:underline underline-offset-4 '
+              className='group  hover:text-gray-700 place-content-center  '
               smooth
             >
               Home
+              <div className='bg-violet-900 h-[1px] w-0 group-hover:w-full transition-all duration-500'></div>
             </NavHashLink>
             <NavHashLink
               to='/#service'
-              className=' hover:text-gray-700 place-content-center hover:underline underline-offset-4 '
+              className='group hover:text-gray-700 place-content-center  '
               smooth
             >
               Service
+              <div className='bg-violet-900 h-[1px] w-0 group-hover:w-full transition-all duration-500'></div>
+
+              
             </NavHashLink>
             <NavHashLink
               to='/#about'
-              className=' hover:text-gray-700 place-content-center hover:underline underline-offset-4 '
+              className=' group hover:text-gray-700 place-content-center  '
               smooth
             >
               About Us
+              <div className='bg-violet-900 h-[1px] w-0 group-hover:w-full transition-all duration-500'></div>
+
             </NavHashLink>
             <NavHashLink
               to='/#contact'
-              className=' hover:text-gray-700 place-content-center hover:underline underline-offset-4 '
+              className='group hover:text-gray-700 place-content-center  '
               smooth
             >
               Contact Us
+              <div className='bg-violet-900 h-[1px] w-0 group-hover:w-full transition-all duration-500'></div>
+
             </NavHashLink>
           </div>
         </div>
