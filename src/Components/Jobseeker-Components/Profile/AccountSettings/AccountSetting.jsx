@@ -1,24 +1,20 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import axios from 'axios'
 import UserNameChange from './UserNameChange'
 import Modal from 'react-modal'
 import ChangePassword from './ChangePassword'
 import { useDispatch, useSelector } from 'react-redux'
-import {logout} from '../../../../Redux/UserSlice' 
-
-
-
-axios.defaults.withCredentials = true
+import { logout } from '../../../../Redux/UserSlice'
+import { axiosInstance } from '../../../../Axios/Axios-instance'
 
 const AccountSetting = () => {
   const navigate = useNavigate()
-  const user =useSelector((state)=>state.user)
+  const user = useSelector(state => state.user)
 
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const dispatch =useDispatch()
+  const dispatch = useDispatch()
   //Custom Styles for First Modal
   const customStyles = {
     overlay: {
@@ -78,11 +74,22 @@ const AccountSetting = () => {
   }
 
   //Logout handling
-  const handleLogout = async () => {
-    
-   dispatch(logout())
-   
-   navigate('/')
+  const handleLogout = async e => {
+    e.preventDefault()
+
+    try {
+      const response = await axiosInstance.post(
+        'api/auth/logout',
+        {},
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response)
+    } catch (error) {}
+    dispatch(logout())
+
+    navigate('/')
   }
 
   return (
