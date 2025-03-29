@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/roboto": "^5.2.5",
+    "@mui/icons-material": "^7.0.1",
+    "@mui/material": "^7.0.1",
+    "@mui/styled-engine-sc": "^7.0.1",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.6.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -15,6 +21,7 @@
     "flowbite-react": "^0.10.2",
     "framer-motion": "^12.4.7",
     "install": "^0.13.0",
+    "multiselect-react-dropdown": "^2.0.25",
     "npm": "^10.9.0",
     "react": "^18.3.1",
     "react-datepicker": "^7.5.0",
@@ -29,6 +36,7 @@
     "react-toastify": "^10.0.6",
     "redux-persist": "^6.0.0",
     "rsuite": "^5.77.1",
+    "styled-components": "^6.1.16",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

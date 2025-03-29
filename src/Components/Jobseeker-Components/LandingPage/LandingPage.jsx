@@ -24,7 +24,7 @@ const HomeMain = () => {
           <div className='mb-10'>
             <SearchBar></SearchBar>
           </div>
-          <p className='text-sm lg:text-[18px] tracking-wide leading-loose mt-20 lg:mt-2 lg:w-[30vw] w-[50%] font-semibold text-gray-700'>
+          <p className='text-sm lg:text-[18px] tracking-wider leading-loose mt-20 lg:mt-2 lg:w-[30vw] w-[50%] font-poppins font-medium '>
             At{' '}
             <span className='text-4xl lg:text-5xl font-bold bg-gradient-to-r from-violet-950 to-violet-800 bg-clip-text text-transparent'>
               WorkBridge

@@ -29,7 +29,7 @@ const PersonalDetails = () => {
 
     try {
       const response = await axiosInstance.post(
-        '/api/fileupload/profile',
+        '/api/candidate/fileupload',
         formData,
         {
           headers: {
