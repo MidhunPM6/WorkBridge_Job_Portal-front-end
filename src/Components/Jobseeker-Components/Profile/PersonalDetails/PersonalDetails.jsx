@@ -178,7 +178,7 @@ const PersonalDetails = () => {
                 </div>
                 <div className='flex flex-col'>
                   <h1 className=''>
-                    <span className='font-semibold'>LinkIn </span>{' '}
+                    <span className='font-semibold'>LinkedIn </span>{' '}
                   </h1>
                   <a
                     href='https://portfoliomidhun.vercel.app/'

@@ -4,6 +4,7 @@ import PersonalDetails from './PersonalDetails/PersonalDetails'
 import ExperienceComp from './Experience/ExperienceComp'
 import EducationDetails from './EducationDetails/EducationDetails'
 import AccountSetting from './AccountSettings/AccountSetting'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const SideMenu = () => {
   const [isOpen, setIsOpen] = useState(true)
@@ -29,7 +30,10 @@ const SideMenu = () => {
     <div className=' mt-6 flex  justify-center items-center '>
       <div className='lg:flex-row flex flex-col  '>
         {/* Side Menu */}
-        <div
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className={`  text-black p-6    rounded-sm
             ${isOpen ? 'block' : 'hidden'} 
             sm:block lg:w-[17vw] max-w-full min-h-auto lg:h-auto text-white bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black`}
@@ -38,7 +42,11 @@ const SideMenu = () => {
             <li className='border-b-2 p-1  lg:flex justify-center  font-semibold text-lg lg:visible hidden'>
               Profile
             </li>
-            <li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
               <button
                 onClick={() => setActiveComponent('PersonalDetails')}
                 className='flex items-center  hover:text-gray-600 lg:gap-2 '
@@ -57,8 +65,12 @@ const SideMenu = () => {
                 </svg>
                 Personal Details
               </button>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
               <button
                 onClick={() => setActiveComponent('Experience')}
                 className='flex items-center hover:text-gray-600 lg:gap-2 '
@@ -74,8 +86,12 @@ const SideMenu = () => {
                 </svg>
                 Experience
               </button>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
               <button
                 onClick={() => setActiveComponent('EducationDetails')}
                 className='flex items-center hover:text-gray-600 lg:gap-2 '
@@ -93,8 +109,12 @@ const SideMenu = () => {
                 </svg>
                 Education
               </button>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
               <button
                 onClick={() => setActiveComponent('AccountSetting')}
                 className='flex items-center hover:text-gray-600 lg:gap-2 '
@@ -116,14 +136,30 @@ const SideMenu = () => {
                 </svg>
                 Account Settings
               </button>
-            </li>
+            </motion.li>
           </ul>
-        </div>
+        </motion.div>
 
         {/* Main Content Area */}
-        <div className=' bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center   '>
-          {renderComponent()}
-        </div>
+        <motion.div
+          className=' bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center   '
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <AnimatePresence mode='wait'>
+          <motion.div
+              key={activeComponent}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="w-full"
+            >
+            {renderComponent()}
+            </motion.div>
+            </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   )

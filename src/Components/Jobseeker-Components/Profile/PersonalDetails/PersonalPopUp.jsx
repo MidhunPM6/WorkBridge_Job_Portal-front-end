@@ -9,13 +9,12 @@ import { generalSkills } from './skillsCollection'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 
 const PersonalPopUp = () => {
+
   const initialFormData = {
-    name: '',
-    email: '',
+    designation: '',
     mobile: '',
     location: '',
-    designation: '',
-    linkedinProfile: '',
+    linkedin: '',
     portfolio: '',
     about: '',
     skills: []
@@ -77,7 +76,6 @@ const PersonalPopUp = () => {
   const checkForChanges = newFormData => {
     const isChanged =
       JSON.stringify(newFormData) !== JSON.stringify(initialFormData)
-    const isEmpty = isFormEmptyFn(newFormData)
     setIsFormChanged(isChanged)
   }
   return (
@@ -88,43 +86,18 @@ const PersonalPopUp = () => {
       <div className='flex flex-col text-sm pt-3'>
         <form action=''>
           <div className='flex justify-start items-center mt-4 gap-6 text-xs '></div>
-          <div className='flex gap-5 mt-4 '>
-            <div className='flex flex-col'>
-              <label htmlFor='' className='text-xs mb-2 text-gray-600'>
-                Name
-              </label>
-              <input
-                type='text'
-                name='name'
-                onChange={handleChange}
-                placeholder='Enter your name'
-                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]   focus:border-2 focus:border-slate-600  boder-blue-600  outline-none rounded-sm bg-gray-50 '
-              />
-            </div>
-            <div className='flex flex-col'>
-              <label htmlFor='' className='text-xs mb-2 text-gray-600'>
-                Mobile
-              </label>
-              <input
-                type='text'
-                name='mobile'
-                onChange={handleChange}
-                placeholder='Mobile number'
-                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
-              />
-            </div>
-          </div>
+
           <div className='flex gap-5 mt-4'>
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
-                Email
+                Designation
               </label>
               <input
-                type='email'
-                name='email'
+                type='text'
+                name='designation'
                 onChange={handleChange}
-                placeholder='Enter your email'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600  outline-none rounded-sm  bg-gray-50 '
+                placeholder='Enter Designation'
+                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
               />
             </div>
             <div className='flex flex-col'>
@@ -143,25 +116,26 @@ const PersonalPopUp = () => {
           <div className='flex gap-5 mt-4'>
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
-                Designation
+                Mobile
               </label>
               <input
                 type='text'
-                name='designation'
+                name='mobile'
                 onChange={handleChange}
-                placeholder='Enter Designation'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
+                placeholder='Mobile number'
+                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
               />
             </div>
+
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
-                LInkedIn
+                LinkedIn
               </label>
               <input
                 type='text'
                 onChange={handleChange}
                 required
-                name='linkedinProfile'
+                name='linkedin'
                 placeholder='LinkedIn Profile (optional)'
                 className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent focus:border-2 focus:border-slate-600 outline-none rounded-sm  bg-gray-50 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] '
               />

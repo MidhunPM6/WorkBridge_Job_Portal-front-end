@@ -19,7 +19,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "flowbite-react": "^0.10.2",
-    "framer-motion": "^12.4.7",
+    "framer-motion": "^12.6.2",
     "install": "^0.13.0",
     "multiselect-react-dropdown": "^2.0.25",
     "npm": "^10.9.0",
