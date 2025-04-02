@@ -71,6 +71,8 @@ const PersonalPopUp = () => {
       formData,
       { withCredentials: true }
     )
+    console.log(response);
+    
   }
   // checking the changing data
   const checkForChanges = newFormData => {
