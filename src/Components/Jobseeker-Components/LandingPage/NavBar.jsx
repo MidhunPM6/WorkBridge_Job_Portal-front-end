@@ -21,7 +21,7 @@ const NavBar = () => {
             <img src={logo} alt='' className='w-28 ' />
           </div>
 
-          <div className='hidden lg:flex space-x-10 ml-0 lg:ml-6 mt-4 lg:mt-0 text-gray-500 '>
+          <div className='hidden lg:flex space-x-10 ml-0 lg:ml-6 mt-4 lg:mt-0 text-gray-500 text-sm '>
             <NavHashLink
               to='/#home'
               className='group  hover:text-gray-700 place-content-center  '
@@ -67,7 +67,7 @@ const NavBar = () => {
               <div>
                 <button
                   onClick={() => navigate('/profile')}
-                  className='flex  h-8 justify-center items-center  rounded-sm shadow-lg text-sm px-3 bg-slate-700 text-white gap-2'
+                  className='flex  h-8 justify-center items-center  rounded-sm  text-sm px-3 bg-blue-50 text-blue-500 hover:bg-blue-100 gap-2 transition-all duration-300'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

@@ -1,77 +1,97 @@
 import React from 'react'
-import DatePicker from 'rsuite/DatePicker'
+import DatePicker  from 'rsuite/DatePicker'
 import 'rsuite/DatePicker/styles/index.css'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
+import { format } from "date-fns";
+
 
 const ExperiencePopup = () => {
-  const [formData,setFormData]=React.useState('')
+  const [formData, setFormData] = React.useState('')
 
   const handleChange = (value, name) => {
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
-      [name]: value, 
-    }));
+      [name]: value
+    }))
   }
 
-  const handleSubmit=async()=>{
+  const handleSubmit = async () => {
     try {
-      const response = await axiosInstance.post('/api/candidate/experience',formData,{
-        withCredentials  : true
-      })
-      console.log(response);
-      
+      const formattedData = {
+        ...formData,
+        StartDate: formData.StartDate
+          ? format(new Date(formData.StartDate), 'MMM yyyy')
+          : '',
+        EndDate: formData.EndDate
+          ? format(new Date(formData.EndDate), 'MMM yyyy')
+          : ''
+      }
+      const response = await axiosInstance.post(
+        '/api/candidate/experience',
+        formattedData,
+        {
+          withCredentials: true
+        }
+      ) 
+      if (response.status === 200) {
+        window.location.reload()
+      }
     } catch (error) {
-      console.log(error);
-      
+      console.log(error) 
     }
-    
   }
 
   return (
     <div>
       <div className=' h-auto w-auto  flex flex-col justify-center items-center'>
         <div className='flex justify-center'>
-          <h1 className='text-xl font-semibold'>Experience</h1>
+          <h1 className='text-xl font-semibold'>Add Experience</h1>
         </div>
         <div className='flex flex-col text-sm pt-8'>
           <form action=''>
-            <div className='flex justify-center items-center mt-4 gap-6'>
-              
-            </div>
-            <div className='flex gap-5  '>
+            <div className='flex justify-center items-center mt-4 gap-6'></div>
+            <div className='flex gap-4  '>
               <input
                 type='text'
                 name='position'
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
+                onChange={e => handleChange(e.target.value, e.target.name)}
                 placeholder='Current Position'
-                className='py-2 px-3  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
+                className='py-2 px-5  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
               />
               <input
                 type='text'
-                name="company"
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
+                name='company'
+                onChange={e => handleChange(e.target.value, e.target.name)}
                 placeholder='Company Name '
-                className='py-2 px-3  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
+                className='py-2 px-5  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
               />
             </div>
             <div className='flex  mt-4 gap-4 text-xs'>
               <div className='flex flex-col'>
                 <label htmlFor=''>Start Date</label>
-                <DatePicker className='w-48 mt-1 ' name='startdate'
-               onChange={(date) => handleChange(date, 'StartDate')}></DatePicker>
+                <DatePicker
+                  className='w-48 mt-1 '
+                  name='startdate'
+                  
+                  onChange={date => handleChange(date, 'StartDate')}
+                ></DatePicker>
               </div>
               <div className='flex flex-col'>
                 <label htmlFor=''>End Date</label>
-                <DatePicker className='w-48 mt-1' name ='enddate'
-                onChange={(date) => handleChange(date, 'EndDate')}></DatePicker>
+                <DatePicker
+                  className='w-48 mt-1'
+                  name='enddate'
+                  onChange={date => handleChange(date, 'EndDate')}
+                ></DatePicker>
               </div>
             </div>
             <div className='flex gap-5 mt-4'>
               <textarea
                 name='tasks'
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
+                onChange={e => handleChange(e.target.value, e.target.name)}
                 placeholder='Your work history and key tasks...'
                 id=''
+                rows={5}
                 className='w-full h-20 max-h-32 py-1 px-3  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
               ></textarea>
             </div>
