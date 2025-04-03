@@ -26,6 +26,7 @@ const ExperiencePopup = () => {
           ? format(new Date(formData.EndDate), 'MMM yyyy')
           : ''
       }
+      
       const response = await axiosInstance.post(
         '/api/candidate/experience',
         formattedData,
@@ -72,7 +73,8 @@ const ExperiencePopup = () => {
                 <DatePicker
                   className='w-48 mt-1 '
                   name='startdate'
-                  
+                  format="MMM-yyyy"
+                  shouldDisableDate={(date) => date > new Date()}
                   onChange={date => handleChange(date, 'StartDate')}
                 ></DatePicker>
               </div>
@@ -81,6 +83,8 @@ const ExperiencePopup = () => {
                 <DatePicker
                   className='w-48 mt-1'
                   name='enddate'
+                  shouldDisableDate={(date) => date > new Date()}
+                   format="MMM-yyyy"
                   onChange={date => handleChange(date, 'EndDate')}
                 ></DatePicker>
               </div>

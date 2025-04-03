@@ -3,10 +3,10 @@ import React from 'react'
 const SearchBar = () => {
   return (
     <div className='flex place-content-center pt-8  '>
-      <div class='relative flex '>
+      <div class='relative flex  '>
         <input
           type='search'
-          class='relative m-0 block flex-auto rounded-l-sm  pl-3 bg-transparent bg-clip-padding lg:w-60 py-[0.50rem] outline-none  shadow-[0px_0px_11px_3px_rgba(181,181,181,1)]'
+          class='relative m-0 block flex-auto rounded-l-sm  pl-3 bg-opacity-20 placeholder:text-gray-100 bg-clip-padding lg:w-60 py-[0.50rem] outline-none bg-black  '
           placeholder='Job tittle'
           aria-label='Search'
           id='exampleFormControlInput2'
@@ -14,7 +14,7 @@ const SearchBar = () => {
         />
         <input
           type='search'
-          class='relative m-0 block flex-auto rounded-r-sm  pl-3 bg-transparent bg-clip-padding lg:w-60 py-[0.50rem] outline-none shadow-[0px_0px_11px_3px_rgba(181,181,181,1)] border-l-2 border-gray-600'
+          class='relative m-0 block flex-auto   pl-3 bg-opacity-20 placeholder:text-gray-100 bg-clip-padding lg:w-60 py-[0.50rem] outline-none bg-black border-l'
           placeholder='Location'
           aria-label='Search'
           id='exampleFormControlInput2'

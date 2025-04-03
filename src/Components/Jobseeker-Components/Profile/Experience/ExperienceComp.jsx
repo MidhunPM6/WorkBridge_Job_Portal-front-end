@@ -77,7 +77,7 @@ const ExperienceComp = () => {
               experience.map((expObj, index) => (
                 <div
                   key={index}
-                  className='flex flex-col  gap-3 shadow-[0px_0px_5px_1px_rgba(212,188,241,0.6)] p-4 rounded-sm  '
+                  className='flex flex-col  text-[14px] gap-3 shadow-[0px_0px_5px_1px_rgba(212,188,241,0.6)] p-4 rounded-sm  '
                 >
                   <h1 className='font-semibold'>{expObj.position}</h1>
                   <div className='flex'>

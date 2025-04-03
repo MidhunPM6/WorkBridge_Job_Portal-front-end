@@ -21,15 +21,13 @@ const HomeMain = () => {
         />
 
         <div className='relative z-10 w-full px-6 md:px-12 lg:px-24 flex flex-col items-start h-auto '>
-          <div className='mb-10'>
-            <SearchBar></SearchBar>
-          </div>
-          <p className='text-sm lg:text-[18px] tracking-wider leading-loose mt-20 lg:mt-2 lg:w-[30vw] w-[50%] font-poppins font-medium '>
-            At{' '}
-            <span className='text-4xl lg:text-5xl font-bold bg-gradient-to-r from-violet-950 to-violet-800 bg-clip-text text-transparent'>
-              WorkBridge
+          
+          <p className='text-sm text-gray-700 lg:text-[13px] tracking-wider leading-loose mt-20 lg:mt-2 lg:w-[41vw] w-[50%] font-poppins font-medium '>
+            {' '}
+            <span className='text-4xl lg:text-5xl font-bold bg-gradient-to-r from-black to-violet-600 bg-clip-text text-transparent'>
+              WorkBridge Connecting opportunities with talent
             </span>
-            , Connecting opportunities with talent, our platform bridges dreams
+            <br />our platform bridges dreams
             and possibilities, helping job seekers find their path and companies
             build their future.
           </p>
