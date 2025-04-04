@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import EducationPopup from './EducationPopup'
+import { useDispatch, useSelector } from 'react-redux'
+import { axiosInstance } from '../../../../Axios/Axios-instance'
+import { setEducation } from '../../../../Redux/UserSlice'
 
 const EducationDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
-
+  const education = useSelector((state)=>state.user.education)
+  const dispatch =useDispatch()
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -32,6 +36,24 @@ const EducationDetails = () => {
     setIsOpen(false)
     setTimeout(() => {}, 300)
   }
+
+
+//  Fetching experience details from database 
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        const response = await axiosInstance.get('/api/candidate/education', {
+          withCredentials: true
+        })
+        dispatch(setEducation(response.data.data))
+        console.log(response.data.data)
+      } catch (error) {
+        console.error('Error fetching experience:', error)
+      }
+    }
+
+    fetchEducation()
+  }, [])
   return (
     <>
       <div className='flex flex-col  w-full h-auto'>
@@ -55,8 +77,8 @@ const EducationDetails = () => {
           <div className='mt-10 flex flex-col gap-4'>
             <div className='flex flex- gap-12 border  text-sm  shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] p-4 rounded-sm '>
               <h1 className='flex flex-col'>
-                <span className='font-bold'> University or College  </span>{' '}
-                Anna University
+                <span className='font-bold'> University or College </span> Anna
+                University
               </h1>
               <h1 className='flex flex-col'>
                 <span className='font-bold'>Stream</span> Bsc Computer
@@ -84,7 +106,6 @@ const EducationDetails = () => {
                   </svg>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>

@@ -4,11 +4,14 @@ import ExperiencePopup from './ExperiencePopup'
 import Modal from 'react-modal'
 import { useEffect } from 'react'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
+import { useDispatch, useSelector } from 'react-redux'
+import { setExperience } from '../../../../Redux/UserSlice'
+
 
 const ExperienceComp = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const [experience, setExperience] = useState([])
-
+  const experience = useSelector((state)=>state.user.experience)
+  const dispatch = useDispatch()
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -36,14 +39,14 @@ const ExperienceComp = () => {
     setIsOpen(false)
     setTimeout(() => {}, 300)
   }
-
+//  Fetching experience details from database 
   useEffect(() => {
     const fetchExperience = async () => {
       try {
         const response = await axiosInstance.get('/api/candidate/experience', {
           withCredentials: true
         })
-        setExperience(response.data.data)
+        dispatch(setExperience(response.data.data))
         console.log(response.data.data)
       } catch (error) {
         console.error('Error fetching experience:', error)
@@ -81,10 +84,12 @@ const ExperienceComp = () => {
                 >
                   <h1 className='font-semibold'>{expObj.position}</h1>
                   <div className='flex'>
-                    <h1 className='bg-blue-100  text-blue-500 rounded-full  px-3'>{expObj.company}</h1>
+                    <h1 className='bg-blue-100  text-blue-500 rounded-full  px-3'>
+                      {expObj.company}
+                    </h1>
                   </div>
                   <div className='flex gap-2'>
-                    <h1>{expObj.StartDate}</h1> 
+                    <h1>{expObj.StartDate}</h1>
                     <span> - </span>
                     <h1>{expObj.EndDate}</h1>
                   </div>
