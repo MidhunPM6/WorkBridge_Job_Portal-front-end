@@ -7,11 +7,14 @@ import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useDispatch, useSelector } from 'react-redux'
 import { setExperience } from '../../../../Redux/UserSlice'
 
-
 const ExperienceComp = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const experience = useSelector((state)=>state.user.experience)
+  const experience = useSelector(state => state.user.experience)
   const dispatch = useDispatch()
+  const [open, setOpen] = useState(false)
+  const [expID ,setExpID] = useState(false)
+
+  //  Custom style for the Modal
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -29,17 +32,19 @@ const ExperienceComp = () => {
     }
   }
 
+  // Fucntion to open and close modals 
   function openModal () {
     setTimeout(() => {
       setIsOpen(true)
     }, 300)
   }
-
   function closeModal () {
     setIsOpen(false)
     setTimeout(() => {}, 300)
   }
-//  Fetching experience details from database 
+
+
+  //  Fetching experience details from database
   useEffect(() => {
     const fetchExperience = async () => {
       try {
@@ -55,6 +60,34 @@ const ExperienceComp = () => {
 
     fetchExperience()
   }, [])
+
+// Handler to delete Experience details    
+  const selectExperience = ID => {
+    
+    setExpID(ID)
+
+
+    setOpen(true)
+
+  }
+
+  const handleDeleteExperience = async()=>{
+    try {
+      console.log(expID);
+      
+      const response =  await axiosInstance.delete(`/api/candidate/experience/${expID}`,{
+        withCredentials : true
+      })
+      console.log(response);
+      
+    } catch (error) {
+      console.error(error);
+      
+    }
+    
+  }
+
+
   return (
     <>
       <div className='flex flex-col w-full h-auto ' id='experience'>
@@ -106,6 +139,7 @@ const ExperienceComp = () => {
                         viewBox='0 0 24 24'
                         fill='currentColor'
                         className='size-6 cursor-pointer'
+                        onClick={()=>selectExperience(expObj.id)}
                       >
                         <path
                           fillRule='evenodd'
@@ -125,11 +159,55 @@ const ExperienceComp = () => {
           </div>
         </div>
       </div>
+
+      {/* The modal for delete item */}
+      {open && (
+        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 '>
+            <div className='flex justify-between'>
+              <h1 className='text-xl'>Delete?</h1>
+
+              <button onClick={() => setOpen(false)} className=''>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  className='size-5 text-gray-500'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className='mt-5 flex flex-col items-center gap-12'>
+              <div className='flex flex-col gap-2 m-2'>
+                <h1 className='text-gray-600'>
+                  Are you sure you want to delete this item?
+                </h1>
+                <div className='h-[1px] bg-slate-300 w-full '></div>
+              </div>
+
+              <div className='flex w-full justify-around'>
+                <button className='border border-gray-300 rounded-sm p-2 px-6 hover:bg-gray-50' onClick={() => setOpen(false)}>
+                  Cancel
+                </button>
+                <button className='bg-red-700 text-white rounded-sm p-2 px-6 hover:bg-red-800' onClick={handleDeleteExperience}>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+     // This is the modal for adding Experience Details
+      )}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'
         ariaHideApp={false}
         shouldCloseOnOverlayClick={true}
       >
