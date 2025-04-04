@@ -36,7 +36,7 @@ const HomeMain = () => {
             {user?.name ? (
               <button
                 onClick={() => navigate('/jobview')}
-                className='group px-4 p-2 bg-white text-violet-900 rounded-sm shadow-md hover:scale-105 transition-transform duration-300'
+                className='group px-4 p-2 bg-black text-white rounded-sm shadow-md hover:scale-105 transition-transform duration-300'
               >
                 Find Jobs
                 <div className='bg-violet-900 h-[2px] w-0 group-hover:w-full transition-all duration-500'></div>
@@ -45,7 +45,7 @@ const HomeMain = () => {
               <>
                 <button
                   onClick={() => navigate('/employer')}
-                  className='px-6 py-2 bg-violet-900 text-white rounded-sm shadow-md hover:scale-105 transition-transform duration-300'
+                  className='px-6 py-2 bg-black text-white rounded-sm shadow-md hover:scale-105 transition-transform duration-300'
                 >
                   Employer
                 </button>
