@@ -55,11 +55,9 @@ const EducationDetails = () => {
       }
     }
 
-   
-
     fetchEducation()
   }, [])
- 
+
   //  Fetching the ID from selected Education
   const selectEducation = ID => {
     setEduID(ID)
@@ -67,7 +65,7 @@ const EducationDetails = () => {
     setOpen(true)
   }
 
-// Handler for deleting data 
+  // Handler for deleting data
   const handleDeleteEducation = async () => {
     try {
       console.log(eduID)
@@ -116,14 +114,13 @@ const EducationDetails = () => {
                       <h1>{educationObj.StartDate}</h1>
                       <span>-</span>
                       <h1>{educationObj.Passed}</h1>
-                    </div>
-                    <div className='  lg:flex-row flex flex-col'>
+
                       <div className='flex lg:justify-end lg:items-end lg:ml-auto justify-center mt-3 lg:mt-0'>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           viewBox='0 0 24 24'
                           fill='currentColor'
-                          className='size-6 cursor-pointer text-red-600 '
+                          className='size-6 cursor-pointer text-red-600 hover:text-red-500 hover:scale-105 transition-all duration-300 '
                           onClick={() => selectEducation(educationObj.id)}
                         >
                           <path

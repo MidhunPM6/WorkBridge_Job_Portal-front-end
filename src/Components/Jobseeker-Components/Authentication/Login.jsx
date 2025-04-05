@@ -53,11 +53,16 @@ const Login = () => {
       console.log(response)
 
       if (response.status === 200) {
-        toast.success('Login Success', {
+          toast.success('Login Success', {
           autoClose: 1000,
           onClose: () => navigate('/')
         })
+        setTimeout(() => {
+          
+          window.location.reload();
+        }, );
       }
+      window.location.reload()
     } catch (error) {
       toast.error(error.response?.data?.message || 'Server Error', {
         autoClose: 1000

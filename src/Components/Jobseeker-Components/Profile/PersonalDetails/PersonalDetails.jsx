@@ -1,16 +1,20 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from '../../../../assets/cover.jpg'
 import Modal from 'react-modal'
 import PersonalPopUp from './PersonalPopUp'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setProfile } from '../../../../Redux/UserSlice'
 
 const PersonalDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [profileUpload, setProfileUpload] = useState('')
+  const [profilePic, setProfilePic] = useState('')
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user.user)
-  const userID = user._id
+  const profile = useSelector(state => state.profile.profile)
 
   //  Creating formData for the file upload
   const handleFileChange = async e => {
@@ -25,8 +29,6 @@ const PersonalDetails = () => {
   formData.append('file', profileUpload)
 
   const handleUpload = async () => {
-    console.log(userID)
-
     try {
       const response = await axiosInstance.post(
         '/api/candidate/fileupload',
@@ -35,10 +37,9 @@ const PersonalDetails = () => {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
-          withCredentials : true
+          withCredentials: true
         }
       )
-      console.log(response)
     } catch (error) {
       console.error(error)
     }
@@ -72,6 +73,23 @@ const PersonalDetails = () => {
     setTimeout(() => {}, 300)
   }
 
+  //  Fetching the profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axiosInstance('/api/candidate/profile', {
+          withCredentials: true
+        })
+        dispatch(setProfile(response.data.data))
+        console.log(profile)
+        console.log(user)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchProfile()
+  }, [])
+
   return (
     <>
       <div className='flex flex-col w-full lg:h-screen   '>
@@ -81,6 +99,14 @@ const PersonalDetails = () => {
 
             <div className='absolute lg:top-0 top-0 bottom-0 m-5  w-full flex justify-between items-end pr-10  '>
               <div className='lg:w-32 lg:h-32 h-20 w-20 ml-4 mt-5 shadow-md   bg-gray-200 flex rounded-sm items-end justify-end   border-gray-200'>
+                <div className='w-32 h-32'>
+                  {/* <img
+                    src={user?.profilePic}
+                    alt='Profile'
+                    className='w-full h-full object-cover rounded-full'
+                    referrerPolicy='no-referrer'
+                  /> */}
+                </div>
                 <label
                   for='profileUpload'
                   className='bg-black opacity-70 rounded-full m-2 '
@@ -127,7 +153,9 @@ const PersonalDetails = () => {
 
           <div className='lg:w-full  h-auto w-auto flex-col  lg:h-auto rounded-b-sm  pl-8 p-3'>
             <div className='flex justify-between w-full'>
-              <h1 className='lg:text-3xl text-2xl font-semibold'>Midhun P M</h1>
+              <h1 className='lg:text-3xl text-2xl font-semibold'>
+                {user.name}
+              </h1>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
@@ -147,33 +175,36 @@ const PersonalDetails = () => {
                   <h1 className='text-black font-semibold  '>
                     <span>Email</span>
                   </h1>
-                  <h2 className='text-gray-500'>midhunpm6060@gmail.com</h2>
+                  <h2 className='text-gray-500'>{user.email}</h2>
                 </div>
                 <div className='flex flex-col gap-1 '>
                   <h1 className='text-black font-semibold  '>
                     <span>Location</span>
                   </h1>
-                  <h2 className='text-gray-500'>Palakkad</h2>
+                  <h2 className='text-gray-500'>{profile.location}</h2>
                 </div>
                 <div className='flex flex-col gap-1 w-48 '>
                   <h1 className='text-black font-semibold  '>
                     <span>Skills</span>
                   </h1>
-                  <h2 className='text-gray-500'>
-                    Java,Python,Mongodb,Javascript,AI, Machine Learning
-                  </h2>
+                  {profile.skills &&
+                    profile.skills.map(skill => (
+                      <div className='flex text-gray-500  w-96 gap-2'>
+                        <h1 className='flex'>{skill},</h1>
+                      </div>
+                    ))}
                 </div>
               </div>
-              <div className='flex flex-col gap-2 flex-wrap '>
+              <div className='flex flex-col gap-2 flex-wrap lg:w-96'>
                 <div className='flex flex-col'>
                   <h1 className=''>
                     <span className='font-semibold'>Portfolio </span>{' '}
                   </h1>
                   <a
-                    href='https://portfoliomidhun.vercel.app/'
-                    className='hover:underline break-all lg:break-normal text-sky-600 font-semibold'
+                    href={`${profile.portfolio}`}
+                    className='hover:underline break-all lg:break-all text-sky-600 font-semibold '
                   >
-                    https://portfoliomidhun.vercel.app/
+                    {profile.portfolio}
                   </a>
                 </div>
                 <div className='flex flex-col'>
@@ -181,10 +212,10 @@ const PersonalDetails = () => {
                     <span className='font-semibold'>LinkedIn </span>{' '}
                   </h1>
                   <a
-                    href='https://portfoliomidhun.vercel.app/'
+                    href={`${profile.linkedin}`}
                     className='hover:underline break-all lg:break-normal text-sky-600 font-semibold'
                   >
-                    https://www.linkedin.com/in/midhunpm6060/
+                    {profile.linkedin}
                   </a>
                 </div>
               </div>
@@ -192,16 +223,7 @@ const PersonalDetails = () => {
             <div className='mt-4 '>
               <h1 className='text-xl font-semibold'>About Me</h1>
               <div className='w-full text-gray-500 mt-2 rounded-md h-auto  '>
-                <h1>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempore eos numquam explicabo, commodi assumenda voluptate
-                  illo saepe laboriosam voluptatibus enim distinctio quasi,
-                  corporis maxime inventore quo sint itaque? Optio, repellat?
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempore eos numquam explicabo, commodi assumenda voluptate
-                  illo saepe laboriosam voluptatibus enim distinctio quasi,
-                  corporis maxime inventore quo sint itaque? Optio, repellat?
-                </h1>
+                <h1>{profile.about}</h1>
               </div>
               <div className='mt-10 flex mb-5 '>
                 <div className=''>

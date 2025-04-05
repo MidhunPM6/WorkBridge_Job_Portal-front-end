@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox'
 import { generalSkills } from './skillsCollection'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 
+
 const PersonalPopUp = () => {
 
   const initialFormData = {
@@ -66,13 +67,17 @@ const PersonalPopUp = () => {
 
   // This method is used to call api with the formData using post method.
   const handleSubmit = async () => {
-    const response = await axiosInstance.post(
-      '/api/candidate/profile',
-      formData,
-      { withCredentials: true }
-    )
-    console.log(response);
-    
+    try {
+      const response = await axiosInstance.post(
+        '/api/candidate/profile',
+        formData,
+        { withCredentials: true }
+      )
+      
+    } catch (error) {
+      console.error(error.Message);
+      
+    }
   }
   // checking the changing data
   const checkForChanges = newFormData => {

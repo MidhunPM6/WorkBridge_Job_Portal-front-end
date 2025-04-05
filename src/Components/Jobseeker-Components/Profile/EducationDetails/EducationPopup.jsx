@@ -44,8 +44,8 @@ const EducationPopup = () => {
   }
   return (
     <div>
-      <div className=' h-auto w-auto flex flex-col justify-center items-center  p-10'>
-        <div className='flex justify-center  '>
+      <div className=' h-auto w-auto flex flex-col justify-center items-center  '>
+        <div className='flex justify-center'>
           <h1 className='text-2xl font-semibold'>Education</h1>
         </div>
         <div className='flex flex-col text-sm pt-10'>

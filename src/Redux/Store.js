@@ -4,6 +4,7 @@ import experienceReducer from './UserSlice.js'
 import selectedJobReducer from './SelectedJobSlice.js'
 import EducationReducer from './UserSlice.js'
 import { persistStore, persistReducer } from 'redux-persist'
+import ProfileReducer from './UserSlice.js'
 import storage from 'redux-persist/lib/storage'
 
 const presistConfig = {
@@ -19,6 +20,7 @@ const store = configureStore({
     selectedjob:selectedJobReducer,
     experience : experienceReducer,
     education : EducationReducer,
+    profile : ProfileReducer,
   }
 })
 
