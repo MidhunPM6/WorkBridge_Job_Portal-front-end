@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import EducationPopup from './EducationPopup'
 import { useDispatch, useSelector } from 'react-redux'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
-import { setEducation } from '../../../../Redux/UserSlice'
+import { setEducation, setExperience } from '../../../../Redux/UserSlice'
 
 const EducationDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [eduID, setEduID] = useState('')
+
   const education = useSelector(state => state.user.education)
+
   const dispatch = useDispatch()
   const customStyles = {
     overlay: {
@@ -51,8 +55,35 @@ const EducationDetails = () => {
       }
     }
 
+   
+
     fetchEducation()
   }, [])
+ 
+  //  Fetching the ID from selected Education
+  const selectEducation = ID => {
+    setEduID(ID)
+    console.log(eduID)
+    setOpen(true)
+  }
+
+// Handler for deleting data 
+  const handleDeleteEducation = async () => {
+    try {
+      console.log(eduID)
+
+      const response = await axiosInstance.delete(
+        `/api/candidate/education/${eduID}`,
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <div className='flex flex-col  w-full h-auto'>
@@ -80,18 +111,11 @@ const EducationDetails = () => {
                     <h1 className='flex font-semibold '>
                       {educationObj.college}
                     </h1>
-                    <h1 >
-                      {educationObj.field}
-                    </h1>
+                    <h1>{educationObj.field}</h1>
                     <div className='flex gap-2 text-gray-700'>
-
-                    <h1>
-                      {educationObj.StartDate}
-                    </h1>
-                    <span>-</span>
-                    <h1>
-                      {educationObj.Passed}
-                    </h1>
+                      <h1>{educationObj.StartDate}</h1>
+                      <span>-</span>
+                      <h1>{educationObj.Passed}</h1>
                     </div>
                     <div className='  lg:flex-row flex flex-col'>
                       <div className='flex lg:justify-end lg:items-end lg:ml-auto justify-center mt-3 lg:mt-0'>
@@ -100,6 +124,7 @@ const EducationDetails = () => {
                           viewBox='0 0 24 24'
                           fill='currentColor'
                           className='size-6 cursor-pointer text-red-600 '
+                          onClick={() => selectEducation(educationObj.id)}
                         >
                           <path
                             fillRule='evenodd'
@@ -115,6 +140,56 @@ const EducationDetails = () => {
           </div>
         </div>
       </div>
+      {/* The modal for delete item */}
+      {open && (
+        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 '>
+            <div className='flex justify-between'>
+              <h1 className='text-xl'>Delete?</h1>
+
+              <button onClick={() => setOpen(false)} className=''>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  className='size-5 text-gray-500'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className='mt-5 flex flex-col items-center gap-12'>
+              <div className='flex flex-col gap-2 m-2'>
+                <h1 className='text-gray-600'>
+                  Are you sure you want to delete this item?
+                </h1>
+                <div className='h-[1px] bg-slate-300 w-full '></div>
+              </div>
+
+              <div className='flex w-full justify-around'>
+                <button
+                  className='border border-gray-300 rounded-sm p-2 px-6 hover:bg-gray-50'
+                  onClick={() => setOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className='bg-red-700 text-white rounded-sm p-2 px-6 hover:bg-red-800'
+                  onClick={handleDeleteEducation}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal to add new education data */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

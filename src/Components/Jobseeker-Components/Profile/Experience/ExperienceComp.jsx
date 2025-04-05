@@ -12,7 +12,7 @@ const ExperienceComp = () => {
   const experience = useSelector(state => state.user.experience)
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
-  const [expID ,setExpID] = useState(false)
+  const [expID, setExpID] = useState(false)
 
   //  Custom style for the Modal
   const customStyles = {
@@ -32,7 +32,7 @@ const ExperienceComp = () => {
     }
   }
 
-  // Fucntion to open and close modals 
+  // Fucntion to open and close modals
   function openModal () {
     setTimeout(() => {
       setIsOpen(true)
@@ -42,7 +42,6 @@ const ExperienceComp = () => {
     setIsOpen(false)
     setTimeout(() => {}, 300)
   }
-
 
   //  Fetching experience details from database
   useEffect(() => {
@@ -61,32 +60,28 @@ const ExperienceComp = () => {
     fetchExperience()
   }, [])
 
-// Handler to delete Experience details    
+  // Handler to delete Experience details
   const selectExperience = ID => {
-    
     setExpID(ID)
 
-
     setOpen(true)
-
   }
 
-  const handleDeleteExperience = async()=>{
+  const handleDeleteExperience = async () => {
     try {
-      console.log(expID);
-      
-      const response =  await axiosInstance.delete(`/api/candidate/experience/${expID}`,{
-        withCredentials : true
-      })
-      console.log(response);
-      
-    } catch (error) {
-      console.error(error);
-      
-    }
-    
-  }
+      console.log(expID)
 
+      const response = await axiosInstance.delete(
+        `/api/candidate/experience/${expID}`,
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -139,7 +134,7 @@ const ExperienceComp = () => {
                         viewBox='0 0 24 24'
                         fill='currentColor'
                         className='size-6 cursor-pointer'
-                        onClick={()=>selectExperience(expObj.id)}
+                        onClick={() => selectExperience(expObj.id)}
                       >
                         <path
                           fillRule='evenodd'
@@ -159,7 +154,6 @@ const ExperienceComp = () => {
           </div>
         </div>
       </div>
-
       {/* The modal for delete item */}
       {open && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
@@ -191,19 +185,24 @@ const ExperienceComp = () => {
               </div>
 
               <div className='flex w-full justify-around'>
-                <button className='border border-gray-300 rounded-sm p-2 px-6 hover:bg-gray-50' onClick={() => setOpen(false)}>
+                <button
+                  className='border border-gray-300 rounded-sm p-2 px-6 hover:bg-gray-50'
+                  onClick={() => setOpen(false)}
+                >
                   Cancel
                 </button>
-                <button className='bg-red-700 text-white rounded-sm p-2 px-6 hover:bg-red-800' onClick={handleDeleteExperience}>
+                <button
+                  className='bg-red-700 text-white rounded-sm p-2 px-6 hover:bg-red-800'
+                  onClick={handleDeleteExperience}
+                >
                   Delete
                 </button>
               </div>
             </div>
           </div>
         </div>
-
-     // This is the modal for adding Experience Details
       )}
+      {/* // This is the modal for adding Experience Details */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -108,7 +108,9 @@ const EducationPopup = () => {
           </form>
         </div>
       </div>
+      
     </div>
+    
   )
 }
 
