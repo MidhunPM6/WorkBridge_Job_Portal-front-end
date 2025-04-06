@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import PersonalDetails from './PersonalDetails/PersonalDetails'
 import ExperienceComp from './Experience/ExperienceComp'
@@ -25,6 +25,7 @@ const SideMenu = () => {
         return <PersonalDetails />
     }
   }
+ 
 
   return (
     <div className=' mt-6 flex  justify-center items-center '>

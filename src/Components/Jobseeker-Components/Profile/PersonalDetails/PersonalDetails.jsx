@@ -1,34 +1,48 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import img from '../../../../assets/cover.jpg'
+
 import Modal from 'react-modal'
 import PersonalPopUp from './PersonalPopUp'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { setProfile } from '../../../../Redux/UserSlice'
+import { customStyles } from './ModalStyles'
 
 const PersonalDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const [profileUpload, setProfileUpload] = useState('')
   const [profilePic, setProfilePic] = useState('')
+  const [profileCoverPic, setCoverProfilePic] = useState('')
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.user)
   const profile = useSelector(state => state.profile.profile)
+
+  //  Modal function to controll
+  function openModal () {
+    setTimeout(() => {
+      setIsOpen(true)
+    }, 300)
+  }
+
+  function closeModal () {
+    setIsOpen(false)
+    setTimeout(() => {}, 300)
+  }
 
   //  Creating formData for the file upload
   const handleFileChange = async e => {
     const file = e.target.files[0]
     if (file) {
-      setProfileUpload(file)
+      setProfilePic(file)
     }
   }
 
-  // Insert upload data inside Formdata
-  const formData = new FormData()
-  formData.append('file', profileUpload)
-
-  const handleUpload = async () => {
+  const handleProfilePicUpload = async () => {
+    // Insert upload data inside Formdata
+    const formData = new FormData()
+    formData.append('file', profilePic)
+    formData.append('fileType', 'profilepic')
     try {
       const response = await axiosInstance.post(
         '/api/candidate/fileupload',
@@ -44,33 +58,25 @@ const PersonalDetails = () => {
       console.error(error)
     }
   }
-
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      transition: 'opacity 300ms ease-in-out'
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
-      opacity: modalIsOpen ? 1 : 0
+  const handleProfileCoverUpload = async () => {
+    // Insert upload data inside Formdata
+    const formData = new FormData()
+    formData.append('file', profilePic)
+    formData.append('fileType', 'profileCover')
+    try {
+      const response = await axiosInstance.post(
+        '/api/candidate/fileupload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          withCredentials: true
+        }
+      )
+    } catch (error) {
+      console.error(error)
     }
-  }
-
-  function openModal () {
-    setTimeout(() => {
-      setIsOpen(true)
-    }, 300)
-  }
-
-  function closeModal () {
-    setIsOpen(false)
-    setTimeout(() => {}, 300)
   }
 
   //  Fetching the profile data
@@ -131,7 +137,10 @@ const PersonalDetails = () => {
                     onChange={handleFileChange}
                   />
                 </label>
-                <button className='bg-yellow-400' onClick={handleUpload}>
+                <button
+                  className='bg-yellow-400'
+                  onClick={handleProfilePicUpload}
+                >
                   submit
                 </button>
               </div>
@@ -142,10 +151,12 @@ const PersonalDetails = () => {
                     viewBox='0 0 24 24'
                     fill='currentColor'
                     className='size-6 bg-white py-1 rounded-full'
+                    onChange={handleFileChange}
                   >
                     <path d='M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z' />
                   </svg>
                   <input type='file' className='hidden' id='coverUpload' />
+                  <button className='bg-white' onClick={handleProfileCoverUpload}>Upload</button>
                 </label>
               </div>
             </div>

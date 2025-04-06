@@ -34,10 +34,10 @@ const ExperiencePopup = () => {
           withCredentials: true
         }
       ) 
-      if (response.status === 200) {
-        window.location.reload()
-      }
+    
+    
     } catch (error) {
+      alert(error.response.data.message)
       console.log(error) 
     }
   }

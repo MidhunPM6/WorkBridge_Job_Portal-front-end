@@ -66,7 +66,7 @@ const NavBar = () => {
             {user?.name && (
               <div>
                 <button
-                  onClick={() => navigate('/profile')}
+                  onClick={() =>  window.location.href = '/profile'}
                   className='flex  h-8 justify-center items-center  rounded-sm  text-sm px-3 bg-blue-50 text-blue-500 hover:bg-blue-100 gap-2 transition-all duration-300'
                 >
                   <svg
