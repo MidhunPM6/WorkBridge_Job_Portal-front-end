@@ -7,10 +7,9 @@ import Select from '@mui/material/Select'
 import Checkbox from '@mui/material/Checkbox'
 import { generalSkills } from './skillsCollection'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
-
+import SelectDrop from 'react-select'
 
 const PersonalPopUp = () => {
-
   const initialFormData = {
     designation: '',
     mobile: '',
@@ -20,11 +19,41 @@ const PersonalPopUp = () => {
     about: '',
     skills: []
   }
-
   //   states to controller fromData.
   const [formData, setFormData] = useState(initialFormData)
   const [skills, setSkills] = React.useState([])
   const [isFormChanged, setIsFormChanged] = useState(false)
+
+  const [district, setDistrict] = useState('')
+  const [options, setOptions] = useState([])
+
+  // To Fetch the location data from the json file
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const response = await fetch('/districtList.json')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
+        if (Array.isArray(data.states)) {
+          const districts = data.states.flatMap(state => state.districts)
+          setDistrict(districts)
+          const formatted = districts.map(d => ({ label: d, value: d }))
+          setOptions(formatted)
+        } else {
+          console.error(
+            'Expected data to be an array, but got:',
+            typeof data,
+            data
+          )
+        }
+      } catch (error) {
+        console.error('Error fetching district list:', error)
+      }
+    }
+    fetchLocation()
+  }, [])
 
   //  Multi Select Dropdwon alignments.
   const ITEM_HEIGHT = 48
@@ -50,11 +79,20 @@ const PersonalPopUp = () => {
     setFormData(updatedForm)
     checkForChanges(updatedForm)
   }
-
+  //  Handles the change in input fields
   const handleChange = e => {
     const changeData = { ...formData, [e.target.name]: e.target.value }
     setFormData(changeData)
     checkForChanges({ changeData })
+  }
+  // handles the chanege in location input field
+  const handleDistrictChange = selectedOption => {
+    const updatedForm = {
+      ...formData,
+      location: selectedOption?.value || ''
+    }
+    setFormData(updatedForm)
+    checkForChanges({ changeData: updatedForm })
   }
 
   // Merge skills data to formData.
@@ -68,15 +106,15 @@ const PersonalPopUp = () => {
   // This method is used to call api with the formData using post method.
   const handleSubmit = async () => {
     try {
+      console.log(formData)
+
       const response = await axiosInstance.post(
         '/api/candidate/profile',
         formData,
         { withCredentials: true }
       )
-      
     } catch (error) {
-      console.error(error.Message);
-      
+      console.error(error.Message)
     }
   }
   // checking the changing data
@@ -111,13 +149,16 @@ const PersonalPopUp = () => {
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
                 Location
               </label>
-              <input
-                type='text'
-                name='location'
-                onChange={handleChange}
-                placeholder='Enter current location'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
-              />
+              <div className='w-full lg:w-[18vw]'>
+                <SelectDrop
+                  name='district'
+                  options={options}
+                  value={options.find(opt => opt.value === formData.district)}
+                  onChange={handleDistrictChange}
+                  isClearable
+                  placeholder='Select a district'
+                />
+              </div>
             </div>
           </div>
           <div className='flex gap-5 mt-4'>

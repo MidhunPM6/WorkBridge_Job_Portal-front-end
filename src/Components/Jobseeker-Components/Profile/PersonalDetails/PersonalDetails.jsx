@@ -1,19 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import img from '../../../../assets/cover.jpg'
-
 import Modal from 'react-modal'
 import PersonalPopUp from './PersonalPopUp'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { setProfile } from '../../../../Redux/UserSlice'
+import { setProfile, setUserDetails } from '../../../../Redux/UserSlice'
 import { customStyles } from './ModalStyles'
 
 const PersonalDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [profilePic, setProfilePic] = useState('')
-  const [profileCoverPic, setCoverProfilePic] = useState('')
+  const [profileCover, setProfileCover] = useState('')
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.user)
   const profile = useSelector(state => state.profile.profile)
@@ -30,16 +28,10 @@ const PersonalDetails = () => {
     setTimeout(() => {}, 300)
   }
 
-  //  Creating formData for the file upload
-  const handleFileChange = async e => {
-    const file = e.target.files[0]
-    if (file) {
-      setProfilePic(file)
-    }
-  }
-
   const handleProfilePicUpload = async () => {
-    // Insert upload data inside Formdata
+    console.log(profilePic)
+
+    //  Creating formData for the file upload
     const formData = new FormData()
     formData.append('file', profilePic)
     formData.append('fileType', 'profilepic')
@@ -59,10 +51,12 @@ const PersonalDetails = () => {
     }
   }
   const handleProfileCoverUpload = async () => {
-    // Insert upload data inside Formdata
+    console.log(profileCover)
+
+    //  Creating formData for the file upload
     const formData = new FormData()
-    formData.append('file', profilePic)
-    formData.append('fileType', 'profileCover')
+    formData.append('file', profileCover)
+    formData.append('fileType', 'profilecover')
     try {
       const response = await axiosInstance.post(
         '/api/candidate/fileupload',
@@ -81,14 +75,17 @@ const PersonalDetails = () => {
 
   //  Fetching the profile data
   useEffect(() => {
+    console.log(user)
+
     const fetchProfile = async () => {
       try {
         const response = await axiosInstance('/api/candidate/profile', {
           withCredentials: true
         })
         dispatch(setProfile(response.data.data))
-        console.log(profile)
-        console.log(user)
+
+        dispatch(setUserDetails(response.data.data._doc))
+        console.log(response.data.data._doc)
       } catch (error) {
         console.error(error)
       }
@@ -100,49 +97,87 @@ const PersonalDetails = () => {
     <>
       <div className='flex flex-col w-full lg:h-screen   '>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-1  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
-          <div className='relative flex justify-center items-center lg:h-[25vh] h-32 bg-violet-950 rounded-t-sm   w-full overflow-hidden'>
-            <h1 className='text-3xl text-white font-bold'>Cover Photo</h1>
+          <div
+            className={`relative flex justify-center items-center lg:h-[25vh] h-32 rounded-t-sm w-full overflow-hidden pt-2 ${
+              user.profileCoverPic ? "" : 'bg-violet-950'
+            }`}
+            style={
+              user.profileCoverPic
+                ? {
+                    backgroundImage: `url("${user.profileCoverPic}")`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }
+                : undefined
+            }
+          >
+          
+          
 
-            <div className='absolute lg:top-0 top-0 bottom-0 m-5  w-full flex justify-between items-end pr-10  '>
-              <div className='lg:w-32 lg:h-32 h-20 w-20 ml-4 mt-5 shadow-md   bg-gray-200 flex rounded-sm items-end justify-end   border-gray-200'>
-                <div className='w-32 h-32'>
-                  {/* <img
-                    src={user?.profilePic}
-                    alt='Profile'
-                    className='w-full h-full object-cover rounded-full'
-                    referrerPolicy='no-referrer'
-                  /> */}
-                </div>
-                <label
-                  for='profileUpload'
-                  className='bg-black opacity-70 rounded-full m-2 '
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='currentColor'
-                    className='lg:size-7 size-5 rounded-full text-white  '
-                  >
-                    <path
-                      fillRule='evenodd'
-                      d='M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z'
-                      clipRule='evenodd'
+            <div className='absolute top-0  bottom-0 m-5  w-full flex justify-between items-end   '>
+              <div className='lg:w-32 lg:h-32  w-20 h-20   ml-4 lg:mt-5  shadow-md   bg-gray-200 rounded-sm items-end justify-center   border-gray-200'>
+                {user.profilePic ? (
+                  <div className='relative lg:w-32 lg:h-32 w-20 h-20 rounded-sm '>
+                    <img
+                      src={user?.profilePic}
+                      alt='Profile'
+                      className=' w-full h-full object-cover '
+                      referrerPolicy='no-referrer'
                     />
-                  </svg>
-                  <input
-                    type='file'
-                    className='hidden'
-                    name='profileUpload'
-                    id='profileUpload'
-                    onChange={handleFileChange}
-                  />
-                </label>
-                <button
-                  className='bg-yellow-400'
-                  onClick={handleProfilePicUpload}
-                >
-                  submit
-                </button>
+                    <div className=''>
+                      <button className='absolute  inset-0 flex justify-end items-end p-1'>
+                        <svg
+                          class='feather feather-edit '
+                          fill='none'
+                          height='24'
+                          stroke='currentColor'
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          viewBox='0 0 24 24'
+                          width='24'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7' />
+                          <path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z' />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <label
+                      for='profileUpload'
+                      className='bg-black opacity-70 rounded-full m-2 '
+                    >
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        viewBox='0 0 24 24'
+                        fill='currentColor'
+                        className='lg:size-7 size-5 rounded-full text-white  '
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z'
+                          clipRule='evenodd'
+                        />
+                      </svg>
+                      <input
+                        type='file'
+                        className='hidden'
+                        name='profileUpload'
+                        id='profileUpload'
+                        onChange={e => setProfilePic(e.target.files[0])}
+                      />
+                    </label>
+                    <button
+                      className='bg-yellow-400'
+                      onClick={handleProfilePicUpload}
+                    >
+                      submit
+                    </button>
+                  </div>
+                )}
               </div>
               <div>
                 <label for='coverUpload'>
@@ -151,12 +186,21 @@ const PersonalDetails = () => {
                     viewBox='0 0 24 24'
                     fill='currentColor'
                     className='size-6 bg-white py-1 rounded-full'
-                    onChange={handleFileChange}
                   >
                     <path d='M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z' />
                   </svg>
-                  <input type='file' className='hidden' id='coverUpload' />
-                  <button className='bg-white' onClick={handleProfileCoverUpload}>Upload</button>
+                  <input
+                    type='file'
+                    className='hidden'
+                    id='coverUpload'
+                    onChange={e => setProfileCover(e.target.files[0])}
+                  />
+                  <button
+                    className='bg-white'
+                    onClick={handleProfileCoverUpload}
+                  >
+                    Upload
+                  </button>
                 </label>
               </div>
             </div>

@@ -87,7 +87,7 @@ const ExperienceComp = () => {
     <>
       <div className='flex flex-col w-full h-auto ' id='experience'>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
-          <div className='flex justify-between p-2 items-center  bg-violet-100 text-violet-500   h-16 rounded-sm'>
+          <div className='flex justify-between p-2 items-center  bg-violet-50 text-violet-500   h-16 rounded-sm'>
             <h1 className='text-2xl font-semibold'>Experience</h1>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -112,7 +112,7 @@ const ExperienceComp = () => {
                 >
                   <h1 className='font-semibold'>{expObj.position}</h1>
                   <div className='flex'>
-                    <h1 className='bg-blue-100  text-blue-500 rounded-full  px-3'>
+                    <h1 className='bg-lime-200  text-lime-700 rounded-full  px-3'>
                       {expObj.company}
                     </h1>
                   </div>
