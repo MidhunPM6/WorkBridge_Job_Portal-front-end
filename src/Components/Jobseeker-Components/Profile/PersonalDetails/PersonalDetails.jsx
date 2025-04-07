@@ -12,6 +12,7 @@ const PersonalDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [profilePic, setProfilePic] = useState('')
   const [profileCover, setProfileCover] = useState('')
+  const [resume, setResume] = useState('')
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.user)
   const profile = useSelector(state => state.profile.profile)
@@ -93,13 +94,36 @@ const PersonalDetails = () => {
     fetchProfile()
   }, [])
 
+  //  Resume Upload handle
+  const resumeUpload = async () => {
+    console.log(resume);
+    const formData = new FormData()
+    formData.append('resume', resume)
+    
+    
+    try {
+      const response = await axiosInstance.post(
+        '/api/candidate/resumeUpload',
+        formData,
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response);
+      
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+
   return (
     <>
       <div className='flex flex-col w-full lg:h-screen   '>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-1  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
           <div
             className={`relative flex justify-center items-center lg:h-[25vh] h-32 rounded-t-sm w-full overflow-hidden pt-2 ${
-              user.profileCoverPic ? "" : 'bg-violet-950'
+              user.profileCoverPic ? '' : 'bg-violet-950'
             }`}
             style={
               user.profileCoverPic
@@ -111,9 +135,6 @@ const PersonalDetails = () => {
                 : undefined
             }
           >
-          
-          
-
             <div className='absolute top-0  bottom-0 m-5  w-full flex justify-between items-end   '>
               <div className='lg:w-32 lg:h-32  w-20 h-20   ml-4 lg:mt-5  shadow-md   bg-gray-200 rounded-sm items-end justify-center   border-gray-200'>
                 {user.profilePic ? (
@@ -222,7 +243,7 @@ const PersonalDetails = () => {
               </svg>
             </div>
             <div className='flex text-gray-400'>
-              <h1>Web Developer</h1>
+              <h1>{profile.designation}</h1>
             </div>
             <div className='lg:flex-row flex flex-col flex-wrap lg:gap-28 gap-2 mt-5   '>
               <div className='flex flex-col gap-2  lg:min-w-32  '>
@@ -273,6 +294,12 @@ const PersonalDetails = () => {
                     {profile.linkedin}
                   </a>
                 </div>
+                <div className='flex flex-col gap-1 '>
+                  <h1 className='text-black font-semibold  '>
+                    <span>Contact number</span>
+                  </h1>
+                  <h2 className='text-gray-500'>{profile.mobile}</h2>
+                </div>
               </div>
             </div>
             <div className='mt-4 '>
@@ -306,11 +333,12 @@ const PersonalDetails = () => {
                       id='fileUpload2'
                       name='pdf'
                       class=' hidden'
+                      onChange={e => setResume(e.target.files[0])}
                     />
                   </label>
                 </div>
 
-                <button className='ml-4 border  text-sm p-1 px-3 rounded shadow-lg hover:bg-slate-100'>
+                <button className='ml-4 border  text-sm p-1 px-3 rounded shadow-lg hover:bg-slate-100' onClick={resumeUpload}>
                   Upload{' '}
                 </button>
               </div>
