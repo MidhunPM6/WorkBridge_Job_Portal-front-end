@@ -6,6 +6,9 @@ import { useEffect } from 'react'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useDispatch, useSelector } from 'react-redux'
 import { setExperience } from '../../../../Redux/UserSlice'
+import { motion, AnimatePresence } from 'framer-motion'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const ExperienceComp = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -13,6 +16,7 @@ const ExperienceComp = () => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const [expID, setExpID] = useState(false)
+  const navigate  =useNavigate()
 
   //  Custom style for the Modal
   const customStyles = {
@@ -77,9 +81,19 @@ const ExperienceComp = () => {
           withCredentials: true
         }
       )
+      console.log(response);
+      
+      toast.success(response.data.message,{
+        duration :1000
+      })
+      setTimeout(() => {
+        navigate(0)
+      },1100);
       console.log(response)
     } catch (error) {
-      console.error(error)
+      toast.error(error.response.data.message,{
+        duration:2000
+      })
     }
   }
 
@@ -87,6 +101,7 @@ const ExperienceComp = () => {
     <>
       <div className='flex flex-col w-full h-auto ' id='experience'>
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
+      <Toaster></Toaster>
           <div className='flex justify-between p-2 items-center  bg-violet-50 text-violet-500   h-16 rounded-sm'>
             <h1 className='text-2xl font-semibold'>Experience</h1>
             <svg
@@ -155,63 +170,67 @@ const ExperienceComp = () => {
         </div>
       </div>
       {/* The modal for delete item */}
-      {open && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 '>
-            <div className='flex justify-between'>
-              <h1 className='text-xl'>Delete?</h1>
-
-              <button onClick={() => setOpen(false)} className=''>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className='fixed inset-0 bg-black bg-opacity-50 z-50 min-w-60 flex items-center justify-center'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+              <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+            
                 <svg
+                  class='text-red-500'
+                  aria-hidden='true'
                   xmlns='http://www.w3.org/2000/svg'
+                  width='70'
+                  height='70'
+                  fill='none'
                   viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='size-5 text-gray-500'
+                  
                 >
                   <path
-                    fillRule='evenodd'
-                    d='M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z'
-                    clipRule='evenodd'
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='1'
+                    d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
                   />
                 </svg>
-              </button>
-            </div>
-            <div className='mt-5 flex flex-col items-center gap-12'>
-              <div className='flex flex-col gap-2 m-2'>
-                <h1 className='text-gray-600'>
-                  Are you sure you want to delete this item?
-                </h1>
-                <div className='h-[1px] bg-slate-300 w-full '></div>
+                <h1 className='text-2xl text-gray-700 '>Are you sure ?</h1>
+                <p className='text-xs text-gray-500 leading-5 tracking-wide'>Do you really want to delete these records? <br /><span className='flex w-full justify-center '>This process cannot be undone</span></p>
+              <div className='text-black text-sm flex gap-3'>
+                <button onClick={()=>setOpen(false)} className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '>Cancel</button>
+                <button onClick={handleDeleteExperience} className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'>Delete</button>
               </div>
-
-              <div className='flex w-full justify-around'>
-                <button
-                  className='border border-gray-300 rounded-sm p-2 px-6 hover:bg-gray-50'
-                  onClick={() => setOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className='bg-red-700 text-white rounded-sm p-2 px-6 hover:bg-red-800'
-                  onClick={handleDeleteExperience}
-                >
-                  Delete
-                </button>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* // This is the modal for adding Experience Details */}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={true}
-      >
-        <ExperiencePopup></ExperiencePopup>
-      </Modal>
+      <AnimatePresence>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={true}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <ExperiencePopup></ExperiencePopup>
+          </motion.div>
+        </Modal>
+      </AnimatePresence>
     </>
   )
 }

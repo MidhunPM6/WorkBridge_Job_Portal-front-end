@@ -1,12 +1,14 @@
 import React from 'react'
-import DatePicker  from 'rsuite/DatePicker'
+import DatePicker from 'rsuite/DatePicker'
 import 'rsuite/DatePicker/styles/index.css'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
-import { format } from "date-fns";
-
+import { format } from 'date-fns'
+import { Toaster, toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const ExperiencePopup = () => {
   const [formData, setFormData] = React.useState('')
+  const navigate = useNavigate()
 
   const handleChange = (value, name) => {
     setFormData(prevData => ({
@@ -26,25 +28,33 @@ const ExperiencePopup = () => {
           ? format(new Date(formData.EndDate), 'MMM yyyy')
           : ''
       }
-      
+
       const response = await axiosInstance.post(
         '/api/candidate/experience',
         formattedData,
         {
           withCredentials: true
         }
-      ) 
-    
-    
+      )
+      console.log(response)
+
+      toast.success(response.data.message, {
+        duration: 2000
+      })
+      setTimeout(() => {
+        navigate(0)
+      }, 2100)
     } catch (error) {
-      alert(error.response.data.message)
-      console.log(error) 
+      toast.error(error.response.data.message, {
+        duration: 2000
+      })
     }
   }
 
   return (
     <div>
       <div className=' h-auto w-auto  flex flex-col justify-center items-center'>
+        <Toaster></Toaster>
         <div className='flex justify-center'>
           <h1 className='text-xl font-semibold'>Add Experience</h1>
         </div>
@@ -73,8 +83,8 @@ const ExperiencePopup = () => {
                 <DatePicker
                   className='w-48 mt-1 '
                   name='startdate'
-                  format="MMM-yyyy"
-                  shouldDisableDate={(date) => date > new Date()}
+                  format='MMM-yyyy'
+                  shouldDisableDate={date => date > new Date()}
                   onChange={date => handleChange(date, 'StartDate')}
                 ></DatePicker>
               </div>
@@ -83,8 +93,8 @@ const ExperiencePopup = () => {
                 <DatePicker
                   className='w-48 mt-1'
                   name='enddate'
-                  shouldDisableDate={(date) => date > new Date()}
-                   format="MMM-yyyy"
+                  shouldDisableDate={date => date > new Date()}
+                  format='MMM-yyyy'
                   onChange={date => handleChange(date, 'EndDate')}
                 ></DatePicker>
               </div>
