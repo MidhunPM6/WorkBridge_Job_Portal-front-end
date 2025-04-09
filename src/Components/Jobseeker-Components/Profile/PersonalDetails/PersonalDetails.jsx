@@ -162,7 +162,6 @@ const PersonalDetails = () => {
 
   //  Resume Upload handle
   const resumeUpload = async () => {
-    console.log(resume)
     const formData = new FormData()
     formData.append('resume', resume)
 
@@ -174,7 +173,6 @@ const PersonalDetails = () => {
           withCredentials: true
         }
       )
-      console.log(response)
     } catch (error) {
       console.log(error.response.data.message)
     }
@@ -200,10 +198,7 @@ const PersonalDetails = () => {
             }
           >
             <div className='absolute top-0  bottom-0 m-5  w-full flex justify-between items-end   '>
-              <div
-               
-                className='lg:w-36 lg:h-36  w-20 h-20   ml-4 lg:mt-5  shadow-md bg-gray-200 flex rounded-sm items-center justify-center  transition-all duration-300 border border-gray-200'
-              >
+              <div className='lg:w-36 lg:h-36  w-20 h-20   ml-4 lg:mt-5  shadow-md bg-gray-200 flex rounded-sm items-center justify-center  transition-all duration-300 border border-gray-200'>
                 {user.profilePic ? (
                   <div className='relative lg:w-36 lg:h-36 w-20 h-20 rounded-sm '>
                     <img
@@ -380,42 +375,83 @@ const PersonalDetails = () => {
                 <h1>{profile.about}</h1>
               </div>
               <div className='mt-10 flex mb-5 '>
-                <div className=''>
-                  <label
-                    for='fileUpload2'
-                    className='flex bg-slate-700  text-white gap-1 p-1 px-2 rounded-2xl '
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      class='w-4  fill-white inline'
-                      viewBox='0 0 32 32'
+                {/* Resume Section */}
+                {profile.resume ? (
+                  <div className='flex flex-col'>
+                    <h1>Resume</h1>
+                    <div className='flex'>
+                      <p className='text-sm text-gray-700'>
+                        Uploaded Resume:{' '}
+                        <a
+                          href={profile.resume}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          <span className='font-semibold text-sky-600  hover:underline underline-offset-4'>
+                            {profile.resume.split('/').pop()}
+                          </span>
+                        </a>
+                      </p>
+                      <div className='flex justify-center items-center  lg:ml-2'>
+                        <svg
+                          class='w-6 h-6 text-gray-800 dark:text-red-500 cursor-pointer'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='24'
+                          height='24'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            stroke='currentColor'
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className='flex '>
+                    <label
+                      for='fileUpload2'
+                      className='flex bg-slate-700  text-white gap-1 p-1 px-2 rounded-2xl '
                     >
-                      <path
-                        d='M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z'
-                        data-original='#000000'
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        class='w-4  fill-white inline'
+                        viewBox='0 0 32 32'
+                      >
+                        <path
+                          d='M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z'
+                          data-original='#000000'
+                        />
+                        <path
+                          d='M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z'
+                          data-original='#000000'
+                        />
+                      </svg>
+                      Resume
+                      <input
+                        type='file'
+                        id='fileUpload2'
+                        name='pdf'
+                        class=' hidden'
+                        onChange={e => setResume(e.target.files[0])}
                       />
-                      <path
-                        d='M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z'
-                        data-original='#000000'
-                      />
-                    </svg>
-                    Resume
-                    <input
-                      type='file'
-                      id='fileUpload2'
-                      name='pdf'
-                      class=' hidden'
-                      onChange={e => setResume(e.target.files[0])}
-                    />
-                  </label>
-                </div>
-
-                <button
-                  className='ml-4 border  text-sm p-1 px-3 rounded shadow-lg hover:bg-slate-100'
-                  onClick={resumeUpload}
-                >
-                  Upload{' '}
-                </button>
+                    </label>
+                    <div>
+                      <button
+                        className='ml-4 border  text-sm p-1 px-3 rounded shadow-lg hover:bg-slate-100'
+                        onClick={resumeUpload}
+                      >
+                        Upload{' '}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -442,7 +478,7 @@ const PersonalDetails = () => {
               onClick={e => e.stopPropagation()}
             >
               <h2 className='text-lg font-semibold mb-2 w-full flex justify-center'>
-                 Preview
+                Preview
               </h2>
               {previewURL && (
                 <img
@@ -502,7 +538,7 @@ const PersonalDetails = () => {
               onClick={e => e.stopPropagation()}
             >
               <h2 className='text-lg font-semibold mb-2 w-full flex justify-center'>
-                 Preview
+                Preview
               </h2>
               {previewURL && (
                 <img
@@ -543,17 +579,29 @@ const PersonalDetails = () => {
         )}
       </AnimatePresence>
       {/* Model for edit */}
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel='Example Modal'
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={true}
+      <AnimatePresence>
+  {modalIsOpen && (
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel='Example Modal'
+      ariaHideApp={false}
+      shouldCloseOnOverlayClick={true}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={e => e.stopPropagation()}
       >
-        <PersonalPopUp></PersonalPopUp>
-      </Modal>
+        <PersonalPopUp />
+      </motion.div>
+    </Modal>
+  )}
+</AnimatePresence>
+
     </>
   )
 }

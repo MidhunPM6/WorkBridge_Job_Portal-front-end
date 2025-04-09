@@ -8,6 +8,9 @@ import Checkbox from '@mui/material/Checkbox'
 import { generalSkills } from './skillsCollection'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import SelectDrop from 'react-select'
+import { useSelector } from 'react-redux'
+import toast, { ToastBar } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const PersonalPopUp = () => {
   const initialFormData = {
@@ -23,13 +26,17 @@ const PersonalPopUp = () => {
   const [formData, setFormData] = useState(initialFormData)
   const [skills, setSkills] = React.useState([])
   const [isFormChanged, setIsFormChanged] = useState(false)
-
+  const [designationData, setDesignationData] = useState([])
   const [district, setDistrict] = useState('')
-  const [options, setOptions] = useState([])
+  const [districtOptions, setDistrictOptions] = useState([])
+  const profile = useSelector(state => state.profile.profile)
+  const navigate = useNavigate()
 
   // To Fetch the location data from the json file
   useEffect(() => {
     const fetchLocation = async () => {
+      console.log(profile)
+
       try {
         const response = await fetch('/districtList.json')
         if (!response.ok) {
@@ -40,7 +47,7 @@ const PersonalPopUp = () => {
           const districts = data.states.flatMap(state => state.districts)
           setDistrict(districts)
           const formatted = districts.map(d => ({ label: d, value: d }))
-          setOptions(formatted)
+          setDistrictOptions(formatted)
         } else {
           console.error(
             'Expected data to be an array, but got:',
@@ -54,6 +61,40 @@ const PersonalPopUp = () => {
     }
     fetchLocation()
   }, [])
+
+  useEffect(() => {
+    const fetchDesignationdata = async () => {
+      try {
+        const res = await fetch('/designationList.json')
+        const data = await res.json()
+
+        // Format data for react-select
+        const mapped = data.map(d => ({
+          label: d.title,
+          value: d.title
+        }))
+        setDesignationData(mapped)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchDesignationdata()
+  }, [])
+
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        designation: profile.designation || '',
+        mobile: profile.mobile || '',
+        location: profile.location || '',
+        linkedin: profile.linkedin || '',
+        portfolio: profile.portfolio || '',
+        about: profile.about || '',
+        skills: profile.skills || []
+      })
+      setSkills(profile.skills || [])
+    }
+  }, [profile])
 
   //  Multi Select Dropdwon alignments.
   const ITEM_HEIGHT = 48
@@ -94,6 +135,14 @@ const PersonalPopUp = () => {
     setFormData(updatedForm)
     checkForChanges({ changeData: updatedForm })
   }
+  const handleDesignationChange = selectedOption => {
+    const updatedForm = {
+      ...formData,
+      designation: selectedOption?.value || ''
+    }
+    setFormData(updatedForm)
+    checkForChanges({ changeData: updatedForm })
+  }
 
   // Merge skills data to formData.
   useEffect(() => {
@@ -106,13 +155,15 @@ const PersonalPopUp = () => {
   // This method is used to call api with the formData using post method.
   const handleSubmit = async () => {
     try {
-      console.log(formData)
-
       const response = await axiosInstance.post(
         '/api/candidate/profile',
         formData,
         { withCredentials: true }
       )
+      toast.success(response.data.message, {})
+      setTimeout(() => {
+        navigate(0)
+      }, 2000)
     } catch (error) {
       console.error(error.Message)
     }
@@ -123,10 +174,9 @@ const PersonalPopUp = () => {
       JSON.stringify(newFormData) !== JSON.stringify(initialFormData)
     setIsFormChanged(isChanged)
   }
-  
 
   return (
-    <div className='  flex flex-col lg:w-[38vw] w-full items-center justify-center bg-white rounded-lg shadow-md p-4'>
+    <div className='  flex flex-col lg:w-[38vw] w-full items-center justify-center bg-white   p-4'>
       <div className='flex justify-center '>
         <h1 className='text-xl font-semibold'>Personal Details</h1>
       </div>
@@ -139,13 +189,18 @@ const PersonalPopUp = () => {
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
                 Designation
               </label>
-              <input
-                type='text'
-                name='designation'
-                onChange={handleChange}
-                placeholder='Enter Designation'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
-              />
+              <div className='w-full lg:w-[18vw]'>
+                <SelectDrop
+                  name='designation'
+                  options={designationData}
+                  value={designationData.find(
+                    opt => opt.value === formData.designation
+                  )}
+                  onChange={handleDesignationChange}
+                  isClearable
+                  placeholder=''
+                />
+              </div>
             </div>
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
@@ -154,8 +209,10 @@ const PersonalPopUp = () => {
               <div className='w-full lg:w-[18vw]'>
                 <SelectDrop
                   name='district'
-                  options={options}
-                  value={options.find(opt => opt.value === formData.district)}
+                  options={districtOptions}
+                  value={districtOptions.find(
+                    opt => opt.value === formData.location || null
+                  )}
                   onChange={handleDistrictChange}
                   isClearable
                   placeholder='Select a district'
@@ -171,6 +228,7 @@ const PersonalPopUp = () => {
               <input
                 type='text'
                 name='mobile'
+                value={formData.mobile}
                 onChange={handleChange}
                 placeholder='Mobile number'
                 className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
@@ -183,6 +241,7 @@ const PersonalPopUp = () => {
               </label>
               <input
                 type='text'
+                value={formData.linkedin}
                 onChange={handleChange}
                 required
                 name='linkedin'
@@ -198,6 +257,7 @@ const PersonalPopUp = () => {
               </label>
               <input
                 type='text'
+                value={formData.portfolio}
                 name='portfolio'
                 onChange={handleChange}
                 placeholder='Portfolio Website (optional)'
@@ -240,6 +300,7 @@ const PersonalPopUp = () => {
             <textarea
               type='text'
               name='about'
+              value={formData.about}
               onChange={handleChange}
               placeholder='Briefly describe your background, skills, and career goals...'
               className=' w-full h-20 max-h-32 border-2 focus:border-2 focus:border-slate-600  outline-none rounded-sm hadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  p-2'
