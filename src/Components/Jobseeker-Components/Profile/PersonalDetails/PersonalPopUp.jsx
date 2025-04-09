@@ -123,8 +123,10 @@ const PersonalPopUp = () => {
       JSON.stringify(newFormData) !== JSON.stringify(initialFormData)
     setIsFormChanged(isChanged)
   }
+  
+
   return (
-    <div className='  flex flex-col lg:w-[38vw] w-full items-center  '>
+    <div className='  flex flex-col lg:w-[38vw] w-full items-center justify-center bg-white rounded-lg shadow-md p-4'>
       <div className='flex justify-center '>
         <h1 className='text-xl font-semibold'>Personal Details</h1>
       </div>
