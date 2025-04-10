@@ -67,21 +67,21 @@ const ExperiencePopup = () => {
                 name='position'
                 onChange={e => handleChange(e.target.value, e.target.name)}
                 placeholder='Current Position'
-                className='py-2 px-5  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
+                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
               />
               <input
                 type='text'
                 name='company'
                 onChange={e => handleChange(e.target.value, e.target.name)}
                 placeholder='Company Name '
-                className='py-2 px-5  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
+                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
               />
             </div>
             <div className='flex  mt-4 gap-4 text-xs'>
               <div className='flex flex-col'>
                 <label htmlFor=''>Start Date</label>
                 <DatePicker
-                  className='w-48 mt-1 '
+                  className=' mt-1 lg:w-[18vw]  w-full  '
                   name='startdate'
                   format='MMM-yyyy'
                   shouldDisableDate={date => date > new Date()}
@@ -91,7 +91,7 @@ const ExperiencePopup = () => {
               <div className='flex flex-col'>
                 <label htmlFor=''>End Date</label>
                 <DatePicker
-                  className='w-48 mt-1'
+                  className='lg:w-[18vw]  w-full mt-1'
                   name='enddate'
                   shouldDisableDate={date => date > new Date()}
                   format='MMM-yyyy'
@@ -106,7 +106,7 @@ const ExperiencePopup = () => {
                 placeholder='Your work history and key tasks...'
                 id=''
                 rows={5}
-                className='w-full h-20 max-h-32 py-1 px-3  border border-slate-200  outline-none rounded-sm  bg-gray-50 shadow-md'
+                className='w-full h-28 max-h-40 border-2 focus:border-2 focus:border-slate-600  outline-none rounded-sm hadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  p-2'
               ></textarea>
             </div>
 
@@ -115,12 +115,12 @@ const ExperiencePopup = () => {
               <button
                 type='button'
                 onClick={handleSubmit}
-                className=' bg-violet-900 text-white mt-2 text-md px-6 p-1 rounded shadow-xl hover:bg-violet-800  '
+                className=' bg-violet-900 text-white mt-8 text-md px-10 p-2 rounded shadow-xl hover:bg-violet-800  '
               >
                 Add
               </button>
               <div>
-                <p className='text-xs mt-2 text-gray-600'>
+                <p className='text-xs mt-4 text-gray-600'>
                   Make sure all your details are accurate before saving
                 </p>
               </div>

@@ -9,6 +9,7 @@ import { setExperience } from '../../../../Redux/UserSlice'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import  {customStyles} from '../ModalStyles'
 
 const ExperienceComp = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -18,23 +19,8 @@ const ExperienceComp = () => {
   const [expID, setExpID] = useState(false)
   const navigate  =useNavigate()
 
-  //  Custom style for the Modal
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      transition: 'opacity 300ms ease-in-out'
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
-      opacity: modalIsOpen ? 1 : 0
-    }
-  }
+
+ 
 
   // Fucntion to open and close modals
   function openModal () {
@@ -123,7 +109,7 @@ const ExperienceComp = () => {
               experience.map((expObj, index) => (
                 <div
                   key={index}
-                  className='flex flex-col  text-[14px] gap-3 shadow-[0px_0px_5px_1px_rgba(212,188,241,0.6)] p-4 rounded-sm  '
+                  className='flex flex-col  text-[14px] gap-3 border border-gray-300 rounded-md p-4   '
                 >
                   <h1 className='font-semibold'>{expObj.position}</h1>
                   <div className='flex'>

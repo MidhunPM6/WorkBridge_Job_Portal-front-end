@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import DatePicker from 'rsuite/DatePicker'
 import 'rsuite/DatePicker/styles/index.css'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { format } from 'date-fns'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const EducationPopup = () => {
-  const [formData, setFormData] = React.useState('')
+  const [formData, setFormData] = useState('')
+  const navigate = useNavigate()
+
 
   const handleChange = (value, name) => {
     setFormData(prevData => ({
@@ -15,6 +19,8 @@ const EducationPopup = () => {
   }
 
   const handleSubmit = async () => {
+    
+    
     try {
       const formattedData = {
         ...formData,
@@ -25,7 +31,6 @@ const EducationPopup = () => {
           ? format(new Date(formData.Passed), 'MMM yyyy')
           : ''
       }
-      console.log(formattedData)
 
       const response = await axiosInstance.post(
         '/api/candidate/education',
@@ -34,17 +39,24 @@ const EducationPopup = () => {
           withCredentials: true
         }
       )
-      console.log(response)
-      // if (response.status === 200) {
-      //   window.location.reload()
-      // }
+      console.log(response);
+      
+      toast.success(response.data.message, {
+        duration: 1000,
+        
+      })
+      setTimeout(() => {
+        navigate(0)
+      }, 1100)
     } catch (error) {
-      console.log(error)
+      toast.error(error.response.data.message, {
+        duration: 2000
+      })
     }
   }
   return (
     <div>
-      <div className=' h-auto w-auto flex flex-col justify-center items-center  '>
+      <div className=' h-auto w-auto flex flex-col justify-center items-center   '>
         <div className='flex justify-center'>
           <h1 className='text-2xl font-semibold'>Education</h1>
         </div>
@@ -57,31 +69,32 @@ const EducationPopup = () => {
                   placeholder='University or college'
                   name='college'
                   onChange={e => handleChange(e.target.value, e.target.name)}
-                  className='py-2 w-52 p-2 border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
+                  className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
                 />
                 <input
                   type='text'
                   placeholder='Field of study'
                   name='field'
                   onChange={e => handleChange(e.target.value, e.target.name)}
-                  className='py-2 w-52  p-2 border border-slate-200  outline-none rounded  bg-gray-50 shadow-md'
+                  className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
                 />
               </div>
               <div className='flex  mt-4 gap-5 text-xs'>
                 <div className='flex flex-col'>
                   <label htmlFor=''>Start Date</label>
                   <DatePicker
-                    className='w-52 mt-1'
+                    className='lg:w-[18vw] w-full mt-1'
                     name='StartDate'
                     format='MMM-yyyy'
                     shouldDisableDate={date => date > new Date()}
                     onChange={date => handleChange(date, 'StartDate')}
+                   
                   ></DatePicker>
                 </div>
                 <div className='flex flex-col'>
                   <label htmlFor=''>Passed out</label>
                   <DatePicker
-                    className='w-52 mt-1'
+                    className=' mt-1 lg:w-[18vw] w-full'
                     name='Passed'
                     format='MMM-yyyy'
                     shouldDisableDate={date => date > new Date()}
@@ -95,12 +108,12 @@ const EducationPopup = () => {
               <button
                 type='button'
                 onClick={handleSubmit}
-                className=' bg-violet-900 text-white mt-2 text-md px-6 p-1 rounded shadow-xl hover:bg-violet-800  '
+                className=' bg-violet-900 text-white mt-8 text-md px-10 p-2 rounded-sm shadow-xl hover:bg-violet-800  '
               >
                 Add
               </button>
               <div>
-                <p className='text-xs mt-2 text-gray-600'>
+                <p className='text-xs mt-4 text-gray-600'>
                   Make sure all your details are accurate before saving
                 </p>
               </div>
@@ -108,9 +121,7 @@ const EducationPopup = () => {
           </form>
         </div>
       </div>
-      
     </div>
-    
   )
 }
 
