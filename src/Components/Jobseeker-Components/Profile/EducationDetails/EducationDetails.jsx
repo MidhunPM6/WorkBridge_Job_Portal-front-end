@@ -16,7 +16,9 @@ const EducationDetails = () => {
   const education = useSelector(state => state.user.education)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  
 
+  
   function openModal () {
     setTimeout(() => {
       setIsOpen(true)
@@ -65,11 +67,17 @@ const EducationDetails = () => {
       )
       console.log(response)
       toast.success(response.data.message, {
-        duration: 1000
+        duration: 1000,
+        onClose: () => {
+          
+          setOpen(false)
+        }
       })
       setTimeout(() => {
-        navigate(0)
-      }, 1100)
+       
+        dispatch(setEducation(education.filter(item => item.id !== eduID)))
+        setOpen(false)
+      }, 1000)
     } catch (error) {
       toast.error(error.response.data.message, {
         duration: 2000
@@ -77,11 +85,13 @@ const EducationDetails = () => {
     }
   }
 
+  
+
   return (
     <>
       <div className='flex flex-col  w-full h-auto'>
         <Toaster></Toaster>
-        <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm   w-full  '>
+        <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] rounded-t-sm   w-full  '>
           <div className='flex justify-between p-2 items-center  bg-violet-50 text-violet-500   rounded-sm  h-16'>
             <h1 className='text-2xl font-semibold'>Education</h1>
             <svg
@@ -99,8 +109,8 @@ const EducationDetails = () => {
             </svg>
           </div>
           <div className='mt-10 flex flex-col gap-4'>
-            {education
-              ? education.map(educationObj => (
+            {education ?
+               education.map(educationObj => (
                   <div className='flex flex-col gap-2    text-[14px]  border border-gray-300   p-4 rounded-md '>
                     <h1 className='flex font-semibold '>
                       {educationObj.college}
@@ -204,7 +214,7 @@ const EducationDetails = () => {
             transition={{ duration: 0.3 }}
             onClick={e => e.stopPropagation()}
           >
-            <EducationPopup></EducationPopup>
+            <EducationPopup setIsOpen ={setIsOpen}></EducationPopup>
           </motion.div>
         </Modal>
       </AnimatePresence>

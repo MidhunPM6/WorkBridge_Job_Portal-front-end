@@ -54,7 +54,7 @@ const ExperiencePopup = () => {
   return (
     <div>
       <div className=' h-auto w-auto  flex flex-col justify-center items-center'>
-        <Toaster></Toaster>
+        
         <div className='flex justify-center'>
           <h1 className='text-xl font-semibold'>Add Experience</h1>
         </div>

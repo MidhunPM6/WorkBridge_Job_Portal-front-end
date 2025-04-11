@@ -73,7 +73,9 @@ const ExperienceComp = () => {
         duration :1000
       })
       setTimeout(() => {
-        navigate(0)
+         dispatch(setExperience(experience.filter(item => item.id !== expID)))
+        setOpen(false)
+
       },1100);
       console.log(response)
     } catch (error) {

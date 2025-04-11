@@ -5,11 +5,13 @@ import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { setEducation } from '../../../../Redux/UserSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
-const EducationPopup = () => {
+const EducationPopup = ({ setIsOpen }) => {
   const [formData, setFormData] = useState('')
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
 
   const handleChange = (value, name) => {
     setFormData(prevData => ({
@@ -19,8 +21,6 @@ const EducationPopup = () => {
   }
 
   const handleSubmit = async () => {
-    
-    
     try {
       const formattedData = {
         ...formData,
@@ -39,14 +39,13 @@ const EducationPopup = () => {
           withCredentials: true
         }
       )
-      console.log(response);
-      
+      console.log(response)
+
       toast.success(response.data.message, {
-        duration: 1000,
-        
+        duration: 1000
       })
       setTimeout(() => {
-        navigate(0)
+        setIsOpen(false)
       }, 1100)
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -88,7 +87,6 @@ const EducationPopup = () => {
                     format='MMM-yyyy'
                     shouldDisableDate={date => date > new Date()}
                     onChange={date => handleChange(date, 'StartDate')}
-                   
                   ></DatePicker>
                 </div>
                 <div className='flex flex-col'>
