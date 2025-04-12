@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../../../Redux/UserSlice'
+import { logout, setUserDetails } from '../../../../Redux/UserSlice'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { AnimatePresence, motion } from 'framer-motion'
+import { toast, Toaster } from 'react-hot-toast'
 
 const AccountSetting = () => {
   const navigate = useNavigate()
@@ -11,10 +12,16 @@ const AccountSetting = () => {
 
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [verificationInput, setVerificationInput] = useState(false)
   const [usernameFormData, setUsernameFormData] = useState({
     name: '',
     password: ''
   })
+  const [changePassword, setChangePassword] = useState({
+    currentPassword: '',
+    oldPassword: ''
+  })
+
   const dispatch = useDispatch()
   //Custom Styles for First Modal
   const customStyles = {
@@ -77,26 +84,57 @@ const AccountSetting = () => {
     setUsernameFormData(changeData)
   }
 
-  // Handle submit username change 
-  const usernameSubmit= async()=> {
-    console.log(usernameFormData);
+  // Handle submit username change
+  const usernameSubmit = async () => {
+    console.log(usernameFormData)
+    setVerificationInput(true)
+    try {
+      const response = await axiosInstance.post(
+        '/api/candidate/changename',
+        usernameFormData,
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response)
+      toast.success(response.data.message, {
+        duration: 1300
+      })
+      setTimeout(() => {
+        setIsOpen(false)
+        setUsernameFormData('')
+      }, 1400)
+      dispatch(setUserDetails(response.data.data))
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        duration: 1300
+      })
+    }
+  }
+  const otpVerificationPassword = async () => {
+    setVerificationInput(true)
+    console.log(user.email);
     
     try {
-      const response =  await axiosInstance.post('/api/candidate/changename',usernameFormData,{
-        withCredentials : true
-      }) 
-      console.log(response);
-      
-    } catch (error) {
-      console.log(error);
-      
-    }
+      const response = await axiosInstance.post(
+        '/api/candidate/changepassword',
+        {
 
+          email:user.email,
+        },
+        {
+          withCredentials: true
+        }
+      )
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (
     <>
       <div className=' relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
+        <Toaster></Toaster>
         <div className=' flex flex-col items-center border p-10 rounded-md border-gray-300 '>
           <div>
             <h1 className=' w-full flex justify-center text-2xl font-semibold'>
@@ -153,6 +191,7 @@ const AccountSetting = () => {
                 strokeWidth={1.5}
                 stroke='currentColor'
                 className='size-6 cursor-pointer'
+                onClick={() => setIsVisible(true)}
               >
                 <path
                   strokeLinecap='round'
@@ -184,6 +223,7 @@ const AccountSetting = () => {
           </p>
         </div>
       </div>
+      {/*  Username change Modal */}
       <AnimatePresence>
         {modalIsOpen && (
           <motion.div
@@ -218,6 +258,7 @@ const AccountSetting = () => {
                     onChange={handleChangeUsername}
                   />
                 </form>
+
                 <div className='flex gap-4 mt- text-sm'>
                   <button
                     className='bg-gray-200 hover:bg-gray-100 p-2 px-6 rounded-sm shadow-md'
@@ -225,10 +266,97 @@ const AccountSetting = () => {
                   >
                     Cancel
                   </button>
-                  <button onClick={usernameSubmit} className=' p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md  '>
+                  <button
+                    onClick={usernameSubmit}
+                    className=' p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md  '
+                  >
                     Save changes
                   </button>
                 </div>
+                <div className='flex flex-col text-xs mt-8 text-gray-500 w-full items-center'>
+                  <p>
+                    Usernames must be 3–20 characters long and can only be{' '}
+                    <br />
+                    <span className='w-full flex flex-col items-center mt-1'>
+                      changed once every 30 days.{' '}
+                    </span>{' '}
+                    .
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Passwor change Modal  */}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            className='fixed inset-0 bg-black bg-opacity-50 z-50 min-w-60 flex items-center justify-center'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+              <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+                <form className='flex flex-col justify-center items-center w-full'>
+                  <h1 className='w-full text-xl font-semibold items-center flex flex-col'>
+                    Time for a New Password? <br />
+                    <span className='flex items-center justify-center text-blue-500'>
+                      Update It Here
+                    </span>
+                  </h1>
+                  <h2 className='mt-4 text-gray-600'> Change the password</h2>
+                  <input
+                    type='text'
+                    className='bg-gray-50 mt-4 py-2 p-2  text-sm lg:w-[90%] border rounded-sm shadow-md'
+                    placeholder='Enter old password  '
+                    name='name'
+                    onChange={handleChangeUsername}
+                  />
+                  <input
+                    type='password'
+                    className='bg-gray-50 mt-4 py-2 text-sm p-2 lg:w-[90%] border rounded-sm shadow-md'
+                    placeholder='Enter a new  password '
+                    name='password'
+                    onChange={handleChangeUsername}
+                  />
+                </form>
+                <div className='flex gap-4 mt-4 text-sm'>
+                  <button
+                    className='bg-gray-100 hover:bg-gray-50 p-2 px-6 rounded-sm shadow-md'
+                    onClick={() => {
+                      setIsVisible(false)
+                      setVerificationInput(false)
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={otpVerificationPassword}
+                    className=' p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md  '
+                  >
+                    Confirm
+                  </button>
+                </div>
+                {verificationInput && (
+                  <div className='flex flex-col justify-center items-center w-full '>
+                    <label htmlFor="" className='mt-3 text-xs text-gray-600'>OTP has been sent to your registered email ID.</label>
+                    <input
+                      type='password'
+                      className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[68%] border rounded-sm shadow-md'
+                      placeholder='Enter the OTP '
+                      name='password'
+                    />
+                    <button
+                      onClick={otpVerificationPassword}
+                      className=' p-1 px-6 mt-3 rounded-sm text-sm bg-blue-100 text-blue-500 hover:bg-blue-200 shadow-md  '
+                    >Verify and update </button>
+                  </div>
+                )}
+
                 <div className='flex flex-col text-xs mt-8 text-gray-500 w-full items-center'>
                   <p>
                     Usernames must be 3–20 characters long and can only be{' '}
