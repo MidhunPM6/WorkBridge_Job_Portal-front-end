@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, setUserDetails } from '../../../../Redux/UserSlice'
@@ -13,16 +13,65 @@ const AccountSetting = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [verificationInput, setVerificationInput] = useState(false)
+  const [seconds, setSeconds] = useState(60)
+  const [isActive, setIsActive] = useState(false)
+  const [showResend, setShowResend] = useState(false)
   const [usernameFormData, setUsernameFormData] = useState({
     name: '',
-    password: ''
+    password: '',
+    code: ''
   })
   const [changePassword, setChangePassword] = useState({
     currentPassword: '',
-    oldPassword: ''
+    newPassword: ''
   })
-
   const dispatch = useDispatch()
+
+  const startTimer = () => {
+    setIsActive(true)
+    setShowResend(false)
+  }
+  useEffect(() => {
+    let timer
+    if (isActive && seconds > 0) {
+      timer = setInterval(() => {
+        setSeconds(prev => prev - 1)
+      }, 1000)
+    } else if (seconds === 0) {
+      setIsActive(false)
+      setShowResend(true)
+    }
+
+    return () => clearInterval(timer)
+  }, [isActive, seconds])
+
+  const formatTime = () => {
+    const min = Math.floor(seconds / 60)
+    const sec = seconds % 60
+    return `${min}:${sec < 10 ? '0' + sec : sec}`
+  }
+
+  const handleVerification = () => {
+    otpVerificationPassword()
+    startTimer()
+  }
+
+  const handleResendOTP = () => {
+    setSeconds(60)
+    startTimer()
+    otpVerificationPassword()
+  }
+
+  const handleCancel = () => {
+    setIsVisible(false)
+    setIsOpen(false)
+    setVerificationInput(false)
+    setShowResend(false)
+    setSeconds(60)
+    setIsActive(false)
+    setChangePassword(false)
+  }
+
   //Custom Styles for First Modal
   const customStyles = {
     overlay: {
@@ -111,16 +160,31 @@ const AccountSetting = () => {
       })
     }
   }
+
+  const handleChangePassword = e => {
+    const changeData = { ...changePassword, [e.target.name]: e.target.value }
+    setChangePassword(changeData)
+  }
+  // Method to use change password
   const otpVerificationPassword = async () => {
     setVerificationInput(true)
-    console.log(user.email);
-    
+    console.log(changePassword)
+
     try {
+      if (
+        !changePassword.currentPassword ||
+        !changePassword.newPassword ||
+        changePassword.currentPassword.length < 6 ||
+        changePassword.newPassword.length < 6
+      ) {
+        alert('Fill all the fileds with minimum 6 characters')
+        setVerificationInput(false)
+        return
+      }
       const response = await axiosInstance.post(
         '/api/candidate/changepassword',
         {
-
-          email:user.email,
+          email: user.email
         },
         {
           withCredentials: true
@@ -262,7 +326,9 @@ const AccountSetting = () => {
                 <div className='flex gap-4 mt- text-sm'>
                   <button
                     className='bg-gray-200 hover:bg-gray-100 p-2 px-6 rounded-sm shadow-md'
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false)
+                    }}
                   >
                     Cancel
                   </button>
@@ -313,47 +379,65 @@ const AccountSetting = () => {
                     type='text'
                     className='bg-gray-50 mt-4 py-2 p-2  text-sm lg:w-[90%] border rounded-sm shadow-md'
                     placeholder='Enter old password  '
-                    name='name'
-                    onChange={handleChangeUsername}
+                    name='currentPassword'
+                    onChange={handleChangePassword}
                   />
                   <input
-                    type='password'
+                    type='text'
                     className='bg-gray-50 mt-4 py-2 text-sm p-2 lg:w-[90%] border rounded-sm shadow-md'
                     placeholder='Enter a new  password '
-                    name='password'
-                    onChange={handleChangeUsername}
+                    name='newPassword'
+                    onChange={handleChangePassword}
                   />
                 </form>
                 <div className='flex gap-4 mt-4 text-sm'>
                   <button
                     className='bg-gray-100 hover:bg-gray-50 p-2 px-6 rounded-sm shadow-md'
-                    onClick={() => {
-                      setIsVisible(false)
-                      setVerificationInput(false)
-                    }}
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>
                   <button
-                    onClick={otpVerificationPassword}
-                    className=' p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md  '
+                    onClick={handleVerification}
+                    disabled={verificationInput}
+                    className={` p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md ${
+                      verificationInput &&
+                      'cursor-not-allowed hover:bg-gray-300'
+                    } `}
                   >
                     Confirm
                   </button>
                 </div>
                 {verificationInput && (
                   <div className='flex flex-col justify-center items-center w-full '>
-                    <label htmlFor="" className='mt-3 text-xs text-gray-600'>OTP has been sent to your registered email ID.</label>
+                    <label htmlFor='' className='mt-3 text-xs text-gray-600'>
+                      OTP has been sent to your registered email ID.
+                    </label>
+                    <p className='text-xs mt-3 text-gray-600'>
+                      Resend otp in : {formatTime()}
+                    </p>
+
+                    {showResend && (
+                      <button
+                        onClick={handleResendOTP}
+                        className='text-sm mt-1 mb-2 text-blue-500'
+                      >
+                        Resend OTP
+                      </button>
+                    )}
                     <input
                       type='password'
+                      name='code'
                       className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[68%] border rounded-sm shadow-md'
                       placeholder='Enter the OTP '
-                      name='password'
+                      onChange={handleChangePassword}
                     />
                     <button
                       onClick={otpVerificationPassword}
                       className=' p-1 px-6 mt-3 rounded-sm text-sm bg-blue-100 text-blue-500 hover:bg-blue-200 shadow-md  '
-                    >Verify and update </button>
+                    >
+                      Verify and update{' '}
+                    </button>
                   </div>
                 )}
 
