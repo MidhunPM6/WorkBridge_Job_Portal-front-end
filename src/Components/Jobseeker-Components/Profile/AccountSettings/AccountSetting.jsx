@@ -25,6 +25,7 @@ const AccountSetting = () => {
     currentPassword: '',
     newPassword: ''
   })
+  const [verificationCode,setVerificationCode] = useState('')
   const dispatch = useDispatch()
 
   const startTimer = () => {
@@ -184,16 +185,35 @@ const AccountSetting = () => {
       const response = await axiosInstance.post(
         '/api/candidate/changepassword',
         {
-          email: user.email
+          email: user.email,
+          password:changePassword.currentPassword,
         },
         {
           withCredentials: true
         }
       )
     } catch (error) {
-      console.log(error.message)
+      console.log(error.response)
     }
   }
+//   API to manage otp verification
+ const verifyOtp = async()=>{
+  try {
+    if (!verificationCode) {
+      return alert('Enter the verification code ')
+    }
+    console.log(verificationCode);
+    
+    const response = await axiosInstance.post('/api/candidate/verifyOtp',{email : user.email,verificationCode:verificationCode,newPassword:changePassword.newPassword},{
+      withCredentials : true
+    }) 
+    console.log(response);   
+    
+  } catch (error) {
+    console.log(error.response);
+    
+  }
+ }
 
   return (
     <>
@@ -430,10 +450,10 @@ const AccountSetting = () => {
                       name='code'
                       className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[68%] border rounded-sm shadow-md'
                       placeholder='Enter the OTP '
-                      onChange={handleChangePassword}
+                      onChange={(e)=>setVerificationCode(e.target.value)}
                     />
                     <button
-                      onClick={otpVerificationPassword}
+                      onClick={verifyOtp}
                       className=' p-1 px-6 mt-3 rounded-sm text-sm bg-blue-100 text-blue-500 hover:bg-blue-200 shadow-md  '
                     >
                       Verify and update{' '}
