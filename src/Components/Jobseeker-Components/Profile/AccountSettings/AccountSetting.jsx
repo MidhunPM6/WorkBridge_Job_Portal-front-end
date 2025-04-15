@@ -25,7 +25,7 @@ const AccountSetting = () => {
     currentPassword: '',
     newPassword: ''
   })
-  const [verificationCode,setVerificationCode] = useState('')
+  const [verificationCode, setVerificationCode] = useState('')
   const dispatch = useDispatch()
 
   const startTimer = () => {
@@ -166,10 +166,10 @@ const AccountSetting = () => {
     const changeData = { ...changePassword, [e.target.name]: e.target.value }
     setChangePassword(changeData)
   }
+
   // Method to use change password
   const otpVerificationPassword = async () => {
-    setVerificationInput(true)
-    console.log(changePassword)
+    
 
     try {
       if (
@@ -178,7 +178,9 @@ const AccountSetting = () => {
         changePassword.currentPassword.length < 6 ||
         changePassword.newPassword.length < 6
       ) {
-        alert('Fill all the fileds with minimum 6 characters')
+        toast.error('Fill all the fileds with minimum 6 characters', {
+          duration: 2000
+        })
         setVerificationInput(false)
         return
       }
@@ -186,34 +188,63 @@ const AccountSetting = () => {
         '/api/candidate/changepassword',
         {
           email: user.email,
-          password:changePassword.currentPassword,
+          password: changePassword.currentPassword
         },
         {
           withCredentials: true
         }
       )
+      setVerificationInput(true)
+      toast.success(response.data.message, {
+        duration: 2000
+      })
     } catch (error) {
-      console.log(error.response)
+      error && setVerificationCode(false)
+      toast.error(error.response.data.message, {
+        duration: 2000
+      })
     }
   }
-//   API to manage otp verification
- const verifyOtp = async()=>{
-  try {
-    if (!verificationCode) {
-      return alert('Enter the verification code ')
+
+  //   API to manage otp verification
+  const verifyOtp = async () => {
+    try {
+      if (!verificationCode) {
+        return alert('Enter the verification code ')
+      }
+      console.log(verificationCode)
+
+      const response = await axiosInstance.post(
+        '/api/candidate/verifyOtp',
+        {
+          email: user.email,
+          verificationCode: verificationCode,
+          newPassword: changePassword.newPassword
+        },
+        {
+          withCredentials: true
+        }
+      )
+      toast.success(response.data.message, {
+        duration: 1200
+      })
+      setTimeout(() => {
+        setIsVisible(false)
+      }, 1300)
+
+      setIsVisible(false)
+      setIsOpen(false)
+      setVerificationInput(false)
+      setShowResend(false)
+      setSeconds(60)
+      setIsActive(false)
+      setChangePassword(false)
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        duration: 2000
+      })
     }
-    console.log(verificationCode);
-    
-    const response = await axiosInstance.post('/api/candidate/verifyOtp',{email : user.email,verificationCode:verificationCode,newPassword:changePassword.newPassword},{
-      withCredentials : true
-    }) 
-    console.log(response);   
-    
-  } catch (error) {
-    console.log(error.response);
-    
   }
- }
 
   return (
     <>
@@ -450,7 +481,7 @@ const AccountSetting = () => {
                       name='code'
                       className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[68%] border rounded-sm shadow-md'
                       placeholder='Enter the OTP '
-                      onChange={(e)=>setVerificationCode(e.target.value)}
+                      onChange={e => setVerificationCode(e.target.value)}
                     />
                     <button
                       onClick={verifyOtp}
