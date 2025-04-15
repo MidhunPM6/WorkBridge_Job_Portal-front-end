@@ -22,7 +22,12 @@ const UserSlice = createSlice({
     setProfile : (state,action)=>{
       state.profile = action.payload
     },
-
+    setClearUser : (state)=>{
+      state.user = null 
+      state.education =[]
+      state.experience=[]
+      state.profile =null
+    },
     logout: state => {
       state.user = null
       state.experience = []
@@ -32,5 +37,5 @@ const UserSlice = createSlice({
   }
 })
 
-export const { setUserDetails, logout, setExperience ,setEducation,setProfile} = UserSlice.actions
+export const { setUserDetails, logout, setExperience ,setEducation,setProfile,setClearUser} = UserSlice.actions
 export default UserSlice.reducer

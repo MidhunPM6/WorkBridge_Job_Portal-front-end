@@ -47,9 +47,9 @@ const Login = () => {
       const response = await axiosInstance.post('api/auth/login', loginForm, {
         withCredentials: true
       })
-      console.log(response)
+      
       dispatch(setUserDetails(response.data.candidate))
-      console.log(response)
+      
 
       if (response.status === 200) {
         toast.success('Login Success', {
@@ -64,29 +64,7 @@ const Login = () => {
     }
   }
 
-  // Google Authentication
-
-  const handleGoogleAuth = async response => {
-    try {
-      const res = await axios.post(
-        '/google',
-        { token: response.credential },
-        { withCredentials: true }
-      )
-      dispatch(setUserDetails(res.data.User))
-
-      toast.success('Logged In', {
-        onClose: () => {
-          navigate('/')
-        },
-        autoClose: 1000
-      })
-    } catch (error) {
-      console.log('error' + error)
-      alert('Invalid user')
-    }
-  }
-
+  
   return (
     <>
       <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>

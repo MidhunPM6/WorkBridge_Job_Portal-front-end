@@ -5,6 +5,7 @@ import { logout, setUserDetails } from '../../../../Redux/UserSlice'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { AnimatePresence, motion } from 'framer-motion'
 import { toast, Toaster } from 'react-hot-toast'
+import {setClearUser} from '../../../../Redux/UserSlice'
 
 const AccountSetting = () => {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ const AccountSetting = () => {
   const [seconds, setSeconds] = useState(60)
   const [isActive, setIsActive] = useState(false)
   const [showResend, setShowResend] = useState(false)
+  const [showDelete,setShowDelete] =useState(false)
   const [usernameFormData, setUsernameFormData] = useState({
     name: '',
     password: '',
@@ -169,8 +171,6 @@ const AccountSetting = () => {
 
   // Method to use change password
   const otpVerificationPassword = async () => {
-    
-
     try {
       if (
         !changePassword.currentPassword ||
@@ -199,6 +199,8 @@ const AccountSetting = () => {
         duration: 2000
       })
     } catch (error) {
+      console.log(error)
+
       error && setVerificationCode(false)
       toast.error(error.response.data.message, {
         duration: 2000
@@ -245,7 +247,27 @@ const AccountSetting = () => {
       })
     }
   }
-
+  //  API to Delete candidate entire Account
+  const deleteAccount = async () => {
+    try {
+      const response = await axiosInstance.delete('/api/candidate/deleteAccount', {
+        withCredentials: true
+      })
+      console.log(response);
+      dispatch(setClearUser())
+      toast.success('Your account is deleted permenantly',{
+        duration : 1200
+      })
+      setTimeout(() => {
+        navigate('/')
+      }, 1300);
+      
+    } catch (error) {
+      toast.error(error.response.data.message,{
+        duration : 2000
+      })
+    }
+  }
   return (
     <>
       <div className=' relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
@@ -327,7 +349,7 @@ const AccountSetting = () => {
             </button>
           </div>
           <div>
-            <button className='mt-4  hover:bg-red-700 w-36 text-xs bg-red-600 py-2 p-2  text-white font-semibold rounded-sm transition-all duration-300'>
+            <button onClick={()=>setShowDelete(true)} className='mt-4  hover:bg-red-700 w-36 text-xs bg-red-600 py-2 p-2  text-white font-semibold rounded-sm transition-all duration-300'>
               Delete your account
             </button>
           </div>
@@ -434,7 +456,7 @@ const AccountSetting = () => {
                     onChange={handleChangePassword}
                   />
                   <input
-                    type='text'
+                    type='password'
                     className='bg-gray-50 mt-4 py-2 text-sm p-2 lg:w-[90%] border rounded-sm shadow-md'
                     placeholder='Enter a new  password '
                     name='newPassword'
@@ -507,6 +529,60 @@ const AccountSetting = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <AnimatePresence>
+              {showDelete && (
+                <motion.div
+                  className='fixed inset-0 bg-black bg-opacity-50 z-50 min-w-60 flex items-center justify-center'
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                    <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+                      <svg
+                        class='text-red-500'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='70'
+                        height='70'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          stroke='currentColor'
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='1'
+                          d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                        />
+                      </svg>
+                      <h1 className='text-2xl text-gray-700 '>Are you sure ?</h1>
+                      <p className='text-xs text-gray-500 leading-5 tracking-wide'>
+                        Do you really want to delete your Account? <br />
+                        <span className='flex w-full justify-center '>
+                          This process cannot be undone
+                        </span>
+                      </p>
+                      <div className='text-black text-sm flex gap-3'>
+                        <button
+                          onClick={() => setShowDelete(false)}
+                          className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={deleteAccount}
+                          className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'
+                        >
+                          Delete Account
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
     </>
   )
 }
