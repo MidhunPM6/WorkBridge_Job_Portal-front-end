@@ -20,6 +20,7 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
+    role: 'jobseeker'
    
   })
 
