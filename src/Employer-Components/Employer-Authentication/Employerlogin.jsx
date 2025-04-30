@@ -144,7 +144,7 @@ const Employerlogin = () => {
 
             <button
               type='submit'
-              className='w-full mt-4 text-sm bg-violet-700 text-white py-2 rounded-sm hover:bg-violet-800 transition-all duration-300'
+              className='w-full mt-4 text-sm bg-violet-900 text-white py-2 rounded-sm hover:bg-violet-950 transition-all duration-300'
               onClick={handleSubmit}
             >
               Login

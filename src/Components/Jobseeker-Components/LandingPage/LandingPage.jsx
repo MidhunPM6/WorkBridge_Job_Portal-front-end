@@ -8,6 +8,9 @@ const HomeMain = () => {
   const navigate = useNavigate()
   const user = useSelector(state => state.user.user)
 
+
+  
+
   return (
     <>
       <div
@@ -17,7 +20,7 @@ const HomeMain = () => {
         <img
           src={heroimg}
           alt='Hero'
-          className='absolute inset-0 w-full min-h-[400px] h-full object-cover  transition-all duration-300 brightness-90 '
+          className='absolute inset-0 w-full min-h-[400px] h-full object-cover  transition-all duration-300  '
         />
 
         <div className='relative z-10 w-full px-6 md:px-12 lg:px-24 flex flex-col items-start h-auto '>
@@ -59,8 +62,10 @@ const HomeMain = () => {
               </>
             )}
           </div>
+          
         </div>
       </div>
+
     </>
   )
 }

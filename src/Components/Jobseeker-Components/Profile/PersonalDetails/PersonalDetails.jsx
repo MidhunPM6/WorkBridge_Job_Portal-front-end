@@ -158,7 +158,8 @@ const PersonalDetails = () => {
       }
     }
     fetchProfile()
-  }, [])
+  }, []) 
+
 
   //  Resume Upload handle
   const resumeUpload = async () => {
@@ -178,6 +179,40 @@ const PersonalDetails = () => {
     }
   }
 
+  // API to handle resume deletetion from the database
+
+  const handleResumeDelete = async () => {
+    try {
+      const response = await axiosInstance.delete(
+        '/api/candidate/deleteResume',
+        {
+          withCredentials: true
+        }
+      )
+
+     
+      
+    if (response.data && response.data.data) {
+      console.log('Dispatching profile update...');
+      dispatch(setProfile(response.data.data)); // Dispatch updated profile
+    }
+
+    setTimeout(() => {
+      toast.success(response.data.message || 'Resume deleted successfully!', {
+        id: 'delete-resume-toast',
+        duration: 1500,
+      });
+    }, 100);
+      
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
+  useEffect(() => {
+    console.log('Profile has been updated:', profile);
+  }, [profile]);
+
   return (
     <>
       <div className='flex flex-col w-full lg:h-screen   '>
@@ -185,10 +220,10 @@ const PersonalDetails = () => {
         <div className='relative flex-col lg:justify-normal justify-center  lg:p-1  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full  '>
           <div
             className={`relative flex justify-center items-center lg:h-[25vh] h-32 rounded-t-sm w-full overflow-hidden pt-2 ${
-              user.profileCoverPic ? '' : 'bg-violet-950'
+             user.profileCoverPic ? '' : 'bg-violet-950'
             }`}
             style={
-              user.profileCoverPic
+            user.profileCoverPic
                 ? {
                     backgroundImage: `url("${user.profileCoverPic}")`,
                     backgroundSize: 'cover',
@@ -310,7 +345,7 @@ const PersonalDetails = () => {
               </svg>
             </div>
             <div className='flex text-gray-400'>
-              <h1>{profile.designation}</h1>
+              <h1>{profile && profile.designation}</h1>
             </div>
             <div className='lg:flex-row flex flex-col flex-wrap lg:gap-28 gap-2 mt-5   '>
               <div className='flex flex-col gap-2  lg:min-w-32  '>
@@ -324,18 +359,18 @@ const PersonalDetails = () => {
                   <h1 className='text-black font-semibold  '>
                     <span>Location</span>
                   </h1>
-                  <h2 className='text-gray-500'>{profile.location}</h2>
+                  <h2 className='text-gray-500'>{profile && profile.location}</h2>
                 </div>
                 <div className='flex flex-col gap-1 w-48 '>
                   <h1 className='text-black font-semibold  '>
                     <span>Skills</span>
                   </h1>
-                  {profile.skills &&
-                    profile.skills.map(skill => (
+                  {profile && profile.skills &&
+                    profile.skills.map(skill => ( 
                       <div className='flex text-gray-500  w-96 gap-2'>
                         <h1 className='flex'>{skill},</h1>
                       </div>
-                    ))}
+                    ))} 
                 </div>
               </div>
               <div className='flex flex-col gap-2 flex-wrap lg:w-96'>
@@ -344,10 +379,10 @@ const PersonalDetails = () => {
                     <span className='font-semibold'>Portfolio </span>{' '}
                   </h1>
                   <a
-                    href={`${profile.portfolio}`}
+                    href={`${profile && profile.portfolio}`}
                     className='hover:underline break-all lg:break-all text-sky-600 font-semibold '
                   >
-                    {profile.portfolio}
+                    {profile && profile.portfolio}
                   </a>
                 </div>
                 <div className='flex flex-col'>
@@ -355,44 +390,46 @@ const PersonalDetails = () => {
                     <span className='font-semibold'>LinkedIn </span>{' '}
                   </h1>
                   <a
-                    href={`${profile.linkedin}`}
+                    href={`${profile && profile.linkedin}`}
                     className='hover:underline break-all lg:break-normal text-sky-600 font-semibold'
                   >
-                    {profile.linkedin}
+                    {profile && profile.linkedin}
                   </a>
                 </div>
                 <div className='flex flex-col gap-1 '>
                   <h1 className='text-black font-semibold  '>
                     <span>Contact number</span>
                   </h1>
-                  <h2 className='text-gray-500'>{profile.mobile}</h2>
+                  <h2 className='text-gray-500'>{profile && profile.mobile}</h2>
                 </div>
               </div>
             </div>
             <div className='mt-4 '>
               <h1 className='text-xl font-semibold'>About Me</h1>
               <div className='w-full text-gray-500 mt-2 rounded-md h-auto  '>
-                <h1>{profile.about}</h1>
+                <h1>{profile && profile.about}</h1>
               </div>
               <div className='mt-10 flex mb-5 '>
                 {/* Resume Section */}
-                {profile.resume ? (
+                {profile && profile.resume ? (
                   <div className='flex flex-col'>
                     <h1>Resume</h1>
                     <div className='flex'>
                       <p className='text-sm text-gray-700'>
                         Uploaded Resume:{' '}
                         <a
-                          href={profile.resume}
+                          href={profile && profile && profile.resume}
                           target='_blank'
                           rel='noopener noreferrer'
                         >
                           <span className='font-semibold text-sky-600  hover:underline underline-offset-4'>
-                            {profile.resume.split('/').pop()}
+                             {profile && profile.resume.split('/').pop()}
                           </span>
                         </a>
                       </p>
                       <div className='flex justify-center items-center  lg:ml-2'>
+                        <button onClick={handleResumeDelete}>
+
                         <svg
                           class='w-6 h-6 text-gray-800 dark:text-red-500 cursor-pointer'
                           aria-hidden='true'
@@ -401,6 +438,7 @@ const PersonalDetails = () => {
                           height='24'
                           fill='none'
                           viewBox='0 0 24 24'
+                          
                         >
                           <path
                             stroke='currentColor'
@@ -410,6 +448,7 @@ const PersonalDetails = () => {
                             d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
                           />
                         </svg>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -580,28 +619,27 @@ const PersonalDetails = () => {
       </AnimatePresence>
       {/* Model for edit */}
       <AnimatePresence>
-  {modalIsOpen && (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={customStyles}
-      contentLabel='Example Modal'
-      ariaHideApp={false}
-      shouldCloseOnOverlayClick={true}
-    >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={e => e.stopPropagation()}
-      >
-        <PersonalPopUp />
-      </motion.div>
-    </Modal>
-  )}
-</AnimatePresence>
-
+        {modalIsOpen && (
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel='Example Modal'
+            ariaHideApp={false}
+            shouldCloseOnOverlayClick={true}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={e => e.stopPropagation()}
+            >
+              <PersonalPopUp />
+            </motion.div>
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   )
 }

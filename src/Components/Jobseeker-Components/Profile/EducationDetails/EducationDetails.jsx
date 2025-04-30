@@ -108,8 +108,11 @@ const EducationDetails = () => {
               />
             </svg>
           </div>
+         
           <div className='mt-10 flex flex-col gap-4'>
-            {education ?
+            {
+
+            education && education.length > 0  ? 
                education.map(educationObj => (
                   <div className='flex flex-col gap-2    text-[14px]  border border-gray-300   p-4 rounded-md '>
                     <h1 className='flex font-semibold '>
@@ -138,9 +141,15 @@ const EducationDetails = () => {
                       </div>
                     </div>
                   </div>
-                ))
-              : ''}
-          </div>
+                )): <div className='text-black text-2xl font-semibold w-full flex mt-24 justify-center items-center'>
+                <h1 className='text w-full flex flex-col items-center'>
+                  No education to display. <br />
+                  <span className='flex items-center text-blue-500 font-semibold'>Add your education to get started.....{' '}</span>
+                </h1>
+              </div>
+              }
+                
+          </div> 
         </div>
       </div>
 
