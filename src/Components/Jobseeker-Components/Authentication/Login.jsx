@@ -5,7 +5,6 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import { axiosInstance } from '../../../Axios/Axios-instance'
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import logo from '../../../assets/lightlogo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserDetails } from '../../../Redux/UserSlice'
@@ -47,9 +46,9 @@ const Login = () => {
       const response = await axiosInstance.post('api/auth/login', loginForm, {
         withCredentials: true
       })
-      
-      dispatch(setUserDetails(response.data.candidate))
-      
+      console.log(response)
+
+      dispatch(setUserDetails(response.data.user))
 
       if (response.status === 200) {
         toast.success('Login Success', {
@@ -64,7 +63,6 @@ const Login = () => {
     }
   }
 
-  
   return (
     <>
       <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>

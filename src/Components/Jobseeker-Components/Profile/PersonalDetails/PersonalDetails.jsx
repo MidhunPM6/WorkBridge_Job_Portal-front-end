@@ -31,7 +31,7 @@ const PersonalDetails = () => {
   const handleFileSelect = (e, type) => {
     const file = e.target.files[0]
 
-    console.log(profilePic)
+    
 
     const fileType = file.type
 
@@ -92,6 +92,8 @@ const PersonalDetails = () => {
       toast.success('Successfully Uploaded', {
         duration: 2000
       })
+      console.log(response); 
+      
 
       setTimeout(() => {
         window.location.reload()
@@ -146,13 +148,13 @@ const PersonalDetails = () => {
 
     const fetchProfile = async () => {
       try {
-        const response = await axiosInstance('/api/candidate/profile', {
+        const response = await axiosInstance.get('/api/candidate/profile', {
           withCredentials: true
         })
         dispatch(setProfile(response.data.data))
 
         dispatch(setUserDetails(response.data.data._doc))
-        console.log(response.data)
+        
       } catch (error) {
         console.error(error)
       }
