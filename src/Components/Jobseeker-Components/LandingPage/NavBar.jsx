@@ -7,7 +7,9 @@ import { useSelector } from 'react-redux'
 const NavBar = () => {
   const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const user = useSelector(state => state.user.user)
+ const user = useSelector(state => state?.user?.user ?? null);
+
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -63,7 +65,7 @@ const NavBar = () => {
 
         <div className='flex justify-around w-full lg:w-auto mt-4 lg:mt-0'>
           <div className='  flex flex-row  mr-4 justify-center items-center '>
-            {user?.name && (
+            {user && user.name && (
               <div>
                 <button
                   onClick={() =>  window.location.href = '/profile'}

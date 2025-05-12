@@ -5,14 +5,20 @@ import assessment_img from '../../../assets/services/assessment.png'
 import notification_img from '../../../assets/services/notification.png'
 import tracking_img from '../../../assets/services/tracking.png'
 import careergd_img from '../../../assets/services/career_guidance.png'
+import imageUrl from '../../../assets/abstract.jpg'
 
 const Services = () => {
   return (
     <>
       <div
-        className='flex flex-col font-poppins bg-slate-50 relative'
-        id='service'
-      >
+  className='flex flex-col font-poppins relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white to-white bg-cover bg-center bg-no-repeat min-h-screen'
+  id='service'
+ 
+>
+          <div className='flex flex-col justify-center items-center mt-20 gap-4'>
+            <h1 className='font-bold text-4xl'>Explore Our Candidate Services</h1>
+            <p className='text-gray-600'>    We provide powerful tools and personalized features to help you land your ideal job—faster and smarter.</p>
+          </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-20 pb-28 max-w-4xl mx-auto w-[70vw] text-sm '>
           <div className='p-6 border-2 border-slate-300 hover:border-slate-200 flex flex-col items-center bg-white rounded-md shadow-md hover:scale-105 transition-all duration-500'>
             <img
@@ -20,10 +26,10 @@ const Services = () => {
               alt='Job Search and Filtering'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Job Search and Filtering
             </h1>
-            <p className='pt-2 text-center hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center hover:text-gray-700 transition-all duration-500'>
               Allows candidates to search for jobs using filters such as
               location,
               <br />
@@ -37,10 +43,10 @@ const Services = () => {
               alt='Profile and Resume Creation'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Profile and Resume Creation
             </h1>
-            <p className='pt-2 text-center hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center hover:text-gray-700 transition-all duration-500'>
               Enables job seekers to create profiles and upload or build
               resumes,
               <br />
@@ -54,10 +60,10 @@ const Services = () => {
               alt='Skill Assessments'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Skill Assessments
             </h1>
-            <p className='pt-2 text-center   hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center   hover:text-gray-700 transition-all duration-500'>
               Offers skill assessments and certification tests that candidates
               can
               <br />
@@ -74,10 +80,10 @@ const Services = () => {
               alt='Job Alerts and Notifications'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Job Alerts and Notifications
             </h1>
-            <p className='pt-2 text-center  hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center  hover:text-gray-700 transition-all duration-500'>
               Sends personalized job alerts and notifications when relevant job
               <br />
               openings become available, helping candidates stay updated.
@@ -90,10 +96,10 @@ const Services = () => {
               alt='Application Tracking'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Application Tracking
             </h1>
-            <p className='pt-2 text-center hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center hover:text-gray-700 transition-all duration-500'>
               Allows job seekers to track the status of their applications,
               <br />
               view responses, and follow up on interview requests.
@@ -106,10 +112,10 @@ const Services = () => {
               alt='Career Guidance and Resources'
               className='w-12'
             />
-            <h1 className='pt-2 text-md scale-105 font-semibold text-center'>
+            <h1 className='pt-3 text-base scale-105 font-semibold text-center'>
               Career Guidance and Resources
             </h1>
-            <p className='pt-2 text-center hover:text-violet-600 transition-all duration-500'>
+            <p className='pt-4 text-center hover:text-gray-700 transition-all duration-500'>
               Provides resources such as resume-writing tips, interview
               preparation
               <br />

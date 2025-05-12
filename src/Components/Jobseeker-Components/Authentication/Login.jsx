@@ -22,7 +22,8 @@ const Login = () => {
   // Login form data
   const [loginForm, SetLoginForm] = useState({
     email: '',
-    password: ''
+    password: '',
+    role : 'candidate'
   })
 
   const handleOnchange = e => {
@@ -48,7 +49,7 @@ const Login = () => {
       })
       console.log(response)
 
-      dispatch(setUserDetails(response.data.user))
+      dispatch(setUserDetails(response.data.account))
 
       if (response.status === 200) {
         toast.success('Login Success', {
@@ -57,6 +58,8 @@ const Login = () => {
         })
       }
     } catch (error) {
+      console.log(error);
+      
       toast.error(error.response?.data?.message || 'Server Error', {
         autoClose: 1000
       })
@@ -152,7 +155,7 @@ const Login = () => {
             </form>
 
             <div className='mt-4'>
-              <GoogleButton onClick={authRedirect}></GoogleButton>
+              <GoogleButton onClick={authRedirect} role="candidate"></GoogleButton>
             </div>
           </div>
         </div>

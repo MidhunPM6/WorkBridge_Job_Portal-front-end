@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import authPoster from '../../assets/authimg.png'
 import logo from '../../assets/lightlogo.png'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
+import { axiosInstance } from '../../Axios/Axios-instance'
+import GoogleButton from '../../Components/GoogleAuth/GoogleButton'
+import { authRedirect } from '../../Components/GoogleAuth/googleAuth'
 
 const Employersignup = () => {
   const navigate = useNavigate()
   const [empSignupform, setEmpLoginData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'employer'
   })
 
   const [error, setError] = useState('')
@@ -25,16 +25,19 @@ const Employersignup = () => {
     setEmpLoginData(changeData)
   }
 
-  //Connecting Axios
+  // Sign up form data
   const handleSubmit = async e => {
     e.preventDefault()
 
     if (!handleValidation(e)) return
     try {
-      const response = await axios.post('/empregister', empSignupform)
-      console.log(response)
+      const response = await axiosInstance.post(
+        '/api/auth/signup',
+        empSignupform
+      )
 
-      toast.success('Sign Up Successfull', {
+      toast.success(response.data.message, {
+        autoClose: 1300,
         onClose: () => navigate('/employerlogin')
       })
     } catch (error) {
@@ -51,21 +54,8 @@ const Employersignup = () => {
 
   return (
     <>
-    <GoogleOAuthProvider>
+      <ToastContainer position='top-right'></ToastContainer>
       <div className='flex flex-col lg:flex-row h-screen w-full'>
-        <ToastContainer
-          position='top-right'
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme='dark'
-        />
-
         <div className='w-full lg:w-2/3 h-full '>
           <img
             src={authPoster}
@@ -78,10 +68,8 @@ const Employersignup = () => {
             className='lg:w-full lg:max-w-md  p-6 rounded-md  m-10 lg:m-0  '
             onSubmit={handleValidation}
           >
-
             <div className='w-full flex justify-center'>
-
-          <img src={logo} alt='' className='w-28 ' />
+              <img src={logo} alt='' className='w-28 ' />
             </div>
             <h2 className='text-2xl font-semibold text-center mb-6 text-gray-600 '>
               Sign Up
@@ -147,20 +135,24 @@ const Employersignup = () => {
               <hr class='h-px my-2 lg:w-20 w-full  bg-gray-200 border-0 dark:bg-gray-700'></hr>
             </div>
 
-
-            <div className='mt-4'>
-              <GoogleLogin
-              
-              />
-       
+            <div className='mt-4 w-full'>
+              <GoogleButton
+                onClick={authRedirect}
+                role='employer'
+              ></GoogleButton>
             </div>
+
             <div className=' flex justify-center mt-10 text-sm'>
-              <p className='text-gray-600'>By Signing in, you agree to our <a href="" className='font-bold leading-loose text-blue-600'>Terms & Conditions.</a></p>
+              <p className='text-gray-600'>
+                By Signing in, you agree to our{' '}
+                <a href='##' className='font-bold leading-loose text-blue-600'>
+                  Terms & Conditions.
+                </a>
+              </p>
             </div>
           </form>
         </div>
       </div>
-      </GoogleOAuthProvider>
     </>
   )
 }

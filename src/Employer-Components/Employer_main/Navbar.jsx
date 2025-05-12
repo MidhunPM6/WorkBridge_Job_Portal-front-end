@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom'
 import Model from 'react-modal'
 import RecApplication from '../RecApplication/RecAppliction'
 import logo from '../../assets/employer-mainpage/logo.png'
-import { EmpAuth } from '../../Context/EmployerUserDetails'
+
 import { motion } from 'framer-motion'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../Redux/EmployerSlice'
+
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const { EmpUserDetails, setEmpUserDetails } = useContext(EmpAuth)
+
   const [visible, setVisible] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
-
+  const employer = useSelector(state => state.employer.employer)
+  const dispatch = useDispatch()
   const customStyles = {
     overlay: {
       opacity: '100%',
@@ -44,7 +48,8 @@ const Navbar = () => {
   const handleLogout = e => {
     e.preventDefault()
     localStorage.removeItem('userdata')
-    setEmpUserDetails('')
+    dispatch(logout())
+    navigate('/employer')
   }
 
   let timeoutId
@@ -62,7 +67,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='lg:flex lg:justify-around lg:h-[10vh] text-white p-4 shadow-md'>
+      <div className='lg:flex lg:justify-around lg:h-[12vh] text-white p-4 shadow-md'>
         <div className='lg:flex-row flex flex-col items-center text-black gap-6'>
           <div className='flex justify-center items-center gap-2'>
             <img src={logo} alt='' className='w-20 lg:ml-10' />
@@ -78,7 +83,8 @@ const Navbar = () => {
         </div>
 
         <div className='flex items-center gap-4 mt-4 lg:mt-0 flex-wrap transition-all duration-300'>
-          {EmpUserDetails.length > 0 && EmpUserDetails ? (
+          {
+           employer ? (
             <>
               <button
                 onClick={() => navigate('/postjob')}
@@ -118,7 +124,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black transition-all duration-300 text-lg font-semibold hover:scale-105 hover:underline underline-offset-4'>
+                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black transition-all duration-300 text-lg font-semibold  '>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -132,15 +138,21 @@ const Navbar = () => {
                     />
                   </svg>
 
-                  {EmpUserDetails.name}
+                  {employer.name}
                 </button>
                 {profileOpen && (
-                  <div className='absolute flex flex-col left-0 mt-2 w-32 bg-neutral-100 shadow-lg border rounded-sm z-50'>
+                  <div className='absolute flex flex-col left-0 mt-2 w-full bg-neutral-100 shadow-lg border rounded-sm z-50'>
                     <button
                       className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
                       onClick={() => navigate('/employerprofile')}
                     >
                       Profile
+                    </button>
+                    <button
+                      onClick={() => navigate('/profile/accountsetting')}
+                      className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
+                    >
+                      Jobs
                     </button>
                     <button
                       onClick={() => navigate('/profile/accountsetting')}

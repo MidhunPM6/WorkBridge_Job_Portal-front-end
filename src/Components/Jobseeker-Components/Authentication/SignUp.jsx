@@ -158,7 +158,7 @@ const SignUp = () => {
               <div className='mt-4'></div>
             </form>
             <div className='mt-4 '>
-              <GoogleButton onClick={authRedirect}></GoogleButton>
+             < GoogleButton onClick={() => authRedirect()}  role="candidate" ></GoogleButton>
             </div>
           </div>
         </div>

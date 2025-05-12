@@ -6,21 +6,28 @@ import EducationReducer from './UserSlice.js'
 import { persistStore, persistReducer } from 'redux-persist'
 import ProfileReducer from './UserSlice.js'
 import storage from 'redux-persist/lib/storage'
+import employerReducer from './EmployerSlice.js'
 
 const presistConfig = {
-  key: 'root',
+  key: 'user',
+  storage
+}
+const employerPersistConfig = {
+  key: 'employer',
   storage
 }
 
 const persistedReducer = persistReducer(presistConfig, userReducer)
+const persistedEmployerReducer = persistReducer(employerPersistConfig, employerReducer)
 
 const store = configureStore({
   reducer: {
     user: persistedReducer,
-    selectedjob:selectedJobReducer,
-    experience : experienceReducer,
-    education : EducationReducer,
-    profile : ProfileReducer,
+    selectedjob: selectedJobReducer,
+    experience: experienceReducer,
+    education: EducationReducer,
+    profile: ProfileReducer,
+    employer: persistedEmployerReducer,
   }
 })
 
