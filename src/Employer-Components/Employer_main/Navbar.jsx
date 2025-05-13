@@ -86,25 +86,7 @@ const Navbar = () => {
           {
            employer ? (
             <>
-              <button
-                onClick={() => navigate('/postjob')}
-                className='px-4 py-2 rounded-full text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-gray-600 transition-all duration-300'
-              >
-                Post Job
-              </button>
-              <button
-                onClick={() => navigate('/postjob')}
-                className='px-4 py-2 rounded-full text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-gray-600 transition-all duration-300'
-              >
-                All Jobs
-              </button>
-
-              <button
-                onClick={modelOpen}
-                className='px-4 py-2 rounded-full text-black text-sm font-semibold hover:underline underline-offset-4 hover:scale-105 hover:text-gray-600 transition-all duration-300'
-              >
-                Received Applications
-              </button>
+              
               <Model
                 isOpen={visible}
                 onRequestClose={modelClose}
@@ -124,7 +106,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black transition-all duration-300 text-lg font-semibold  '>
+                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black transition-all duration-300 text-base font-semibold  '>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -149,10 +131,10 @@ const Navbar = () => {
                       Profile
                     </button>
                     <button
-                      onClick={() => navigate('/profile/accountsetting')}
+                      onClick={()=>navigate('/profile/jobmenu')}
                       className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
                     >
-                      Jobs
+                      Manage Job
                     </button>
                     <button
                       onClick={() => navigate('/profile/accountsetting')}

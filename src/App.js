@@ -8,11 +8,12 @@ import EmployerLogin from './Pages/EmployerPages/EmployerLogin'
 import EmployerSignup from './Pages/EmployerPages/EmployerSignup'
 import EmployerUserDetails from './Context/EmployerUserDetails'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
-import Postjob from './Pages/EmployerPages/Postjob'
+
 import JobpostContext from './Context/JobpostContext'
 import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
+import JobMenu from './Pages/EmployerPages/JobMenu'
 
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
@@ -42,13 +43,15 @@ function App () {
               <Route path='/employerlogin' element={<EmployerLogin />} />
               <Route path='/employersignup' element={<EmployerSignup />} />
               <Route path='/employerprofile' element={<ProfileMainpage />} />
-              <Route path='/postjob' element={<Postjob />} />
+              
               <Route path='/recApplication' element={<RecivedApplication />} />
               <Route
                 path='/profile/accountsetting'
                 element={<AccountSettings />}
               />
-              {/* Common routes */}
+              <Route path='/profile/jobmenu' element={<JobMenu />} />
+
+            
 
               <Route path='/callback' element={<GoogleAuth></GoogleAuth>}/>
             </Routes>
