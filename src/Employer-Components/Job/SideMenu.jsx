@@ -1,26 +1,30 @@
 import React from 'react'
 import { useState } from 'react'
 import PostJob from './PostJob/PostJob'
+import AllJobs from './AllJobs/AllJobs'
+import MyJobs from './MyJobs/MyJobs'
+import RecAppliction from './RecApplication/RecAppliction'
+
 
 const SideMenu = () => {
   const [activeComponent, setActiveComponent] = useState('')
   const renderComponent = () => {
     switch (activeComponent) {
       case 'Jobs':
-        return 'this is jobs '
+        return <AllJobs />
       case 'Post Jobs':
         return <PostJob />
-      case 'Received Applications':
-        return 'this recevided applications'
       case 'Posted Jobs':
-        return 'this is posted jobs'
+        return <MyJobs />
+      case 'Received Applications':
+        return  <RecAppliction />
       default:
-        return 'this is jobs'
+        return <AllJobs></AllJobs>
     }
   }
 
   return (
-    <div className=' pt-20 flex flex-col  justify-center items-center  '>
+    <div className=' pt-20 flex flex-col  justify-center items-center bg-gray-50  '>
       <h1 className='lg:text-2xl text-xl lg:m-2 m-4 font-semibold'>
         Easily manage your job posts, view all listings, and track applications
         in one place.
@@ -31,7 +35,7 @@ const SideMenu = () => {
           <div className='flex mt-6 gap-6 m-8 text-sm    lg:w-[60vw] '>
             <button
               onClick={() => setActiveComponent(' Jobs')}
-              className='flex lg:mt-4 items-center justify-center lg:gap-2 focus:bg-green-300 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
+              className='flex lg:mt-4 items-center justify-center lg:gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -50,7 +54,7 @@ const SideMenu = () => {
             </button>
             <button
               onClick={() => setActiveComponent('Post Jobs')}
-              className='flex lg:mt-4 items-center lg:gap-2 focus:bg-green-300 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
+              className='flex lg:mt-4 items-center justify-center lg:gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -65,11 +69,11 @@ const SideMenu = () => {
                   className='fill-green-500 '
                 />
               </svg>
-              Post Jobs
+              List a Job
             </button>
             <button
-              onClick={() => setActiveComponent(' Posted Jobs')}
-              className='flex lg:mt-4 items-center focus:bg-green-300 lg:gap-2 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
+              onClick={() => setActiveComponent('Posted Jobs')}
+              className='flex lg:mt-4 justify-center items-center focus:bg-green-200 lg:gap-2 bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -84,11 +88,11 @@ const SideMenu = () => {
                   className='fill-green-500 '
                 />
               </svg>
-              Posted Jobs
+              My Jobs
             </button>
             <button
-              onClick={() => setActiveComponent(' Recevided Applications')}
-              className='flex lg:mt-4 items-center lg:gap-2 focus:bg-green-300  bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
+              onClick={() => setActiveComponent('Received Applications')}
+              className='flex lg:mt-4 items-center justify-center  lg:gap-2 focus:bg-green-200  bg-green-100 hover:bg-green-200  text-green-700 rounded-sm w-full p-2  '
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -107,7 +111,7 @@ const SideMenu = () => {
             </button>
           </div>
         </div>
-        <div className=' p-6 rounded-sm bg-gray-50 pt-10 ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center'>
+        <div className=' p-6 rounded-sm bg-white shadow-2xl  pt-10 ml-6 lg:w-[68vw]  lg:min-h-screen h-auto flex justify-center'>
           {renderComponent()}
         </div>
       </div>

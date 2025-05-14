@@ -10,7 +10,7 @@ import EmployerUserDetails from './Context/EmployerUserDetails'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
 
 import JobpostContext from './Context/JobpostContext'
-import RecivedApplication from './Pages/EmployerPages/RecivedApplication'
+
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
 import JobMenu from './Pages/EmployerPages/JobMenu'
@@ -44,7 +44,7 @@ function App () {
               <Route path='/employersignup' element={<EmployerSignup />} />
               <Route path='/employerprofile' element={<ProfileMainpage />} />
               
-              <Route path='/recApplication' element={<RecivedApplication />} />
+              
               <Route
                 path='/profile/accountsetting'
                 element={<AccountSettings />}

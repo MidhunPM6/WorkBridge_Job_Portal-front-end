@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Model from 'react-modal'
-import RecApplication from '../RecApplication/RecAppliction'
+import RecApplication from '../Job/RecApplication/RecAppliction'
 import logo from '../../assets/employer-mainpage/logo.png'
 
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../Redux/EmployerSlice'
-
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -75,18 +74,23 @@ const Navbar = () => {
           </div>
           <div className='lg:ml-auto lg:mr-8'>
             <input
-              type="text"
-              placeholder="Search"
-              className="w-72 py-2 pl-2 rounded bg-gray-100 text-gray-700 border border-gray-200 "
+              type='text'
+              placeholder='Search'
+              className='w-72 py-2 pl-2 rounded bg-gray-100 text-gray-700 border border-gray-200 '
             />
           </div>
         </div>
 
         <div className='flex items-center gap-4 mt-4 lg:mt-0 flex-wrap transition-all duration-300'>
-          {
-           employer ? (
+          {employer ? (
             <>
-              
+              <div className=' flex font-semibold gap-6 lg:mr-10 text-gray-700'>
+                <button className='hover:text-gray-900'>Home</button>
+                <button className='hover:text-gray-900'>About</button>
+                <button className='hover:text-gray-900'>Pricing</button>
+                <button className='hover:text-gray-900'>Contact Us</button>
+                <button className='hover:text-gray-900'>FAQs</button>
+              </div>
               <Model
                 isOpen={visible}
                 onRequestClose={modelClose}
@@ -106,7 +110,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className='px-4 flex gap-2 hover:bg-neutral-100 py-2 rounded-sm text-black transition-all duration-300 text-base font-semibold  '>
+                <button className='px-4 flex gap-2 bg-black bg-opacity-85 hover:bg-opacity-100 py-2 rounded-sm text-lime-500 transition-all duration-300 text-base font-semibold  '>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -123,28 +127,28 @@ const Navbar = () => {
                   {employer.name}
                 </button>
                 {profileOpen && (
-                  <div className='absolute flex flex-col left-0 mt-2 w-full bg-neutral-100 shadow-lg border rounded-sm z-50'>
+                  <div className='absolute  flex flex-col left-0 mt-2 lg:w-[15vw] w-full bg-neutral-100 shadow-lg border rounded-sm z-50'>
                     <button
-                      className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
+                      className='rounded-sm transition-all duration-300 text-black text-base p-2 hover:bg-neutral-200'
                       onClick={() => navigate('/employerprofile')}
                     >
                       Profile
                     </button>
                     <button
-                      onClick={()=>navigate('/profile/jobmenu')}
-                      className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
+                      onClick={() => navigate('/profile/jobmenu')}
+                      className='rounded-sm transition-all duration-300 text-black  p-2 hover:bg-neutral-200'
                     >
                       Manage Job
                     </button>
                     <button
                       onClick={() => navigate('/profile/accountsetting')}
-                      className='rounded-sm transition-all duration-300 text-black text-sm p-2 hover:bg-neutral-200'
+                      className='rounded-sm transition-all duration-300 text-black  p-2 hover:bg-neutral-200'
                     >
                       Account setting
                     </button>
                     <button
                       onClick={handleLogout}
-                      className='rounded-sm p-2 mt-3 bg-red-700 hover:bg-red-800 text-white text-sm shadow-lg'
+                      className='rounded-sm p-2 mt-3 bg-red-700 hover:bg-red-800 text-white  shadow-lg'
                     >
                       Logout
                     </button>
