@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import img2 from '../../assets/logo.png'
+import  { useState } from 'react'
 import Modal from 'react-modal'
 import ProfileFormPopup from './ProfileFormPopup'
 
@@ -39,10 +38,7 @@ const ProfileMainPage = () => {
           <div className=' relative  flex flex-col items-end overflow-hidden lg:w-[55vw] lg:h-[25vh] w-full h-[20vh]  bg-yellow-400 rounded-t-md'>
             <div className='absolute  left-0 bottom-0 flex justify-between items-end  p-2  w-full'>
               <div className='   w-32 h-32 bg-gray-200 lg:ml-3 lg:mb-2 rounded-sm flex justify-end items-end'>
-                <div className='flex-col justify-center items-center '>
-
-                <img src={img2} alt=""  className='w-48 '/>
-                </div>
+               
                 <div>
 
                 
