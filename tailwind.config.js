@@ -8,10 +8,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['Open Sans', 'sans-serif'],
         bricolage: ["Bricolage Grotesque", "sans-serif"],
         poppins : ["Poppins", "sans-serif"],
         Kaushan : ["Kaushan Script", "cursive"],
-        OpenSans : ["Open Sans", "sans-serif"],
+        
 
       },
       letterSpacing: {

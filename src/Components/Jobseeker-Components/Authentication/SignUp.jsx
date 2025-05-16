@@ -58,7 +58,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className='lg:flex font-poppinn  m-10 flex justify-center  md:pt-10 h-[80vh]  '>
+      <div className='lg:flex lg:flex-row  flex-col font-poppinn  lg:m-0 m-5 flex justify-center  md:pt-10 min-h-screen  '>
         <ToastContainer
           position='top-right'
           autoClose={5000}
@@ -71,22 +71,22 @@ const SignUp = () => {
           pauseOnHover
           theme='dark'
         />
-        <div className='flex flex-col justify-around items-center h-full p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
+        <div className='flex flex-col justify-around items-center  p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
           <div className='flex flex-col items-center'>
             <img src={logo} alt='' className='w-24' />
-            <h1 className='text-white lg:text-3xl text-3xl lg:tracking-[5px]'>
+            <h1 className='text-white  lg:text-3xl text-3xl lg:tracking-[5px]'>
               WorkBridge
             </h1>
           </div>
-          <p className='flex flex-col items-center text-sm  text-gray-200 tracking-wider '>
+          <p className='lg:flex lg:flex-col lg:mt-0 m-3  items-center  text-sm text-gray-200 tracking-wider  '>
             <span className=''>Join WorkBridge Today!</span>
             Create an account to discover new job opportunities and grow your
             career.
           </p>
         </div>
 
-        <div className='lg:w-[35vw]  lg: flex flex-col justify-center items-center lg:pt-0 pt-4 bg-slate-50 '>
-          <div className='flex flex-col items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-md'>
+        <div className='lg:w-[35vw]  lg:flex flex-col justify-center items-center lg:pt-0 pt-4 bg-slate-50 '>
+          <div className='flex flex-col lg:mt-0 mt-5 items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-md'>
             <h1 className='text-2xl lg:text-2xl font-bold  '>Sign In </h1>
             <form
               action=''
