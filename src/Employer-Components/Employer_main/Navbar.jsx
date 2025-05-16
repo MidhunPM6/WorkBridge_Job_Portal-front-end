@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Model from 'react-modal'
 import RecApplication from '../Job/RecApplication/RecAppliction'
 import logo from '../../assets/employer-mainpage/logo.png'
-
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../Redux/EmployerSlice'
@@ -48,7 +49,15 @@ const Navbar = () => {
     e.preventDefault()
     localStorage.removeItem('userdata')
     dispatch(logout())
-    navigate('/employer')
+    toast.success('Logout Success', {
+      autoClose: 1300,
+      onClose: () => {
+        navigate('/employerlogin')
+      }
+    })
+    
+
+  
   }
 
   let timeoutId
@@ -67,6 +76,17 @@ const Navbar = () => {
   return (
     <>
       <div className='lg:flex lg:justify-around lg:h-[12vh] text-white p-4 shadow-md'>
+        <ToastContainer
+          position='top-right'
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <div className='lg:flex-row flex flex-col items-center text-black gap-6'>
           <div className='flex justify-center items-center gap-2'>
             <img src={logo} alt='' className='w-20 lg:ml-10' />
@@ -81,10 +101,10 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className='flex items-center gap-4 mt-4 lg:mt-0 flex-wrap transition-all duration-300'>
+        <div className='flex items-center lg:justify-normal justify-center gap-4 mt-4 lg:mt-0 flex-wrap transition-all duration-300'>
           {employer ? (
             <>
-              <div className=' flex font-semibold gap-6 lg:mr-10 text-gray-700'>
+              <div className=' flex  font-semibold gap-6 lg:mr-10 text-gray-700'>
                 <button className='hover:text-gray-900'>Home</button>
                 <button className='hover:text-gray-900'>About</button>
                 <button className='hover:text-gray-900'>Pricing</button>

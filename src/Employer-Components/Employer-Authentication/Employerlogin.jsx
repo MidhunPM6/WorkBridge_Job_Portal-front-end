@@ -35,7 +35,9 @@ const Employerlogin = () => {
     e.preventDefault()
     if (!handleValidation(e)) return
     try {
-      const response = await axiosInstance.post('/api/auth/login', empLoginForm)
+      const response = await axiosInstance.post('/api/auth/login', empLoginForm,{
+        withCredentials: true
+      })
 
       console.log(response)
 
@@ -73,7 +75,7 @@ const Employerlogin = () => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme='dark'
+           
           />
 
           <div className='w-full lg:w-2/3 h-full '>

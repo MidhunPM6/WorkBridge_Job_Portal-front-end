@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import img from '../../assets/cover.jpg'
 import img2 from '../../assets/logo.png'
 import Modal from 'react-modal'
 import ProfileFormPopup from './ProfileFormPopup'

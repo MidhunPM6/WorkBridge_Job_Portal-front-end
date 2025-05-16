@@ -1,9 +1,47 @@
-import React from 'react'
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+import React, { useState } from 'react'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
+import { axiosInstance } from '../../../Axios/Axios-instance'
 
 const PostJob = () => {
-    const options = ['Full-time', 'Part-time', 'Remote'];
+  const options = ['Full-time', 'Part-time', 'Remote']
+  const [formData, setFormData] = useState({
+    title: '',
+    company_name: '',
+    location: '',
+    salary: '',
+    job_type: '',
+    job_description: ''
+  })
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
+
+  const handleDropdownChange = selectedOption => {
+    setFormData({
+      ...formData,
+      job_type: selectedOption.value
+    })
+  }
+
+  const handlePost = async () => {
+    console.log(formData);
+    
+    try {
+      const response = await axiosInstance.post('/api/employer/postjob', formData, {
+        withCredentials: true
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className='flex  '>
       <div className='flex flex-col lg:p-6 p-6  lg:w-[40vw] rounded-sm text  shadow-[0px_0px_15px_0px_rgba(181,181,181,1)] bg-white'>
@@ -26,11 +64,13 @@ const PostJob = () => {
               type='text'
               name='title'
               placeholder='Job Title'
+              onChange={handleChange}       
               className=' text-sm  p-2  bg-gray-50 shadow  rounded-sm  border border-gray-200'
             />
             <input
               type='text'
-              name='comapany_name'
+              name='company_name'
+              onChange={handleChange}
               placeholder='Company Name'
               className=' text-sm  p-2 w-full bg-gray-50 shadow rounded-sm  border border-gray-200'
             />
@@ -40,11 +80,13 @@ const PostJob = () => {
               type='text'
               placeholder='Location (City, State)'
               name='location'
+              onChange={handleChange}
               className=' text-sm  p-2  bg-gray-50 shadow rounded-sm  border border-gray-200'
             />
             <input
               type='text'
               name='salary'
+              onChange={handleChange}
               placeholder='Salary Range'
               className=' text-sm  p-2 w-full bg-gray-50 shadow  rounded-sm  border border-gray-200'
             />
@@ -55,6 +97,8 @@ const PostJob = () => {
               options={options}
               placeholder='Select Job Type'
               className='text-sm w-full bg-gray-50'
+              onChange={handleDropdownChange}
+              name='job_type'
               controlClassName='p-2 bg-gray-50 shadow rounded-sm border border-gray-200'
               menuClassName='bg-white shadow border border-gray-200 rounded-sm'
             />
@@ -63,6 +107,7 @@ const PostJob = () => {
             <textarea
               placeholder='Job Description'
               name='job_description'
+              onChange={handleChange}
               className='text-sm  w-full max-h-40 h-24 bg-gray-50 shadow mt-6 p-3 rounded-sm  border border-gray-200'
               rows='5'
             ></textarea>
@@ -70,7 +115,10 @@ const PostJob = () => {
         </div>
 
         <div className='flex flex-col  items-center mt-6'>
-          <button className='px-6 py-2 mt-8  text-white bg-violet-900 hover:bg-violet-800 rounded-sm shadow-lg '>
+          <button
+            onClick={handlePost}
+            className='px-6 py-2 mt-8  text-white bg-violet-900 hover:bg-violet-800 rounded-sm shadow-lg '
+          >
             Post Job
           </button>
           <div className='flex justify-end mt-6  text-xs text-slate-600'>
