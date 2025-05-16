@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import heroimg from '../../../assets/Heroimg.png'
 import { useSelector } from 'react-redux'
-import SearchBar from './SearchBar'
+
 
 const HomeMain = () => {
   const navigate = useNavigate()

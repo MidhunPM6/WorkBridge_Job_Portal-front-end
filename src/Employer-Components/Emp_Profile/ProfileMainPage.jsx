@@ -1,7 +1,7 @@
 import  { useState } from 'react'
 import Modal from 'react-modal'
 import ProfileFormPopup from './ProfileFormPopup'
-
+import img2 from '../../assets/logo.png'
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
 
