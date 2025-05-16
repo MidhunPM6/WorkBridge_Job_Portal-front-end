@@ -4,6 +4,7 @@ const flowbite = require("flowbite-react/tailwind");
 
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", ],
+  safelist: ['text-sm', 'text-base', 'text-lg', 'text-xl', 'text-2xl'],
   theme: {
     extend: {
       fontFamily: {
