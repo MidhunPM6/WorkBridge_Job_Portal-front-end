@@ -6,8 +6,8 @@ const Aboutus = () => {
     <>
       <div className=" bg-stone-50 " id="about">
         <div className="flex flex-col justify-center items-center pt-20 gap-4 w-full p-10 ">
-          <h1 className="font-bold text-4xl">About Us & Our Commitment</h1>
-          <p className="text-gray-600">Connecting talent with opportunity — and doing it better than anyone else.</p>
+          <h1 className="font-bold lg:text-4xl text-2xl">About Us & Our Commitment</h1>
+          <p className="text-gray-600 text-sm">Connecting talent with opportunity — and doing it better than anyone else.</p>
 
         </div>
         <div className="flex flex-col lg:justify-around justify-center items-center lg:flex-row font-poppins mt-4 text-sm  pb-20">

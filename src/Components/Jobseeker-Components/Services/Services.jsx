@@ -11,14 +11,19 @@ const Services = () => {
   return (
     <>
       <div
-  className='flex flex-col font-poppins relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white to-white bg-cover bg-center bg-no-repeat min-h-screen'
-  id='service'
- 
->
-          <div className='flex flex-col justify-center items-center mt-20 gap-4'>
-            <h1 className='font-bold text-4xl'>Explore Our Candidate Services</h1>
-            <p className='text-gray-600'>    We provide powerful tools and personalized features to help you land your ideal job—faster and smarter.</p>
-          </div>
+        className='flex flex-col font-poppins relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-white to-white bg-cover bg-center bg-no-repeat min-h-screen'
+        id='service'
+      >
+        <div className='flex flex-col justify-center items-center mt-20 gap-4 p-10'>
+          <h1 className='font-bold lg:text-4xl text-2xl'>
+            Explore Our Candidate Services
+          </h1>
+          <p className='flex m-4 lg:m-0 text-gray-600 lg:text-base text-sm '>
+            {' '}
+            We provide powerful tools and personalized features to help you land
+            your ideal job—faster and smarter.
+          </p>
+        </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-20 pb-28 max-w-4xl mx-auto w-[70vw] text-sm '>
           <div className='p-6 border-2 border-slate-300 hover:border-slate-200 flex flex-col items-center bg-white rounded-md shadow-md hover:scale-105 transition-all duration-500'>
             <img

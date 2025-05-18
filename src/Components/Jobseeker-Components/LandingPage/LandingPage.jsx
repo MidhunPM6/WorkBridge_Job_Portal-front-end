@@ -23,13 +23,13 @@ const HomeMain = () => {
           <div className='lg:flex lg:flex-col flex-wrap justify-center text-2xl  lg:text-5xl font-bold   tracking-wider  bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
             <p className='text-xs   text-gray-700 lg:text-[13px] tracking-wider leading-6 lg:leading-10 mt-20 lg:mt-2 lg:w-[41vw] w-[35vw] font-poppins font-medium '>
               {' '}
-              <span className='text-3xl lg:text-5xl lg:tracking-wider   font-bold bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
+              <span className='text-3xl lg:text-4xl lg:tracking-wider   font-bold bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
                 WorkBridge Connecting <br />{' '}
-                <span>opportunities with talent</span>
+                <span>opportunities with <br />talent</span>
               </span>
             </p>
           </div>
-            <div className='lg:flex lg:flex-col  lg:items-center leading-loose text-gray-600 font-semibold'>
+            <div className='lg:flex lg:flex-col  lg:items-center leading-loose text-sm text-gray-600 font-semibold'>
               <p className='lg:w-full w-[33vw]'>our platform bridges dreams and possibilities, helping job seekers
               find their path and </p>
               <p className='lg:w-full w-[33vw]'>companies build their future.</p>

@@ -89,9 +89,10 @@ const Login = () => {
             </h1>
           </div>
 
-          <p className='lg:flex lg:flex-col lg:mt-0 m-3  items-center  text-sm text-gray-200 tracking-wider  '>
+          <p className='lg:flex lg:flex-col lg:mt-0 m-3 flex flex-row justify-center items-center  text-sm text-gray-200 tracking-wider  '>
             <span>Log in to continue your job search.</span>
-            Find the right job faster with personalized recommendations.
+             Create an account to discover new job opportunities and grow your
+            career.
           </p>
         </div>
 
@@ -100,7 +101,7 @@ const Login = () => {
             <h1 className='text-2xl lg:text-2xl font-bold  '>Login</h1>
             <form
               action=''
-              className='flex flex-col place-items-center p-4 lg:pt-6 '
+              className='flex flex-col place-items-center p-4 lg:pt-6 text-sm '
               onSubmit={handlelogin}
             >
               <div className='flex flex-col'>
@@ -130,7 +131,7 @@ const Login = () => {
                 {error.password && (
                   <p className='text-red-600 ml-2 text-sm'>{error.password}</p>
                 )}
-                <div className='flex justify-end text-sm text-blue-800 cursor-pointer hover:underline m-2'>
+                <div className='flex justify-end text-xs text-blue-800 cursor-pointer hover:underline m-2'>
                   <h2>Forgotten password?</h2>
                 </div>
               </div>

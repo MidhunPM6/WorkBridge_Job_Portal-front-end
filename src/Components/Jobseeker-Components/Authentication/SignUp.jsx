@@ -90,7 +90,7 @@ const SignUp = () => {
             <h1 className='text-2xl lg:text-2xl font-bold  '>Sign In </h1>
             <form
               action=''
-              className='flex flex-col place-items-center p-4 lg:pt-6 '
+              className='flex flex-col place-items-center p-4 lg:pt-6 text-sm '
               onSubmit={handleSubmit}
             >
               <div className='flex flex-col'>

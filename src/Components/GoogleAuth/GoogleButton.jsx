@@ -13,7 +13,7 @@ const GoogleButton =  ({ role }) => {
     <div>
       <button
         onClick={handleSubmit}
-        className='px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-700 dark:text-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-500 hover:shadow transition duration-150'
+        className='px-4 py-1 border text-sm flex gap-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-700 dark:text-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-500 hover:shadow transition duration-150'
       >
         <img
           className='w-6 h-6'
