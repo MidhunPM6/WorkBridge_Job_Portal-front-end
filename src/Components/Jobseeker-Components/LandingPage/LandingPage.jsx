@@ -23,7 +23,7 @@ const HomeMain = () => {
           <div className='lg:flex lg:flex-col flex-wrap justify-center text-2xl  lg:text-5xl font-bold   tracking-wider  bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
             <p className='text-xs   text-gray-700 lg:text-[13px] tracking-wider leading-6 lg:leading-10 mt-20 lg:mt-2 lg:w-[41vw] w-[35vw] font-poppins font-medium '>
               {' '}
-              <span className='text-3xl lg:text-4xl lg:tracking-wider   font-bold bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
+              <span className='text-3xl lg:text-5xl    font-bold bg-gradient-to-r from-black to-violet-800 bg-clip-text text-transparent'>
                 WorkBridge Connecting <br />{' '}
                 <span>opportunities with <br />talent</span>
               </span>

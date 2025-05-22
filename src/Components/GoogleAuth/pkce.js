@@ -32,8 +32,8 @@ export const genaratePKCE =async()=>{
     const codeVerifier = generateRandomString()
     const codeChallenge= await sha256(codeVerifier)
 
-   sessionStorage.setItem('code_verifier',codeVerifier)
+   localStorage.setItem('code_verifier',codeVerifier)
 
-    return {codeVerifier,codeChallenge}
+    return {codeVerifier,codeChallenge} 
 
 }  

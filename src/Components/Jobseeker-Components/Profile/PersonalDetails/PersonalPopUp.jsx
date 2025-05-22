@@ -165,6 +165,8 @@ const PersonalPopUp = () => {
         navigate(0)
       }, 2000)
     } catch (error) {
+      console.error(error);
+      
       toast.error(error.response?.data?.message || 'Server Error', {
         duration: 1300
       })

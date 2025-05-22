@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setEmployerDetails } from '../../Redux/EmployerSlice'
 import { setUserDetails } from '../../Redux/UserSlice'
 
-axios.defaults.withCredentials = true
+
 
 const Callback = () => {
   const navigate = useNavigate('')
@@ -16,6 +16,8 @@ const Callback = () => {
     const handleAuthCallback = async () => {
       const urlParams = new URLSearchParams(window.location.search)
       const code = urlParams.get('code')
+      console.log("code is  : " + code);
+      
       const stateEncoded = urlParams.get('state')
       const { role } = JSON.parse(atob(stateEncoded))
       console.log(role)
@@ -25,7 +27,9 @@ const Callback = () => {
         return
       }
       try {
-        const codeVerifier = sessionStorage.getItem('code_verifier')
+        const codeVerifier = localStorage.getItem('code_verifier')
+        console.log("code verifier" + codeVerifier);
+        
         if (!codeVerifier) {
           console.error('Code verifier missing.')
           navigate('/')
@@ -33,7 +37,7 @@ const Callback = () => {
         }
         console.log(code)
 
-        const response = await axiosInstance.post(
+        const response = await process.env.REACT_APP_AXIOS_URL.post( 
           '/api/auth/oauth',
           {
             code,
