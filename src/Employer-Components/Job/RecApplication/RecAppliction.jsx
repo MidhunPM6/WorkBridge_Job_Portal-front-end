@@ -23,7 +23,7 @@ const RecAppliction = () => {
 
   return (
     <>
-      <div className='flex flex-col    items-center lg:w-full  rounded-sm'>
+      <div className='flex flex-col   items-center lg:w-full  rounded-sm'>
         <div className='flex flex-col  items-center justify-center '>
 
         <h1 className='text-2xl   font-semibold '>Candidate Applications</h1>
@@ -31,7 +31,7 @@ const RecAppliction = () => {
         </div>
 
 
-        <div className='flex flex-col  mt-8    lg:w-full  w-[80vw]  p-4 border border-slate-300   bg-gray-100 bg-opacity-0   transition-all duration-500   rounded   '>
+        <div className='flex flex-col  mt-8 items-center   lg:w-full  w-[80vw]  p-4 border border-slate-300   bg-gray-100 bg-opacity-0   transition-all duration-500   rounded   '>
           <div className='flex  mt-1 gap-6 rounded-md'>
             <h1 className='w-72  flex flex-col font-semibold  decoration-gray-300  cursor-pointer    rounded-sm'>
                 Applicant Name
@@ -66,26 +66,26 @@ const RecAppliction = () => {
               <span className=' text-gray-600'>bangalore</span>
             </h1>
           </div>
-          <div className='flex  mt-4 rounded-md gap-6'>
-            <h1 className='w-auto text-sm    cursor-pointer     rounded'>
+          <div className='   mt-4  rounded-md gap-6'>
+            <h1 className='w-auto text-sm   cursor-pointer     rounded'>
               <span className=' font-bold outline-none'>
                 Applied Date and time
               </span>{' '}
               : 20/02/2025 10:00 AM
             </h1>
           </div>
-          <div className=' flex lg:justify-end justify-center  m-3 gap-4  text-sm mt-6 '>
-            <button className='bg-green-100 hover:bg-green-200  text-green-700 p-2 group font-semibold bg transition-all duration-500 rounded-sm'>
+          <div className=' flex   m-3 gap-4  text-sm mt-6 '>
+            <button className='bg-green-100 hover:bg-green-200  text-green-500 p-2 group font-semibold bg transition-all duration-500 rounded-md '>
               Profile
             </button>
-            <button className='bg-violet-100 hover:bg-violet-200 text-violet-700 p-2 group font-semibold bg transition-all duration-500 rounded-sm'>
+            <button className='bg-orange-100 hover:bg-orange-200 text-orange-500 p-2 group font-semibold bg transition-all duration-500 rounded-md'>
               Shortlist
             </button>
-            <button className='bg-red-100 hover:bg-red-200 text-red-700 p-2 group font-semibold bg transition-all duration-500 rounded-sm'>
-              Reject
-            </button>
-            <button className='bg-blue-100 hover:bg-blue-200 text-blue-700 p-2 group font-semibold bg transition-all duration-500 rounded-sm'>
+            <button className='bg-blue-100 hover:bg-blue-200 text-blue-500 p-2 group font-semibold bg transition-all duration-500 rounded-md '>
               Send Email
+            </button>
+            <button className='bg-red-100 hover:bg-red-200 text-red-500 p-2 group font-semibold bg transition-all duration-500 rounded-md '>
+              Reject
             </button>
           </div>
         </div>

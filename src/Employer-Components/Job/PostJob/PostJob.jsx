@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import { axiosInstance } from '../../../Axios/Axios-instance'
@@ -6,6 +6,9 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
+import { loadLocation } from '../../../Components/common/loadLocation'
+
+
 
 const options = ['Full-time', 'Part-time', 'Remote']
 
@@ -44,7 +47,7 @@ const PostJob = () => {
     }))
     try {
       const results = await getGeocode({ address })
-      const { lat, lng } = await getLatLng(results[0])
+      const { lat, lng } = getLatLng(results[0])
       console.log('Coordinates: ', { lat, lng })
     } catch (error) {
       console.error('Error getting location:', error)
@@ -71,6 +74,11 @@ const PostJob = () => {
       console.error('Error posting job:', error)
     }
   }
+
+
+    useEffect(() => {
+      loadLocation();
+    }, []);
 
   return (
     <div className='flex'>

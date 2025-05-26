@@ -19,6 +19,11 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <title>React App</title>
+    <!-- Google Maps Places API -->
+    <script
+      src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_LOCATION_API}&libraries=places`}
+      defer
+    ></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

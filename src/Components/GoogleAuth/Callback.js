@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import LazyLoad from '../lazyLoading/Loading'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../Axios/Axios-instance'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setEmployerDetails } from '../../Redux/EmployerSlice'
 import { setUserDetails } from '../../Redux/UserSlice'
@@ -54,11 +53,11 @@ const Callback = () => {
           console.log('Login Success')
         }
 
-        if (response.data.user.role === 'candidate') {
-          dispatch(setUserDetails(response.data.user))
+        if (response.data.User.role === 'candidate') {
+          dispatch(setUserDetails(response.data.User))
           navigate('/')
-        } else if (response.data.user.role === 'employer') {
-          dispatch(setEmployerDetails(response.data.user))
+        } else if (response.data.User.role === 'employer') {
+          dispatch(setEmployerDetails(response.data.User))
           navigate('/employer')
         }
       } catch (error) {
