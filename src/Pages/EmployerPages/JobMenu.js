@@ -7,6 +7,7 @@ const JobMenu = () => {
     <>
       <Navbar />
       <SideMenu />
+    
     </>
   )
 }

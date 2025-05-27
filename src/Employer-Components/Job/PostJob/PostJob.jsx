@@ -6,7 +6,8 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
-import { loadLocation } from '../../../Components/common/loadLocation'
+import { loadLocation } from '../../../Components/common/loadLocation.js'
+import toast, { Toaster } from 'react-hot-toast'
 
 
 
@@ -69,9 +70,27 @@ const PostJob = () => {
         formData,
         { withCredentials: true }
       )
-      console.log('Job posted:', response.data)
+      toast.success(response.data.message, {
+        duration: 1200,
+        onclose: () => {
+          setFormData({
+            title: '',
+            company_name: '',
+            location: '',
+            salary: '',
+            job_type: '',
+            job_description: ''
+          })
+          setValue('')
+          clearSuggestions()
+        }
+      })
+      
     } catch (error) {
       console.error('Error posting job:', error)
+      toast.error(error.response?.data?.message || 'Failed to post job', {
+        duration: 1500
+      })
     }
   }
 
@@ -82,6 +101,7 @@ const PostJob = () => {
 
   return (
     <div className='flex'>
+      <Toaster position='top-center' reverseOrder={false} />
       <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-sm text shadow-[0px_0px_15px_0px_rgba(181,181,181,1)] bg-white'>
         <div className='flex flex-col justify-center items-center w-full'>
           <h1 className='text-2xl font-semibold text-center'>
@@ -153,6 +173,7 @@ const PostJob = () => {
               placeholder='Select Job Type'
               className='text-sm w-full bg-gray-50'
               onChange={handleDropdownChange}
+             
               name='job_type'
               controlClassName='p-2 bg-gray-50 shadow rounded-sm border border-gray-200'
               menuClassName='bg-white shadow border border-gray-200 rounded-sm'

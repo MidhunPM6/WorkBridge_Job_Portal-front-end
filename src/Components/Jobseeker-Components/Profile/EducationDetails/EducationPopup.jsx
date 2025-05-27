@@ -1,12 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, {  useState } from 'react'
 import DatePicker from 'rsuite/DatePicker'
 import 'rsuite/DatePicker/styles/index.css'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { setEducation } from '../../../../Redux/UserSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const EducationPopup = ({ setIsOpen }) => {
   const [formData, setFormData] = useState('')

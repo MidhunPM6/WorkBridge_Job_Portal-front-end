@@ -24,7 +24,7 @@ const SideMenu = () => {
   }
 
   return (
-    <div className=' pt-20 flex flex-col  justify-center items-center bg-gray-50  '>
+    <div className=' pt-6 flex flex-col  justify-center items-center bg-gray-50  '>
       <h1 className='lg:text-2xl text-xl lg:m-2 m-4 font-semibold'>
         Easily manage your job posts, view all listings, and track applications
         in one place.
@@ -111,7 +111,7 @@ const SideMenu = () => {
             </button>
           </div>
         </div>
-        <div className=' p-6 rounded-sm bg-white shadow-2xl  pt-10 ml-6 lg:w-[68vw]  lg:min-h-screen h-auto flex justify-center'>
+        <div className=' bg-white border mb-10 rounded-md lg:pt-10  lg:min-h-[70dvh]  flex flex-col items-center'>
           {renderComponent()}
         </div>
       </div>

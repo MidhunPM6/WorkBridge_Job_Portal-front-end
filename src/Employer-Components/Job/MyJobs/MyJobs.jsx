@@ -16,8 +16,9 @@ const MyJobs = () => {
             <span className='font-Kaushan font-semibold'>₹</span>
             60000
           </span>
+          <p className='mt-1'>Part-Time</p>
           <p className='mt-2 text-lg font-semibold'>Job Description</p>
-          <p className='text-[15px] whitespace-pre-line mt-2 w-full max-h-52 overflow-hidden text-ellipsis leading-relaxed '>
+          <p className=' whitespace-pre-line mt-2 w-full max-h-52 overflow-hidden text-ellipsis leading-relaxed '>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus
             quasi rerum suscipit minima animi dicta temporibus excepturi
             molestiae eum reprehenderit consectetur accusantium fugit ad in at,

@@ -130,7 +130,7 @@ const Navbar = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className='px-4 flex gap-2 bg-black bg-opacity-85 hover:bg-opacity-100 py-2 rounded-sm text-lime-500 transition-all duration-300 text-base font-semibold  '>
+                <button className='px-8 flex gap-2 bg-black hover:bg-opacity-90  py-2  text-violet-600 transition-all duration-300 font-semibold rounded'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -147,7 +147,7 @@ const Navbar = () => {
                   {employer.name}
                 </button>
                 {profileOpen && (
-                  <div className='absolute  flex flex-col left-0 mt-2 lg:w-[15vw] w-full bg-neutral-100 shadow-lg border rounded-sm z-50'>
+                  <div className='absolute  flex flex-col left-0 mt-2  w-full bg-neutral-100 shadow-lg border rounded z-50'>
                     <button
                       className='rounded-sm transition-all duration-300 text-black text-base p-2 hover:bg-neutral-200'
                       onClick={() => navigate('/employerprofile')}

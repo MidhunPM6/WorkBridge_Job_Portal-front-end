@@ -31,40 +31,41 @@ const RecAppliction = () => {
         </div>
 
 
-        <div className='flex flex-col  mt-8 items-center   lg:w-full  w-[80vw]  p-4 border border-slate-300   bg-gray-100 bg-opacity-0   transition-all duration-500   rounded   '>
-          <div className='flex  mt-1 gap-6 rounded-md'>
-            <h1 className='w-72  flex flex-col font-semibold  decoration-gray-300  cursor-pointer    rounded-sm'>
+        <div className='flex flex-col  mt-8 items-center   lg:w-[40vw] w-[80vw]  p-4 border-[0.100rem] border-slate-200    transition-all duration-500   rounded   '>
+          <div className='flex   gap-6'>
+          <div className='flex-col flex  mt-1 gap-6 rounded-md'>
+            <h1 className='  flex flex-col font-semibold  decoration-gray-300  cursor-pointer    rounded-sm'>
                 Applicant Name
               <span className=' text-gray-600 outline-none'>
               Midhun
               </span>{' '}
             </h1>
-            <p className='ml-8 w-72 flex flex-col font-semibold decoration-gray-300 cursor-pointer  rounded  '>
+            <p className='  flex flex-col font-semibold decoration-gray-300 cursor-pointer  rounded  '>
               Email ID
-              <span className=' text-gray-600'>midhun@gmail.com</span>
+              <span className=' text-gray-600'>midhun@gmailpdjgkg.com</span>
               
             </p>
-          </div>
-          <div className='mt-2 flex gap-6  rounded-md'>
-            <h1 className='w-72 flex flex-col font-semibold decoration-gray-300 cursor-pointer  rounded '>
+            <h1 className=' flex flex-col font-semibold decoration-gray-300 cursor-pointer  rounded '>
               Mob Number
               <span className=' text-gray-600'>858544446</span>
 
             </h1>
-            <h1 className='w-72 flex flex-col decoration-gray-300 cursor-pointer  ml-8  rounded '>
-              <span className=' font-semibold outline-none'>Resume Link</span>
-              <span className=' text-gray-600'>mmdnkvcn</span>
-            </h1>
           </div>
-          <div className='mt-2 flex gap-6 rounded-md'>
-            <h1 className='w-72 flex flex-col decoration-gray-300 cursor-pointer  rounded '>
+        
+          <div className='mt-2 flex flex-col gap-6 rounded-md max-width-32 '>
+            <h1 className=' flex flex-col decoration-gray-300 cursor-pointer    rounded '>
+              <span className=' font-semibold outline-none'>Resume Link</span>
+              <span className=' text-sky-700 font-semibold hover:underline hover:underline-offset-4 break-all'>dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjv.pdf</span>
+            </h1>
+            <h1 className=' flex flex-col decoration-gray-300 cursor-pointer  rounded '>
               <span className=' font-semibold outline-none'>Job title</span>
               <span className=' text-gray-600'>Web Developer</span>
             </h1>
-            <h1 className='w-72 flex flex-col  decoration-gray-300 cursor-pointer  ml-8  rounded '>
+            <h1 className=' flex flex-col  decoration-gray-300 cursor-pointer  rounded '>
               <span className=' font-semibold outline-none'>Location</span>
               <span className=' text-gray-600'>bangalore</span>
             </h1>
+          </div>
           </div>
           <div className='   mt-4  rounded-md gap-6'>
             <h1 className='w-auto text-sm   cursor-pointer     rounded'>
