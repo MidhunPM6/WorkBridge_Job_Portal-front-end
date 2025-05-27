@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import React from 'react'
-
 import { setSelectedJob } from '../../../Redux/SelectedJobSlice'
-
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import logo from '../../../assets/lightlogo.png'

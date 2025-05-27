@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, use } from 'react'
 import Dropdown from 'react-dropdown'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -10,19 +10,9 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete'
 import { loadLocation } from '../../../Components/common/loadLocation.js'
 import toast, { Toaster } from 'react-hot-toast'
-
+import SelectDrop from 'react-select'
 
 const PostJob = () => {
-  const options = ['Full-time', 'Part-time', 'Remote']
-  const modules = {
-  toolbar: [
-    [{ header: [3, false] }],
-    ['bold', 'italic'],
-    [ { list: 'bullet' }],
-   
-    
-  ]
-}
   const [formData, setFormData] = useState({
     title: '',
     company_name: '',
@@ -31,6 +21,35 @@ const PostJob = () => {
     job_type: '',
     job_description: ''
   })
+  const [jobTitle, setJobTitle] = useState([])
+
+  const options = ['Full-time', 'Part-time', 'Remote']
+  const modules = {
+    toolbar: [
+      [{ header: [3, false] }],
+      ['bold', 'italic'],
+      [{ list: 'bullet' }]
+    ]
+  }
+  useEffect(() => {
+    const fetchDesignationdata = async () => {
+      try {
+        const res = await fetch('/designationList.json')
+        const data = await res.json()
+        console.log(data)
+
+        // Format data for react-select
+        const mapped = data.map(d => ({
+          label: d.title,
+          value: d.title
+        }))
+        setJobTitle(mapped)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchDesignationdata()
+  }, [])
 
   const {
     ready,
@@ -71,17 +90,23 @@ const PostJob = () => {
     }))
   }
 
+  const handleDesignationChange = selectedOption => {
+    setFormData(prev => ({
+      ...prev,
+      title: selectedOption.value
+    }))
+  }
+
   const handleJobDescriptionChange = value => {
     setFormData(prev => ({
       ...prev,
       job_description: value
     }))
   }
-  
 
   const handlePost = async () => {
-    console.log(formData.job_description);
-  
+    console.log(formData.job_description)
+
     try {
       const response = await axiosInstance.post(
         '/api/employer/postjob',
@@ -134,13 +159,16 @@ const PostJob = () => {
 
         <div className='flex-col gap-10 mt-10'>
           <div className='lg:flex-row flex flex-col gap-6'>
-            <input
-              type='text'
-              name='title'
-              placeholder='Job Title'
-              onChange={handleChange}
-              className='text-sm p-2 bg-gray-50 shadow rounded-sm border border-gray-200'
-            />
+            <div className='w-full'>
+              <SelectDrop
+                name='designation'
+                options={jobTitle}
+                value={jobTitle.find(opt => opt.value === formData.designation)}
+                onChange={handleDesignationChange}
+                isClearable
+                placeholder='Select Designation'
+              />
+            </div>
             <input
               type='text'
               name='company_name'
