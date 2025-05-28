@@ -141,9 +141,9 @@ const PostJob = () => {
   }, [])
 
   return (
-    <div className='flex'>
+    <div className='flex justify-center items-center p-6 '>
       <Toaster position='top-center' reverseOrder={false} />
-      <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-sm text shadow-[0px_0px_15px_0px_rgba(181,181,181,1)] bg-white'>
+      <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-md   shadow-[0px_0px_15px_0px_rgba(181,181,181,1)] bg-white'>
         <div className='flex flex-col justify-center items-center w-full'>
           <h1 className='text-2xl font-semibold text-center'>
             Publish a Job Opening
@@ -174,7 +174,7 @@ const PostJob = () => {
               name='company_name'
               placeholder='Company Name'
               onChange={handleChange}
-              className='text-sm p-2 w-full bg-gray-50 shadow rounded-sm border border-gray-200'
+              className='  p-2 w-full   rounded-md border border-gray-300'
             />
           </div>
 
@@ -185,7 +185,7 @@ const PostJob = () => {
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 placeholder='Enter a location'
-                className='text-sm p-2 w-full bg-gray-50 shadow rounded-sm border border-gray-200'
+                className=' p-2 w-full   rounded-md border border-gray-300'
               />
               {status === 'OK' && (
                 <ul className='absolute bg-white border border-gray-200 rounded mt-1 z-10 max-h-40 overflow-auto w-full'>
@@ -193,7 +193,7 @@ const PostJob = () => {
                     <li
                       key={place_id}
                       onClick={() => handleSelect(description)}
-                      className='p-2 hover:bg-gray-100 cursor-pointer text-sm'
+                      className='p-2 hover:bg-gray-100 cursor-pointer '
                     >
                       {description}
                     </li>
@@ -207,7 +207,7 @@ const PostJob = () => {
               name='salary'
               placeholder='Salary Range'
               onChange={handleChange}
-              className='text-sm p-2 w-full bg-gray-50 shadow rounded-sm border border-gray-200'
+              className='  p-2 w-full   rounded-md border border-gray-300'
             />
           </div>
 
@@ -215,7 +215,7 @@ const PostJob = () => {
             <Dropdown
               options={options}
               placeholder='Select Job Type'
-              className='text-sm w-full bg-gray-50'
+              className='   w-full  rounded-md '
               onChange={handleDropdownChange}
               name='job_type'
               controlClassName='p-2 bg-gray-50 shadow rounded-sm border border-gray-200'
@@ -235,7 +235,7 @@ const PostJob = () => {
         <div className='flex flex-col items-center mt-6'>
           <button
             onClick={handlePost}
-            className='px-6 py-2 mt-8 text-white bg-violet-900 hover:bg-violet-800 rounded-sm shadow-lg'
+            className='w-[10vw] py-3 mt-8 text-white bg-violet-900 hover:bg-violet-950 rounded-md shadow-lg'
           >
             Post Job
           </button>

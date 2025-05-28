@@ -89,69 +89,127 @@ const EducationDetails = () => {
 
   return (
     <>
-      <div className='flex flex-col  w-full h-auto'>
-        <Toaster></Toaster>
-        <div className='relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] rounded-t-sm   w-full  '>
-          <div className='flex justify-between p-2 items-center  bg-violet-50 text-violet-500   rounded-sm  h-16'>
-            <h1 className='text-2xl font-semibold'>Education</h1>
+      <div className="flex flex-col w-full h-auto">
+  <Toaster />
+  <div className="relative flex-col lg:justify-normal justify-center lg:p-8 p-6 lg:h-auto shadow-[0px_0px_10px_0px_rgba(0,0,0,0.08)] rounded-lg w-full bg-white">
+    {/* Header */}
+    <div className="flex justify-between items-center p-4 bg-violet-50 rounded-lg">
+      <h1 className="text-2xl font-semibold text-violet-800">Education</h1>
+      <button 
+        onClick={openModal}
+        className="p-2 text-violet-600 hover:text-violet-800 hover:bg-violet-100 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        aria-label="Add education"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
+    
+    {/* Education List */}
+    <div className="mt-6 flex flex-col gap-4">
+      {education && education.length > 0 ? (
+        education.map((educationObj) => (
+          <div 
+            key={educationObj.id}
+            className="flex flex-col gap-3 p-5 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-200"
+          >
+            <div className="flex justify-between items-start">
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  {educationObj.college || "Untitled Education"}
+                </h2>
+                <p className="text-gray-600 mt-1">
+                  {educationObj.field}
+                </p>
+                <div className="flex gap-2 text-sm text-gray-500 mt-2">
+                  <span>{educationObj.StartDate}</span>
+                  <span>—</span>
+                  <span>{educationObj.Passed}</span>
+                </div>
+              </div>
+              
+              <button
+                onClick={() => selectEducation(educationObj.id)}
+                className="p-1 text-gray-400 hover:text-red-500 transition-colors duration-200"
+                aria-label="Delete education"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-16 h-16 text-gray-300 mb-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M9 3v18m6-18v18M4 12h16M3 6h18"
+            />
+          </svg>
+          <h3 className="text-xl font-medium text-gray-500 mb-2">
+            No education added yet
+          </h3>
+          <p className="text-gray-400 mb-4">
+            Your education history will appear here
+          </p>
+          <button
+            onClick={openModal}
+            className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors duration-200"
+          >
             <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='currentColor'
-              className='size-8 cursor-pointer'
-              onClick={openModal}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-5 h-5"
             >
               <path
-                fillRule='evenodd'
-                d='M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z'
-                clipRule='evenodd'
+                fillRule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                clipRule="evenodd"
               />
             </svg>
-          </div>
-         
-          <div className='mt-10 flex flex-col gap-4'>
-            {
-
-            education && education.length > 0  ? 
-               education.map(educationObj => (
-                  <div className='flex flex-col gap-2    text-[14px]  border border-gray-300   p-4 rounded-md '>
-                    <h1 className='flex font-semibold '>
-                      {educationObj.college}
-                    </h1>
-                    <h1>{educationObj.field}</h1>
-                    <div className='flex gap-2 text-gray-700'>
-                      <h1>{educationObj.StartDate}</h1>
-                      <span>-</span>
-                      <h1>{educationObj.Passed}</h1>
-
-                      <div className='flex lg:justify-end lg:items-end lg:ml-auto justify-center mt-3 lg:mt-0'>
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 24 24'
-                          fill='currentColor'
-                          className='size-6 cursor-pointer text-red-600 hover:text-red-500 hover:scale-105 transition-all duration-300 '
-                          onClick={() => selectEducation(educationObj.id)}
-                        >
-                          <path
-                            fillRule='evenodd'
-                            d='M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z'
-                            clipRule='evenodd'
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                )): <div className='text-black text-2xl font-semibold w-full flex mt-24 justify-center items-center'>
-                <h1 className='text w-full flex flex-col items-center'>
-                  No education to display. <br />
-                  <span className='flex items-center text-blue-500 font-semibold'>Add your education to get started.....{' '}</span>
-                </h1>
-              </div>
-              }
-                
-          </div> 
+            Add Education
+          </button>
         </div>
-      </div>
+      )}
+    </div>
+  </div>
+</div>
 
       <AnimatePresence>
         {open && (

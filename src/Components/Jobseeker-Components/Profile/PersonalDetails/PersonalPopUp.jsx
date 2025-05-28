@@ -183,7 +183,7 @@ const PersonalPopUp = () => {
   }
 
   return (
-    <div className='  flex flex-col lg:w-[38vw] w-full items-center justify-center bg-white   p-4'>
+    <div className='  flex flex-col  w-full items-center justify-center bg-white  p-4'>
       <div className='flex justify-center '>
         <h1 className='text-xl font-semibold'>Personal Details</h1>
       </div>
@@ -318,7 +318,7 @@ const PersonalPopUp = () => {
               disabled={!isFormChanged}
               type='button'
               onClick={handleSubmit}
-              className={`mt-2 text-md px-6 p-2 rounded shadow-xl ${
+              className={`mt-10 text-md px-6 p-2 rounded shadow-xl ${
                 isFormChanged
                   ? 'bg-violet-900 text-white hover:bg-violet-800'
                   : 'bg-gray-400 text-gray-700 cursor-not-allowed'
@@ -327,7 +327,7 @@ const PersonalPopUp = () => {
               Save changes
             </button>
             <div>
-              <p className='text-xs mt-2 text-gray-600'>
+              <p className='text-xs mt-4 text-gray-600'>
                 Make sure all your details are accurate before saving
               </p>
             </div>

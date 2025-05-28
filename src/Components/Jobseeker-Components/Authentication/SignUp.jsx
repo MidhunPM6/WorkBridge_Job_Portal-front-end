@@ -58,7 +58,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className='lg:flex lg:flex-row  flex-col font-poppinn  lg:m-0 m-5 flex justify-center  md:pt-10 min-h-screen  '>
+      <div className='lg:flex lg:flex-row  flex-col font-poppinn  lg:m-10 m-5 flex justify-center  md:pt-10 min-h-[80dvh]  '>
         <ToastContainer
           position='top-right'
           autoClose={5000}
@@ -86,11 +86,11 @@ const SignUp = () => {
         </div>
 
         <div className='lg:w-[35vw]  lg:flex flex-col justify-center items-center lg:pt-0 pt-4 bg-slate-50 '>
-          <div className='flex flex-col lg:mt-0 mt-5 items-center bg-white m-2 p-4 lg:p-8 rounded-md  shadow-md'>
-            <h1 className='text-2xl lg:text-2xl font-bold  '>Sign In </h1>
+          <div className='flex flex-col lg:mt-0 mt-5 items-center bg-white m-2 p-4 w-full h-full justify-center rounded-sm  shadow-md'>
+            <h1 className='text-2xl lg:text-3xl font-bold  '>SIGN UP </h1>
             <form
               action=''
-              className='flex flex-col place-items-center p-4 lg:pt-6 text-sm '
+              className='flex flex-col place-items-center p-4 lg:pt-6  '
               onSubmit={handleSubmit}
             >
               <div className='flex flex-col'>
@@ -99,7 +99,7 @@ const SignUp = () => {
                   name='name'
                   placeholder='Enter your name'
                   onChange={handleChange}
-                  className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
+                  className={`  m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
                     error.email ? `border-red-600` : ''
                   }`}
                 />
@@ -113,7 +113,7 @@ const SignUp = () => {
                   name='email'
                   placeholder='Enter your email'
                   onChange={handleChange}
-                  className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50  transition-all duration-300 ${
+                  className={`   m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300 ${
                     error.password ? `border-red-600` : ''
                   }`}
                 />
@@ -128,7 +128,7 @@ const SignUp = () => {
                   name='password'
                   placeholder='Enter a new password'
                   onChange={handleChange}
-                  className={`  m-2 py-1 px-8 rounded-sm flex text-start outline-none border focus:border-gray-500 focus:border  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
+                  className={`  m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
                     error.password ? `border-red-600` : ''
                   }`}
                 />
@@ -139,9 +139,12 @@ const SignUp = () => {
 
               <button
                 type='submit'
-                className='m-2 py-1 px-5 bg-violet-900 rounded-md text-white mt-6 hover:bg-violet-800 shadow'
+                className='w-[95%] py-3  mt-4 rounded-md font-medium
+             bg-indigo-500 text-white hover:bg-indigo-600
+             transition-colors duration-200 shadow-sm
+             focus:outline-none focus:ring-2 focus:ring-indigo-300'
               >
-                SignUp
+                Sign Up
               </button>
               <button
                 onClick={() => navigate('/login')}
@@ -154,11 +157,12 @@ const SignUp = () => {
                 <h1 className='text-gray-500'>or</h1>
                 <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
               </div>
-
-              <div className='mt-4'></div>
             </form>
-            <div className='mt-4 '>
-             < GoogleButton onClick={() => authRedirect()}  role="candidate" ></GoogleButton>
+            <div className=' '>
+              <GoogleButton
+                onClick={() => authRedirect()}
+                role='candidate'
+              ></GoogleButton>
             </div>
           </div>
         </div>

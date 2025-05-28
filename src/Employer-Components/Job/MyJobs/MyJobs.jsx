@@ -2,7 +2,7 @@ import React from 'react'
 
 const MyJobs = () => {
   return (
-    <div className='flex flex-col items-center  h-screen overflow-auto  bg-gray- font-poppins  lg:w-[50vw] w-full  pb-10 '>
+    <div className='flex flex-col items-center  h-screen overflow-auto    lg:w-[50vw] w-full  pb-10 '>
       <h1 className='text-2xl font-semibold  text-center'>
         Edit or Manage Posts
       </h1>
@@ -25,7 +25,7 @@ const MyJobs = () => {
             cumque adipisci cvbdgnhdtgh
           </p>
           <div className='flex justify-end mt-4 gap-3 text-sm'>
-            <button className=' p-2 flex justify-center gap-1    bg-green-100 hover:bg-green-200  text-green-700 rounded-sm '>
+            <button className=' p-2  flex justify-center gap-1    bg-green-100 hover:bg-green-50  text-green-700 rounded-md shadow-md transition-all duration-300'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 x='0px'
@@ -40,7 +40,7 @@ const MyJobs = () => {
               </svg>
               Edit
             </button>
-            <button className='flex gap-1 bg-red-600 text-white p-2 rounded-sm hover:bg-red-700'>
+            <button className='flex gap-1 bg-red-600 text-white p-2 rounded-md shadow-md hover:bg-red-700 transition-all duration-300'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 x='0px'

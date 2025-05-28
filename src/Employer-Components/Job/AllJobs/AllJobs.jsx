@@ -26,7 +26,7 @@ const AllJobs = () => {
   }, [])
 
   return (
-    <div className='flex flex-col items-center  min-h-screen   bg-gray- font-poppins  lg:w-[50vw] w-full  pb-10 '>
+    <div className='flex flex-col items-center  min-h-screen     lg:w-[50vw] w-full  pb-10 '>
       <h1 className='text-2xl font-semibold  text-center'>
         Explore All Job Listings
       </h1>
@@ -44,7 +44,7 @@ const AllJobs = () => {
                 <span className='font-light'> {job.location}</span>
               </h2>
               <span className='mt-2 font-medium text-gray-600 text-md'>
-                <span className='font-Kaushan font-semibold'>₹</span>
+                <span className=' font-semibold'>Salary upto - ₹</span>
                 {job.salary}
               </span>
               <p className='mt-1'>{job.job_type}</p>
@@ -54,11 +54,11 @@ const AllJobs = () => {
                 dangerouslySetInnerHTML={{ __html: job.job_description }}
               />
 
-              <div className='flex justify-end mt-4 gap-2 text-sm'>
-                <button className=' p-2   bg-green-100 hover:bg-green-200  text-green-700 rounded-sm '>
+              <div className='flex justify-end mt-8 gap-4 text-sm'>
+                <button className=' p-2     bg-green-100 hover:bg-green-50 font-semibold text-green-700 rounded-md shadow-md '>
                   Connect
                 </button>
-                <button className='bg-violet-800 text-white p-2 rounded-sm hover:bg-violet-900'>
+                <button className='bg-violet-800 text-white p-2 rounded-md shadow-md font-semibold hover:bg-violet-900'>
                   Company profile
                 </button>
               </div>
