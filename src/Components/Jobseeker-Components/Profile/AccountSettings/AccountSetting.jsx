@@ -5,7 +5,7 @@ import { logout, setUserDetails } from '../../../../Redux/UserSlice'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { AnimatePresence, motion } from 'framer-motion'
 import { toast, Toaster } from 'react-hot-toast'
-import {setClearUser} from '../../../../Redux/UserSlice'
+import { setClearUser } from '../../../../Redux/UserSlice'
 
 const AccountSetting = () => {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const AccountSetting = () => {
   const [seconds, setSeconds] = useState(60)
   const [isActive, setIsActive] = useState(false)
   const [showResend, setShowResend] = useState(false)
-  const [showDelete,setShowDelete] =useState(false)
+  const [showDelete, setShowDelete] = useState(false)
   const [usernameFormData, setUsernameFormData] = useState({
     name: '',
     password: '',
@@ -250,21 +250,23 @@ const AccountSetting = () => {
   //  API to Delete candidate entire Account
   const deleteAccount = async () => {
     try {
-      const response = await axiosInstance.delete('/api/candidate/deleteAccount', {
-        withCredentials: true
-      })
-      console.log(response);
+      const response = await axiosInstance.delete(
+        '/api/candidate/deleteAccount',
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response)
       dispatch(setClearUser())
-      toast.success('Your account is deleted permenantly',{
-        duration : 1200
+      toast.success('Your account is deleted permenantly', {
+        duration: 1200
       })
       setTimeout(() => {
         navigate('/')
-      }, 1300);
-      
+      }, 1300)
     } catch (error) {
-      toast.error(error.response.data.message,{
-        duration : 2000
+      toast.error(error.response.data.message, {
+        duration: 2000
       })
     }
   }
@@ -343,13 +345,16 @@ const AccountSetting = () => {
             <button
               onClick={handleLogout}
               type='button '
-              className=' text-blue-500 font-semibold text-xs py-2  w-36 rounded-sm  bg-blue-50 hover:bg-blue-100 transition-all duration-300'
+              className=' text-blue-500 font-semibold p-2  lg:w-40 rounded-md text-sm bg-blue-50 hover:bg-blue-100 transition-all duration-300 shadow-md'
             >
               Logout
             </button>
           </div>
           <div>
-            <button onClick={()=>setShowDelete(true)} className='mt-4  hover:bg-red-700 w-36 text-xs bg-red-600 py-2 p-2  text-white font-semibold rounded-sm transition-all duration-300'>
+            <button
+              onClick={() => setShowDelete(true)}
+              className='mt-4  hover:bg-red-700 lg:w-40  text-sm bg-red-600  p-2  text-white font-semibold rounded-md transition-all duration-300 shadow-md'
+            >
               Delete your account
             </button>
           </div>
@@ -372,7 +377,7 @@ const AccountSetting = () => {
           >
             <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
               <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
-                <form className='flex flex-col justify-center items-center w-full p-10'>
+                <form className='flex flex-col justify-center items-center w-full '>
                   <h1 className='w-full text-xl font-semibold items-center flex flex-col'>
                     Spotted a typo or outdated username? <br />
                     <span className='flex items-center justify-center text-blue-500'>
@@ -382,23 +387,23 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'>Change the username</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4 py-2 p-2  text-sm lg:w-[70%] border rounded-sm shadow-md'
+                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter a new username '
                     name='name'
                     onChange={handleChangeUsername}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4 py-2 text-sm p-2 lg:w-[70%] border rounded-sm shadow-md'
+                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter your password '
                     name='password'
                     onChange={handleChangeUsername}
                   />
                 </form>
 
-                <div className='flex gap-4 mt- text-sm'>
+                <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4 text-sm w-full items-center justify-center'>
                   <button
-                    className='bg-gray-200 hover:bg-gray-100 p-2 px-6 rounded-sm shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full lg:rounded-md shadow-md'
                     onClick={() => {
                       setIsOpen(false)
                     }}
@@ -407,7 +412,7 @@ const AccountSetting = () => {
                   </button>
                   <button
                     onClick={usernameSubmit}
-                    className=' p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md  '
+                    className=' p-2 px-6 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md  '
                   >
                     Save changes
                   </button>
@@ -450,22 +455,22 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'> Change the password</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4 py-2 p-2  text-sm lg:w-[90%] border rounded-sm shadow-md'
+                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter old password  '
                     name='currentPassword'
                     onChange={handleChangePassword}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4 py-2 text-sm p-2 lg:w-[90%] border rounded-sm shadow-md'
+                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter a new  password '
                     name='newPassword'
                     onChange={handleChangePassword}
                   />
                 </form>
-                <div className='flex gap-4 mt-4 text-sm'>
+                <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4 text-sm w-full items-center justify-center'>
                   <button
-                    className='bg-gray-100 hover:bg-gray-50 p-2 px-6 rounded-sm shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full lg:rounded-md shadow-md'
                     onClick={handleCancel}
                   >
                     Cancel
@@ -473,7 +478,7 @@ const AccountSetting = () => {
                   <button
                     onClick={handleVerification}
                     disabled={verificationInput}
-                    className={` p-2 px-6 rounded-sm bg-violet-900 text-white hover:bg-violet-950 shadow-md ${
+                    className={` p-2 px-6 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md ${
                       verificationInput &&
                       'cursor-not-allowed hover:bg-gray-300'
                     } `}
@@ -501,13 +506,13 @@ const AccountSetting = () => {
                     <input
                       type='password'
                       name='code'
-                      className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[68%] border rounded-sm shadow-md'
+                      className='bg-gray-50 mt-1 py-2 text-sm p-2 lg:w-[90%] w-[70%] border rounded-sm shadow-md'
                       placeholder='Enter the OTP '
                       onChange={e => setVerificationCode(e.target.value)}
                     />
                     <button
                       onClick={verifyOtp}
-                      className=' p-1 px-6 mt-3 rounded-sm text-sm bg-blue-100 text-blue-500 hover:bg-blue-200 shadow-md  '
+                      className=' p-2   mt-4 rounded-md text-sm bg-blue-100 text-blue-500 hover:bg-blue-200 shadow-md  '
                     >
                       Verify and update{' '}
                     </button>
@@ -530,59 +535,59 @@ const AccountSetting = () => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-              {showDelete && (
-                <motion.div
-                  className='fixed inset-0 bg-black bg-opacity-50 z-50 min-w-60 flex items-center justify-center'
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+        {showDelete && (
+          <motion.div
+            className='fixed inset-0 bg-black bg-opacity-50 z-50 min-w-60 flex items-center justify-center'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+              <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+                <svg
+                  class='text-red-500'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='70'
+                  height='70'
+                  fill='none'
+                  viewBox='0 0 24 24'
                 >
-                  <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-                    <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
-                      <svg
-                        class='text-red-500'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='70'
-                        height='70'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                      >
-                        <path
-                          stroke='currentColor'
-                          stroke-linecap='round'
-                          stroke-linejoin='round'
-                          stroke-width='1'
-                          d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
-                        />
-                      </svg>
-                      <h1 className='text-2xl text-gray-700 '>Are you sure ?</h1>
-                      <p className='text-xs text-gray-500 leading-5 tracking-wide'>
-                        Do you really want to delete your Account? <br />
-                        <span className='flex w-full justify-center '>
-                          This process cannot be undone
-                        </span>
-                      </p>
-                      <div className='text-black text-sm flex gap-3'>
-                        <button
-                          onClick={() => setShowDelete(false)}
-                          className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={deleteAccount}
-                          className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'
-                        >
-                          Delete Account
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='1'
+                    d='m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                  />
+                </svg>
+                <h1 className='text-2xl text-gray-700 '>Are you sure ?</h1>
+                <p className='text-xs text-gray-500 leading-5 tracking-wide'>
+                  Do you really want to delete your Account? <br />
+                  <span className='flex w-full justify-center '>
+                    This process cannot be undone
+                  </span>
+                </p>
+                <div className='text-black text-sm flex gap-3'>
+                  <button
+                    onClick={() => setShowDelete(false)}
+                    className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={deleteAccount}
+                    className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'
+                  >
+                    Delete Account
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

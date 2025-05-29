@@ -101,30 +101,30 @@ const Login = () => {
             <h1 className='text-2xl lg:text-3xl font-bold  '>LOGIN</h1>
             <form
               action=''
-              className='flex flex-col place-items-center p-4 lg:pt-6  '
+              className='flex flex-col place-items-center w-full p-10 lg:pt-6  '
               onSubmit={handlelogin}
             >
-              <div className='flex flex-col'>
+              
                 <input
                   type='email'
                   name='email'
                   placeholder='Enter your email'
                   onChange={handleOnchange}
-                  className={`  m-2 p-3 rounded-md w-[20vw] flex text-start border border-gray-300  bg-gray-50 transition-all duration-300  ${
+                  className={`  m-2 p-3 rounded-md lg:w-[20vw] w-full flex text-start border border-gray-300  bg-gray-50 transition-all duration-300  ${
                     error.email ? `border-red-600` : ''
                   }`}
                 />
                 {error.email && (
                   <p className='text-red-600 ml-2 text-sm'>{error.email}</p>
                 )}
-              </div>
-              <div>
+             
+           
                 <input
                   type='password'
                   name='password'
                   placeholder='Enter new password'
                   onChange={handleOnchange}
-                  className={`  m-2 p-3 rounded-md w-[20vw] flex text-start border border-gray-300  bg-gray-50 transition-all duration-300  ${
+                  className={`  m-2 p-3 rounded-md lg:w-[20vw] w-full flex text-start border border-gray-300  bg-gray-50 transition-all duration-300  ${
                     error.password ? `border-red-600` : ''
                   }`}
                 />
@@ -134,17 +134,19 @@ const Login = () => {
                 <div className='flex justify-end text-sm text-blue-800 cursor-pointer hover:underline m-2'>
                   <h2>Forgotten password?</h2>
                 </div>
-              </div>
+             
+              <div className='lg:w-[20vw] w-full'>
 
               <button
                 type='submit'
-                className='w-full py-3 px-4 mt-4 rounded-lg font-medium
+                className='w-full py-3 mt-4 rounded-lg font-medium
              bg-indigo-500 text-white hover:bg-indigo-600
              transition-colors duration-200 shadow-sm
              focus:outline-none focus:ring-2 focus:ring-indigo-300'
               >
                 Login
               </button>
+              </div>
               <button
                 onClick={() => navigate('/signup')}
                 className='pt-4 hover:underline hover:underline-offset-2  text-gray-600 hover:text-black text-sm '
@@ -156,14 +158,14 @@ const Login = () => {
                 <h1 className='text-gray-500'>or</h1>
                 <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
               </div>
-            </form>
-
-            <div className=''>
+            <div className='w-full lg:w-[20vw] mt-4   '>
               <GoogleButton
                 onClick={authRedirect}
                 role='candidate'
               ></GoogleButton>
             </div>
+            </form>
+
           </div>
         </div>
       </div>

@@ -90,62 +90,59 @@ const SignUp = () => {
             <h1 className='text-2xl lg:text-3xl font-bold  '>SIGN UP </h1>
             <form
               action=''
-              className='flex flex-col place-items-center p-4 lg:pt-6  '
+              className='flex flex-col w-full place-items-center p-10 lg:pt-6  '
               onSubmit={handleSubmit}
             >
-              <div className='flex flex-col'>
-                <input
-                  type='text'
-                  name='name'
-                  placeholder='Enter your name'
-                  onChange={handleChange}
-                  className={`  m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
-                    error.email ? `border-red-600` : ''
-                  }`}
-                />
-                {error.name && (
-                  <p className='text-red-600 ml-2 text-sm'>{error.name}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  type='email'
-                  name='email'
-                  placeholder='Enter your email'
-                  onChange={handleChange}
-                  className={`   m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300 ${
-                    error.password ? `border-red-600` : ''
-                  }`}
-                />
-                {error.email && (
-                  <p className='text-red-600 ml-2 text-sm'>{error.email}</p>
-                )}
-              </div>
+              <input
+                type='text'
+                name='name'
+                placeholder='Enter your name'
+                onChange={handleChange}
+                className={`  m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
+                  error.email ? `border-red-600` : ''
+                }`}
+              />
+              {error.name && (
+                <p className='text-red-600 ml-2 text-sm'>{error.name}</p>
+              )}
 
-              <div>
-                <input
-                  type='password'
-                  name='password'
-                  placeholder='Enter a new password'
-                  onChange={handleChange}
-                  className={`  m-2 p-3  w-[20vw] rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
-                    error.password ? `border-red-600` : ''
-                  }`}
-                />
-                {error.password && (
-                  <p className='text-red-600 ml-2 text-sm'>{error.password}</p>
-                )}
-              </div>
+              <input
+                type='email'
+                name='email'
+                placeholder='Enter your email'
+                onChange={handleChange}
+                className={`   m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300 ${
+                  error.password ? `border-red-600` : ''
+                }`}
+              />
+              {error.email && (
+                <p className='text-red-600 ml-2 text-sm'>{error.email}</p>
+              )}
 
-              <button
-                type='submit'
-                className='w-[95%] py-3  mt-4 rounded-md font-medium
+              <input
+                type='password'
+                name='password'
+                placeholder='Enter a new password'
+                onChange={handleChange}
+                className={`  m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
+                  error.password ? `border-red-600` : ''
+                }`}
+              />
+              {error.password && (
+                <p className='text-red-600 ml-2 text-sm'>{error.password}</p>
+              )}
+
+              <div className='w-full lg:w-[20vw]'>
+                <button
+                  type='submit'
+                  className='w-full py-3  mt-4 rounded-md font-medium
              bg-indigo-500 text-white hover:bg-indigo-600
              transition-colors duration-200 shadow-sm
              focus:outline-none focus:ring-2 focus:ring-indigo-300'
-              >
-                Sign Up
-              </button>
+                >
+                  Sign Up
+                </button>
+              </div>
               <button
                 onClick={() => navigate('/login')}
                 className='pt-4 hover:underline hover:underline-offset-2  text-gray-600 hover:text-black text-sm '
@@ -157,13 +154,13 @@ const SignUp = () => {
                 <h1 className='text-gray-500'>or</h1>
                 <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
               </div>
-            </form>
-            <div className=' '>
+            <div className='w-full lg:w-[20vw] mt-4 '>
               <GoogleButton
                 onClick={() => authRedirect()}
                 role='candidate'
               ></GoogleButton>
             </div>
+            </form>
           </div>
         </div>
       </div>

@@ -10,10 +10,10 @@ const GoogleButton =  ({ role }) => {
   }
 
   return (
-    <div>
+    <div className='flex w-full'>
       <button
         onClick={handleSubmit}
-        className='w-[20vw] p-3 justify-center border  flex gap-2 border-slate-200 dark:border-slate-700 rounded-sm text-slate-700 dark:text-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-500 hover:shadow transition duration-150'
+        className='lg:w-[20vw] w-full p-3 justify-center border  flex gap-2 border-slate-200 dark:border-slate-700 rounded-md text-slate-700 dark:text-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-500 hover:shadow transition duration-150'
       >
         <img
           className='w-6 h-6'

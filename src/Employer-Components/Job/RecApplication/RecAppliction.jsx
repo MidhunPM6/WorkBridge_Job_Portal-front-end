@@ -23,74 +23,81 @@ const RecAppliction = () => {
 
   return (
     <>
-      <div className='flex flex-col   items-center lg:w-full  rounded-sm'>
-        <div className='flex flex-col  items-center justify-center '>
+      <div className="flex flex-col items-center w-full p-4 lg:p-8">
 
-        <h1 className='text-2xl   font-semibold '>Candidate Applications</h1>
-        <p className='text-sm mt-2 text-gray-700 '>Review all applications submitted to your job listings. View resumes, shortlist top candidates,<span className='lg:flex lg:justify-center'>and take the next step in your hiring process.</span> </p>
+  <div className="flex flex-col items-center justify-center text-center w-full max-w-4xl mb-8">
+    <h1 className="text-2xl lg:text-3xl font-semibold text-gray-800">Candidate Applications</h1>
+    <p className="text-sm lg:text-base mt-2 text-gray-600 max-w-2xl">
+      Review all applications submitted to your job listings. View resumes, shortlist top candidates, and take the next step in your hiring process.
+    </p>
+  </div>
+
+ 
+  <div className="flex flex-col w-full lg:w-[40vw] max-w-4xl p-6 border border-slate-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+   
+    <div className="flex flex-col lg:flex-row gap-6 w-full">
+    
+      <div className="flex-1 space-y-4">
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Applicant Name</span>
+          <span className="text-gray-800 font-medium">Midhun</span>
         </div>
-
-
-        <div className='flex flex-col  mt-8 items-center   lg:w-[40vw] w-[80vw]  p-4 border-[0.100rem] border-slate-200    transition-all duration-500   rounded   '>
-          <div className='flex   gap-6'>
-          <div className='flex-col flex  mt-1 gap-6 rounded-md'>
-            <h1 className='  flex flex-col font-semibold  decoration-gray-300      rounded-sm'>
-                Applicant Name
-              <span className=' text-gray-600 outline-none'>
-              Midhun
-              </span>{' '}
-            </h1>
-            <p className='  flex flex-col font-semibold decoration-gray-300   rounded  '>
-              Email ID
-              <span className=' text-gray-600'>midhun@gmailpdjgkg.com</span>
-              
-            </p>
-            <h1 className=' flex flex-col font-semibold decoration-gray-300   rounded '>
-              Mob Number
-              <span className=' text-gray-600'>858544446</span>
-
-            </h1>
-          </div>
         
-          <div className='mt-2 flex flex-col gap-6 rounded-md max-width-32 '>
-            <h1 className=' flex flex-col decoration-gray-300     rounded '>
-              <span className=' font-semibold outline-none'>Resume Link</span>
-              <span className=' text-sky-700 font-semibold hover:underline hover:underline-offset-4 break-all cursor-pointer'>dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjv.pdf</span>
-            </h1>
-            <h1 className=' flex flex-col decoration-gray-300   rounded '>
-              <span className=' font-semibold outline-none'>Job title</span>
-              <span className=' text-gray-600'>Web Developer</span>
-            </h1>
-            <h1 className=' flex flex-col  decoration-gray-300   rounded '>
-              <span className=' font-semibold outline-none'>Location</span>
-              <span className=' text-gray-600'>bangalore</span>
-            </h1>
-          </div>
-          </div>
-          <div className='   mt-4  gap-6'>
-            <h1 className='w-auto text-sm '>
-              <span className=' font-bold outline-none'>
-                Applied Date and time
-              </span>{' '}
-              : 20/02/2025 10:00 AM
-            </h1>
-          </div>
-          <div className=' flex   m-3 gap-4  text-base mt-6 '>
-            <button className='bg-green-100   text-green-500 p-2 group font-semibold bg transition-all duration-500 rounded-md shadow-sm '>
-              Profile
-            </button>
-            <button className='bg-orange-100  text-orange-500 p-2 group font-semibold bg transition-all duration-500 rounded-md shadow-sm'>
-              Shortlist
-            </button>
-            <button className='bg-blue-100 text-blue-500 p-2 group font-semibold bg transition-all duration-500 rounded-md shadow-sm '>
-              Send Email
-            </button>
-            <button className='bg-red-100 text-red-500 p-2 group font-semibold bg transition-all duration-500 rounded-md shadow-sm '>
-              Reject
-            </button>
-          </div>
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Email ID</span>
+          <span className="text-gray-800 break-all">midhun@gmailpdjgkg.com</span>
+        </div>
+        
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Mobile Number</span>
+          <span className="text-gray-800">858544446</span>
         </div>
       </div>
+
+   
+      <div className="flex-1 space-y-4">
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Resume Link</span>
+          <a href="#" className="text-blue-600 hover:underline hover:text-blue-800 text-sm break-all">
+            dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjvcAdNIpKBIJaEYfSWi7wSu4A__dcfbvjv.pdf
+          </a>
+        </div>
+        
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Job Title</span>
+          <span className="text-gray-800">Web Developer</span>
+        </div>
+        
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-gray-500">Location</span>
+          <span className="text-gray-800">Bangalore</span>
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-6 border-t border-gray-100 pt-4">
+      <p className="text-sm text-gray-600">
+        <span className="font-medium">Applied Date and time:</span> 20/02/2025 10:00 AM
+      </p>
+    </div>
+
+
+    <div className="flex flex-wrap justify-center gap-3 mt-6">
+      <button className="px-4 py-2 text-sm font-medium rounded-md bg-green-100 text-green-600 hover:bg-green-200 transition-colors shadow-sm">
+        Profile
+      </button>
+      <button className="px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm">
+        Shortlist
+      </button>
+      <button className="px-4 py-2 text-sm font-medium rounded-md bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors shadow-sm">
+        Send Email
+      </button>
+      <button className="px-4 py-2 text-sm font-medium rounded-md bg-red-100 text-red-600 hover:bg-red-200 transition-colors shadow-sm">
+        Reject
+      </button>
+    </div>
+  </div>
+</div>
     </>
   )
 }

@@ -228,7 +228,7 @@ const PersonalDetails = () => {
       <div className="flex flex-col w-full lg:h-screen">
   <Toaster />
   <div className="relative flex-col lg:justify-normal justify-center lg:p-1 p-10 lg:h-auto rounded-t-sm shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full">
-    {/* Cover Photo Section */}
+   
     <div
       className={`relative flex justify-center items-center lg:h-[25vh] h-32 rounded-t-sm w-full overflow-hidden pt-2 ${
         user.profileCoverPic ? '' : 'bg-violet-950'
@@ -260,7 +260,7 @@ const PersonalDetails = () => {
         </svg>
       )}
       <div className="absolute top-0 bottom-0 m-5 w-full flex justify-between items-end">
-        {/* Profile Picture */}
+     
         <div className="lg:w-36 lg:h-36 w-20 h-20 ml-4 lg:mt-5 shadow-md bg-gray-200 flex rounded-sm items-center justify-center transition-all duration-300 border border-gray-200 relative group">
           {user.profilePic ? (
             <>

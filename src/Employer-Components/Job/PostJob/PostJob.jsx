@@ -235,7 +235,7 @@ const PostJob = () => {
         <div className='flex flex-col items-center mt-6'>
           <button
             onClick={handlePost}
-            className='w-[10vw] py-3 mt-8 text-white bg-violet-900 hover:bg-violet-950 rounded-md shadow-lg'
+            className='lg:w-[10vw] w-full py-3 mt-8 text-white bg-violet-900 hover:bg-violet-950 rounded-md shadow-lg'
           >
             Post Job
           </button>

@@ -92,7 +92,7 @@ const EducationDetails = () => {
       <div className="flex flex-col w-full h-auto">
   <Toaster />
   <div className="relative flex-col lg:justify-normal justify-center lg:p-8 p-6 lg:h-auto shadow-[0px_0px_10px_0px_rgba(0,0,0,0.08)] rounded-lg w-full bg-white">
-    {/* Header */}
+   
     <div className="flex justify-between items-center p-4 bg-violet-50 rounded-lg">
       <h1 className="text-2xl font-semibold text-violet-800">Education</h1>
       <button 

@@ -106,7 +106,7 @@ const Employerlogin = () => {
                 name='email'
                 onChange={handleOnchange}
                 placeholder='Enter Your Email'
-                className={`lg:w-full w-full py-2 text-sm  mt-4 rounded-sm p-4 focus:border-gray-500 transition-all duration-300 border outline-none ${
+                className={`lg:w-full w-full py-2   mt-4 rounded-md p-4  transition-all duration-300 border ${
                   error.email ? 'border-red-400' : 'border-gray-300'
                 }`}
               />
@@ -119,7 +119,7 @@ const Employerlogin = () => {
                 name='password'
                 onChange={handleOnchange}
                 placeholder='Enter Your Password'
-                className={`lg:w-full w-full py-2 text-sm  mt-4 rounded-sm p-4 focus:border-gray-500 transition-all duration-300 border  outline-none ${
+                className={`lg:w-full w-full py-2   mt-4 rounded-md p-4  transition-all duration-300 border ${
                   error.password ? 'border-red-400' : 'border-gray-300'
                 }`}
               />
@@ -129,14 +129,14 @@ const Employerlogin = () => {
 
               <p
                 onClick={() => navigate('/employersignup')}
-                className='mt-4 text-sm text-blue-600 cursor-pointer hover:underline text-center'
+                className='mt-4 text-sm text-blue-600 cursor-pointer hover:underline hover:underline-offset-4 text-center'
               >
                 Click here to Sign Up
               </p>
 
               <button
                 type='submit'
-                className='w-full mt-4 text-sm bg-violet-900 text-white py-2 rounded-sm hover:bg-violet-950 transition-all duration-300'
+                className='w-full mt-4 text-sm bg-violet-900 text-white py-3 rounded-md hover:bg-violet-800 transition-all duration-300'
                 onClick={handleSubmit}
               >
                 Login

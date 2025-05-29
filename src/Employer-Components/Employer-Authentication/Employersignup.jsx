@@ -65,7 +65,7 @@ const Employersignup = () => {
         </div>
         <div className='flex flex-col justify-center mt-10 lg:mt-0   items-center w-full lg:w-1/3 px-6 sm:px-10 md:px-16 lg:px-20'>
           <form
-            className='lg:w-full lg:max-w-md  p-6 rounded-md  m-10 lg:m-0  '
+            className='lg:w-full lg:max-w-md  p-6 rounded-md  m-10 lg:m-0   '
             onSubmit={handleValidation}
           >
             <div className='w-full flex justify-center'>
@@ -80,7 +80,7 @@ const Employersignup = () => {
               name='name'
               onChange={handleOnchage}
               placeholder='Enter Your Name'
-              className={`lg:w-full w-full py-2 text-sm  p-4 focus:border-gray-500 transition-all duration-300 border rounded-sm outline-none ${
+              className={`lg:w-full w-full py-2  p-4  transition-all duration-300 border rounded-md  ${
                 error.name ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -93,7 +93,7 @@ const Employersignup = () => {
               name='email'
               onChange={handleOnchage}
               placeholder='Enter Your Email'
-              className={`lg:w-full w-full py-2 text-sm  mt-4 rounded-sm p-4 focus:border-gray-500 transition-all duration-300 border outline-none ${
+              className={`lg:w-full w-full py-2 mt-4  p-4  transition-all duration-300 border rounded-md ${
                 error.email ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -106,7 +106,7 @@ const Employersignup = () => {
               name='password'
               onChange={handleOnchage}
               placeholder='Enter Your Password'
-              className={`lg:w-full w-full py-2 text-sm  mt-4 rounded-sm p-4 focus:border-gray-500 transition-all duration-300 border  outline-none ${
+              className={`lg:w-full w-full py-2  p-4 mt-4 transition-all duration-300 border rounded-md ${
                 error.password ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -142,10 +142,10 @@ const Employersignup = () => {
               ></GoogleButton>
             </div>
 
-            <div className=' flex justify-center mt-10 text-sm'>
+            <div className=' flex justify-center items-center mt-10 text-sm w-full'>
               <p className='text-gray-600'>
                 By Signing in, you agree to our{' '}
-                <a href='##' className='font-bold leading-loose text-blue-600'>
+                <a href='##' className='font-bold leading-loose text-blue-600 flex justify-center'>
                   Terms & Conditions.
                 </a>
               </p>

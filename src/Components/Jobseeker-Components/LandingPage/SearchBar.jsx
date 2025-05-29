@@ -2,45 +2,34 @@ import React from 'react'
 
 const SearchBar = () => {
   return (
-    <div className='flex place-content-center pt-8  '>
-      <div class='relative flex  '>
-        <input
-          type='search'
-          class='relative m-0 block flex-auto rounded-l-sm  pl-3 bg-opacity-20 placeholder:text-gray-100 bg-clip-padding lg:w-60 py-[0.50rem] outline-none bg-black  '
-          placeholder='Job tittle'
-          aria-label='Search'
-          id='exampleFormControlInput2'
-          aria-describedby='button-addon2'
-        />
-        <input
-          type='search'
-          class='relative m-0 block flex-auto   pl-3 bg-opacity-20 placeholder:text-gray-100 bg-clip-padding lg:w-60 py-[0.50rem] outline-none bg-black border-l'
-          placeholder='Location'
-          aria-label='Search'
-          id='exampleFormControlInput2'
-          aria-describedby='button-addon2' 
-        />
-        <span
-          class='flex items-center whitespace-nowrap px-3 py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5 cursor-pointer'
-          id='button-addon2'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke-width='2'
-            stroke='currentColor'
-        
-          >
-            <path
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-            />
-          </svg>
-        </span>
-      </div>
+    <div className="flex place-content-center pt-8">
+  <div className="relative flex items-center bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="flex items-center px-4 py-2 border-r border-gray-200">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
     </div>
+    <input
+      type="search"
+      className="px-4 py-3 w-64 focus:outline-none text-gray-700 placeholder-gray-400"
+      placeholder="Job title"
+      aria-label="Job title"
+    />
+    <div className="h-6 border-l border-gray-300"></div>
+    <input
+      type="search"
+      className="px-4 py-3 w-64 focus:outline-none text-gray-700 placeholder-gray-400"
+      placeholder="Location"
+      aria-label="Location"
+    />
+    <button
+      className="px-6 py-3 bg-violet-900 text-white font-medium hover:bg-violet-800 transition-colors duration-200"
+      aria-label="Search"
+    >
+      Search
+    </button>
+  </div>
+</div>
   )
 }
 
