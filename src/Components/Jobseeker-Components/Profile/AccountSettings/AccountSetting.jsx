@@ -77,39 +77,39 @@ const AccountSetting = () => {
 
   //Custom Styles for First Modal
   const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      transition: 'opacity 300ms ease-in-out'
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
-      opacity: modalIsOpen ? 1 : 0
-    }
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    transition: 'opacity 300ms ease-in-out'
+  },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
+    opacity: modalIsOpen ? 1 : 0
   }
+};
+
 
   //Custom Styles for Second Modal
   const customStyles2 = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      transition: 'opacity 300ms ease-in-out'
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
-      opacity: isVisible ? 1 : 0
-    }
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    transition: 'opacity 300ms ease-in-out'
+  },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-out',
+    opacity: modalIsOpen ? 1 : 0
   }
+};
+
 
   //Logout handling
   const handleLogout = async e => {
@@ -365,7 +365,7 @@ const AccountSetting = () => {
           </p>
         </div>
       </div>
-      {/*  Username change Modal */}
+      
       <AnimatePresence>
         {modalIsOpen && (
           <motion.div
@@ -433,7 +433,8 @@ const AccountSetting = () => {
         )}
       </AnimatePresence>
 
-      {/* Passwor change Modal  */}
+      
+      
       <AnimatePresence>
         {isVisible && (
           <motion.div

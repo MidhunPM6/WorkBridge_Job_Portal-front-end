@@ -28,7 +28,7 @@ const SideMenu = () => {
  
 
   return (
-    <div className=' mt-6 flex  justify-center items-center '>
+    <div className=' mt-6 flex  justify-center items-center  '>
       <div className='lg:flex-row flex flex-col  '>
         {/* Side Menu */}
         <motion.div
@@ -37,7 +37,7 @@ const SideMenu = () => {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className={`  text-black p-6    rounded-sm
             ${isOpen ? 'block' : 'hidden'} 
-            sm:block lg:w-[17vw] max-w-full min-h-auto lg:h-auto `}
+            sm:block   min-h-screen   `}
         >
           <ul className=' lg:text-sm  text-xs lg:flex-col flex gap-2 lg:w-[17vw] p-2 lg:h-full lg:border rounded-sm'>
             <li className='border-b border-gray-300 p-1  lg:flex justify-center  font-semibold text-lg lg:visible hidden'>
@@ -148,7 +148,7 @@ const SideMenu = () => {
 
         {/* Main Content Area */}
         <motion.div
-          className=' bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:h-[85vh] h-auto flex justify-center   '
+          className=' bg-white p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:min-h-screen flex justify-center   '
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}

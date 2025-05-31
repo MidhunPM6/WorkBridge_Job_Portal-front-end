@@ -225,7 +225,7 @@ const PersonalDetails = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full lg:h-screen">
+      <div className="flex flex-col w-full lg:min-h-screen">
   <Toaster />
   <div className="relative flex-col lg:justify-normal justify-center lg:p-1 p-10 lg:h-auto rounded-t-sm shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full">
    
