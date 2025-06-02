@@ -183,16 +183,16 @@ const PersonalPopUp = () => {
   }
 
   return (
-    <div className='  flex flex-col  w-full items-center justify-center bg-white  p-4'>
+    <div className='  flex flex-col  lg:min-w-[40dvw] lg:min-h-[80dvh] min-h-[30dvh] items-center justify-center bg-white  p-4'>
       <div className='flex justify-center '>
-        <h1 className='text-xl font-semibold'>Personal Details</h1>
+        <h1 className='text-2xl font-semibold'>Personal Details</h1>
       </div>
-      <div className='flex flex-col text-sm pt-3'>
+      <div className='flex flex-col  pt-3'>
         <form action=''>
-          <div className='flex justify-start items-center mt-4 gap-6 text-xs '></div>
+          
 
-          <div className='flex gap-5 mt-4'>
-            <div className='flex flex-col'>
+          <div className='lg:flex-row  flex flex-col gap-5 mt-4'>
+            <div className='flex flex-col '>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
                 Designation
               </label>
@@ -227,7 +227,7 @@ const PersonalPopUp = () => {
               </div>
             </div>
           </div>
-          <div className='flex gap-5 mt-4'>
+          <div className='flex flex-col lg:flex-row gap-5 mt-4'>
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
                 Mobile
@@ -238,7 +238,7 @@ const PersonalPopUp = () => {
                 value={formData.mobile}
                 onChange={handleChange}
                 placeholder='Mobile number'
-                className='py-2 lg:w-[18vw] p-2 w-full    border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600   outline-none rounded-sm  bg-gray-50'
+                className='p-2 lg:w-[18vw]  w-full    border border-gray-300    rounded-md '
               />
             </div>
 
@@ -253,11 +253,11 @@ const PersonalPopUp = () => {
                 required
                 name='linkedin'
                 placeholder='LinkedIn Profile (optional)'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent focus:border-2 focus:border-slate-600 outline-none rounded-sm  bg-gray-50 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)] '
+                className='p-2 lg:w-[18vw]  w-full    border border-gray-300    rounded-md '
               />
             </div>
           </div>
-          <div className='flex gap-5 mt-4'>
+          <div className='flex lg:flex-row flex-col gap-5 mt-4'>
             <div className='flex flex-col'>
               <label htmlFor='' className='text-xs mb-2 text-gray-600'>
                 Portfolio Link
@@ -268,7 +268,7 @@ const PersonalPopUp = () => {
                 name='portfolio'
                 onChange={handleChange}
                 placeholder='Portfolio Website (optional)'
-                className='py-2 lg:w-[18vw] p-2 w-full   border-2 border-transparent shadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  focus:border-2 focus:border-slate-600  outline-none rounded-sm  bg-gray-50 '
+                className='p-2 lg:w-[18vw]  w-full    border border-gray-300    rounded-md '
               />
             </div>
             <div className='flex flex-col'>
@@ -280,7 +280,7 @@ const PersonalPopUp = () => {
                 labelId='demo-multiple-checkbox-label'
                 id='demo-multiple-checkbox'
                 multiple
-                sx={{ width: { xs: 182, lg: 260 }, height: 41, fontSize: 14 }}
+                sx={{ width: { xs: '100%', lg: 260 }, height: 36, fontSize: 14 }}
                 value={skills}
                 onChange={handleChangeSkill}
                 input={<OutlinedInput />}
@@ -310,15 +310,15 @@ const PersonalPopUp = () => {
               value={formData.about}
               onChange={handleChange}
               placeholder='Briefly describe your background, skills, and career goals...'
-              className=' w-full h-20 max-h-32 border-2 focus:border-2 focus:border-slate-600  outline-none rounded-sm hadow-[0px_0px_3px_0px_rgba(0,0,0,0.3)]  p-2'
+              className=' w-full h-32 max-h-44 border p-3'
             />
           </div>
-          <div className='flex flex-col justify-center  items-center mt-3'>
+          <div className='flex flex-col justify-center  items-center mt-7'>
             <button
               disabled={!isFormChanged}
               type='button'
               onClick={handleSubmit}
-              className={`mt-10 text-md px-6 p-2 rounded shadow-xl ${
+              className={`lg:mt-10  px-6 p-3 rounded shadow-xl ${
                 isFormChanged
                   ? 'bg-violet-900 text-white hover:bg-violet-800'
                   : 'bg-gray-400 text-gray-700 cursor-not-allowed'
@@ -327,7 +327,7 @@ const PersonalPopUp = () => {
               Save changes
             </button>
             <div>
-              <p className='text-xs mt-4 text-gray-600'>
+              <p className='text-sm mt-4 text-gray-600'>
                 Make sure all your details are accurate before saving
               </p>
             </div>

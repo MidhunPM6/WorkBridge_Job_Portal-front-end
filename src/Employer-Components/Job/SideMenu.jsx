@@ -35,7 +35,7 @@ const SideMenu = () => {
       <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 m-4 lg:m-8 text-sm w-full lg:w-[60vw]'>
         <button
           onClick={() => setActiveComponent('Jobs')}
-          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-sm w-full p-2 lg:p-3'
+          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg w-full p-2 lg:p-3'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -55,7 +55,7 @@ const SideMenu = () => {
         
         <button
           onClick={() => setActiveComponent('Post Jobs')}
-          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-sm w-full p-2 lg:p-3'
+          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg w-full p-2 lg:p-3'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -75,7 +75,7 @@ const SideMenu = () => {
         
         <button
           onClick={() => setActiveComponent('Posted Jobs')}
-          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-sm w-full p-2 lg:p-3'
+          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg w-full p-2 lg:p-3'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -95,7 +95,7 @@ const SideMenu = () => {
         
         <button
           onClick={() => setActiveComponent('Received Applications')}
-          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-sm w-full p-2 lg:p-3'
+          className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg w-full p-2 lg:p-3'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -17,7 +17,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className='bg-white border-b border-gray-100 px-6 py-4 shadow-sm sticky top-0 z-50'>
+      <div className='bg-white border-b border-gray-100 px-6 py-4 shadow-sm  top-0 z-50'>
   <div className='max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between'>
     {/* Logo and Navigation */}
     <div className='flex items-center justify-between w-full lg:w-auto'>

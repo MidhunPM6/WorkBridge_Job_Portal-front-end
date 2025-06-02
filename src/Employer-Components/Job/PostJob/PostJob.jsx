@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react'
+import React, { useState, useEffect } from 'react'
 import Dropdown from 'react-dropdown'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -93,7 +93,7 @@ const PostJob = () => {
   const handleDesignationChange = selectedOption => {
     setFormData(prev => ({
       ...prev,
-      title: selectedOption.value
+      title: selectedOption?.value || ''
     }))
   }
 
@@ -143,7 +143,7 @@ const PostJob = () => {
   return (
     <div className='flex justify-center items-center p-6 '>
       <Toaster position='top-center' reverseOrder={false} />
-      <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-md   shadow-[0px_0px_15px_0px_rgba(181,181,181,1)] bg-white'>
+      <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-md  shadow-[0px_0px_5px_0px_rgba(181,181,181,1)]  hover:shadow-[0px_0px_10px_0px_rgba(181,181,181,1)] bg-white transition-all duration-300'>
         <div className='flex flex-col justify-center items-center w-full'>
           <h1 className='text-2xl font-semibold text-center'>
             Publish a Job Opening

@@ -4,7 +4,7 @@ import videointerview from '../../assets/employer-mainpage/video-interview.png'
 const EmpMainPage = () => {
   return (
     <>
-      <div className='font-poppins bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black min-h-screen text-white'>
+      <div className=' bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black min-h-screen text-white'>
         <div className='container mx-auto px-6 py-16 lg:py-24 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24'>
           <div className='relative lg:w-1/2'>
             <img
