@@ -9,7 +9,7 @@ const AllJobs = () => {
     const fetchAllJobs = async () => {
       try {
         // Handle the response data as needed
-        const response = await axiosInstance.get('api/employer/alljobs', {
+        const response = await axiosInstance.get('api/common/jobs', {
           withCredentials: true
         })
         console.log('Fetched jobs:', response)

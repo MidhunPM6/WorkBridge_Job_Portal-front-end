@@ -1,19 +1,20 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import { setSelectedJob } from '../../../Redux/SelectedJobSlice'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import logo from '../../../assets/lightlogo.png'
-import Modal from 'react-modal'
-import JobSubmittion from '../JobSubmit/JobSubmittion'
 import SearchBar from '../LandingPage/SearchBar'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { axiosInstance } from '../../../Axios/Axios-instance'
+import toast, { Toaster } from 'react-hot-toast'
 
 const JobMain = () => {
   const [jobDetails, setJobDetails] = useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [modalIsOpen, setIsOpen] = React.useState(false)
+  const [jobs, setJobs] = useState([])
+  const selectedJob = useSelector(state => state.selectedjob.jobSelected)
   const dispatch = useDispatch()
 
   const options = [
@@ -63,13 +64,13 @@ const JobMain = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const jobDetailsResponse = await axios.get('/storedjobdetails')
-        console.log(jobDetailsResponse.data)
-        if (jobDetailsResponse.status === 200) {
-          setJobDetails(jobDetailsResponse.data)
-        }
+        const jobDetailsResponse = await axiosInstance.get('api/common/jobs', {
+          withCredentials: true
+        })
+        setJobs(jobDetailsResponse.data.jobs)
+        console.log(selectedJob)
       } catch (error) {
-        alert(error + 'ERROR')
+        toast.error('Failed to fetch job details')
       }
     }
     fetchJobDetails()
@@ -185,37 +186,40 @@ const JobMain = () => {
             </div>
           </div>
 
-          <div className='flex flex-col items-center py-6 h-screen overflow-auto bg-gray-50 font-poppins lg:w-[50vw] w-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10'>
-            {jobDetails && jobDetails.length > 0 ? (
-              jobDetails.map(jobObj => (
+          <div className='flex flex-col items-center min-h-screen overflow-auto bg-gray-50 font-poppins lg:w-[50vw] w-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10'>
+            {jobs && jobs.length > 0 ? (
+              jobs.map(jobObj => (
                 <div
                   key={jobObj._id}
                   className='flex flex-col md:flex-row justify-between gap-4 items-start md:items-center mt-6 w-[90%] md:w-[80%] bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200'
                 >
                   <div className='flex flex-col flex-1'>
                     <h1 className='text-xl font-semibold text-gray-800'>
-                      {jobObj.tittle}
+                      {jobObj.title}
                     </h1>
                     <h2 className='mt-2 text-sm text-gray-600'>
-                      {jobObj.comapany_name}
+                      {jobObj.company_name}
                       <span className='font-light'> • {jobObj.location}</span>
                     </h2>
                     <span className='mt-2 font-medium text-gray-700 text-sm'>
                       <span className='font-Kaushan font-semibold'>₹</span>
                       {jobObj.salary}
                     </span>
-                    <p className='mt-3 text-sm font-semibold text-gray-800'>
+                    <p className='mt-3 text-lg font-semibold text-gray-800'>
                       Job Description
                     </p>
-                    <div className='text-sm whitespace-pre-line mt-2 w-full max-h-52 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 leading-relaxed pr-2'>
-                      {jobObj.job_description}
-                    </div>
+                    <div
+                      className='prose max-h-52 overflow-auto text-sm lg:text-base mt-2'
+                      dangerouslySetInnerHTML={{
+                        __html: jobObj.job_description
+                      }}
+                    />
                   </div>
 
                   <div className='flex flex-col items-start md:items-end gap-2 w-full md:w-auto'>
                     <button
                       onClick={() => handleApply(jobObj)}
-                      className='bg-blue-600 text-white px-4 py-2 text-sm rounded-md hover:bg-blue-700 transition-colors duration-200 w-full md:w-auto'
+                      className='bg-blue-100 text-blue-700 px-4 py-2 text-sm rounded-md hover:bg-blue-200 font-semibold  w-full md:w-auto shadow-md hover:shadow-lg transition-all duration-300'
                     >
                       Apply now
                     </button>
@@ -253,16 +257,95 @@ const JobMain = () => {
             )}
           </div>
         </div>
-      </div>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel='Example Modal'
-      >
-        <JobSubmittion setIsOpen={setIsOpen}></JobSubmittion>
-      </Modal>
+        {modalIsOpen && (
+          <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50'>
+            <div className='bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden'>
+              <div className='border-b px-6 py-4 flex justify-between items-center'>
+                <h3 className='text-lg font-semibold text-gray-900'>
+                  Confirm Application
+                </h3>
+                <button className='text-gray-400 hover:text-gray-500'>
+                  <svg
+                    className='h-6 w-6'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M6 18L18 6M6 6l12 12'
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <div className='p-6 space-y-4'>
+                <div className='flex items-start'>
+                  <div className='flex-shrink-0 h-auto w-auto p-2 text-xs  bg-blue-100 rounded-md flex items-center justify-center'>
+                    <span className='text-blue-600 font-bold'>
+                      {selectedJob.company_name}
+                    </span>
+                  </div>
+                  <div className='ml-4'>
+                    <h4 className='text-lg font-medium text-gray-900'>
+                      {selectedJob.title}
+                    </h4>
+                    <p className='text-gray-600'>
+                      {selectedJob.company_name} • {selectedJob.location}
+                    </p>
+                  </div>
+                </div>
+
+                <div className='border-t border-b border-gray-200 py-4 space-y-3'>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-600'>Employment Type</span>
+                    <span className='font-medium'>{selectedJob.job_type}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-600'>Salary Range</span>
+                    <span className='font-medium'>{selectedJob.salary}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-600'>Posted</span>
+                    <span className='font-medium'>
+                      {' '}
+                      {new Date(selectedJob.updatedAt).toLocaleDateString(
+                        'en-GB',
+                        {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric'
+                        }
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                <div className='pt-2'>
+                  <p className='text-gray-700'>
+                    Are you sure you want to apply for this position?
+                  </p>
+                </div>
+              </div>
+
+              <div className='bg-gray-50 px-6 py-4 flex justify-end space-x-3'>
+                <button
+                  onClick={closeModal}
+                  className='px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100'
+                >
+                  Cancel
+                </button>
+                <button className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'>
+                  Confirm Application
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   )
 }
