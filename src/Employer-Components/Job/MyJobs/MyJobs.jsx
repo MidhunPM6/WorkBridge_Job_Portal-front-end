@@ -12,7 +12,6 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
-import { loadLocation } from '../../../Components/common/loadLocation.js'
 
 const MyJobs = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +26,8 @@ const MyJobs = () => {
   const [jobs, setJobs] = useState([])
   const [editModelOpen, setEditModelOpen] = useState(false)
   const [jobTitle, setJobTitle] = useState([])
+  const [isDeleteModelOpen, setDeleteModelOpen] = useState(false)
+  const [jobId, setJobId] = useState(null)
   const options = ['Full-time', 'Part-time', 'Remote']
   const modules = {
     toolbar: [
@@ -53,6 +54,10 @@ const MyJobs = () => {
   }
 
   const handleSelect = async address => {
+    if (!address || address.trim() === '') {
+      console.warn('Empty or invalid address selected.')
+      return
+    }
     setValue(address, false)
     clearSuggestions()
     setFormData(prev => ({
@@ -61,6 +66,10 @@ const MyJobs = () => {
     }))
     try {
       const results = await getGeocode({ address })
+      if (!results || results.length === 0) {
+        console.error('No geocode results found for address:', address)
+        return
+      }
       const { lat, lng } = getLatLng(results[0])
       console.log('Coordinates: ', { lat, lng })
     } catch (error) {
@@ -98,11 +107,12 @@ const MyJobs = () => {
     setEditModelOpen(true)
   }
 
-  useEffect(() => {
-    if (!formData.location) {
-      loadLocation()
-    }
-  }, [])
+  const handleDelete=(jobID)=>{
+    setDeleteModelOpen(true)
+    setJobId(jobID)
+    console.log(jobId);
+    
+  }
 
   useEffect(() => {
     const fetchMyJobs = async () => {
@@ -117,7 +127,7 @@ const MyJobs = () => {
       }
     }
     fetchMyJobs()
-  }, [])
+  }, [formData,isDeleteModelOpen])
 
   useEffect(() => {
     const fetchDesignationdata = async () => {
@@ -139,8 +149,6 @@ const MyJobs = () => {
   }, [])
 
   const updateJob = async () => {
-    console.log(formData)
-
     try {
       const response = await axiosInstance.patch(
         `api/employer/updateJob/${formData._id}`,
@@ -154,6 +162,15 @@ const MyJobs = () => {
       })
       setTimeout(() => {
         setEditModelOpen(false)
+        setFormData({
+          title: '',
+          company_name: '',
+          location: '',
+          salary: '',
+          job_type: '',
+          job_description: '',
+          id: ''
+        })
       }, 1300)
     } catch (error) {
       console.error('Error updating job:', error)
@@ -161,6 +178,23 @@ const MyJobs = () => {
     }
   }
 
+  const handleDeleteJob = async () => {
+    try {
+      const response = await axiosInstance.delete(
+        `api/employer/deleteJob/${jobId}`,
+        { withCredentials: true }
+      )
+      toast.success('Job deleted successfully!', {
+        duration: 1200
+      })
+      setTimeout(() => {
+        setDeleteModelOpen(false)
+      }, 1300)
+    } catch (error) {
+      toast.error('Failed to delete job. Please try again.')
+      console.error(error)
+    }
+  }
   return (
     <div className='flex flex-col items-center   min-h-screen    lg:w-[50vw] w-full  pb-10 '>
       <Toaster position='top-center' reverseOrder={false} />
@@ -171,7 +205,7 @@ const MyJobs = () => {
         jobs.map(job => (
           <div
             key={job.id}
-            className='flex flex-col   mt-6 w-[90%] md:w-[50vw] bg-white rounded-md border border-gray-200  p-6'
+            className='flex flex-col   mt-6 w-[90%] md:w-[50vw] bg-white rounded-md border hover:shadow-md border-gray-200  p-6 transition-all duration-200'
           >
             <h1 className='text-xl font-semibold'>{job.title}</h1>
             <h2 className='mt-2 text-md'>
@@ -207,7 +241,10 @@ const MyJobs = () => {
                 </svg>
                 Edit
               </button>
-              <button className='flex gap-1 bg-red-600 text-white p-3 justify-center rounded-md shadow-md hover:bg-red-700 transition-all duration-300'>
+              <button
+                onClick={() => handleDelete(job.id)}
+                className='flex gap-1 bg-red-600 text-white p-3 justify-center rounded-md shadow-md hover:bg-red-700 transition-all duration-300'
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   x='0px'
@@ -261,7 +298,7 @@ const MyJobs = () => {
                         )}
                         onChange={handleDesignationChange}
                         isClearable
-                        placeholder='Select Designation'
+                        placeholder={'Select Designation'}
                       />
                     </div>
                     <input
@@ -349,6 +386,59 @@ const MyJobs = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isDeleteModelOpen && (
+        <div class='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
+          <div class='bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden'>
+            <div class='p-6 border-b border-gray-100'>
+              <h3 class='text-xl font-bold text-gray-900'>
+                Delete Confirmation
+              </h3>
+            </div>
+
+            <div class='p-6'>
+              <div class='flex items-start'>
+                <div class='flex-shrink-0 mt-0.5'>
+                  <svg
+                    class='h-6 w-6 text-red-500'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      stroke-width='2'
+                      d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                    />
+                  </svg>
+                </div>
+                <div class='ml-3'>
+                  <p class='text-gray-700'>
+                    Are you sure you want to delete this item? This action
+                    cannot be undone.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class='px-6 py-4 bg-gray-50 flex justify-end space-x-3'>
+              <button
+                onClick={() => setDeleteModelOpen(false)}
+                className='px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-150'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteJob}
+                class='px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded-md transition-colors duration-150'
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>

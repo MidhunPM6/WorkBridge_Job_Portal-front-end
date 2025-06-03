@@ -8,7 +8,6 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
-import { loadLocation } from '../../../Components/common/loadLocation.js'
 import toast, { Toaster } from 'react-hot-toast'
 import SelectDrop from 'react-select'
 
@@ -17,7 +16,7 @@ const PostJob = () => {
     title: '',
     company_name: '',
     location: '',
-    salary: '',
+    salary: '', 
     job_type: '',
     job_description: ''
   })
@@ -136,9 +135,7 @@ const PostJob = () => {
     }
   }
 
-  useEffect(() => {
-    loadLocation()
-  }, [])
+
 
   return (
     <div className='flex justify-center items-center p-6 '>
