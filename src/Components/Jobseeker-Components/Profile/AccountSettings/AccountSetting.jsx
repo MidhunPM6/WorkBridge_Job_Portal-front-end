@@ -272,30 +272,30 @@ const AccountSetting = () => {
   }
   return (
     <>
-      <div className=' relative flex-col lg:justify-normal justify-center  lg:p-20  p-10 lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
+      <div className=' relative flex-col lg:justify-normal justify-center   lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
         <Toaster></Toaster>
         <div className=' flex flex-col items-center border p-10 rounded-md border-gray-300 '>
           <div>
             <h1 className=' w-full flex justify-center text-2xl font-semibold'>
               Account Settings
             </h1>
-            <p className='text-sm text-gray-700'>
+            <p className='text-2xl text-blue-600 font-semibold'>
               Manage your account details and security options below
             </p>
           </div>
           <div className='lg:h-[0.08rem] bg-gray-200 mt-8 w-full '></div>
 
-          <div className='flex justify-around  mt-6 gap-4 text-sm w-full '>
+          <div className='flex   mt-6 gap-4 w-full '>
             <div className='flex flex-col w-full gap-1'>
-              <label htmlFor='' className='font-semibold'>
+              <label htmlFor='' className='font-semibold text-lg'>
                 Username
               </label>
               <h1 className='  outline-none   '>{user?.name}</h1>
-              <p className='text-xs text-gray-600 '>
+              <p className='text-sm text-gray-600 '>
                 This name will be visible to employers
               </p>
             </div>
-            <div className='flex justify-center items-center  text-sm'>
+            <div className='flex justify-center items-center  '>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -315,10 +315,10 @@ const AccountSetting = () => {
           </div>
           <div className='h-[0.08rem] bg-gray-200 mt-4 w-full'></div>
           <div className='flex mt-4 gap-4 w-full'>
-            <div className='flex flex-col  text-sm w-full  '>
-              <label htmlFor=''>Password</label>
+            <div className='flex flex-col   w-full  '>
+              <label htmlFor='' className='text-lg font-semibold'>Password</label>
               <h1 className='  outline-none text-gray-600  '>********</h1>
-              <p className='text-xs text-gray-600'>
+              <p className='text-sm text-gray-600'>
                 Choose a strong password for your account security{' '}
               </p>
             </div>
@@ -341,23 +341,22 @@ const AccountSetting = () => {
             </div>
           </div>
 
-          <div className='mt-10 '>
+          <div className='flex flex-col justify-center items-center mt-10 w-full  '>
             <button
               onClick={handleLogout}
               type='button '
-              className=' text-blue-500 font-semibold p-2  lg:w-40 rounded-md text-sm bg-blue-50 hover:bg-blue-100 transition-all duration-300 shadow-md'
+              className=' text-white  w-full  font-semibold p-3  lg:w-48 rounded-md  bg-blue-700 hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg'
             >
               Logout
             </button>
-          </div>
-          <div>
             <button
               onClick={() => setShowDelete(true)}
-              className='mt-4  hover:bg-red-700 lg:w-40  text-sm bg-red-600  p-2  text-white font-semibold rounded-md transition-all duration-300 shadow-md'
+              className='mt-4  hover:bg-red-700 lg:w-48  w-full  bg-red-600  p-3  text-white font-semibold rounded-md transition-all duration-300 shadow-md hover:shadow-lg'
             >
               Delete your account
             </button>
           </div>
+          
           <p className=' text-gray-600 mb-4 text-xs mt-2'>
             This action is{' '}
             <span className='font-medium text-red-500'>permanent</span> and
@@ -376,7 +375,7 @@ const AccountSetting = () => {
             transition={{ duration: 0.3 }}
           >
             <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-              <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+              <div className='bg-white p-8 rounded-lg shadow-md flex flex-col gap-3  items-center '>
                 <form className='flex flex-col justify-center items-center w-full '>
                   <h1 className='w-full text-xl font-semibold items-center flex flex-col'>
                     Spotted a typo or outdated username? <br />
@@ -387,23 +386,23 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'>Change the username</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-3 w-full lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter a new username '
                     name='name'
                     onChange={handleChangeUsername}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-3 w-full lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter your password '
                     name='password'
                     onChange={handleChangeUsername}
                   />
                 </form>
 
-                <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4 text-sm w-full items-center justify-center'>
+                <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4  w-full items-center justify-center'>
                   <button
-                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full lg:rounded-md shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-3 lg:w-[40%] w-full lg:rounded-md rounded-md shadow-md'
                     onClick={() => {
                       setIsOpen(false)
                     }}
@@ -412,7 +411,7 @@ const AccountSetting = () => {
                   </button>
                   <button
                     onClick={usernameSubmit}
-                    className=' p-2 px-6 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md  '
+                    className=' p-3 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md  '
                   >
                     Save changes
                   </button>
@@ -445,7 +444,7 @@ const AccountSetting = () => {
             transition={{ duration: 0.3 }}
           >
             <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-              <div className='bg-white p-4 rounded-lg shadow-md flex flex-col gap-3 items-center '>
+              <div className='bg-white p-8 rounded-lg shadow-md flex flex-col gap-3 items-center '>
                 <form className='flex flex-col justify-center items-center w-full'>
                   <h1 className='w-full text-xl font-semibold items-center flex flex-col'>
                     Time for a New Password? <br />
@@ -456,14 +455,14 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'> Change the password</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] w-full border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-3  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter old password  '
                     name='currentPassword'
                     onChange={handleChangePassword}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4 py-2 p-2  lg:w-[90%] w-full border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-3  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter a new  password '
                     name='newPassword'
                     onChange={handleChangePassword}
@@ -471,7 +470,7 @@ const AccountSetting = () => {
                 </form>
                 <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4 text-sm w-full items-center justify-center'>
                   <button
-                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full lg:rounded-md shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-3 lg:w-[40%] w-full rounded-md shadow-md'
                     onClick={handleCancel}
                   >
                     Cancel
@@ -479,7 +478,7 @@ const AccountSetting = () => {
                   <button
                     onClick={handleVerification}
                     disabled={verificationInput}
-                    className={` p-2 px-6 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md ${
+                    className={` p-3 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md ${
                       verificationInput &&
                       'cursor-not-allowed hover:bg-gray-300'
                     } `}

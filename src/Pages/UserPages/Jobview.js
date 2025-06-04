@@ -12,6 +12,7 @@ const Jobview = () => {
     <>
     <NavBar />
     <JobMain />
+    <Footer></Footer>
    
   
     </>

@@ -13,6 +13,7 @@ const JobMain = () => {
   const [jobDetails, setJobDetails] = useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [modalIsOpen, setIsOpen] = React.useState(false)
+  const [jobData, setJobData] = useState({})
   const [jobs, setJobs] = useState([])
   const selectedJob = useSelector(state => state.selectedjob.jobSelected)
   const dispatch = useDispatch()
@@ -61,6 +62,29 @@ const JobMain = () => {
     setIsOpen(true)
   }
 
+  const handleConfirmation = async () => {
+    try {
+      const job = {
+        employerId: selectedJob.userID,
+        jobId: selectedJob.id
+      }
+
+      const response = await axiosInstance.post('api/candidate/applyJob', job, {
+        withCredentials: true
+      })
+
+      toast.success('Application submitted successfully', {
+        duration: 1200
+      })
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 1300)
+    } catch (error) {
+      toast.error(error.response.data.message || 'Failed to submit application')
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -95,6 +119,7 @@ const JobMain = () => {
   return (
     <>
       <div className='min-h-screen bg-gray-50 p-6  '>
+        <Toaster position='top-center' reverseOrder={false} />
         <div className='mb-8'>
           <SearchBar />
         </div>
@@ -186,42 +211,97 @@ const JobMain = () => {
             </div>
           </div>
 
-          <div className='flex flex-col items-center min-h-screen overflow-auto bg-gray-50 font-poppins lg:w-[50vw] w-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10'>
+          <div className='flex flex-col items-center min-h-screen overflow-auto bg-gray-50  lg:w-[70vw] w-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 pb-10'>
             {jobs && jobs.length > 0 ? (
               jobs.map(jobObj => (
                 <div
                   key={jobObj._id}
-                  className='flex flex-col md:flex-row justify-between gap-4 items-start md:items-center mt-6 w-[90%] md:w-[80%] bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200'
+                  className='flex flex-col   justify-between gap-4 items-start  mt-6 w-[90%] md:w-[80%] bg-white rounded-lg shadow-md p-10 hover:shadow-lg transition-shadow duration-200'
                 >
-                  <div className='flex flex-col flex-1'>
+                  <div className='flex flex-col'>
+                    <div className='flex  mb-4 w-full md:w-auto'>
+                      <div className=' rounded-sm bg-gray-100 shadow-sm overflow-hidden w-16 h-16'>
+                        <img
+                          src={
+                            jobObj.company_logo ||
+                            'https://cdn.dribbble.com/userupload/16364997/file/original-8a26f0cf7237b32d4a7c9a2851d7a3b9.jpg'
+                          }
+                          alt={jobObj.company_name || 'Company logo'}
+                          className='object-contain w-full h-full p-1 '
+                          onError={e => {
+                            e.target.src =
+                              'https://cdn.dribbble.com/userupload/16364997/file/original-8a26f0cf7237b32d4a7c9a2851d7a3b9.jpg'
+                          }}
+                        />
+                      </div>
+                      <div className='ml-4 flex'>
+                        <h2 className='mt-2  text-gray-600 flex items-end cursor-pointer font-semibold text-lg hover:underline underline-offset-4'>
+                          {jobObj.company_name}
+                        </h2>
+                      </div>
+                    </div>
+
                     <h1 className='text-xl font-semibold text-gray-800'>
                       {jobObj.title}
                     </h1>
-                    <h2 className='mt-2 text-sm text-gray-600'>
-                      {jobObj.company_name}
-                      <span className='font-light'> • {jobObj.location}</span>
+
+                    <h2 className='font-light'>
+                      {' '}
+                      {jobObj.location} - <span>{jobObj.job_type}</span>
                     </h2>
-                    <span className='mt-2 font-medium text-gray-700 text-sm'>
-                      <span className='font-Kaushan font-semibold'>₹</span>
+
+                    <span className='mt-2 font-medium text-gray-700 '>
+                      <span className=' font-semibold'>Salary - ₹</span>
                       {jobObj.salary}
                     </span>
-                    <p className='mt-3 text-lg font-semibold text-gray-800'>
+                    <p className='mt-2 text-lg font-semibold text-gray-800'>
                       Job Description
                     </p>
                     <div
-                      className='prose max-h-52 overflow-auto text-sm lg:text-base mt-2'
+                      className='prose max-h-96 w-full max-w-none overflow-auto lg:text-base mt-2'
                       dangerouslySetInnerHTML={{
                         __html: jobObj.job_description
                       }}
                     />
                   </div>
 
-                  <div className='flex flex-col items-start md:items-end gap-2 w-full md:w-auto'>
+                  <div className='flex flex-col  items-end p-4  gap-3 w-full  '>
                     <button
                       onClick={() => handleApply(jobObj)}
-                      className='bg-blue-100 text-blue-700 px-4 py-2 text-sm rounded-md hover:bg-blue-200 font-semibold  w-full md:w-auto shadow-md hover:shadow-lg transition-all duration-300'
+                      className='bg-blue-100 flex  gap-1 text-blue-700   p-3  rounded-md hover:bg-blue-200 font-semibold   w-full md:w-auto shadow-md hover:shadow-lg transition-all duration-300'
                     >
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='size-6'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z'
+                        />
+                      </svg>
                       Apply now
+                    </button>
+                    <button className='bg-white flex gap-1  justify-center text-black  p-3  hover:bg-gray-100  rounded-md hover:shadow-lg font-semibold  w-full md:w-auto shadow-md  transition-all duration-300'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke-width='1.5'
+                        stroke='currentColor'
+                        class='size-6'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          d='M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z'
+                        />
+                      </svg>
+                      Save
                     </button>
                   </div>
                 </div>
@@ -265,7 +345,10 @@ const JobMain = () => {
                 <h3 className='text-lg font-semibold text-gray-900'>
                   Confirm Application
                 </h3>
-                <button className='text-gray-400 hover:text-gray-500'>
+                <button
+                  onClick={closeModal}
+                  className='text-gray-400 hover:text-gray-500'
+                >
                   <svg
                     className='h-6 w-6'
                     fill='none'
@@ -338,7 +421,10 @@ const JobMain = () => {
                 >
                   Cancel
                 </button>
-                <button className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'>
+                <button
+                  onClick={handleConfirmation}
+                  className='px-4 py-2 bg-green-600 shadow-lg text-white rounded-md hover:bg-green-700'
+                >
                   Confirm Application
                 </button>
               </div>

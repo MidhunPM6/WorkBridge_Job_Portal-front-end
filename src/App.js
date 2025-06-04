@@ -14,7 +14,7 @@ import JobpostContext from './Context/JobpostContext'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
 import JobMenu from './Pages/EmployerPages/JobMenu'
-
+import Footer from './Components/Jobseeker-Components/Footer/Footer'
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
 const Siginup = lazy(() => import('./Pages/UserPages/Siginup'))
@@ -29,7 +29,9 @@ function App () {
       <JobpostContext>
         <EmployerUserDetails>
           <Suspense fallback={<LazyLoad></LazyLoad>}>
+       
             <Routes>
+              
               {/*User routes */}
               <Route path='/' element={<Home />} />
               <Route path='/signup' element={<Siginup />} />
@@ -37,7 +39,7 @@ function App () {
               <Route path='/profile' element={<Userprofile />} />
               <Route path='/jobview' element={<Jobview />} />
               <Route path='/applyjob' element={<Applyjob />} />
-
+            
               {/*Empolyer routes*/}
               <Route path='/employer' element={<EmployerHome />} />
               <Route path='/employerlogin' element={<EmployerLogin />} />
