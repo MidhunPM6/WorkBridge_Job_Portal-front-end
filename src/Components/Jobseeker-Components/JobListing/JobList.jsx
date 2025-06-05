@@ -10,10 +10,10 @@ import { axiosInstance } from '../../../Axios/Axios-instance'
 import toast, { Toaster } from 'react-hot-toast'
 
 const JobMain = () => {
-  const [jobDetails, setJobDetails] = useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [modalIsOpen, setIsOpen] = React.useState(false)
   const [jobData, setJobData] = useState({})
+  const [applied, setApplied] = useState([])
   const [jobs, setJobs] = useState([])
   const selectedJob = useSelector(state => state.selectedjob.jobSelected)
   const dispatch = useDispatch()
@@ -68,14 +68,26 @@ const JobMain = () => {
         employerId: selectedJob.userID,
         jobId: selectedJob.id
       }
+      console.log(job)
 
-      const response = await axiosInstance.post('api/candidate/applyJob', job, {
-        withCredentials: true
-      })
+      const response = await axiosInstance.post(
+        '/api/candidate/applyJob',
+        job,
+        {
+          withCredentials: true
+        }
+      )
 
-      toast.success('Application submitted successfully', {
-        duration: 1200
-      })
+      if (!response.data.data.applied) {
+        toast.success('Application submitted successfully', {
+          duration: 1200
+        })
+      } else {
+        toast.error('Already Applied', {
+          duration: 1200
+        })
+      }
+
       setTimeout(() => {
         setIsOpen(false)
       }, 1300)
@@ -86,18 +98,26 @@ const JobMain = () => {
   }
 
   useEffect(() => {
-    const fetchJobDetails = async () => {
+    const fetchJobsAndApplied = async () => {
       try {
-        const jobDetailsResponse = await axiosInstance.get('api/common/jobs', {
-          withCredentials: true
-        })
-        setJobs(jobDetailsResponse.data.jobs)
-        console.log(selectedJob)
-      } catch (error) {
-        toast.error('Failed to fetch job details')
+        const [jobsRes, appliedRes] = await Promise.all([
+          axiosInstance.get('/api/common/jobs', {
+            withCredentials: true
+          }),
+          axiosInstance.get('/api/candidate/appliedJobs', {
+            withCredentials: true
+          })
+        ])
+        console.log(appliedRes)
+
+        setJobs(jobsRes.data.jobs)
+        setApplied(appliedRes.data.jobIds)
+      } catch (err) {
+        console.error('Error fetching jobs:', err)
       }
     }
-    fetchJobDetails()
+
+    fetchJobsAndApplied()
   }, [])
 
   useEffect(() => {
@@ -215,7 +235,7 @@ const JobMain = () => {
             {jobs && jobs.length > 0 ? (
               jobs.map(jobObj => (
                 <div
-                  key={jobObj._id}
+                  key={jobObj.id}
                   className='flex flex-col   justify-between gap-4 items-start  mt-6 w-[90%] md:w-[80%] bg-white rounded-lg shadow-md p-10 hover:shadow-lg transition-shadow duration-200'
                 >
                   <div className='flex flex-col'>
@@ -268,7 +288,16 @@ const JobMain = () => {
                   <div className='flex flex-col  items-end p-4  gap-3 w-full  '>
                     <button
                       onClick={() => handleApply(jobObj)}
-                      className='bg-blue-100 flex  gap-1 text-blue-700   p-3  rounded-md hover:bg-blue-200 font-semibold   w-full md:w-auto shadow-md hover:shadow-lg transition-all duration-300'
+                      disabled={
+                        Array.isArray(applied) &&
+                        applied.includes(jobObj.id) &&
+                        true
+                      }
+                      className={`bg-blue-100 flex  gap-1 text-blue-700 ${
+                        Array.isArray(applied) &&
+                        applied.includes(jobObj.id) &&
+                        'bg-gray-300 text-gray-600 hover:bg-gray-300 '
+                      }  p-3  rounded-md hover:bg-blue-200 font-semibold   w-full md:w-auto shadow-md hover:shadow-lg transition-all duration-300`}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -284,7 +313,9 @@ const JobMain = () => {
                           d='M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z'
                         />
                       </svg>
-                      Apply now
+                      {Array.isArray(applied) && applied.includes(jobObj.id)
+                        ? 'Already Applied'
+                        : 'Apply Now'}
                     </button>
                     <button className='bg-white flex gap-1  justify-center text-black  p-3  hover:bg-gray-100  rounded-md hover:shadow-lg font-semibold  w-full md:w-auto shadow-md  transition-all duration-300'>
                       <svg
