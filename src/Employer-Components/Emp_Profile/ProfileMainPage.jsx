@@ -7,7 +7,7 @@ import { axiosInstance } from '../../Axios/Axios-instance'
 
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
-  const [profile,setProfile]=useState({})
+  const [profile,setProfile]=useState(null)
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -38,12 +38,14 @@ const ProfileMainPage = () => {
   useEffect(() => {
     const fetchCompnayProfile = async () => {
       try {
-        const response = await axiosInstance.get('/api/employer/profile', {
+        const response = await axiosInstance.get('/api/employer/profileData', {
           withCredentials: true
         })
         setProfile(response.data.profile)
+        console.log(response);
         
-      } catch (error) {
+        
+      } catch (error) { 
         console.error(error)
       }
     }
