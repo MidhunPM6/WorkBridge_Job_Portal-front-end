@@ -36,6 +36,8 @@ const ProfileFormPopup = () => {
       toast.success(response.data.message, {
         duration: 1300
       })
+      console.log(response);
+      
       setTimeout(() => {
         navigate(0)
       }, 1400)
