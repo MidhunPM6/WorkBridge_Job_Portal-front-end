@@ -48,7 +48,7 @@ const ProfileMainPage = () => {
       }
     }
     fetchCompnayProfile()
-  }, [profile])
+  }, [])
   return (
     <>
       <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-8 w-full'>
