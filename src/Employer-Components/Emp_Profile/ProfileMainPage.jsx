@@ -38,7 +38,7 @@ const ProfileMainPage = () => {
   useEffect(() => {
     const fetchCompnayProfile = async () => {
       try {
-        const response = await axiosInstance.get('/api/employer/profileData', {
+        const response = await axiosInstance.get('api/employer/profileData', {
           withCredentials: true
         })
         setProfile(response.data.profile)
