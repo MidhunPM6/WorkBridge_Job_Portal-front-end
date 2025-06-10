@@ -174,7 +174,10 @@ const ProfileMainPage = () => {
         ariaHideApp={false}
         shouldCloseOnOverlayClick={true}
       >
+        <div className='lg:h-full h-[80vh]  '>
+
         <ProfileFormPopup></ProfileFormPopup>
+        </div>
       </Modal>
     </>
   )

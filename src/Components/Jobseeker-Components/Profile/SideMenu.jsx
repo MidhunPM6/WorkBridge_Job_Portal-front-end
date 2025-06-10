@@ -148,7 +148,7 @@ const SideMenu = () => {
 
         {/* Main Content Area */}
         <motion.div
-          className=' p-6 rounded-sm  ml-6 lg:w-[68vw]  lg:min-h-screen flex bg-white   '
+          className=' p-6 rounded-sm  lg:ml-6 lg:w-[68vw] w-full lg:min-h-screen flex bg-white   '
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}

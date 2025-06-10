@@ -28,7 +28,11 @@ const MyJobs = () => {
   const [jobTitle, setJobTitle] = useState([])
   const [isDeleteModelOpen, setDeleteModelOpen] = useState(false)
   const [jobId, setJobId] = useState(null)
-  const options = ['Full-time', 'Part-time', 'Remote']
+  const options = [
+    { value: 'remote', label: 'Remote' },
+    { value: 'full-time', label: 'Full Time' },
+    { value: 'part-time', label: 'Part Time' }
+  ]
   const modules = {
     toolbar: [
       [{ header: [3, false] }],
@@ -99,19 +103,26 @@ const MyJobs = () => {
   }
 
   const handleEditJob = async jobID => {
-    const updateform = {
-      ...formData,
-      id: jobID
+    const jobToEdit = jobs.find(job => job.id === jobID)
+    if (jobToEdit) {
+      console.log(jobs)
+      setFormData({
+        title: jobToEdit.title,
+        company_name: jobToEdit.company_name,
+        location: jobToEdit.location,
+        salary: jobToEdit.salary,
+        job_type: jobToEdit.job_type,
+        job_description: jobToEdit.job_description,
+        id: jobID
+      })
     }
-    setFormData(updateform)
     setEditModelOpen(true)
   }
 
-  const handleDelete=(jobID)=>{
+  const handleDelete = jobID => {
     setDeleteModelOpen(true)
     setJobId(jobID)
-    console.log(jobId);
-    
+    console.log(jobId)
   }
 
   useEffect(() => {
@@ -127,7 +138,7 @@ const MyJobs = () => {
       }
     }
     fetchMyJobs()
-  }, [formData,isDeleteModelOpen])
+  }, [formData, isDeleteModelOpen])
 
   useEffect(() => {
     const fetchDesignationdata = async () => {
@@ -195,6 +206,7 @@ const MyJobs = () => {
       console.error(error)
     }
   }
+
   return (
     <div className='flex flex-col items-center   min-h-screen    lg:w-[50vw] w-full  pb-10 '>
       <Toaster position='top-center' reverseOrder={false} />
@@ -315,7 +327,7 @@ const MyJobs = () => {
                     <div className='relative w-full'>
                       <input
                         type='text'
-                        value={formData.location || value}
+                        value={formData.location}
                         onChange={e => setValue(e.target.value)}
                         placeholder='Enter a location'
                         className='p-2 w-full rounded-md border border-gray-300'
@@ -362,7 +374,8 @@ const MyJobs = () => {
                   <div className='mt-4'>
                     <ReactQuill
                       theme='snow'
-                      value={formData.job_description}
+                      key={formData.id} 
+                      value={formData.job_description || ""}
                       onChange={handleJobDescriptionChange}
                       modules={modules}
                     />

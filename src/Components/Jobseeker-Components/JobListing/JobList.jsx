@@ -236,16 +236,16 @@ const JobMain = () => {
               jobs.map(jobObj => (
                 <div
                   key={jobObj.id}
-                  className='flex flex-col   justify-between gap-4 items-start  mt-6 w-[90%] md:w-[80%] bg-white rounded-lg shadow-md p-10 hover:shadow-lg transition-shadow duration-200'
+                  className='flex flex-col   justify-between gap-4 items-start  mt-6 w-full md:w-[80%]  rounded-lg shadow-md p-10 hover:shadow-lg transition-shadow duration-200'
                 >
                   <div className='flex flex-col'>
                     <div className='flex  mb-4 w-full md:w-auto'>
-                      <div className=' rounded-sm bg-gray-100 shadow-sm overflow-hidden w-16 h-16'>
+                      <div className=' rounded-sm bg-gray-200 shadow-sm overflow-hidden w-16 h-16'>
                         <img
                           src={
                             jobObj.company_logo ||
                             'https://cdn.dribbble.com/userupload/16364997/file/original-8a26f0cf7237b32d4a7c9a2851d7a3b9.jpg'
-                          }
+                          } 
                           alt={jobObj.company_name || 'Company logo'}
                           className='object-contain w-full h-full p-1 '
                           onError={e => {
