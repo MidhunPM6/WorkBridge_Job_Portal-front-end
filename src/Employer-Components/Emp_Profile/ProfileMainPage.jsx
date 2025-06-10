@@ -93,8 +93,8 @@ const ProfileMainPage = () => {
           <div className='p-6 bg-white'>
             <div className='flex justify-between items-start'>
               <div className='mt-4'>
-                <h1 className='text-2xl font-bold text-gray-800'>{profile.companyName}</h1>
-                <p className='text-gray-500'>{profile.industry}</p>
+                <h1 className='text-2xl font-bold text-gray-800'>{profile?.companyName}</h1>
+                <p className='text-gray-500'>{profile?.industry}</p>
               </div>
               <button
                 onClick={openModal}
@@ -115,29 +115,29 @@ const ProfileMainPage = () => {
             <div className='mt-6'>
               <h2 className='text-xl font-semibold text-gray-800'>Overview</h2>
               <p className='mt-2 text-gray-600'>
-                {profile.overview}
+                {profile?.overview}
               </p>
 
               <div className='mt-6'>
                 <p className='text-gray-800 font-medium'>Website:</p>
                 <a
-                  href={profile.website}
+                  href={profile?.website}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='text-blue-600 hover:underline'
                 >
-                  {profile.website} 
+                  {profile?.website} 
                 </a>
               </div>
 
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Employees</h3>
-                  <p className='text-gray-600'>{profile.sizeOfCompany} employees</p>
+                  <p className='text-gray-600'>{profile?.sizeOfCompany} employees</p>
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Headquarters</h3>
-                  <p className='text-gray-600'>{profile.headquarter}</p>
+                  <p className='text-gray-600'>{profile?.headquarter}</p>
                 </div>
               </div>
 
@@ -146,7 +146,7 @@ const ProfileMainPage = () => {
                   About the Services
                 </h3>
                 <p className='mt-2 text-gray-600'>
-                  {profile.about}
+                  {profile?.about}
                 </p>
               </div>
             </div>
