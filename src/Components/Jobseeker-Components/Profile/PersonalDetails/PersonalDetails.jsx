@@ -108,6 +108,7 @@ const PersonalDetails = () => {
       }, 2000)
     }
   }
+  
   const handleProfileCoverUpload = async () => {
     setLoading(true)
     setTimeout(() => setLoading(false), 10000)
