@@ -1,10 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { EmpAuth } from '../../../Context/EmployerUserDetails'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../../Axios/Axios-instance'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCandidateProfile } from '../../../Redux/EmployerSlice'
 
 const RecAppliction = () => {
   const [applications, setApplications] = useState('')
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchRecivedApplication = async () => {
@@ -21,6 +24,16 @@ const RecAppliction = () => {
     }
     fetchRecivedApplication()
   }, [])
+  
+
+  const viewProfile = application => {
+    dispatch(setCandidateProfile(application))
+    console.log('application', application)
+
+    navigate('/candidateProfile')
+  }
+
+ 
 
   return (
     <>
@@ -94,7 +107,7 @@ const RecAppliction = () => {
                       Job Title
                     </span>
                     <span className='text-gray-800'>
-                      {application.jobId.title}
+                      {application.jobId?.title}
                     </span>
                   </div>
 
@@ -103,7 +116,7 @@ const RecAppliction = () => {
                       Location
                     </span>
                     <span className='text-gray-800'>
-                      {application.jobId.location}
+                      {application.jobId?.location}
                     </span>
                   </div>
                 </div>
@@ -124,7 +137,10 @@ const RecAppliction = () => {
               </div>
 
               <div className='flex flex-wrap justify-center gap-3 mt-6'>
-                <button className='px-4 py-2 text-sm font-medium rounded-md bg-green-100 text-green-600 hover:bg-green-200 transition-colors shadow-sm'>
+                <button
+                  onClick={() => viewProfile(application)}
+                  className='px-4 py-2 text-sm font-medium rounded-md bg-green-100 text-green-600 hover:bg-green-200 transition-colors shadow-sm'
+                >
                   Profile
                 </button>
                 <button className='px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm'>

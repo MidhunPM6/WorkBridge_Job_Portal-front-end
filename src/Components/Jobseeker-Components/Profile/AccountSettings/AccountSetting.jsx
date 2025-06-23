@@ -341,11 +341,11 @@ const AccountSetting = () => {
             </div>
           </div>
 
-          <div className='flex flex-col justify-center items-center mt-10 w-full  '>
+          <div className='flex flex-col justify-center items-center mt-10 w-full  text-sm '>
             <button
               onClick={handleLogout}
               type='button '
-              className=' text-white  w-full  font-semibold p-3  lg:w-48 rounded-md  bg-blue-700 hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg'
+              className=' text-blue-950 w-full  font-semibold p-3  lg:w-48 rounded-md  bg-blue-400 hover:bg-blue-500 transition-all duration-300 shadow-md hover:shadow-lg'
             >
               Logout
             </button>

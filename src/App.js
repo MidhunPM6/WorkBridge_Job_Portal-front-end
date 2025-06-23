@@ -15,6 +15,9 @@ import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
 import JobMenu from './Pages/EmployerPages/JobMenu'
 import Footer from './Components/Jobseeker-Components/Footer/Footer'
+import Candidateprofile from './Pages/EmployerPages/Candidateprofile'
+
+
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
 const Siginup = lazy(() => import('./Pages/UserPages/Siginup'))
@@ -45,8 +48,9 @@ function App () {
               <Route path='/employerlogin' element={<EmployerLogin />} />
               <Route path='/employersignup' element={<EmployerSignup />} />
               <Route path='/employerprofile' element={<ProfileMainpage />} />
-              
-              
+              <Route path='/candidateProfile' element={<Candidateprofile />} />
+
+
               <Route
                 path='/profile/accountsetting'
                 element={<AccountSettings />}

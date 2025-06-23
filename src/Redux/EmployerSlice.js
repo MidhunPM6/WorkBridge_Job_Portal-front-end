@@ -4,7 +4,8 @@ const initialState = {
     employer: null,
     jobs: [],
     applications: [],
-    profile: null
+    profile: null,
+    candidateProfile: {}
 }
 
 const EmployerSlice = createSlice({
@@ -29,6 +30,9 @@ const EmployerSlice = createSlice({
             state.applications = [];
             state.profile = null;
         },
+        setCandidateProfile : (state, action) => {
+            state.candidateProfile = action.payload;
+        },
         logout: (state) => {
             state.employer = null;
             state.jobs = [];
@@ -37,5 +41,5 @@ const EmployerSlice = createSlice({
         }
     }
 });
-export const {setEmployerDetails, logout, setJobs, setApplications, setProfile, setClearEmployer} = EmployerSlice.actions;
+export const {setEmployerDetails, logout, setJobs, setApplications, setProfile, setClearEmployer,setCandidateProfile} = EmployerSlice.actions;
 export default EmployerSlice.reducer;

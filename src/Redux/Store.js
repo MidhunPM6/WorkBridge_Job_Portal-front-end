@@ -6,7 +6,8 @@ import EducationReducer from './UserSlice.js'
 import { persistStore, persistReducer } from 'redux-persist'
 import ProfileReducer from './UserSlice.js'
 import storage from 'redux-persist/lib/storage'
-import employerReducer from './EmployerSlice.js'
+import employerReducer   from './EmployerSlice.js'
+import candidateProfileReducer from './UserSlice.js'
 
 const presistConfig = {
   key: 'user',
@@ -28,6 +29,7 @@ const store = configureStore({
     education: EducationReducer,
     profile: ProfileReducer,
     employer: persistedEmployerReducer,
+    candidateProfile: persistedEmployerReducer,
   }
 })
 
