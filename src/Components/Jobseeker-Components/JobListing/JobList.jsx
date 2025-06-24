@@ -68,7 +68,7 @@ const JobMain = () => {
         employerId: selectedJob.userID,
         jobId: selectedJob.id
       }
-      console.log(job)
+     
 
       const response = await axiosInstance.post(
         '/api/candidate/applyJob',

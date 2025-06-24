@@ -14,7 +14,6 @@ import JobpostContext from './Context/JobpostContext'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
 import JobMenu from './Pages/EmployerPages/JobMenu'
-import Footer from './Components/Jobseeker-Components/Footer/Footer'
 import Candidateprofile from './Pages/EmployerPages/Candidateprofile'
 
 
@@ -24,7 +23,7 @@ const Siginup = lazy(() => import('./Pages/UserPages/Siginup'))
 const Login = lazy(() => import('./Pages/UserPages/Loginn'))
 const Userprofile = lazy(() => import('./Pages/UserPages/UserProfile'))
 const Jobview = lazy(() => import('./Pages/UserPages/Jobview'))
-const Applyjob = lazy(() => import('./Pages/UserPages/Applyjob'))
+
 
 function App () {
   return (
@@ -41,7 +40,7 @@ function App () {
               <Route path='/login' element={<Login />} />
               <Route path='/profile' element={<Userprofile />} />
               <Route path='/jobview' element={<Jobview />} />
-              <Route path='/applyjob' element={<Applyjob />} />
+            
             
               {/*Empolyer routes*/}
               <Route path='/employer' element={<EmployerHome />} />
