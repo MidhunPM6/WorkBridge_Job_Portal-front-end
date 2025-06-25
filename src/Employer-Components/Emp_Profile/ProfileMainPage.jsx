@@ -3,11 +3,16 @@ import Modal from 'react-modal'
 import ProfileFormPopup from './ProfileFormPopup'
 import img2 from '../../assets/logo.png'
 import { axiosInstance } from '../../Axios/Axios-instance'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setEmployerDetails } from '../../Redux/EmployerSlice'
 
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
-  const [profile,setProfile]=useState(null)
+  const [profile, setProfile] = useState(null)
+  const [profilePic, setProfilePic] = useState(null)
+  const [coverpic, setCoverPic] = useState(null)
+  const dispatch = useDispatch()
+  const employer = useSelector(state => state.employer.employer)
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -42,27 +47,84 @@ const ProfileMainPage = () => {
           withCredentials: true
         })
         setProfile(response.data.profile)
-        console.log(response);
-        
-        
-      } catch (error) { 
+        console.log(response)
+      } catch (error) {
         console.error(error)
       }
     }
+    console.log(employer, 'employer in profile main page')
+
     fetchCompnayProfile()
   }, [])
+
+  //  This function is used to handle file selection and upload for profile picture and cover photo
+  const handleFileSelect = async (e, fileType) => {
+    const file = e.target.files[0]
+    if (!file) return
+    if (file.type === 'application/pdf') {
+      alert('Please upload a valid image file')
+      return
+    }
+
+    if (fileType === 'profilepic') {
+      setProfilePic(file)
+    }
+
+    if (fileType === 'profilecover') {
+      setCoverPic(file)
+    }
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('fileType', fileType)
+      formData.append('role', 'employer')
+      console.log('Uploading file:', fileType, file)
+      const response = await axiosInstance.post(
+        '/api/common/fileupload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          withCredentials: true
+        }
+      )
+
+      dispatch(setEmployerDetails(response.data.uploadFile))
+    } catch (error) {
+      console.error('Error uploading file:', error)
+    }
+  }
   return (
     <>
       <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-8 w-full'>
         <div className='w-full lg:w-3/4 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden'>
-          <div className='relative w-full h-40 lg:h-48 bg-yellow-400'>
-            <div className='absolute left-4 -bottom-8 w-24 h-24 lg:w-32 lg:h-32 bg-gray-200 rounded-md flex items-end justify-end p-1'>
-              <label htmlFor='PhotoUpload' className='cursor-pointer'>
+          <div
+            className={`relative flex justify-center items-center  h-40 lg:h-48 rounded-t-lg w-full  pt-2 ${
+              employer.profileCoverPic ? '' : 'bg-violet-950'
+            }`}
+            style={
+              employer.profileCoverPic
+                ? {
+                    backgroundImage: `url("${employer.profileCoverPic}")`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }
+                : undefined
+            }
+          >
+            <div className='absolute left-4 -bottom-8 w-24 h-24 lg:w-40 lg:h-40 bg-gray-200 rounded-md flex  justify-center items-center p-1 overflow-hidden'>
+              <img src={employer?.profilePic} alt='' className=' flex  ' />
+              <label
+                htmlFor='PhotoUpload'
+                className='cursor-pointer absolute flex items-end justify-end p-1 w-full h-full'
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
                   fill='currentColor'
-                  className='w-6 h-6 text-gray-600'
+                  className='w-8 h-8 text-white bg-black rounded-full p-1 shadow-md  bg-opacity-50'
                 >
                   <path
                     fillRule='evenodd'
@@ -70,7 +132,12 @@ const ProfileMainPage = () => {
                     clipRule='evenodd'
                   />
                 </svg>
-                <input type='file' id='PhotoUpload' className='hidden' />
+                <input
+                  type='file'
+                  id='PhotoUpload'
+                  className='hidden'
+                  onChange={e => handleFileSelect(e, 'profilepic')}
+                />
               </label>
             </div>
 
@@ -87,7 +154,12 @@ const ProfileMainPage = () => {
                 >
                   <path d='M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z' />
                 </svg>
-                <input type='file' id='UploadCover' className='hidden' />
+                <input
+                  type='file'
+                  id='UploadCover'
+                  className='hidden'
+                  onChange={e => handleFileSelect(e, 'profilecover')}
+                />
               </label>
             </div>
           </div>
@@ -95,7 +167,9 @@ const ProfileMainPage = () => {
           <div className='p-6 bg-white'>
             <div className='flex justify-between items-start'>
               <div className='mt-4'>
-                <h1 className='text-2xl font-bold text-gray-800'>{profile?.companyName}</h1>
+                <h1 className='text-2xl font-bold text-gray-800'>
+                  {profile?.companyName}
+                </h1>
                 <p className='text-gray-500'>{profile?.industry}</p>
               </div>
               <button
@@ -116,9 +190,7 @@ const ProfileMainPage = () => {
 
             <div className='mt-6'>
               <h2 className='text-xl font-semibold text-gray-800'>Overview</h2>
-              <p className='mt-2 text-gray-600'>
-                {profile?.overview}
-              </p>
+              <p className='mt-2 text-gray-600'>{profile?.overview}</p>
 
               <div className='mt-6'>
                 <p className='text-gray-800 font-medium'>Website:</p>
@@ -128,14 +200,16 @@ const ProfileMainPage = () => {
                   rel='noopener noreferrer'
                   className='text-blue-600 hover:underline'
                 >
-                  {profile?.website} 
+                  {profile?.website}
                 </a>
               </div>
 
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Employees</h3>
-                  <p className='text-gray-600'>{profile?.sizeOfCompany} employees</p>
+                  <p className='text-gray-600'>
+                    {profile?.sizeOfCompany} employees
+                  </p>
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Headquarters</h3>
@@ -147,9 +221,7 @@ const ProfileMainPage = () => {
                 <h3 className='font-semibold text-gray-800'>
                   About the Services
                 </h3>
-                <p className='mt-2 text-gray-600'>
-                  {profile?.about}
-                </p>
+                <p className='mt-2 text-gray-600'>{profile?.about}</p>
               </div>
             </div>
           </div>
@@ -205,3 +277,5 @@ const ProfileMainPage = () => {
 }
 
 export default ProfileMainPage
+
+//
