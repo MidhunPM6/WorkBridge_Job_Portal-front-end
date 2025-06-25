@@ -1,45 +1,58 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    employer: null,
-    jobs: [],
-    applications: [],
-    profile: null,
-    candidateProfile: {}
+  employer: null,
+  jobs: [],
+  applications: [],
+  profile: null,
+  candidateProfile: {},
+  companyProfile: {}
 }
 
 const EmployerSlice = createSlice({
-    name: "employer",
-    initialState,
-    reducers: {
-        setEmployerDetails: (state, action) => {
-            state.employer = action.payload;
-        },
-        setJobs: (state, action) => {
-            state.jobs = action.payload;
-        },
-        setApplications: (state, action) => {
-            state.applications = action.payload;
-        },
-        setProfile: (state, action) => {
-            state.profile = action.payload;
-        },
-        setClearEmployer: (state) => {
-            state.employer = null;
-            state.jobs = [];
-            state.applications = [];
-            state.profile = null;
-        },
-        setCandidateProfile : (state, action) => {
-            state.candidateProfile = action.payload;
-        },
-        logout: (state) => {
-            state.employer = null;
-            state.jobs = [];
-            state.applications = [];
-            state.profile = null;
-        }
+  name: 'employer',
+  initialState,
+  reducers: {
+    setEmployerDetails: (state, action) => {
+      state.employer = action.payload
+    },
+    setJobs: (state, action) => {
+      state.jobs = action.payload
+    },
+    setApplications: (state, action) => {
+      state.applications = action.payload
+    },
+    setProfile: (state, action) => {
+      state.profile = action.payload
+    },
+    setClearEmployer: state => {
+      state.employer = null
+      state.jobs = []
+      state.applications = []
+      state.profile = null
+    },
+    setCandidateProfile: (state, action) => {
+      state.candidateProfile = action.payload
+    },
+    setCompanyProfile: (state, action) => {
+      state.companyProfile = action.payload
+    },
+    logout: state => {
+      state.employer = null
+      state.jobs = []
+      state.applications = []
+      state.profile = null
     }
-});
-export const {setEmployerDetails, logout, setJobs, setApplications, setProfile, setClearEmployer,setCandidateProfile} = EmployerSlice.actions;
-export default EmployerSlice.reducer;
+  }
+})
+export const {
+  setEmployerDetails,
+  logout,
+  setJobs,
+  setApplications,
+  setProfile,
+  setClearEmployer,
+  setCandidateProfile,
+  setCompanyProfile
+} = EmployerSlice.actions
+export default EmployerSlice.reducer

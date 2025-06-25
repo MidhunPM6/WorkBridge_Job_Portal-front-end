@@ -21,8 +21,8 @@ const AccountSetting = () => {
   }
 
   return (
-    <div className='lg:flex-row flex flex-col lg:m-20 lg:gap-10 text-white'>
-      <div className='flex flex-col  pt-6 lg:w-[15vw] lg:h-[60vh]  rounded-sm bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-violet-950 via-black to-black shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] '>
+    <div className='lg:flex-row flex flex-col lg:m-20 lg:gap-1 text-black'>
+      <div className='flex flex-col  pt-6 lg:w-[15vw] lg:h-[60vh]  rounded-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] '>
         <div className='flex flex-col items-center  w-full mb-6 '>
           <h1 className='font-semibold'>Account Settings</h1>
           <hr className='bg-gray-300 w-1/2 h-[0.1rem] mt-2' />

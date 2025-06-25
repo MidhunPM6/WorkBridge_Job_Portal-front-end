@@ -1,14 +1,19 @@
-import React from 'react'
-import { useState } from 'react'
+import React  from 'react'
+import { useState,useEffect } from 'react'
 import { axiosInstance } from '../../Axios/Axios-instance'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 
 const ProfileFormPopup = () => {
+
+const companyProfile =useSelector(state => state.companyProfile.companyProfile)
+   const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
-    website: '',
+    website:'',
     headquarter: '',
     sizeOfCompany: '',
     overview: '',
@@ -23,7 +28,28 @@ const ProfileFormPopup = () => {
     setChangeData (true)
   }
   //   API Post Method to save the profile data
-  const submitProfile = async () => {
+ 
+
+  useEffect(() => {
+    
+    
+    if (companyProfile) {
+
+      setFormData({
+        companyName: companyProfile.companyName || '',
+        industry: companyProfile.industry || '',
+        website: companyProfile.website || '',
+        headquarter: companyProfile.headquarter || '',
+        sizeOfCompany: companyProfile.sizeOfCompany || '',
+        overview: companyProfile.overview || '',
+        about: companyProfile.about || ''
+      })
+      setLoading(false)
+    }
+  }, [companyProfile])
+
+
+   const submitProfile = async () => {
     try {
      
       const response = await axiosInstance.post(
@@ -64,6 +90,7 @@ const ProfileFormPopup = () => {
 
             <input
               type='text'
+              value={formData.companyName}
               placeholder='Enter the comapny name'
               onChange={handleChange}
               name='companyName'
@@ -76,6 +103,7 @@ const ProfileFormPopup = () => {
             </label>
             <input
               type='text'
+              value={formData.industry}
               placeholder='Industry'
               onChange={handleChange}
               name='industry'
@@ -92,6 +120,7 @@ const ProfileFormPopup = () => {
             <input
               type='text'
               name='website'
+              value={formData.website}
               placeholder='Website'
               onChange={handleChange}
               className='p-2  rounded-md border border-gray-300 lg:w-64 w-full    '
@@ -106,6 +135,7 @@ const ProfileFormPopup = () => {
               type='text'
               name='headquarter'
               placeholder='Headquarter'
+              value={formData.headquarter}
               onChange={handleChange}
               className='p-2  rounded-md border border-gray-300 lg:w-64 w-full   '
             />
@@ -119,6 +149,7 @@ const ProfileFormPopup = () => {
             <input
               type='number'
               name='sizeOfCompany'
+              value={formData.sizeOfCompany}
               placeholder='No of Employees'
               onChange={handleChange}
               className='p-2  rounded-md border border-gray-300  w-full    '
@@ -134,9 +165,11 @@ const ProfileFormPopup = () => {
             <textarea
               type='text'
               name='overview'
+
+              value={formData.overview}
               placeholder='Enter a brief description about your company'
               onChange={handleChange}
-              className='h-24 max-h-40 border border-stone-200 p-2 rounded-sm'
+              className='h-32 max-h-40 border border-stone-200 p-2 rounded-sm'
             />
           </div>
           <div className='flex flex-col gap-2 '>
@@ -147,9 +180,10 @@ const ProfileFormPopup = () => {
             <textarea
               type='text'
               name='about'
+              value={formData.about}
               placeholder='Enter a brief description about your services'
               onChange={handleChange}
-              className='h-24 max-h-40 border border-stone-200 p-2  rounded-sm'
+              className='h-32 max-h-40 border border-stone-200 p-2  rounded-sm'
             />
           </div>
         </div>

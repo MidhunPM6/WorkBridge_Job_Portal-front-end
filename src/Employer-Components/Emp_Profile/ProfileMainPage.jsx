@@ -4,15 +4,16 @@ import ProfileFormPopup from './ProfileFormPopup'
 import img2 from '../../assets/logo.png'
 import { axiosInstance } from '../../Axios/Axios-instance'
 import { useDispatch, useSelector } from 'react-redux'
-import { setEmployerDetails } from '../../Redux/EmployerSlice'
+import { setCompanyProfile, setEmployerDetails } from '../../Redux/EmployerSlice'
+
 
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
-  const [profile, setProfile] = useState(null)
   const [profilePic, setProfilePic] = useState(null)
   const [coverpic, setCoverPic] = useState(null)
   const dispatch = useDispatch()
   const employer = useSelector(state => state.employer.employer)
+  const companyProfile = useSelector(state => state.companyProfile.companyProfile)
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -46,7 +47,7 @@ const ProfileMainPage = () => {
         const response = await axiosInstance.get('api/employer/profileData', {
           withCredentials: true
         })
-        setProfile(response.data.profile)
+        dispatch(setCompanyProfile(response.data.profile))  
         console.log(response)
       } catch (error) {
         console.error(error)
@@ -66,7 +67,7 @@ const ProfileMainPage = () => {
       return
     }
 
-    if (fileType === 'profilepic') {
+    if (fileType === 'profilepic') { 
       setProfilePic(file)
     }
 
@@ -168,9 +169,9 @@ const ProfileMainPage = () => {
             <div className='flex justify-between items-start'>
               <div className='mt-4'>
                 <h1 className='text-2xl font-bold text-gray-800'>
-                  {profile?.companyName}
+                  {companyProfile?.companyName}
                 </h1>
-                <p className='text-gray-500'>{profile?.industry}</p>
+                <p className='text-gray-500'>{companyProfile?.industry}</p>
               </div>
               <button
                 onClick={openModal}
@@ -190,17 +191,17 @@ const ProfileMainPage = () => {
 
             <div className='mt-6'>
               <h2 className='text-xl font-semibold text-gray-800'>Overview</h2>
-              <p className='mt-2 text-gray-600'>{profile?.overview}</p>
+              <p className='mt-2 text-gray-600'>{companyProfile?.overview}</p>
 
               <div className='mt-6'>
                 <p className='text-gray-800 font-medium'>Website:</p>
                 <a
-                  href={profile?.website}
+                  href={companyProfile?.website}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='text-blue-600 hover:underline'
                 >
-                  {profile?.website}
+                  {companyProfile?.website}
                 </a>
               </div>
 
@@ -208,12 +209,12 @@ const ProfileMainPage = () => {
                 <div>
                   <h3 className='font-semibold text-gray-800'>Employees</h3>
                   <p className='text-gray-600'>
-                    {profile?.sizeOfCompany} employees
+                    {companyProfile?.sizeOfCompany} employees
                   </p>
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Headquarters</h3>
-                  <p className='text-gray-600'>{profile?.headquarter}</p>
+                  <p className='text-gray-600'>{companyProfile?.headquarter}</p>
                 </div>
               </div>
 
@@ -221,7 +222,7 @@ const ProfileMainPage = () => {
                 <h3 className='font-semibold text-gray-800'>
                   About the Services
                 </h3>
-                <p className='mt-2 text-gray-600'>{profile?.about}</p>
+                <p className='mt-2 text-gray-600'>{companyProfile?.about}</p>
               </div>
             </div>
           </div>
