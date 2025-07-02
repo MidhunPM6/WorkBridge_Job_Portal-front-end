@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import AccountSetting from '../../Employer-Components/AccountSettings/SidemenuEmp'
+import AccountSetting from '../../Employer-Components/AccountSettings/AccountSettings'
 import Navbar from '../../Employer-Components/Employer_main/Navbar'
 import Footer from '../../Employer-Components/Footer/Footer'
 

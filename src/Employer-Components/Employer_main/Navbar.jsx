@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='bg-white border-b border-gray-200 px-6 py-4 shadow-sm'>
+      <div className='bg-white border-b border-gray-200 px-6 py-4 shadow-sm h-20'>
         <ToastContainer
           position='top-right'
           autoClose={1000}
@@ -111,43 +111,60 @@ const Navbar = () => {
           </div>
 
           {/* Navigation and Profile */}
-          <div className='flex items-center space-x-6'>
+          <div className='lg:flex-row flex flex-col items-end lg:items-center lg:justify-center space-x-6'>
             {employer ? (
               <>
-                <nav className='hidden md:flex space-x-8'>
-                  <a
-                    href='#'
+                <nav className='lg:flex-row  hidden lg:block space-x-8 '>
+                  <button
+                    onClick={() => navigate('/employer')}
                     className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
                   >
                     Home
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
-                  >
+                  </button>
+                  <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
                     About
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
-                  >
+                  </button>
+                  <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
                     Pricing
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
-                  >
+                  </button>
+                  <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
                     Contact
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
-                  >
+                  </button>
+                  <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
                     FAQs
-                  </a>
+                  </button>
                 </nav>
 
-                <div className='relative'>
+                <div className='flex gap-4 relative'>
+                  <button>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    class='size-6'
+                  >
+                    <path
+                      fill-rule='evenodd'
+                      d='M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z'
+                      clip-rule='evenodd'
+                    />
+                  </svg>
+                  </button>
+
+                  <button className='' onClick={()=>navigate('/chatWindow',{state:{userType : "employer"}})}>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                      className='size-6'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
+                  </button>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
                     className='flex items-center space-x-2 focus:outline-none'
@@ -195,7 +212,7 @@ const Navbar = () => {
                   </button>
 
                   {profileOpen && (
-                    <div className='absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                    <div className='absolute right-0  mt-14 w-56 origin-top-right bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10 '>
                       <div className='py-1'>
                         <button
                           onClick={() => navigate('/employerprofile')}
@@ -239,6 +256,28 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Search (hidden on desktop) */}
+        <div className='flex items-center justify-center mt-10'>
+          <nav className='lg:flex-row  block lg:hidden space-x-8 '>
+            <button
+              onClick={() => navigate('/employer')}
+              className='text-gray-600 hover:text-blue-600 transition-colors font-medium'
+            >
+              Home
+            </button>
+            <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
+              About
+            </button>
+            <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
+              Pricing
+            </button>
+            <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
+              Contact
+            </button>
+            <button className='text-gray-600 hover:text-blue-600 transition-colors font-medium'>
+              FAQs
+            </button>
+          </nav>
+        </div>
         <div className='mt-4 lg:hidden'>
           <input
             type='text'

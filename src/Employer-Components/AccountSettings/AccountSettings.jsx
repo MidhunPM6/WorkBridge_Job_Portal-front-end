@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import DeleteAccount from './DeleteAccount'
-import SecuritySetting from './SecuritySetting'
-import NotificationSetting from './NotificationSetting'
+
 
 const AccountSetting = () => {
   const [activeTab, setActiveTab] = useState('security')

@@ -255,7 +255,7 @@ const ProfileMainPage = () => {
             ))}
           </div>
 
-          <button className='w-full mt-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors'>
+          <button className='w-full mt-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors'>
             View All Candidates
           </button>
         </div>

@@ -31,8 +31,8 @@ const SideMenu = () => {
   <div className='h-[0.050rem] bg-slate-300 w-[80vw] lg:w-[30vw]'></div>
   
   <div className='w-full max-w-6xl'>
-    <div className='flex flex-col lg:flex-row w-full justify-center items-center'>
-      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 m-4 lg:m-8 text-sm w-full lg:w-[60vw]'>
+    <div className='flex flex-col  w-full justify-center items-center'>
+      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 m-4 lg:m-8 text-sm w-full lg:w-[60vw] '>
         <button
           onClick={() => setActiveComponent('Jobs')}
           className='flex items-center justify-center gap-2 focus:bg-green-200 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg w-full p-2 lg:p-3'
@@ -113,6 +113,7 @@ const SideMenu = () => {
           <span className='whitespace-nowrap'>Received Apps</span>
         </button>
       </div>
+      
     </div>
     
     <div className='bg-white border mb-10 rounded-md lg:pt-10 lg:min-h-[70dvh] flex flex-col items-center w-full'>
