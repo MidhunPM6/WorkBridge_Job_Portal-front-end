@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../../../Employer-Components/Footer/Footer'
 import Footer2 from '../../Jobseeker-Components/Footer/Footer'
 import { useLocation } from 'react-router-dom'
 import Navbar from '../../../Employer-Components/Employer_main/Navbar'
 import NavBar from '../../Jobseeker-Components/LandingPage/NavBar'
+import socket from '../../../socket-io/socket-io'
+
 
 const ChatWindow = () => {
   const location = useLocation()
   const userType = location.state.userType
   console.log(userType)
+
+  useEffect(() => {
+    socket.on('connection', (socket) => {
+      console.log(socket)
+    })
+  }, [] )
 
   return (
     <>
