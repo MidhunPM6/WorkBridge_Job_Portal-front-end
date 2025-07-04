@@ -12,6 +12,7 @@
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.6.0",
     "@tailwindcss/typography": "^0.5.16",
+    "@tanstack/react-query": "^5.81.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,6 +42,7 @@
     "react-toastify": "^10.0.6",
     "redux-persist": "^6.0.0",
     "rsuite": "^5.77.1",
+    "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.16",
     "use-places-autocomplete": "^4.0.1",
     "web-vitals": "^2.1.4"
