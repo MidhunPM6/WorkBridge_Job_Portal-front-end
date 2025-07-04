@@ -16,3 +16,20 @@ export const useFetchEmployer = (url) => {
       })
       
 }
+
+export const useFetchCandidates = (url) => {
+  return useQuery({
+        queryKey: ['candidates'],
+        queryFn: async () => {
+          const res = await axiosInstance.get('/api/common/fetchCandidateData', {
+            withCredentials: true
+          })
+         console.log(res.data.candidate);
+         
+          
+          return res.data.candidate
+        },
+        refetchOnWindowFocus: false
+      })
+      
+}
