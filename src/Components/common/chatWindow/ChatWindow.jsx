@@ -5,27 +5,52 @@ import { useLocation } from 'react-router-dom'
 import Navbar from '../../../Employer-Components/Employer_main/Navbar'
 import NavBar from '../../Jobseeker-Components/LandingPage/NavBar'
 import socket from '../../../socket-io/socket-io'
+import { useFetchEmployer } from '../../../hooks/api'
+
+
 
 
 const ChatWindow = () => {
   const location = useLocation()
   const userType = location.state.userType
-  console.log(userType)
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState([])
+ 
+  const {data} =useFetchEmployer()
+
+  console.log(data);
+  
 
   useEffect(() => {
-    socket.on('connection', (socket) => {
-      console.log(socket)
+    socket.on('connection', socket => {
+      console.log('Socket connected:', socket.id)
     })
-  }, [] )
+
+    socket.on('receive-message', data => {
+      console.log(data)
+      setMessages(prev => [...prev, data])
+    })
+
+    return () => {
+      socket.off('receive-message')
+    }
+  }, [])
+
+  
+
+  const handleSendMessage = () => {
+    socket.emit('send-message', message)
+    setMessage('')
+  }
 
   return (
     <>
       <div className='flex flex-col min-h-screen'>
-        {userType === 'jobseeker' && <NavBar />}
+        {userType === 'candidate' && <NavBar />}
         {userType === 'employer' && <Navbar />}
 
-        <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-screen pb-6 bg-gray-50'>
-          <div className='flex flex-col items-center min-h-screen w-full lg:w-1/4 border-r border-t border-gray-200 bg-white'>
+        <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-[75vh] pb-6 bg-gray-50'>
+          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white'>
             <div className='flex justify-center items-center min-h-[8vh] w-full gap-2 p-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -38,22 +63,25 @@ const ChatWindow = () => {
               </svg>
               <h1 className='text-lg text-gray-600'>Messages</h1>
             </div>
-
-            <div className='p-4 w-full flex-1 overflow-auto'>
+            {
+            data?.map((item) => (
+              
+            
+            <div className='p-4 w-full  overflow-auto'>
               <div
                 tabIndex='0'
                 className='flex group h-20 focus:bg-indigo-700 focus:text-white focus:shadow-lg w-full items-center p-2 gap-5 cursor-pointer rounded-md transition-all duration-300'
               >
                 <div>
                   <img
-                    src='https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8'
+                    src={item.userID.profilePic}
                     alt=''
                     className='w-12 h-12 rounded-full'
                   />
                 </div>
                 <div>
                   <h1 className='text-lg text-gray-700 tracking-wide group-focus:text-white'>
-                    Midhun
+                  Midhun
                   </h1>
                   <p className='text-sm text-gray-600 group-focus:text-white'>
                     How are you?
@@ -66,9 +94,11 @@ const ChatWindow = () => {
                 </div>
               </div>
             </div>
+            ))
+            }
           </div>
 
-          <div className='min-h-screen w-full lg:w-1/2 border-r border-t border-gray-200 bg-white flex flex-col'>
+          <div className='flex flex-col  w-full lg:w-1/2 border-r border-t border-gray-200 bg-white '>
             <div className='flex items-center border-b min-h-[8vh] justify-between'>
               <div className='flex items-center gap-4 pl-4'>
                 <img
@@ -102,20 +132,19 @@ const ChatWindow = () => {
               </div>
             </div>
 
-            <div className='flex flex-col w-full flex-1 overflow-auto p-8'>
-              <div className='flex justify-start pb-2'>
+            <div className='flex flex-col w-full flex-grow overflow-auto p-8'>
+              {messages &&
+                messages.map(message => (
+                  <div className='flex justify-start pb-2'>
+                    <p className='bg-gray-100 p-3 rounded-bl-lg rounded-tr max-w-xs break-words'>
+                      {message}
+                    </p>
 
-                <p className='bg-gray-100 p-3 rounded-bl-lg rounded-tr max-w-xs break-words'>
-                  hello, How are you? 
-                </p>
-               
-                <p className='flex items-end text-sm pl-2 text-gray-600'>
-                  9:15am
-                </p>
-
-
-              </div>
-              
+                    <p className='flex items-end text-sm pl-2 text-gray-600'>
+                      9:15am
+                    </p>
+                  </div>
+                ))}
 
               <div className='flex flex-col'>
                 <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
@@ -157,22 +186,25 @@ const ChatWindow = () => {
                   type='text'
                   placeholder='Type a message'
                   className='w-full h-full outline-none p-4 pl-12 pr-12'
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
                 />
-
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='purple'
-                  className='size-6 absolute right-3 cursor-pointer'
-                >
-                  <path d='M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z' />
-                </svg>
+                <button onClick={handleSendMessage}>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='purple'
+                    className='size-6 absolute right-3 cursor-pointer'
+                  >
+                    <path d='M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z' />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {userType === 'jobseeker' && <Footer2 />}
+        {userType === 'candidate' && <Footer2 />}
         {userType === 'employer' && <Footer />}
       </div>
     </>
