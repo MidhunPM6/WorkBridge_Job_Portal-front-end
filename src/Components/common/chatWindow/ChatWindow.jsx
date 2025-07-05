@@ -7,34 +7,41 @@ import NavBar from '../../Jobseeker-Components/LandingPage/NavBar'
 import socket from '../../../socket-io/socket-io'
 import { useFetchEmployer, useFetchCandidates } from '../../../hooks/api'
 
+
 const ChatWindow = () => {
   const location = useLocation()
   const userType = location.state.userType
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState([])
   const [messages, setMessages] = useState([])
   const [selectedUser, setSelectedUser] = useState(null)
-  const { data: employer } = useFetchEmployer()
+  const { data: employer } = useFetchEmployer() 
   const { data: candidates } = useFetchCandidates()
 
-  console.log('hellooo', candidates)
+ 
 
   useEffect(() => {
-    socket.on('connection', socket => {
-      console.log('Socket connected:', socket.id)
+
+    socket.on('connect', socket => {
+      console.log('a user connected');
     })
 
-    socket.on('receive-message', data => {
-      console.log(data)
+    socket.on('receive_message', data => {
+      console.log("heyy",data)
       setMessages(prev => [...prev, data])
     })
 
     return () => {
-      socket.off('receive-message')
-    }
+    socket.off('connect')
+    socket.off('receive_message')
+  }
   }, [])
 
   const handleSendMessage = () => {
-    socket.emit('send-message', message)
+    const newMessage = {
+        toUserId : selectedUser._id,
+        message: message
+    }
+    socket.emit('send-message', newMessage)
     setMessage('')
   }
 
@@ -61,7 +68,7 @@ const ChatWindow = () => {
             {userType === 'candidate'
               ? employer?.map(item => (
                   <div
-                    key={item.userID}
+                    key={item.userID._id}
                     className='p-2 w-full  overflow-auto'
                     onClick={() => setSelectedUser(item)}
                   >
@@ -98,7 +105,7 @@ const ChatWindow = () => {
                 ))
               : candidates?.map(item => (
                   <div
-                    key={item.userID}
+                    key={item.userID._id}
                     className='p-2 w-full  overflow-auto'
                     onClick={() => setSelectedUser(item)}
                   >
@@ -174,9 +181,9 @@ const ChatWindow = () => {
               <div className='flex flex-col w-full flex-grow overflow-auto p-8'>
                 {messages &&
                   messages.map(message => (
-                    <div className='flex justify-start pb-2'>
+                    <div key={message._id} className='flex justify-start pb-2'>
                       <p className='bg-gray-100 p-3 rounded-bl-lg rounded-tr max-w-xs break-words'>
-                        {message}
+                        {message.message}
                       </p>
 
                       <p className='flex items-end text-sm pl-2 text-gray-600'>

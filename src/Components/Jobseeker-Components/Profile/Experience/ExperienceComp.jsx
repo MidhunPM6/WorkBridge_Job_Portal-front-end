@@ -115,7 +115,7 @@ const ExperienceComp = () => {
         experience.map((expObj, index) => (
           <div
             key={index}
-            className='flex flex-col text-[15px] gap-3 border border-gray-200 rounded-lg p-6 hover:shadow-sm transition-shadow'
+            className='flex flex-col   gap-3 border border-gray-200 rounded-lg p-6 hover:shadow-sm transition-shadow'
           >
             <div className='flex justify-between items-start'>
               <div className='space-y-2'>
