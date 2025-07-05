@@ -66,7 +66,7 @@ const SideMenu = () => {
               Dashboard
             </h1>
           </div>
-          <ul className=' lg:flex-col lg:flex  grid grid-cols-2 lg:w-[17vw] mt-2 lg:border border-gray-300 rounded-lg  '>
+          <ul className=' lg:flex-col lg:flex  grid grid-cols-2 lg:w-[17vw] mt-2 p-1 lg:border border-gray-300 rounded-lg  '>
             <motion.li
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

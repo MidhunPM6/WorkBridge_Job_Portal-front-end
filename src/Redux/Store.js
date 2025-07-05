@@ -32,6 +32,7 @@ const store = configureStore({
     employer: persistedEmployerReducer,
     candidateProfile: persistedEmployerReducer,
     companyProfile: persistedEmployerReducer,
+    appliedJobs: persistedReducer,
   }
 })
 
