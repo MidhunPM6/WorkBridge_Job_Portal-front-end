@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Footer from '../../../Employer-Components/Footer/Footer'
 import Footer2 from '../../Jobseeker-Components/Footer/Footer'
 import { useLocation } from 'react-router-dom'
@@ -6,7 +6,9 @@ import Navbar from '../../../Employer-Components/Employer_main/Navbar'
 import NavBar from '../../Jobseeker-Components/LandingPage/NavBar'
 import socket from '../../../socket-io/socket-io'
 import { useFetchEmployer, useFetchCandidates } from '../../../hooks/api'
-
+import { axiosInstance } from '../../../Axios/Axios-instance'
+import { useSelector } from 'react-redux'
+import toast, { Toaster } from 'react-hot-toast'
 
 const ChatWindow = () => {
   const location = useLocation()
@@ -14,45 +16,76 @@ const ChatWindow = () => {
   const [message, setMessage] = useState([])
   const [messages, setMessages] = useState([])
   const [selectedUser, setSelectedUser] = useState(null)
-  const { data: employer } = useFetchEmployer() 
+  const [notification, setNotification] = useState(false)
+  const { data: employer } = useFetchEmployer()
   const { data: candidates } = useFetchCandidates()
+  const candidate = useSelector(state => state.user.user)
+  const employers = useSelector(state => state.employer.employer)
 
- 
+  let loggedInUser
+
+  if (userType === 'candidate') {
+    loggedInUser = candidate
+  } else {
+    loggedInUser = employers
+  }
 
   useEffect(() => {
+    console.log(messages)
 
     socket.on('connect', socket => {
-      console.log('a user connected');
+      console.log('a user connected')
     })
 
     socket.on('receive_message', data => {
-      console.log("heyy",data)
+      console.log('heyy', data)
+
       setMessages(prev => [...prev, data])
     })
 
     return () => {
-    socket.off('connect')
-    socket.off('receive_message')
-  }
+      socket.off('connect')
+      socket.off('receive_message')
+    }
   }, [])
 
   const handleSendMessage = () => {
     const newMessage = {
-        toUserId : selectedUser._id,
-        message: message
+      toUserId: selectedUser.userID._id,
+      message: message
     }
     socket.emit('send-message', newMessage)
     setMessage('')
   }
+  //  Fetching the Chat History
+  const handleFetchHistory = async (e, selectedUser) => {
+    e.preventDefault()
+    setSelectedUser(selectedUser)
+    console.log('heeeeeeeee', selectedUser)
 
+    try {
+      const response = await axiosInstance.get(
+        `/api/common/fetchChatHistory/${selectedUser.userID._id}`,
+        {
+          withCredentials: true
+        }
+      )
+      console.log(response.data.chatHistory)
+
+      setMessages(response.data.chatHistory)
+    } catch (error) {
+      console.error('Error fetching chat history:', error)
+    }
+  }
   return (
     <>
       <div className='flex flex-col min-h-screen'>
         {userType === 'candidate' && <NavBar />}
         {userType === 'employer' && <Navbar />}
+        <Toaster></Toaster>
 
         <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-[75vh] pb-6 bg-gray-50'>
-          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white'>
+          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white overflow-y-auto'>
             <div className='flex justify-center items-center min-h-[8vh] w-full gap-2 p-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -70,7 +103,7 @@ const ChatWindow = () => {
                   <div
                     key={item.userID._id}
                     className='p-2 w-full  overflow-auto'
-                    onClick={() => setSelectedUser(item)}
+                    onClick={e => handleFetchHistory(e, item)}
                   >
                     <div
                       className={`flex group h-20 w-full items-center p-2 gap-5 cursor-pointer rounded-md transition-all duration-300
@@ -82,7 +115,7 @@ const ChatWindow = () => {
                     >
                       <div>
                         <img
-                          src={item.userID.profilePic || ""}
+                          src={item.userID.profilePic || ''}
                           alt=''
                           className='w-12 h-12 rounded-full'
                         />
@@ -107,7 +140,7 @@ const ChatWindow = () => {
                   <div
                     key={item.userID._id}
                     className='p-2 w-full  overflow-auto'
-                    onClick={() => setSelectedUser(item)}
+                    onClick={e => handleFetchHistory(e, item)}
                   >
                     <div
                       className={`flex group h-20 w-full items-center p-2 gap-5 cursor-pointer rounded-md transition-all duration-300
@@ -119,14 +152,14 @@ const ChatWindow = () => {
                     >
                       <div>
                         <img
-                           src={item.userID?.profilePic || ""}
+                          src={item.userID?.profilePic || ''}
                           alt=''
                           className='w-12 h-12 rounded-full'
                         />
                       </div>
                       <div>
                         <h1 className='text-lg  tracking-wide group-focus:text-white'>
-                          {item.userID?.name || ""}
+                          {item.userID?.name || ''}
                         </h1>
                         <p className='text-sm  group-focus:text-white'>
                           How are you?
@@ -151,7 +184,7 @@ const ChatWindow = () => {
                     className='w-14 h-14 rounded-full'
                   />
                   <h1 className='text-lg text-gray-700 tracking-wide'>
-                    {selectedUser?.companyName || selectedUser?.userID?.name }
+                    {selectedUser?.companyName || selectedUser?.userID?.name}
                   </h1>
                 </div>
                 <div className='flex items-center gap-4 p-4 text-gray-600'>
@@ -178,39 +211,49 @@ const ChatWindow = () => {
                 </div>
               </div>
 
-              <div className='flex flex-col w-full flex-grow overflow-auto p-8'>
-                {messages &&
-                  messages.map(message => (
-                    <div key={message._id} className='flex justify-start pb-2'>
+              <div className='flex flex-col w-full flex-grow max-h-[60vh] overflow-y-auto p-8'>
+                {messages.map(message =>
+                  message.sender?.toString() ===
+                  loggedInUser._id?.toString() ? (
+                    <div className='flex flex-col '>
+                      <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
+                        {message.message}
+                      </p>
+                      <div className='flex items-end text-sm mt-1 gap-3 text-gray-600'>
+                        <p className='ml-auto'>
+                          {new Date(message.createdAt).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </p>
+                        <div className='pr-2'>
+                          <svg
+                            id='Layer_1'
+                            data-name='Layer 1'
+                            xmlns='http://www.w3.org/2000/svg'
+                            viewBox='0 0 122.88 74.46'
+                            className='size-4'
+                          >
+                            <path d='M1.87,47.2a6.33,6.33,0,1,1,8.92-9c8.88,8.85,17.53,17.66,26.53,26.45l-3.76,4.45-.35.37a6.33,6.33,0,0,1-8.95,0L1.87,47.2ZM30,43.55a6.33,6.33,0,1,1,8.82-9.07l25,24.38L111.64,2.29c5.37-6.35,15,1.84,9.66,8.18L69.07,72.22l-.3.33a6.33,6.33,0,0,1-8.95.12L30,43.55Zm28.76-4.21-.31.33-9.07-8.85L71.67,4.42c5.37-6.35,15,1.83,9.67,8.18L58.74,39.34Z' />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='flex justify-start pb-2'>
                       <p className='bg-gray-100 p-3 rounded-bl-lg rounded-tr max-w-xs break-words'>
                         {message.message}
                       </p>
 
                       <p className='flex items-end text-sm pl-2 text-gray-600'>
-                        9:15am
+                        {new Date(message.createdAt).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
                       </p>
                     </div>
-                  ))}
-
-                <div className='flex flex-col'>
-                  <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
-                    hey sd
-                  </p>
-                  <div className='flex items-end text-sm mt-1 gap-3 text-gray-600'>
-                    <p className='ml-auto'>9:16am</p>
-                    <div className='pr-2'>
-                      <svg
-                        id='Layer_1'
-                        data-name='Layer 1'
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 122.88 74.46'
-                        className='size-4'
-                      >
-                        <path d='M1.87,47.2a6.33,6.33,0,1,1,8.92-9c8.88,8.85,17.53,17.66,26.53,26.45l-3.76,4.45-.35.37a6.33,6.33,0,0,1-8.95,0L1.87,47.2ZM30,43.55a6.33,6.33,0,1,1,8.82-9.07l25,24.38L111.64,2.29c5.37-6.35,15,1.84,9.66,8.18L69.07,72.22l-.3.33a6.33,6.33,0,0,1-8.95.12L30,43.55Zm28.76-4.21-.31.33-9.07-8.85L71.67,4.42c5.37-6.35,15,1.83,9.67,8.18L58.74,39.34Z' />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                  )
+                )}
               </div>
 
               <div className='flex border-t'>
