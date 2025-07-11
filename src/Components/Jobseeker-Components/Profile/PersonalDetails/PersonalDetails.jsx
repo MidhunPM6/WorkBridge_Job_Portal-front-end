@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import profileImg from '../../../../assets/profile.svg'
+import Loading from '../../../common/Loading/Loading'
 
 const PersonalDetails = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -22,12 +23,14 @@ const PersonalDetails = () => {
   const [previewCoverModalOpen, setPreviewCoverModalOpen] = useState(false)
   const [previewURL, setPreviewURL] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isEditOpen, setEditOpen] = useState(false)
-  const dispatch = useDispatch()
+  const [resumeLoading, setResumeLoading] = useState(false)
+  const [profilePicLoading, setProfilePicLoading] = useState(false)
+  const [profileCoverLoading, setProfileCoverLoading] = useState(false)
+  const [updateData, setUpdateData] = useState(false)
+
   const user = useSelector(state => state.user.user)
   const profile = useSelector(state => state.profile.profile)
-
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleFileSelect = (e, type) => {
     const file = e.target.files[0]
@@ -67,15 +70,13 @@ const PersonalDetails = () => {
   }
 
   const handleProfilePicUpload = async () => {
-    setLoading(true)
-    setTimeout(() => setLoading(false), 10000)
-
     //  Creating formData for the file upload
     const formData = new FormData()
     formData.append('file', profilePic)
     formData.append('fileType', 'profilepic')
     formData.append('role', 'candidate')
     try {
+      setProfilePicLoading(true)
       const response = await axiosInstance.post(
         '/api/common/fileupload',
         formData,
@@ -90,24 +91,19 @@ const PersonalDetails = () => {
       toast.success('Successfully Uploaded', {
         duration: 2000
       })
+      dispatch(setUserDetails(response.data.uploadFile))
       console.log(response)
-
-      setTimeout(() => {
-        window.location.reload()
-      }, 2000)
     } catch (error) {
       toast.error(error.response.data.message, {
         duration: 2000
       })
-      setTimeout(() => {
-        navigate('/')
-      }, 2000)
+    } finally {
+      setProfilePicLoading(false)
+      setPreviewModalOpen(false)
     }
   }
 
   const handleProfileCoverUpload = async () => {
-    setLoading(true)
-    setTimeout(() => setLoading(false), 10000)
     //  Creating formData for the file upload
     const formData = new FormData()
     formData.append('file', profileCover)
@@ -115,6 +111,7 @@ const PersonalDetails = () => {
     formData.append('role', 'candidate')
 
     try {
+      setProfileCoverLoading(true)
       const response = await axiosInstance.post(
         '/api/common/fileupload',
         formData,
@@ -125,27 +122,22 @@ const PersonalDetails = () => {
           withCredentials: true
         }
       )
+      dispatch(setUserDetails(response.data.uploadFile))
       toast.success('Successfully Uploaded', {
         duration: 2000
       })
-
-      setTimeout(() => {
-        window.location.reload()
-      }, 2000)
     } catch (error) {
       toast.error(error.response.data.message, {
         duration: 2000
       })
-      setTimeout(() => {
-        navigate('/')
-      }, 2000)
+    } finally {
+      setProfileCoverLoading(false)
+      setPreviewCoverModalOpen(false)
     }
   }
 
   //  Fetching the profile data
   useEffect(() => {
-    console.log(user)
-
     const fetchProfile = async () => {
       try {
         const response = await axiosInstance.get('/api/candidate/profile', {
@@ -156,10 +148,14 @@ const PersonalDetails = () => {
         dispatch(setUserDetails(response.data.data._doc))
       } catch (error) {
         console.error(error)
+      } finally {
+        setUpdateData(false)
       }
     }
-    fetchProfile()
-  }, [])
+
+      fetchProfile()
+  
+  }, [updateData])
 
   //  Resume Upload handle
   const resumeUpload = async () => {
@@ -167,6 +163,7 @@ const PersonalDetails = () => {
     formData.append('resume', resume)
 
     try {
+      setResumeLoading(true)
       const response = await axiosInstance.post(
         '/api/candidate/resumeUpload',
         formData,
@@ -178,12 +175,16 @@ const PersonalDetails = () => {
         id: 'resume-upload-toast',
         duration: 1500
       })
+      setResume('')
+
+      dispatch(setProfile(response.data.data))
     } catch (error) {
-      console.log(error.response.data.message)
       toast.error(error.response.data.message, {
         id: 'resume-upload-error-toast',
         duration: 1500
       })
+    } finally {
+      setResumeLoading(false)
     }
   }
 
@@ -197,11 +198,9 @@ const PersonalDetails = () => {
           withCredentials: true
         }
       )
+      console.log(response)
 
-      if (response.data && response.data.data) {
-        console.log('Dispatching profile update...')
-        dispatch(setProfile(response.data.data)) // Dispatch updated profile
-      }
+      dispatch(setProfile(response.data.data)) // Dispatch updated profile
 
       setTimeout(() => {
         toast.success(response.data.message || 'Resume deleted successfully!', {
@@ -220,7 +219,7 @@ const PersonalDetails = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full lg:min-h-screen '>
+      <div className='flex flex-col w-full lg:min-h-screen  '>
         <Toaster />
         <div className='relative flex-col lg:justify-normal justify-center    rounded-t-lg rounded-b-lg shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full'>
           <div
@@ -237,6 +236,21 @@ const PersonalDetails = () => {
                 : undefined
             }
           >
+            {profileCoverLoading && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backdropFilter: 'blur(2px)',
+                  background: 'rgba(255, 255, 255, 0.5)'
+                }}
+              >
+                <Loading />
+              </div>
+            )}
             {!user.profileCoverPic && (
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -263,6 +277,7 @@ const PersonalDetails = () => {
                       className='w-full h-full object-cover rounded-sm'
                       referrerPolicy='no-referrer'
                     />
+
                     <label
                       htmlFor='changeProfilePic'
                       className='absolute inset-0 flex justify-end items-end p-1 opacity-0 group-hover:opacity-100 transition-opacity'
@@ -547,40 +562,46 @@ const PersonalDetails = () => {
                 </div>
               ) : (
                 <div className='flex items-center gap-4'>
-                  <label
-                    htmlFor='fileUpload2'
-                    className='flex items-center gap-2 bg-violet-950 hover:bg-violet-900 text-white text-sm py-2 px-4 rounded-full transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-violet-500'
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='w-4 fill-white'
-                      viewBox='0 0 32 32'
-                    >
-                      <path
-                        d='M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z'
-                        data-original='#000000'
+                  {resumeLoading ? (
+                    <Loading></Loading>
+                  ) : (
+                    <div className='flex items-center gap-4'>
+                      <label
+                        htmlFor='fileUpload2'
+                        className='flex items-center gap-2 bg-violet-950 hover:bg-violet-900 text-white text-sm py-2 px-4 rounded-full transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-violet-500'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='w-4 fill-white'
+                          viewBox='0 0 32 32'
+                        >
+                          <path
+                            d='M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z'
+                            data-original='#000000'
+                          />
+                          <path
+                            d='M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z'
+                            data-original='#000000'
+                          />
+                        </svg>
+                        {resume ? resume.name : 'Upload Resume (PDF)'}
+                      </label>
+                      <input
+                        type='file'
+                        id='fileUpload2'
+                        name='pdf'
+                        accept='.pdf'
+                        className='hidden'
+                        onChange={e => setResume(e.target.files[0])}
                       />
-                      <path
-                        d='M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z'
-                        data-original='#000000'
-                      />
-                    </svg>
-                    Upload Resume (PDF)
-                  </label>
-                  <input
-                    type='file'
-                    id='fileUpload2'
-                    name='pdf'
-                    accept='.pdf'
-                    className='hidden'
-                    onChange={e => setResume(e.target.files[0])}
-                  />
-                  <button
-                    onClick={resumeUpload}
-                    className='px-4 py-2 bg-violet-950 text-white rounded-full hover:bg-violet-900 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500'
-                  >
-                    Upload
-                  </button>
+                      <button
+                        onClick={resumeUpload}
+                        className='px-4 py-2 bg-violet-950 text-white rounded-full hover:bg-violet-900 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500'
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -627,8 +648,8 @@ const PersonalDetails = () => {
                 className='px-4 py-2 bg-violet-950 text-white rounded hover:bg-violet-900 w-full flex justify-center transition-all duration-300'
                 disabled={loading}
               >
-                {loading ? (
-                  <span className='animate-spin'>{/* Your spinner SVG */}</span>
+                {profilePicLoading ? (
+                  <Loading className='text-white' />
                 ) : (
                   'Set as Profile Picture'
                 )}
@@ -670,7 +691,7 @@ const PersonalDetails = () => {
                 onClick={handleProfileCoverUpload}
                 className='px-4  py-2 bg-violet-950 text-white rounded hover:bg-violet-900 w-full flex justify-center transition-all duration-300'
               >
-                {loading ? (
+                {profileCoverLoading ? (
                   <span className='animate-spin'>
                     <svg
                       aria-hidden='true'
@@ -715,7 +736,10 @@ const PersonalDetails = () => {
               transition={{ duration: 0.3 }}
               onClick={e => e.stopPropagation()}
             >
-              <PersonalPopUp />
+              <PersonalPopUp
+                setIsOpen={setIsOpen}
+                setUpdateData={setUpdateData}
+              />
             </motion.div>
           </Modal>
         )}

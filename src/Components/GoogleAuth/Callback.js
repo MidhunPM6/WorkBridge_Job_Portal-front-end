@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import LazyLoad from '../lazyLoading/Loading'
+import LazyLoad from '../../Components/common/DotLoading/Loading'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../Axios/Axios-instance'
 import { useDispatch } from 'react-redux'

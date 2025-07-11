@@ -10,7 +10,7 @@ const AppliedJobs = () => {
   },[])
 
   return (
-   <div className="min-h-screen  p-6 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)]">
+   <div className=" p-6 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)]">
       <div className="max-w-6xl mx-auto ">
         {/* Header */}
         <div className="mb-10 text-center">
@@ -50,7 +50,7 @@ const AppliedJobs = () => {
                   </span>
                 </div>
 
-                <h2 className="text-xl font-bold mb-2 text-gray-800">{job.title}</h2>
+                <h2 className="text-xl font-bold mb-2 text-gray-800">{job.jobId.company_name}</h2>
                 
                 <div className="flex items-center text-gray-500 mb-4 text-sm">
                   <FiBriefcase className="mr-2" />
@@ -61,7 +61,7 @@ const AppliedJobs = () => {
                 
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <p className="text-sm text-gray-600">
-                    <span className="font-medium">Update:</span> {job.updates}
+                    <span className="font-medium">Update:</span> {job.jobId.update || 'No updates yet'}
                   </p>
                 </div>
               </div>
@@ -69,6 +69,7 @@ const AppliedJobs = () => {
           ))}
         </div>
       </div>
+
     </div>
   )
 }

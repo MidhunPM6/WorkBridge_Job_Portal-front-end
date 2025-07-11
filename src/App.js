@@ -1,19 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-
-import LazyLoad from './Components/lazyLoading/Loading'
-
+import LazyLoad from './Components/common/DotLoading/Loading'
 import EmployerHome from './Pages/EmployerPages/EmployerHome'
 import EmployerLogin from './Pages/EmployerPages/EmployerLogin'
 import EmployerSignup from './Pages/EmployerPages/EmployerSignup'
-
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
-
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
 import GoogleAuth from './Pages/common/Googleauth'
 import JobMenu from './Pages/EmployerPages/JobMenu'
 import Candidateprofile from './Pages/EmployerPages/Candidateprofile'
 import ChattingWindow from './Pages/common/ChattingWindow'
+import CompanyProfileView from './Pages/UserPages/CompanyProfileView'
 
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
@@ -37,6 +34,7 @@ function App () {
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Userprofile />} />
           <Route path='/jobview' element={<Jobview />} />
+          <Route path='/companyProfileView' element={<CompanyProfileView />} />
 
           {/*Empolyer routes*/}
           <Route path='/employer' element={<EmployerHome />} />

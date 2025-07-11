@@ -8,14 +8,15 @@ import Checkbox from '@mui/material/Checkbox'
 import { generalSkills } from './skillsCollection'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import SelectDrop from 'react-select'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import toast, { ToastBar } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { setProfile } from '../../../../Redux/UserSlice'
 
 
 
 
-const PersonalPopUp = () => {
+const PersonalPopUp = ({setIsOpen,setUpdateData}) => {
   const initialFormData = {
     designation: '',
     mobile: '',
@@ -34,7 +35,7 @@ const PersonalPopUp = () => {
   const [districtOptions, setDistrictOptions] = useState([])
   const profile = useSelector(state => state.profile.profile)
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   // To Fetch the location data from the json file
   useEffect(() => {
     const fetchLocation = async () => {
@@ -164,9 +165,9 @@ const PersonalPopUp = () => {
         { withCredentials: true }
       )
       toast.success(response.data.message, {})
-      setTimeout(() => {
-        navigate(0)
-      }, 2000)
+      setIsOpen(false)
+      setUpdateData(true)
+      
     } catch (error) {
       console.error(error);
       

@@ -246,16 +246,16 @@ const EducationDetails = () => {
                     This process cannot be undone
                   </span>
                 </p>
-                <div className='text-black text-sm flex gap-3'>
+                <div className='text-black flex gap-3'>
                   <button
                     onClick={() => setOpen(false)}
-                    className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '
+                    className='bg-gray-200 p-2 px-6 mt-10  rounded-md shadow-md hover:bg-gray-300 '
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleDeleteEducation}
-                    className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'
+                    className='bg-red-600 bg-opacity-95 p-2 px-6 mt-10 text-white rounded-md shadow-md hover:bg-red-700'
                   >
                     Delete
                   </button>

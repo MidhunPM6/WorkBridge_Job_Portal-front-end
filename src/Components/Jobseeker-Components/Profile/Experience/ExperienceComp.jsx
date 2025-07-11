@@ -17,6 +17,8 @@ const ExperienceComp = () => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const [expID, setExpID] = useState(false)
+  const [updateData, setUpdateData] = useState(false)
+
   const navigate = useNavigate()
 
   // Fucntion to open and close modals
@@ -41,15 +43,19 @@ const ExperienceComp = () => {
         console.log(response.data.data)
       } catch (error) {
         console.error('Error fetching experience:', error)
+      }finally{
+
+        setUpdateData(false)
       }
     }
 
     fetchExperience()
-  }, [])
+  }, [updateData])
 
   // Handler to delete Experience details
   const selectExperience = ID => {
     setExpID(ID)
+    console.log(ID)
 
     setOpen(true)
   }
@@ -63,7 +69,7 @@ const ExperienceComp = () => {
         {
           withCredentials: true
         }
-      )
+      ) 
       console.log(response)
 
       toast.success(response.data.message, {
@@ -83,8 +89,8 @@ const ExperienceComp = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full h-auto' id='experience'>
-  <div className='relative flex-col lg:justify-normal justify-center lg:p-8 p-8 lg:h-auto rounded-t-sm shadow-[0px_0px_10px_0px_rgba(0,0,0,0.08)] w-full'>
+      <div className='flex flex-col ' id='experience'>
+  <div className='relative flex-col lg:justify-normal justify-center lg:p-8 p-8 lg:h-auto rounded-md shadow-[0px_0px_10px_0px_rgba(0,0,0,0.08)] w-full'>
     <Toaster />
    
     <div className='flex justify-between p-4 items-center bg-violet-50 text-violet-700  rounded-md'>
@@ -243,16 +249,16 @@ const ExperienceComp = () => {
                     This process cannot be undone
                   </span>
                 </p>
-                <div className='text-black text-sm flex gap-3'>
+                <div className='text-black flex gap-3'>
                   <button
                     onClick={() => setOpen(false)}
-                    className='bg-gray-200 py-2 px-6 mt-10  rounded-sm hover:bg-gray-300 '
+                    className='bg-gray-200 p-2 px-6 mt-10  rounded-md shadow-md hover:bg-gray-300 '
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleDeleteExperience}
-                    className='bg-red-600 bg-opacity-95 py-2 px-6 mt-10 text-white rounded-sm hover:bg-red-700'
+                    className='bg-red-600 bg-opacity-95 p-2 px-6 mt-10 text-white rounded-md shadow-md hover:bg-red-700'
                   >
                     Delete
                   </button>
@@ -278,7 +284,7 @@ const ExperienceComp = () => {
             transition={{ duration: 0.3 }}
             onClick={e => e.stopPropagation()}
           >
-            <ExperiencePopup></ExperiencePopup>
+            <ExperiencePopup setIsOpen={setIsOpen} setUpdateData={setUpdateData}></ExperiencePopup>
           </motion.div>
         </Modal>
       </AnimatePresence>

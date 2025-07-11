@@ -4,16 +4,23 @@ import ProfileFormPopup from './ProfileFormPopup'
 import img2 from '../../assets/logo.png'
 import { axiosInstance } from '../../Axios/Axios-instance'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCompanyProfile, setEmployerDetails } from '../../Redux/EmployerSlice'
-
+import {
+  setCompanyProfile,
+  setEmployerDetails
+} from '../../Redux/EmployerSlice'
+import Loading from '../../Components/common/Loading/Loading'
 
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
   const [profilePic, setProfilePic] = useState(null)
   const [coverpic, setCoverPic] = useState(null)
+  const [profilePicLoading, setProfilePicLoading] = useState(false)
+  const [coverPicLoading, setCoverPicLoading] = useState(false)
   const dispatch = useDispatch()
   const employer = useSelector(state => state.employer.employer)
-  const companyProfile = useSelector(state => state.companyProfile.companyProfile)
+  const companyProfile = useSelector(
+    state => state.companyProfile.companyProfile
+  )
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -47,7 +54,7 @@ const ProfileMainPage = () => {
         const response = await axiosInstance.get('api/employer/profileData', {
           withCredentials: true
         })
-        dispatch(setCompanyProfile(response.data.profile))  
+        dispatch(setCompanyProfile(response.data.profile))
         console.log(response)
       } catch (error) {
         console.error(error)
@@ -67,12 +74,14 @@ const ProfileMainPage = () => {
       return
     }
 
-    if (fileType === 'profilepic') { 
+    if (fileType === 'profilepic') {
       setProfilePic(file)
+      setProfilePicLoading(true)
     }
 
     if (fileType === 'profilecover') {
       setCoverPic(file)
+      setCoverPicLoading(true)
     }
 
     try {
@@ -81,6 +90,7 @@ const ProfileMainPage = () => {
       formData.append('fileType', fileType)
       formData.append('role', 'employer')
       console.log('Uploading file:', fileType, file)
+
       const response = await axiosInstance.post(
         '/api/common/fileupload',
         formData,
@@ -95,6 +105,9 @@ const ProfileMainPage = () => {
       dispatch(setEmployerDetails(response.data.uploadFile))
     } catch (error) {
       console.error('Error uploading file:', error)
+    } finally {
+      if (fileType === 'profilepic') setProfilePicLoading(false)
+      if (fileType === 'profilecover') setCoverPicLoading(false)
     }
   }
   return (
@@ -102,9 +115,9 @@ const ProfileMainPage = () => {
       <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-8 w-full'>
         <div className='w-full lg:w-3/4 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden'>
           <div
-            className={`relative flex justify-center items-center  h-40 lg:h-48 rounded-t-lg w-full  pt-2 ${
-              employer.profileCoverPic ? '' : 'bg-violet-950'
-            }`}
+            className={`relative flex justify-center items-center  h-40 lg:h-48 rounded-t-lg w-full  ${
+              coverPicLoading && 'bg-opacity-45'
+            } pt-2 ${employer.profileCoverPic ? '' : 'bg-violet-950'}`}
             style={
               employer.profileCoverPic
                 ? {
@@ -115,8 +128,30 @@ const ProfileMainPage = () => {
                 : undefined
             }
           >
-            <div className='absolute left-4 -bottom-8 w-24 h-24 lg:w-40 lg:h-40 bg-gray-200 rounded-md flex  justify-center items-center p-1 overflow-hidden'>
-              <img src={employer?.profilePic} alt='' className=' flex  ' />
+            {coverPicLoading && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backdropFilter: 'blur(2px)',
+                  background: 'rgba(255, 255, 255, 0.5)'
+                }}
+              >
+                <Loading />
+              </div>
+            )}
+
+            <div
+              className={`absolute left-4 -bottom-8 w-24 h-24 lg:w-40 lg:h-40 bg-gray-200 rounded-md flex  justify-center items-center p-1 overflow-hidden`}
+            >
+              {profilePicLoading ? (
+                <Loading></Loading>
+              ) : (
+                <img src={employer?.profilePic} alt='' className=' flex  ' />
+              )}
               <label
                 htmlFor='PhotoUpload'
                 className='cursor-pointer absolute flex items-end justify-end p-1 w-full h-full'
@@ -151,7 +186,7 @@ const ProfileMainPage = () => {
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
                   fill='currentColor'
-                  className='w-5 h-5'
+                  className='w-5 h-5 text-white bg-black rounded-full bg-opacity-50'
                 >
                   <path d='M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z' />
                 </svg>

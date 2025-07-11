@@ -31,17 +31,17 @@ const SideMenu = () => {
 
   return (
     <div className=' mt-6 flex  justify-center  '>
-      <div className='lg:flex-row flex flex-col  '>
+      <div className='lg:flex-row flex flex-col  w-full  '>
         {/* Side Menu */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className={`  text-black p-6  rounded-sm
+          className={`  text-black p-6   rounded-sm
             ${isOpen ? 'block' : 'hidden'} 
             sm:block     `}
         >
-          <div className='flex  items-center justify-center border p-3 rounded w-full  bg-violet-100 text-violet-700'>
+          <div className='flex  items-center justify-center border p-3 rounded-md w-full  bg-violet-100 text-violet-700'>
             <h1 className='flex justify-center items-center text-2xl font-semibold gap-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -66,7 +66,7 @@ const SideMenu = () => {
               Dashboard
             </h1>
           </div>
-          <ul className=' lg:flex-col lg:flex  grid grid-cols-2 lg:w-[17vw] mt-2 p-1 lg:border border-gray-300 rounded-lg  '>
+          <ul className=' lg:flex-col lg:flex  grid grid-cols-2 lg:w-[17vw] mt-2 p-1 lg:border border-gray-300 rounded-lg gap-2 lg:gap-0 '>
             <motion.li
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -205,7 +205,7 @@ const SideMenu = () => {
 
         {/* Main Content Area */}
         <motion.div
-          className=' p-6 rounded-sm  lg:ml-6 lg:w-[68vw] w-full lg:min-h-screen flex bg-white   '
+          className=' p-6 rounded-md  lg:ml-6 lg:w-[68vw] w-full lg:min-h-screen flex bg-white   '
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}

@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { axiosInstance } from '../../../Axios/Axios-instance'
 import toast, { Toaster } from 'react-hot-toast'
 import { setAppliedJobs } from '../../../Redux/UserSlice'
+import { setCompanyProfile } from '../../../Redux/EmployerSlice'
+import { useNavigate } from 'react-router-dom'
+
 
 const JobMain = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -19,6 +22,7 @@ const JobMain = () => {
   const selectedJob = useSelector(state => state.selectedjob.jobSelected)
   const appliedJobs = useSelector(state => state.user.appliedJobs)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const options = [
     'Software Engineer',
@@ -136,6 +140,13 @@ const JobMain = () => {
 
   function closeModal () {
     setIsOpen(false)
+  }
+
+
+  const showCompanyProfile = job => {
+   
+    dispatch(setCompanyProfile(job))
+    navigate('/companyProfileView')
   }
 
   return (
@@ -257,9 +268,9 @@ const JobMain = () => {
                         />
                       </div>
                       <div className='ml-4 flex'>
-                        <h2 className='mt-2  text-gray-600 flex items-end cursor-pointer font-semibold text-lg hover:underline underline-offset-4'>
+                        <button onClick ={()=>showCompanyProfile(jobObj)} className='mt-2  text-gray-600 flex items-end cursor-pointer font-semibold text-lg hover:underline underline-offset-4'>
                           {jobObj.company_name}
-                        </h2>
+                        </button>
                       </div>
                     </div>
 

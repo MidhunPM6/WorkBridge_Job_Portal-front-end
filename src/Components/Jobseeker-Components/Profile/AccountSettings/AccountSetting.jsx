@@ -272,7 +272,7 @@ const AccountSetting = () => {
   }
   return (
     <>
-      <div className=' relative flex-col lg:justify-normal justify-center   lg:h-auto  rounded-t-sm  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
+      <div className=' relative flex-col lg:justify-normal justify-center   lg:h-auto  rounded-md  shadow-[0px_0px_10px_0px_rgba(0,0,0,0.18)] w-full '>
         <Toaster></Toaster>
         <div className=' flex flex-col items-center border p-10 rounded-md border-gray-300 '>
           <div>
@@ -345,7 +345,7 @@ const AccountSetting = () => {
             <button
               onClick={handleLogout}
               type='button '
-              className=' text-blue-950 w-full  font-semibold p-3  lg:w-48 rounded-md  bg-blue-400 hover:bg-blue-500 transition-all duration-300 shadow-md hover:shadow-lg'
+              className=' text-white w-full  font-semibold p-3  lg:w-48 rounded-md  bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg'
             >
               Logout
             </button>
@@ -386,14 +386,14 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'>Change the username</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4  p-3 w-full lg:w-[90%] border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-2 w-full lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter a new username '
                     name='name'
                     onChange={handleChangeUsername}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4  p-3 w-full lg:w-[90%] border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-2 w-full lg:w-[90%] border rounded-md shadow-md'
                     placeholder='Enter your password '
                     name='password'
                     onChange={handleChangeUsername}
@@ -402,7 +402,7 @@ const AccountSetting = () => {
 
                 <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4  w-full items-center justify-center'>
                   <button
-                    className='bg-gray-100 hover:bg-gray-50 p-3 lg:w-[40%] w-full lg:rounded-md rounded-md shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full lg:rounded-md rounded-md shadow-md'
                     onClick={() => {
                       setIsOpen(false)
                     }}
@@ -411,7 +411,7 @@ const AccountSetting = () => {
                   </button>
                   <button
                     onClick={usernameSubmit}
-                    className=' p-3 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md  '
+                    className=' p-2 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md  '
                   >
                     Save changes
                   </button>
@@ -455,14 +455,14 @@ const AccountSetting = () => {
                   <h2 className='mt-4 text-gray-600'> Change the password</h2>
                   <input
                     type='text'
-                    className='bg-gray-50 mt-4  p-3  lg:w-[90%] w-full border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-2  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter old password  '
                     name='currentPassword'
                     onChange={handleChangePassword}
                   />
                   <input
                     type='password'
-                    className='bg-gray-50 mt-4  p-3  lg:w-[90%] w-full border rounded-md shadow-md'
+                    className='bg-gray-50 mt-4  p-2  lg:w-[90%] w-full border rounded-md shadow-md'
                     placeholder='Enter a new  password '
                     name='newPassword'
                     onChange={handleChangePassword}
@@ -470,7 +470,7 @@ const AccountSetting = () => {
                 </form>
                 <div className='lg:flex lg:flex-row flex flex-col gap-4 mt-4 text-sm w-full items-center justify-center'>
                   <button
-                    className='bg-gray-100 hover:bg-gray-50 p-3 lg:w-[40%] w-full rounded-md shadow-md'
+                    className='bg-gray-100 hover:bg-gray-50 p-2 lg:w-[40%] w-full rounded-md shadow-md'
                     onClick={handleCancel}
                   >
                     Cancel
@@ -478,7 +478,7 @@ const AccountSetting = () => {
                   <button
                     onClick={handleVerification}
                     disabled={verificationInput}
-                    className={` p-3 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md ${
+                    className={` p-2 rounded-md bg-violet-900 lg:w-[40%] w-full text-white hover:bg-violet-950 shadow-md ${
                       verificationInput &&
                       'cursor-not-allowed hover:bg-gray-300'
                     } `}
