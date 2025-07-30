@@ -21,6 +21,16 @@ const ProfileMainPage = () => {
   const companyProfile = useSelector(
     state => state.companyProfile.companyProfile
   )
+  const [candidates, setCandidates] = useState([])
+
+  const apiCalls = [
+    axiosInstance.get('api/employer/profileData', {
+      withCredentials: true
+    }),
+    axiosInstance.get('api/employer/getCandidates', {
+      withCredentials: true
+    })
+  ]
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -51,11 +61,10 @@ const ProfileMainPage = () => {
   useEffect(() => {
     const fetchCompnayProfile = async () => {
       try {
-        const response = await axiosInstance.get('api/employer/profileData', {
-          withCredentials: true
-        })
-        dispatch(setCompanyProfile(response.data.profile))
-        console.log(response)
+        const [companyProfile, candidates] = await Promise.all(apiCalls)
+
+        dispatch(setCompanyProfile(companyProfile.data.profile))
+        setCandidates(candidates.data.response)
       } catch (error) {
         console.error(error)
       }
@@ -270,21 +279,40 @@ const ProfileMainPage = () => {
           </h2>
 
           <div className='space-y-4 mt-4'>
-            {[1, 2, 3].map(item => (
+            {candidates?.map(candidate => (
               <div
-                key={item}
+                key={candidate}
                 className='flex items-center gap-4 p-2 hover:bg-gray-50 rounded-lg transition-colors'
               >
-                <img
-                  src={img2}
-                  alt='Candidate'
-                  className='w-12 h-12 rounded-full object-cover'
-                />
+                {candidate.userID.profilePic ? (
+                  <img
+                    src={candidate.userID.profilePic}
+                    alt='Candidate'
+                    className='w-12 h-12 rounded-full object-cover'
+                  />
+                ) : (
+                  <div className=' flex justify-center items-center w-12 h-12 rounded-full object-cover'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                      class='size-8'
+                    >
+                      <path
+                        fill-rule='evenodd'
+                        d='M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z'
+                        clip-rule='evenodd'
+                      />
+                    </svg>
+                  </div>
+                )}
                 <div className='min-w-0'>
                   <h3 className='font-medium text-gray-800 truncate'>
-                    Midhun P M
+                    {candidate.userID.name}
                   </h3>
-                  <p className='text-sm text-gray-500'>Web Developer</p>
+                  <p className='text-sm text-gray-500'>
+                    {candidate.designation}
+                  </p>
                 </div>
               </div>
             ))}

@@ -38,8 +38,6 @@ const ChatWindow = () => {
     })
 
     socket.on('receive_message', data => {
-      console.log('heyy', data)
-
       setMessages(prev => [...prev, data])
     })
 
@@ -224,11 +222,12 @@ const ChatWindow = () => {
                           {new Date(message.createdAt).toLocaleTimeString([], {
                             hour: '2-digit',
                             minute: '2-digit'
-                          })||new Date().toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </p>  
+                          }) ||
+                            new Date().toLocaleTimeString([], {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                        </p>
                         <div className='pr-2'>
                           <svg
                             id='Layer_1'
@@ -250,9 +249,9 @@ const ChatWindow = () => {
 
                       <p className='flex items-end text-sm pl-2 text-gray-600'>
                         {new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
                       </p>
                     </div>
                   )
