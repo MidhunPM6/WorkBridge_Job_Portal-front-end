@@ -43,8 +43,10 @@ const Login = () => {
 
   const submitLogin = async e => {
     e.preventDefault()
+
     if (!handleValidation(e)) return
     setLoading(true)
+
     const { success, response, error } = await handleLogin(loginForm)
     if (success) {
       toast.success(response.data.message, {
