@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import logo from '../../../assets/lightlogo.png'
-import { useDispatch } from 'react-redux'
-import { axiosInstance } from '../../../Axios/Axios-instance'
 import GoogleButton from '../../GoogleAuth/GoogleButton'
 import { authRedirect } from '../../GoogleAuth/googleAuth'
+import useAuth from '../../../hooks/candidate/useAuth'
+import loadingImg from '../../../assets/rotate.png'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 
 const SignUp = () => {
-  const navigate = useNavigate()
   const [error, setError] = useState({})
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { handleSignup, loading } = useAuth()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,30 +40,26 @@ const SignUp = () => {
   // Subimition of form data to the back-end
   const handleSubmit = async e => {
     e.preventDefault()
-
     if (!handleValidation(e)) return
-    try {
-      const response = await axiosInstance.post('/api/auth/signup', formData)
-      console.log(response)
-
+    const { success, response, error } = await handleSignup(formData)
+    if (success) {
       toast.success('Sign Up Successful', {
         onClose: () => {
           navigate('/login')
         },
-        autoClose: 1
+        autoClose: 1000
       })
-    } catch (error) {
-      console.log(error)
-      toast.error(error.response?.data?.message || 'Server Error')
+    } else {
+      toast.error(error.response.data.message)
     }
   }
 
   return (
     <>
-      <div className='lg:flex lg:flex-row  flex-col font-poppinn  lg:m-10 m-5 flex justify-center  md:pt-10 min-h-[80dvh]  '>
+      <div className=' lg:flex-row  flex flex-col justify-center min-h-screen '>
         <ToastContainer
           position='top-right'
-          autoClose={5000}
+          autoClose={1000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -71,47 +69,45 @@ const SignUp = () => {
           pauseOnHover
           theme='dark'
         />
-        <div className='flex flex-col justify-around items-center  p-7 lg:w-[35vw] bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
+        <div className='flex flex-col justify-around p-7 w-full bg-gradient-to-b from-violet-950 to-black shadow-2xl'>
           <div className='flex flex-col items-center'>
             <img src={logo} alt='' className='w-24' />
             <h1 className='text-white  lg:text-3xl text-3xl lg:tracking-[5px]'>
               WorkBridge
             </h1>
           </div>
-          <p className='lg:flex lg:flex-col lg:mt-0 m-3  items-center  text-sm text-gray-200 tracking-wider  '>
+          <p className='lg:flex lg:flex-col lg:mt-0 m-3  items-center text-center text-gray-400 tracking-wider leading-7  '>
             <span className=''>Join WorkBridge Today!</span>
             Create an account to discover new job opportunities and grow your
             career.
           </p>
         </div>
 
-        <div className='lg:w-[35vw]  lg:flex flex-col justify-center items-center lg:pt-0 pt-4 bg-slate-50 '>
-          <div className='flex flex-col lg:mt-0 mt-5 items-center bg-white m-2 p-4 w-full h-full justify-center rounded-sm  shadow-md'>
+        <div className=' lg:flex flex-col justify-center items-center lg:w-[55vw]  lg:pt-0 pt-4'>
+          <div className='flex flex-col w-full h-full lg:mt-0 mt-5 items-center justify-center bg-white m-2 p-4 lg:p-8   shadow-md'>
             <h1 className='text-2xl lg:text-3xl font-bold  '>SIGN UP </h1>
             <form
               action=''
-              className='flex flex-col w-full place-items-center p-10 lg:pt-6  '
+              className='flex flex-col place-items-center w-full p-10 lg:pt-6   '
               onSubmit={handleSubmit}
             >
-              <input
+              <Input
                 type='text'
                 name='name'
                 placeholder='Enter your name'
-                onChange={handleChange}
-                className={`  m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
-                  error.email ? `border-red-600` : ''
-                }`}
+                handleOnchange={handleChange}
+                className={`  w-full ${error.email ? `border-red-600` : ''}`}
               />
               {error.name && (
                 <p className='text-red-600 ml-2 text-sm'>{error.name}</p>
               )}
 
-              <input
+              <Input
                 type='email'
                 name='email'
                 placeholder='Enter your email'
-                onChange={handleChange}
-                className={`   m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300 ${
+                handleOnchange={handleChange}
+                className={`   w-full ${
                   error.password ? `border-red-600` : ''
                 }`}
               />
@@ -119,12 +115,12 @@ const SignUp = () => {
                 <p className='text-red-600 ml-2 text-sm'>{error.email}</p>
               )}
 
-              <input
+              <Input
                 type='password'
                 name='password'
                 placeholder='Enter a new password'
-                onChange={handleChange}
-                className={`  m-2 p-3  lg:w-[20vw] w-full rounded-md flex text-star  border border-gray-300  hover:border-gray-30 bg-gray-50 transition-all duration-300  ${
+                handleOnchange={handleChange}
+                className={`  w-full  ${
                   error.password ? `border-red-600` : ''
                 }`}
               />
@@ -132,16 +128,22 @@ const SignUp = () => {
                 <p className='text-red-600 ml-2 text-sm'>{error.password}</p>
               )}
 
-              <div className='w-full lg:w-[20vw]'>
-                <button
+              <div className='w-full mt-4'>
+                <Button
                   type='submit'
-                  className='w-full py-3  mt-4 rounded-md font-medium
-             bg-indigo-500 text-white hover:bg-indigo-600
-             transition-colors duration-200 shadow-sm
-             focus:outline-none focus:ring-2 focus:ring-indigo-300'
+                  className='w-full py-3  
+             bg-indigo-500 text-white hover:bg-indigo-600'
                 >
-                  Sign Up
-                </button>
+                  {loading ? (
+                    <img
+                      src={loadingImg}
+                      alt='loading'
+                      className='w-6 h-6 mx-auto'
+                    />
+                  ) : (
+                    'Sign Up'
+                  )}
+                </Button>
               </div>
               <button
                 onClick={() => navigate('/login')}
@@ -154,12 +156,12 @@ const SignUp = () => {
                 <h1 className='text-gray-500'>or</h1>
                 <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
               </div>
-            <div className='w-full lg:w-[20vw] mt-4 '>
-              <GoogleButton
-                onClick={() => authRedirect()}
-                role='candidate'
-              ></GoogleButton>
-            </div>
+              <div className='w-full  mt-4 '>
+                <GoogleButton
+                  onClick={() => authRedirect()}
+                  role='candidate'
+                ></GoogleButton>
+              </div>
             </form>
           </div>
         </div>
@@ -167,4 +169,5 @@ const SignUp = () => {
     </>
   )
 }
+
 export default SignUp

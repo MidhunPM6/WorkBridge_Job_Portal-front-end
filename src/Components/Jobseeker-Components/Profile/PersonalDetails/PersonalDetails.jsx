@@ -176,7 +176,8 @@ const PersonalDetails = () => {
         duration: 1500
       })
       setResume('')
-
+      console.log(response);
+      
       dispatch(setProfile(response.data.data))
     } catch (error) {
       toast.error(error.response.data.message, {

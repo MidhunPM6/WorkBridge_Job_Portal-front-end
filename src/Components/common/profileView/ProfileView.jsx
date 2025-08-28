@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const CandidateProfile = () => {
   const [showMore, setShowMore] = useState(false)
 
-  const candidateProfile = useSelector(
-    state => state.candidateProfile.candidateProfile
+  const userProfile = useSelector(
+    state => state.userProfile.userProfile
   )
+console.log(userProfile);
+
+ useEffect(()=>{
+    
+ },[])
+  
 
   return (
     <>
@@ -14,14 +20,14 @@ const CandidateProfile = () => {
         <div className='max-w-4xl   bg-white rounded-lg shadow-md w-full mt-6'>
           <div
             className={`relative flex justify-center items-center  h-40 lg:h-48  rounded-t-lg w-full   ${
-              candidateProfile.candidateData?.profileCoverPic
+              userProfile.application.candidateData?.profileCoverPic
                 ? ''
                 : 'bg-violet-950'
             }`}
             style={
-              candidateProfile.candidateData?.profileCoverPic
+              userProfile.application.candidateData?.profileCoverPic
                 ? {
-                    backgroundImage: `url("${candidateProfile.candidateData?.profileCoverPic}")`,
+                    backgroundImage: `url("${userProfile.application.candidateData?.profileCoverPic}")`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }
@@ -29,22 +35,22 @@ const CandidateProfile = () => {
             }
           >
             <div className='absolute left-4 -bottom-10 w-24 h-24 lg:w-32  lg:h-32 justify-center items-center bg-gray-200 rounded-md flex  p-1 overflow-hidden'>
-              <img src={candidateProfile.candidateData?.profilePic} alt='' />
+              <img src={userProfile.application.candidateData?.profilePic} alt='' />
             </div>
           </div>
 
           <div className='mb- flex flex-col gap-4 p-6'>
             <div className='flex-1 pt-10'>
               <h1 className='text-3xl font-bold text-gray-800'>
-                {candidateProfile.candidateData?.name}
+                {userProfile.applicationcandidateData?.name}
               </h1>
               <h2 className='text-xl text-blue-600 mb-4'>
-                {candidateProfile.profileData?.designation}
+                {userProfile.application.profileData?.designation}
               </h2>
 
               <div className='flex flex-wrap gap-4'>
                 <a
-                  href={`tel:${candidateProfile.profileData?.mobile}`}
+                  href={`tel:${userProfile.application.profileData?.mobile}`}
                   className='flex items-center text-gray-600 hover:text-blue-500'
                 >
                   <svg
@@ -60,7 +66,7 @@ const CandidateProfile = () => {
                       d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
                     />
                   </svg>
-                  {candidateProfile.profileData?.mobile ||
+                  {userProfile.application.profileData?.mobile ||
                     'No mobile number available.'}
                 </a>
 
@@ -84,11 +90,11 @@ const CandidateProfile = () => {
                       d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
                     />
                   </svg>
-                  {candidateProfile.profileData?.location}
+                  {userProfile.application.profileData?.location}
                 </div>
 
                 <a
-                  href={`mailto:${candidateProfile.candidateData?.email}`}
+                  href={`mailto:${userProfile.application.candidateData?.email}`}
                   className='flex items-center text-gray-600 hover:text-blue-500'
                 >
                   <svg
@@ -104,13 +110,13 @@ const CandidateProfile = () => {
                       d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
                     />
                   </svg>
-                  {candidateProfile.candidateData?.email}
+                  {userProfile.application.candidateData?.email}
                 </a>
               </div>
             </div>
             <h3 className='text-xl font-semibold text-gray-800 mb-3'>About</h3>
             <p className='text-gray-600 leading-relaxed'>
-              {candidateProfile.profileData?.about ||
+              {userProfile.application.profileData?.about ||
                 'No description available.'}
             </p>
           </div>
@@ -118,8 +124,8 @@ const CandidateProfile = () => {
           <div className='mb-8 pl-6'>
             <h3 className='text-xl font-semibold text-gray-800 mb-3'>Skills</h3>
             <div className='flex flex-wrap gap-2'>
-              {candidateProfile.profileData?.skills?.length > 0 ? (
-                candidateProfile.profileData?.skills?.map((skill, index) => (
+              {userProfile.application.profileData?.skills?.length > 0 ? (
+                userProfile.application.profileData.skills?.map((skill, index) => (
                   <p
                     key={index}
                     className='bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm'
@@ -137,7 +143,7 @@ const CandidateProfile = () => {
             <h3 className='text-xl font-semibold text-gray-800 mb-3'>Links</h3>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <a
-                href={candidateProfile.profileData?.linkedin}
+                href={userProfile.application.profileData?.linkedin}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50'
@@ -157,7 +163,7 @@ const CandidateProfile = () => {
               </a>
 
               <a
-                href={candidateProfile.profileData?.portfolio}
+                href={userProfile.application.profileData?.portfolio}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50'
@@ -183,7 +189,7 @@ const CandidateProfile = () => {
               </a>
 
               <a
-                href={candidateProfile.profileData?.resume}
+                href={userProfile.application.profileData?.resume}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50'
@@ -228,8 +234,8 @@ const CandidateProfile = () => {
 
               {/* Experience List */}
               <div className='mt-8 flex flex-col gap-5'>
-                {candidateProfile?.experienceData?.length > 0 ? (
-                  candidateProfile.experienceData.map((expObj, index) => (
+                {userProfile?.application.experienceData?.length > 0 ? (
+                  userProfile.application.experienceData.map((expObj, index) => (
                     <div
                       key={index}
                       className='flex flex-col  gap-3 border border-gray-200 rounded-lg p-6 '
@@ -252,7 +258,6 @@ const CandidateProfile = () => {
                         </div>
                       </div>
 
-                      {/* Description with better readability */}
                       <div className='mt-2'>
                         <h2 className='font-semibold text-gray-900 mb-1'>
                           Description
@@ -290,16 +295,16 @@ const CandidateProfile = () => {
             </div>
             <div className='flex flex-col w-full h-auto' id='education'>
               <div className='relative flex-col lg:justify-normal justify-center lg:p-8 p-8 lg:h-auto  w-full'>
-                {/* Education  */}
+          
 
                 <div className='flex justify-between p-4 items-center bg-violet-50 text-violet-700  rounded-md'>
                   <h1 className='text-2xl font-semibold'>Education</h1>
                 </div>
 
-                {/* Education List */}
+             
                 <div className='mt-6 flex flex-col gap-4'>
-                  {candidateProfile?.educationData.length > 0 ? (
-                    candidateProfile.educationData.map(educationObj => (
+                  {userProfile?.application.educationData.length > 0 ? (
+                    userProfile.application.educationData.map(educationObj => (
                       <div
                         key={educationObj.id}
                         className='flex flex-col gap-3 p-5 border  '

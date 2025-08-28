@@ -30,7 +30,7 @@ const store = configureStore({
     education: EducationReducer,
     profile: ProfileReducer,
     employer: persistedEmployerReducer,
-    candidateProfile: persistedEmployerReducer,
+    userProfile: persistedEmployerReducer,
     companyProfile: persistedEmployerReducer,
     appliedJobs: persistedReducer,
   }

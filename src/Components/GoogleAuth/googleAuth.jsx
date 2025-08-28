@@ -15,6 +15,6 @@ export const authRedirect = async ({role}) => {
   
     const authUrl = `${authServer}?response_type=code&client_id=${clientID}&redirect_uri=${redirectURI}&scope=openid%20profile%20email&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}&prompt=select_account`;
   
-    window.location.href = authUrl;
+    window.location.href = authUrl; 
   };
          

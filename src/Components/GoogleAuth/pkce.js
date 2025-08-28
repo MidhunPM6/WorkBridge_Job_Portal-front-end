@@ -9,9 +9,11 @@ export const generateRandomString = (length = 43) => {
   const randomValues = new Uint8Array(length)
   cryptoObj.getRandomValues(randomValues)
 
-  randomValues.forEach(val => {
-    result += charset[val % charset.length]
-  })
+  for (let i = 0; i < length; i++) {
+    // Use modulo operation to get a value between 0 and charset.length - 1
+    const randomIndex = randomValues[i] % charset.length
+    result += charset[randomIndex]
+  }
 
   return result
 }
@@ -22,7 +24,7 @@ export const sha256 = async plain => {
   const data = encoder.encode(plain)
   const hash = await crypto.subtle.digest('SHA-256', data)
   return btoa(String.fromCharCode(...new Uint8Array(hash)))
-    .replace(/=/g, '')
+    .replace(/=/g, '') 
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
 }

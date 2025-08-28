@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import Footer from '../../../Employer-Components/Footer/Footer'
 import Footer2 from '../../Jobseeker-Components/Footer/Footer'
 import { useLocation } from 'react-router-dom'
@@ -21,14 +21,25 @@ const ChatWindow = () => {
   const { data: candidates } = useFetchCandidates()
   const candidate = useSelector(state => state.user.user)
   const employers = useSelector(state => state.employer.employer)
-
+  const bottomRef = useRef(null)
   let loggedInUser
+
+  useEffect(() => {
+    
+    bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+  }, [messages])
 
   if (userType === 'candidate') {
     loggedInUser = candidate
   } else {
     loggedInUser = employers
   }
+
+
+
+
+
+
 
   useEffect(() => {
     console.log(messages)
@@ -77,13 +88,13 @@ const ChatWindow = () => {
   }
   return (
     <>
-      <div className='flex flex-col min-h-screen'>
+      <div className='flex flex-col min-h-screen '>
         {userType === 'candidate' && <NavBar />}
         {userType === 'employer' && <Navbar />}
         <Toaster></Toaster>
 
         <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-[75vh] pb-6 bg-gray-50'>
-          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white overflow-y-auto'>
+          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white '>
             <div className='flex justify-center items-center min-h-[8vh] w-full gap-2 p-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -188,7 +199,7 @@ const ChatWindow = () => {
                 <div className='flex items-center gap-4 p-4 text-gray-600'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
+                    viewBox='0 0 24 24' 
                     fill='currentColor'
                     className='size-4'
                   >
@@ -209,11 +220,11 @@ const ChatWindow = () => {
                 </div>
               </div>
 
-              <div className='flex flex-col w-full flex-grow max-h-[60vh] overflow-y-auto p-8'>
+              <div  className=' flex-1 overflow-y-auto max-h-[60vh] p-4'>
                 {messages.map(message =>
                   message.sender?.toString() ===
                   loggedInUser._id?.toString() ? (
-                    <div className='flex flex-col '>
+                    <div  className='flex flex-col  '>
                       <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
                         {message.message}
                       </p>
@@ -240,6 +251,7 @@ const ChatWindow = () => {
                           </svg>
                         </div>
                       </div>
+                      
                     </div>
                   ) : (
                     <div className='flex justify-start pb-2'>
@@ -256,6 +268,7 @@ const ChatWindow = () => {
                     </div>
                   )
                 )}
+                <div ref={bottomRef}></div>
               </div>
 
               <div className='flex border-t'>

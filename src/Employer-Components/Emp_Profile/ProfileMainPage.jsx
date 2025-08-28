@@ -69,7 +69,7 @@ const ProfileMainPage = () => {
         console.error(error)
       }
     }
-    console.log(employer, 'employer in profile main page')
+   
 
     fetchCompnayProfile()
   }, [])
