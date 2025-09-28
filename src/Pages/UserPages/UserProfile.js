@@ -1,6 +1,5 @@
-import React from 'react'
-import Userprofile from '../../Components/Jobseeker-Components/Profile/SideMenu'
-import NavBar from '../../Components/Jobseeker-Components/LandingPage/NavBar'
+import Userprofile from '../../Components/Candidate-Components/Profile/SideMenu'
+import NavBar from '../../Components/Candidate-Components/LandingPage/NavBar'
 
 const UserProfile = () => {
   return (

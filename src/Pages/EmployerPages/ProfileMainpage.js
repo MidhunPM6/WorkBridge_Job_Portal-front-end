@@ -1,14 +1,13 @@
-import React from 'react'
-import ProfileMainPage from '../../Employer-Components/Emp_Profile/ProfileMainPage'
-import Navbar from '../../Employer-Components/Employer_main/Navbar'
-import Footer from '../../Employer-Components/Footer/Footer'
+import ProfileMainPage from '../../Components/Empolyer-Components/Emp_Profile/ProfileMainPage'
+import Navbar from '../../Components/Empolyer-Components/Employer_main/Navbar'
+import Footer from '../../Components/Empolyer-Components/Footer/Footer'
 
 const ProfileMainpage = () => {
   return (
     <div>
       <Navbar />
       <ProfileMainPage />
-      <Footer></Footer>
+      <Footer/>
     </div>
   )
 }

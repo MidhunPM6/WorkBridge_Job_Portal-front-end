@@ -1,5 +1,4 @@
-import React from 'react'
-import { logout, setClearUser} from '../../Redux/UserSlice'
+import { logout, setClearUser } from '../../Redux/UserSlice'
 import { useDispatch } from 'react-redux'
 
 import { axiosInstance } from '../../Axios/Axios-instance'
@@ -7,16 +6,10 @@ import { apiCall } from '../apiCall'
 
 const useAccountSettings = () => {
   const dispatch = useDispatch()
- 
+
   const logoutUser = async () => {
     return apiCall(async () => {
-      const response = await axiosInstance.post(
-        'api/auth/logout',
-        {},
-        {
-          withCredentials: true
-        }
-      )
+      const response = await axiosInstance.post('api/auth/logout', {})
       dispatch(logout())
       return response
     })
@@ -25,10 +18,7 @@ const useAccountSettings = () => {
   const deleteAccount = async () => {
     return apiCall(async () => {
       const response = await axiosInstance.delete(
-        '/api/candidate/deleteAccount',
-        {
-          withCredentials: true
-        }
+        '/api/candidate/deleteAccount'
       )
       dispatch(setClearUser())
       return response
@@ -39,10 +29,7 @@ const useAccountSettings = () => {
     return apiCall(async () => {
       const response = await axiosInstance.post(
         '/api/candidate/changename',
-        usernameFormData,
-        {
-          withCredentials: true
-        }
+        usernameFormData
       )
       return response
     })
@@ -55,9 +42,6 @@ const useAccountSettings = () => {
         {
           email: email,
           password: changePassword.currentPassword
-        },
-        {
-          withCredentials: true
         }
       )
       return response
@@ -66,17 +50,11 @@ const useAccountSettings = () => {
 
   const otpVerifiy = async (email, verificationCode, changePassword) => {
     return apiCall(async () => {
-      const response = await axiosInstance.post(
-        '/api/candidate/verifyOtp',
-        {
-          email: email,
-          verificationCode: verificationCode,
-          newPassword: changePassword.newPassword
-        },
-        {
-          withCredentials: true
-        }
-      )
+      const response = await axiosInstance.post('/api/candidate/verifyOtp', {
+        email: email,
+        verificationCode: verificationCode,
+        newPassword: changePassword.newPassword
+      })
       return response
     })
   }

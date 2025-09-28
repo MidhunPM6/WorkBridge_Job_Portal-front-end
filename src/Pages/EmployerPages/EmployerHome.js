@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from '../../Employer-Components/Employer_main/Navbar'
-import EmpMainPage from '../../Employer-Components/Employer_main/EmpMainPage'
-import Chatds from '../../Employer-Components/Employer_main/Chatds'
-import ChatBot from '../../Employer-Components/Employer_main/ChatBotDs'
-import SortingDes from '../../Employer-Components/Employer_main/SortingDes'
-import Footer from '../../Employer-Components/Footer/Footer'
+import EmpMainPage from '../../Components/Empolyer-Components//Employer_main/EmpMainPage'
+import Chatds from '../../Components/Empolyer-Components/Employer_main/Chatds'
+import ChatBot from '../../Components/Empolyer-Components/Employer_main/ChatBotDs'
+import SortingDes from '../../Components/Empolyer-Components/Employer_main/SortingDes'
+import Footer from '../../Components/Empolyer-Components/Footer/Footer'
+import Navbar from '../../Components/Empolyer-Components/Employer_main/Navbar'
 
 
 

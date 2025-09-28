@@ -1,7 +1,8 @@
 import React from 'react'
-import SideMenu from '../../Employer-Components/Job/SideMenu'
-import Navbar from '../../Employer-Components/Employer_main/Navbar'
-import Footer from '../../Employer-Components/Footer/Footer'
+import SideMenu from '../../Components/Empolyer-Components/Job/SideMenu'
+import Footer from '../../Components/Empolyer-Components/Footer/Footer'
+import Navbar from '../../Components/Empolyer-Components/Employer_main/Navbar'
+
 
 const JobMenu = () => {
   return (

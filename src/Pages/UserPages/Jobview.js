@@ -1,8 +1,8 @@
 import React from 'react'
 
-import NavBar from '../../Components/Jobseeker-Components/LandingPage/NavBar'
-import JobMain from '../../Components/Jobseeker-Components/JobListing/JobList'
-import Footer from '../../Components/Jobseeker-Components/Footer/Footer'
+import NavBar from '../../Components/Candidate-Components/LandingPage/NavBar'
+import JobMain from '../../Components/Candidate-Components/JobListing/JobList'
+import Footer from '../../Components/Candidate-Components/Footer/Footer'
 
 
 

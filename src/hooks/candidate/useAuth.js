@@ -8,9 +8,7 @@ const useAuth = () => {
 
   const handleLogin = async loginForm => {
     return apiCall(async () => {
-      const response = await axiosInstance.post('api/auth/login', loginForm, {
-        withCredentials: true
-      })
+      const response = await axiosInstance.post('api/auth/login', loginForm)
       dispatch(setUserDetails(response.data.account))
       return response
     })
@@ -19,7 +17,9 @@ const useAuth = () => {
   const handleSignup = async formData => {
     return apiCall(async () => {
       const response = await axiosInstance.post('/api/auth/signup', formData)
+      return response
     })
+
   }
 
   return { handleSignup, handleLogin }

@@ -1,6 +1,6 @@
 import React from 'react'
-import CompanyProfile from '../../Components/Jobseeker-Components/companyProfileView/CompanyProfile'
-import NavBar from '../../Components/Jobseeker-Components/LandingPage/NavBar'
+import CompanyProfile from '../../Components/Candidate-Components/CompanyProfileView/CompanyProfile'
+import NavBar from '../../Components/Candidate-Components/LandingPage/NavBar'
 
 const companyProfileView = () => {
   return (

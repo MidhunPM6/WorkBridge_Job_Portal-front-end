@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../../Components/Jobseeker-Components/Authentication/Login'
+import Login from '../../Components/Candidate-Components/Authentication/Login'
 
 
 const Loginn = () => {

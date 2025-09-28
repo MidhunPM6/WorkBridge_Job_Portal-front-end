@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react'
-import AccountSetting from '../../Employer-Components/AccountSettings/AccountSettings'
-import Navbar from '../../Employer-Components/Employer_main/Navbar'
-import Footer from '../../Employer-Components/Footer/Footer'
+import Footer from '../../Components/Empolyer-Components/Footer/Footer'
+import AccountSetting from '../../Components/Empolyer-Components/AccountSettings/AccountSettings'
+import Navbar from '../../Components/Empolyer-Components/Employer_main/Navbar'
 
 const AccountSettings = () => {
   return (

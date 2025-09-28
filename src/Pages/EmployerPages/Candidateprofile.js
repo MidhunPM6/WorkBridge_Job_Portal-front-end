@@ -1,12 +1,11 @@
 import React from 'react'
-
-import Navbar from '../../Employer-Components/Employer_main/Navbar'
 import ProfileView from '../../Components/common/profileView/ProfileView'
+import Navbar from '../../Components/Empolyer-Components/Employer_main/Navbar'
 
 const Candidateprofile = () => {
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar/>
       <ProfileView/>
     </div>
   )

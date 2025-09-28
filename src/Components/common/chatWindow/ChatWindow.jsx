@@ -1,14 +1,14 @@
 import React, { use, useEffect, useRef, useState } from 'react'
-import Footer from '../../../Employer-Components/Footer/Footer'
-import Footer2 from '../../Jobseeker-Components/Footer/Footer'
+import Footer from '../../Empolyer-Components/Footer/Footer'
+import Footer2 from '../../Candidate-Components/Footer/Footer'
 import { useLocation } from 'react-router-dom'
-import Navbar from '../../../Employer-Components/Employer_main/Navbar'
-import NavBar from '../../Jobseeker-Components/LandingPage/NavBar'
+import NavBar from '../../Candidate-Components/LandingPage/NavBar'
 import socket from '../../../socket-io/socket-io'
 import { useFetchEmployer, useFetchCandidates } from '../../../hooks/api'
 import { axiosInstance } from '../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
 import toast, { Toaster } from 'react-hot-toast'
+import Navbar from '../../Empolyer-Components/Employer_main/Navbar'
 
 const ChatWindow = () => {
   const location = useLocation()
@@ -22,24 +22,14 @@ const ChatWindow = () => {
   const candidate = useSelector(state => state.user.user)
   const employers = useSelector(state => state.employer.employer)
   const bottomRef = useRef(null)
+
+
   let loggedInUser
-
-  useEffect(() => {
-    
-    bottomRef.current?.scrollIntoView({ behavior: 'auto' })
-  }, [messages])
-
   if (userType === 'candidate') {
     loggedInUser = candidate
   } else {
     loggedInUser = employers
   }
-
-
-
-
-
-
 
   useEffect(() => {
     console.log(messages)
@@ -199,7 +189,7 @@ const ChatWindow = () => {
                 <div className='flex items-center gap-4 p-4 text-gray-600'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24' 
+                    viewBox='0 0 24 24'
                     fill='currentColor'
                     className='size-4'
                   >
@@ -220,11 +210,11 @@ const ChatWindow = () => {
                 </div>
               </div>
 
-              <div  className=' flex-1 overflow-y-auto max-h-[60vh] p-4'>
+              <div className=' flex-1 overflow-y-auto max-h-[60vh] p-4'>
                 {messages.map(message =>
                   message.sender?.toString() ===
                   loggedInUser._id?.toString() ? (
-                    <div  className='flex flex-col  '>
+                    <div className='flex flex-col  '>
                       <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
                         {message.message}
                       </p>
@@ -251,7 +241,6 @@ const ChatWindow = () => {
                           </svg>
                         </div>
                       </div>
-                      
                     </div>
                   ) : (
                     <div className='flex justify-start pb-2'>
