@@ -14,12 +14,12 @@
   }
 
   body {
-    @apply font-sans;
+    @apply font-serif;
+    font-family: 'Open Sans', sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale; 
     margin: 0;
     padding: 0;
-  
   }
 }

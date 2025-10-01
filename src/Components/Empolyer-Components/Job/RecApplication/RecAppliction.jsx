@@ -1,25 +1,21 @@
-import React, { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUserProfile } from '../../../../Redux/EmployerSlice'
+import useJob from '../../../../hooks/employer/useJob'
 
 const RecAppliction = () => {
   const [applications, setApplications] = useState('')
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { getReceviedApplications } = useJob()
 
   useEffect(() => {
     const fetchRecivedApplication = async () => {
-      try {
-        const response = await axiosInstance.get('/api/employer/applications', {
-          withCredentials: true
-        })
-        console.log(response.data)
-
+      const { success, response } = await getReceviedApplications()
+      if (success) {
         setApplications(response.data.data.applicationData)
-      } catch (error) {
-        console.log(error.message)
       }
     }
     fetchRecivedApplication()
@@ -34,18 +30,17 @@ const RecAppliction = () => {
     navigate('/candidateProfile')
   }
 
-  const handleApplicationStatus = async (application,status) => {
-   let data ={
-    application,
-    status
-   }
-    try {
-      const response = await axiosInstance.post('/api/employer/shortList',data)
-    } catch (error) {
-      alert(error.response.message)
-    }
-  }
-
+  // const handleApplicationStatus = async (application, status) => {
+  //   let data = {
+  //     application,
+  //     status
+  //   }
+  //   try {
+  //     const response = await axiosInstance.post('/api/employer/shortList', data)
+  //   } catch (error) {
+  //     alert(error.response.message)
+  //   }
+  // }
 
   return (
     <>
@@ -167,7 +162,7 @@ const RecAppliction = () => {
                   </svg>
                   Profile
                 </button>
-                <button  className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm'>
+                <button className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -179,7 +174,7 @@ const RecAppliction = () => {
                       d='M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z'
                       clip-rule='evenodd'
                     />
-                  </svg> 
+                  </svg>
                   Shortlist
                 </button>
 

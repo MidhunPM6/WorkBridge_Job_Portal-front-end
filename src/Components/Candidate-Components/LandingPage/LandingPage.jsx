@@ -1,7 +1,7 @@
-import React from 'react'
+
 import { useNavigate } from 'react-router-dom'
-import heroimg from '../../../assets/Heroimg.png'
 import { useSelector } from 'react-redux'
+import Button from '../../ui/Button'
 
 const HomeMain = () => {
   const navigate = useNavigate()
@@ -41,26 +41,26 @@ const HomeMain = () => {
 
             <div className='flex flex-wrap gap-4 pt-4'>
               {user?.name ? (
-                <button
-                  onClick={() => navigate('/jobview')}
+                <Button
+                  handleClick={() => navigate('/jobview')}
                   className='px-8 py-3.5 bg-white text-violet-900 rounded-lg font-medium hover:bg-violet-100 transition-colors duration-300 shadow-lg shadow-violet-500/10'
                 >
                   Find Jobs
-                </button>
+                </Button>
               ) : (
                 <>
-                  <button
-                    onClick={() => navigate('/employer')}
+                  <Button
+                    handleClick={() => navigate('/employer')}
                     className='px-8 py-3.5 bg-violet-700 text-white rounded-lg font-medium hover:bg-violet-600 transition-colors duration-300 shadow-lg shadow-violet-500/20'
                   >
                     For Employers
-                  </button>
-                  <button
-                    onClick={() => navigate('/login')}
+                  </Button>
+                  <Button
+                    handleClick={() => navigate('/login')}
                     className='px-8 py-3.5 bg-transparent text-white rounded-lg font-medium border-2 border-violet-400 hover:bg-violet-800/30 transition-colors duration-300 shadow-lg shadow-violet-500/10'
                   >
                     Job Seeker Login
-                  </button>
+                  </Button>
                 </>
               )}
             </div>

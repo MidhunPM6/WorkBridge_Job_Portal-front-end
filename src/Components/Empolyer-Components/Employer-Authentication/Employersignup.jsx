@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import authPoster from '../../../assets/authimg.png'
 import logo from '../../../assets/lightlogo.png'
-import { axiosInstance } from '../../../Axios/Axios-instance'
 import GoogleButton from '../../../Components/GoogleAuth/GoogleButton'
 import { authRedirect } from '../../../Components/GoogleAuth/googleAuth'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
+import useAuth from '../../../hooks/employer/useAuth'
 
 const Employersignup = () => {
   const navigate = useNavigate()
@@ -17,8 +19,8 @@ const Employersignup = () => {
     password: '',
     role: 'employer'
   })
-
   const [error, setError] = useState('')
+  const { signup } = useAuth()
 
   const handleOnchage = e => {
     const changeData = { ...empSignupform, [e.target.name]: e.target.value }
@@ -28,20 +30,14 @@ const Employersignup = () => {
   // Sign up form data
   const handleSubmit = async e => {
     e.preventDefault()
-
     if (!handleValidation(e)) return
-    try {
-      const response = await axiosInstance.post(
-        '/api/auth/signup',
-        empSignupform
-      )
 
+    const { success, response } = await signup(empSignupform)
+    if (success) {
       toast.success(response.data.message, {
         autoClose: 1300,
         onClose: () => navigate('/employerlogin')
       })
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Server Error')
     }
   }
 
@@ -54,18 +50,18 @@ const Employersignup = () => {
 
   return (
     <>
-      <ToastContainer position='top-right'></ToastContainer>
-      <div className='flex flex-col lg:flex-row h-screen w-full'>
-        <div className='w-full lg:w-2/3 h-full '>
+      <div className='flex flex-col lg:flex-row lg:min-h-screen w-full justify-center '>
+        <ToastContainer position='top-right' />
+        <div className='w-full h-screen lg:flex-row lg:block hidden  '>
           <img
             src={authPoster}
             alt='Signup Visual'
-            className='w-full h-full object-cover opacity-'
+            className='w-full h-screen object-cover opacity-'
           />
         </div>
-        <div className='flex flex-col justify-center mt-10 lg:mt-0   items-center w-full lg:w-1/3 px-6 sm:px-10 md:px-16 lg:px-20'>
+        <div className='lg:w-1/3 md:w-full lg:flex flex-col justify-center items-center lg:pt-0 pt-4'>
           <form
-            className='lg:w-full lg:max-w-md  p-6 rounded-md  m-10 lg:m-0   '
+            className='lg:w-full lg:max-w-md  bg-white p-6 rounded-md m-10 lg:m-0   '
             onSubmit={handleValidation}
           >
             <div className='w-full flex justify-center'>
@@ -75,12 +71,12 @@ const Employersignup = () => {
               Sign Up
             </h2>
 
-            <input
+            <Input
               type='text'
               name='name'
-              onChange={handleOnchage}
+              handleOnchange={handleOnchage}
               placeholder='Enter Your Name'
-              className={`lg:w-full w-full py-2  p-4  transition-all duration-300 border rounded-md  ${
+              className={`w-full py-3  ${
                 error.name ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -88,12 +84,12 @@ const Employersignup = () => {
               <p className='text-red-500 text-sm mt-1'>{error.name}</p>
             )}
 
-            <input
+            <Input
               type='email'
               name='email'
-              onChange={handleOnchage}
+              handleOnchange={handleOnchage}
               placeholder='Enter Your Email'
-              className={`lg:w-full w-full py-2 mt-4  p-4  transition-all duration-300 border rounded-md ${
+              className={`w-full py-3 mt-4 ${
                 error.email ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -101,12 +97,12 @@ const Employersignup = () => {
               <p className='text-red-500 text-sm mt-1'>{error.email}</p>
             )}
 
-            <input
+            <Input
               type='password'
               name='password'
-              onChange={handleOnchage}
+              handleOnchange={handleOnchage}
               placeholder='Enter Your Password'
-              className={`lg:w-full w-full py-2  p-4 mt-4 transition-all duration-300 border rounded-md ${
+              className={`w-full py-3 mt-4 ${
                 error.password ? 'border-red-400' : 'border-gray-300'
               }`}
             />
@@ -121,13 +117,13 @@ const Employersignup = () => {
               Click here to login
             </p>
 
-            <button
+            <Button
               type='submit'
-              className='w-full mt-4 text-sm bg-violet-900 text-white py-2 rounded-sm hover:bg-violet-950 transition-all duration-300'
-              onClick={handleSubmit}
+              className='w-full py-3 mt-6 bg-indigo-500 text-white hover:bg-indigo-600'
+              handleClick={handleSubmit}
             >
               Sign Up
-            </button>
+            </Button>
 
             <div className='flex  items-center justify-center  gap-3 mt-3  '>
               <hr class='h-px my-2 lg:w-20 w-full bg-gray-200 border-0 dark:bg-gray-700'></hr>
@@ -145,7 +141,10 @@ const Employersignup = () => {
             <div className=' flex justify-center items-center mt-10 text-sm w-full'>
               <p className='text-gray-600'>
                 By Signing in, you agree to our{' '}
-                <a href='##' className='font-bold leading-loose text-blue-600 flex justify-center'>
+                <a
+                  href='##'
+                  className='font-bold leading-loose text-blue-600 flex justify-center'
+                >
                   Terms & Conditions.
                 </a>
               </p>

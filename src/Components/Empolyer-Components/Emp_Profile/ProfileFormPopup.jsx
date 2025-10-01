@@ -1,40 +1,38 @@
-import React  from 'react'
-import { useState,useEffect } from 'react'
+import React from 'react'
+import { useState, useEffect } from 'react'
 import { axiosInstance } from '../../../Axios/Axios-instance'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
+import useProfile from '../../../hooks/employer/useProfile'
 
 const ProfileFormPopup = () => {
-
-const companyProfile =useSelector(state => state.companyProfile.companyProfile)
-   const [loading, setLoading] = useState(true)
+  const companyProfile = useSelector(
+    state => state.companyProfile.companyProfile
+  )
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
-    website:'',
+    website: '',
     headquarter: '',
     sizeOfCompany: '',
     overview: '',
     about: ''
   })
-  const [changeData,setChangeData] = useState(false)
+  const [changeData, setChangeData] = useState(false)
   const navigate = useNavigate()
+  const { profileDataUpload } = useProfile()
 
   const handleChange = e => {
     const newObject = { ...formData, [e.target.name]: e.target.value }
     setFormData(newObject)
-    setChangeData (true)
+    setChangeData(true)
   }
   //   API Post Method to save the profile data
- 
 
   useEffect(() => {
-    
-    
     if (companyProfile) {
-
       setFormData({
         companyName: companyProfile.companyName || '',
         industry: companyProfile.industry || '',
@@ -48,30 +46,15 @@ const companyProfile =useSelector(state => state.companyProfile.companyProfile)
     }
   }, [companyProfile])
 
-
-   const submitProfile = async () => {
-    try {
-     
-      const response = await axiosInstance.post(
-        '/api/employer/profile',
-        formData,
-        {
-          withCredentials: true
-        }
-      )
+  const submitProfile = async () => {
+    const { success, response } = await profileDataUpload(formData)
+    if (success) {
       toast.success(response.data.message, {
         duration: 1300
       })
-      console.log(response);
-      
       setTimeout(() => {
         navigate(0)
       }, 1400)
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        duration: 1300
-      })
-      console.error(error)
     }
   }
 
@@ -165,7 +148,6 @@ const companyProfile =useSelector(state => state.companyProfile.companyProfile)
             <textarea
               type='text'
               name='overview'
-
               value={formData.overview}
               placeholder='Enter a brief description about your company'
               onChange={handleChange}
@@ -192,7 +174,9 @@ const companyProfile =useSelector(state => state.companyProfile.companyProfile)
         <button
           onClick={submitProfile}
           disabled={!changeData}
-          className={`mt-3 bg-violet-900 p-3 ${!changeData? "cursor-not-allowed": "cursor-pointer"} rounded-md lg:w-40 w-full hover:bg-violet-950 text-white `}
+          className={`mt-3 bg-violet-900 p-3 ${
+            !changeData ? 'cursor-not-allowed' : 'cursor-pointer'
+          } rounded-md lg:w-40 w-full hover:bg-violet-950 text-white `}
         >
           Save
         </button>

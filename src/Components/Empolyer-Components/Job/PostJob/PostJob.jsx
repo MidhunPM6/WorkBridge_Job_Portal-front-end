@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Dropdown from 'react-dropdown'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import 'react-dropdown/style.css'
-import { axiosInstance } from '../../../../Axios/Axios-instance'
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
 } from 'use-places-autocomplete'
 import toast, { Toaster } from 'react-hot-toast'
 import SelectDrop from 'react-select'
+import useJob from '../../../../hooks/employer/useJob'
 
 const PostJob = () => {
   const [formData, setFormData] = useState({
     title: '',
     company_name: '',
     location: '',
-    salary: '', 
+    salary: '',
     job_type: '',
     job_description: ''
   })
   const [jobTitle, setJobTitle] = useState([])
-
+  const { postJob, getDesignationData } = useJob()
   const options = ['Full-time', 'Part-time', 'Remote']
   const modules = {
     toolbar: [
@@ -32,19 +32,9 @@ const PostJob = () => {
   }
   useEffect(() => {
     const fetchDesignationdata = async () => {
-      try {
-        const res = await fetch('/designationList.json')
-        const data = await res.json()
-        console.log(data)
-
-        // Format data for react-select
-        const mapped = data.map(d => ({
-          label: d.title,
-          value: d.title
-        }))
+      const { success, mapped } = await getDesignationData()
+      if (success) {
         setJobTitle(mapped)
-      } catch (error) {
-        console.error(error)
       }
     }
     fetchDesignationdata()
@@ -62,7 +52,7 @@ const PostJob = () => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value 
+      [name]: value
     }))
   }
 
@@ -104,14 +94,8 @@ const PostJob = () => {
   }
 
   const handlePost = async () => {
-    console.log(formData.job_description)
-
-    try {
-      const response = await axiosInstance.post(
-        '/api/employer/postjob',
-        formData,
-        { withCredentials: true }
-      )
+    const { success, response } = await postJob(formData)
+    if (success) {
       toast.success(response.data.message, {
         duration: 1200,
         onclose: () => {
@@ -127,15 +111,8 @@ const PostJob = () => {
           clearSuggestions()
         }
       })
-    } catch (error) {
-      console.error('Error posting job:', error)
-      toast.error(error.response?.data?.message || 'Failed to post job', {
-        duration: 1500
-      })
     }
   }
-
-
 
   return (
     <div className='flex justify-center items-center p-6 '>

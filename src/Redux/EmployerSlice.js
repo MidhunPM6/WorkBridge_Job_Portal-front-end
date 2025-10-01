@@ -6,7 +6,7 @@ const initialState = {
   applications: [],
   profile: null,
   userProfile: {},
-  companyProfile: {}
+  companyProfile: []
 }
 
 const EmployerSlice = createSlice({

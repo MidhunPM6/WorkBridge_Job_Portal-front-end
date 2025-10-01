@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import ProfileFormPopup from './ProfileFormPopup'
-import img2 from '../../../assets/logo.png'
-import { axiosInstance } from '../../../Axios/Axios-instance'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setCompanyProfile,
   setEmployerDetails
 } from '../../../Redux/EmployerSlice'
 import Loading from '../../common/Loading/Loading'
+import useProfile from '../../../hooks/employer/useProfile'
+import Button from '../../ui/Button'
+
 
 const ProfileMainPage = () => {
   const [modalIsOpen, setModelIsOpen] = useState(false)
@@ -16,21 +17,14 @@ const ProfileMainPage = () => {
   const [coverpic, setCoverPic] = useState(null)
   const [profilePicLoading, setProfilePicLoading] = useState(false)
   const [coverPicLoading, setCoverPicLoading] = useState(false)
+  const [candidates, setCandidates] = useState([])
   const dispatch = useDispatch()
   const employer = useSelector(state => state.employer.employer)
   const companyProfile = useSelector(
     state => state.companyProfile.companyProfile
   )
-  const [candidates, setCandidates] = useState([])
 
-  const apiCalls = [
-    axiosInstance.get('api/employer/profileData', {
-      withCredentials: true
-    }),
-    axiosInstance.get('api/employer/getCandidates', {
-      withCredentials: true
-    })
-  ]
+  const { getCompanyProfile, uploadFile } = useProfile()
 
   const openModal = () => {
     setModelIsOpen(true)
@@ -60,16 +54,14 @@ const ProfileMainPage = () => {
   //   Fetching company profile data
   useEffect(() => {
     const fetchCompnayProfile = async () => {
-      try {
-        const [companyProfile, candidates] = await Promise.all(apiCalls)
+      const { success, response } = await getCompanyProfile()
 
-        dispatch(setCompanyProfile(companyProfile.data.profile))
-        setCandidates(candidates.data.response)
-      } catch (error) {
-        console.error(error)
+      if (success) {
+        dispatch(setCompanyProfile(response.comapanyProfile.data.profile))
+        setCandidates(response.candidates.data.response)
+        return
       }
     }
-
     fetchCompnayProfile()
   }, [])
 
@@ -81,55 +73,42 @@ const ProfileMainPage = () => {
       alert('Please upload a valid image file')
       return
     }
-
     if (fileType === 'profilepic') {
       setProfilePic(file)
       setProfilePicLoading(true)
     }
-
     if (fileType === 'profilecover') {
       setCoverPic(file)
       setCoverPicLoading(true)
     }
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('fileType', fileType)
+    formData.append('role', 'employer')
 
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('fileType', fileType)
-      formData.append('role', 'employer')
-      console.log('Uploading file:', fileType, file)
-
-      const response = await axiosInstance.post(
-        '/api/common/fileupload',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          withCredentials: true
-        }
-      )
-
+    const { success, response } = await uploadFile(formData, {
+      onFinally: () => {
+        if (fileType === 'profilepic') setProfilePicLoading(false)
+        if (fileType === 'profilecover') setCoverPicLoading(false)
+      }
+    })
+    if (success) {
       dispatch(setEmployerDetails(response.data.uploadFile))
-    } catch (error) {
-      console.error('Error uploading file:', error)
-    } finally {
-      if (fileType === 'profilepic') setProfilePicLoading(false)
-      if (fileType === 'profilecover') setCoverPicLoading(false)
     }
   }
+
   return (
     <>
-      <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-8 w-full'>
-        <div className='w-full lg:w-3/4 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden'>
+      <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-20 w-full justify-center '>
+        <div className='w-full lg:w-2/4 shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden'>
           <div
             className={`relative flex justify-center items-center  h-40 lg:h-48 rounded-t-lg w-full  ${
               coverPicLoading && 'bg-opacity-45'
-            } pt-2 ${employer.profileCoverPic ? '' : 'bg-violet-950'}`}
+            } pt-2 ${employer?.profileCoverPic ? '' : 'bg-violet-950'}`}
             style={
-              employer.profileCoverPic
+              employer?.profileCoverPic
                 ? {
-                    backgroundImage: `url("${employer.profileCoverPic}")`,
+                    backgroundImage: `url("${employer?.profileCoverPic}")`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }
@@ -212,9 +191,11 @@ const ProfileMainPage = () => {
             <div className='flex justify-between items-start'>
               <div className='mt-4'>
                 <h1 className='text-2xl font-bold text-gray-800'>
-                  {companyProfile?.companyName}
+                  {companyProfile?.companyName || 'Not provided'}
                 </h1>
-                <p className='text-gray-500'>{companyProfile?.industry}</p>
+                <p className='text-gray-500'>
+                  {companyProfile?.industry || 'Not provided'}
+                </p>
               </div>
               <button
                 onClick={openModal}
@@ -234,17 +215,19 @@ const ProfileMainPage = () => {
 
             <div className='mt-6'>
               <h2 className='text-xl font-semibold text-gray-800'>Overview</h2>
-              <p className='mt-2 text-gray-600'>{companyProfile?.overview}</p>
+              <p className='mt-2 text-gray-600'>
+                {companyProfile?.overview || 'Not provided'}
+              </p>
 
               <div className='mt-6'>
                 <p className='text-gray-800 font-medium'>Website:</p>
                 <a
-                  href={companyProfile?.website}
+                  href={companyProfile?.website || 'https://www.example.com'}
                   target='_blank'
                   rel='noopener noreferrer'
                   className='text-blue-600 hover:underline'
                 >
-                  {companyProfile?.website}
+                  {companyProfile?.website || 'Not provided'}
                 </a>
               </div>
 
@@ -252,12 +235,14 @@ const ProfileMainPage = () => {
                 <div>
                   <h3 className='font-semibold text-gray-800'>Employees</h3>
                   <p className='text-gray-600'>
-                    {companyProfile?.sizeOfCompany} employees
+                    {companyProfile?.sizeOfCompany || 'Not provided'} employees
                   </p>
                 </div>
                 <div>
                   <h3 className='font-semibold text-gray-800'>Headquarters</h3>
-                  <p className='text-gray-600'>{companyProfile?.headquarter}</p>
+                  <p className='text-gray-600'>
+                    {companyProfile?.headquarter || 'Not provided'}
+                  </p>
                 </div>
               </div>
 
@@ -265,14 +250,16 @@ const ProfileMainPage = () => {
                 <h3 className='font-semibold text-gray-800'>
                   About the Services
                 </h3>
-                <p className='mt-2 text-gray-600'>{companyProfile?.about}</p>
+                <p className='mt-2 text-gray-600'>
+                  {companyProfile?.about || 'Not provided'}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Job Seekers Sidebar */}
-        <div className='w-full lg:w-1/4 bg-white rounded-lg shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] p-6'>
+        <div className='w-full lg:w-1/4 bg-white rounded-lg shadow-[0px_0px_3px_0px_rgba(0,0,0,0.1)] p-6 overflow-y-auto h-[600px]'>
           <h2 className='text-xl font-semibold text-gray-800 pb-2 border-b border-gray-200'>
             Job Seekers
           </h2>
@@ -281,7 +268,7 @@ const ProfileMainPage = () => {
             {candidates?.map(candidate => (
               <div
                 key={candidate._id}
-                className='flex items-center gap-4 p-2 hover:bg-gray-50 rounded-lg transition-colors'
+                className='flex items-center gap-4 p-2 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer'
               >
                 {candidate?.userID?.profilePic ? (
                   <img
@@ -307,19 +294,19 @@ const ProfileMainPage = () => {
                 )}
                 <div className='min-w-0'>
                   <h3 className='font-medium text-gray-800 truncate'>
-                    {candidate?.userID?.name}
+                    {candidate?.userID?.name || 'Not provided'}
                   </h3>
                   <p className='text-sm text-gray-500'>
-                    {candidate?.designation}
+                    {candidate?.designation || 'Not provided'}
                   </p>
                 </div>
               </div>
             ))}
           </div>
 
-          <button className='w-full mt-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors'>
+          <Button className='w-full mt-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white '>
             View All Candidates
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -340,5 +327,3 @@ const ProfileMainPage = () => {
 }
 
 export default ProfileMainPage
-
-//
