@@ -30,7 +30,7 @@ const useJob = () => {
       const mapped = data.map(d => ({
         label: d.title,
         value: d.title
-      }))
+      })) 
       return mapped
     })
   }

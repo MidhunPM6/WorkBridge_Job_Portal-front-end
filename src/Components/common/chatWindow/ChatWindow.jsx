@@ -1,14 +1,14 @@
-import React, { use, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Footer from '../../Empolyer-Components/Footer/Footer'
 import Footer2 from '../../Candidate-Components/Footer/Footer'
 import { useLocation } from 'react-router-dom'
 import NavBar from '../../Candidate-Components/LandingPage/NavBar'
 import socket from '../../../socket-io/socket-io'
 import { useFetchEmployer, useFetchCandidates } from '../../../hooks/api'
-import { axiosInstance } from '../../../Axios/Axios-instance'
 import { useSelector } from 'react-redux'
-import toast, { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import Navbar from '../../Empolyer-Components/Employer_main/Navbar'
+import useChat from '../../../hooks/common/useChat'
 
 const ChatWindow = () => {
   const location = useLocation()
@@ -22,7 +22,7 @@ const ChatWindow = () => {
   const candidate = useSelector(state => state.user.user)
   const employers = useSelector(state => state.employer.employer)
   const bottomRef = useRef(null)
-
+  const { getChatHistory } = useChat()
 
   let loggedInUser
   if (userType === 'candidate') {
@@ -30,6 +30,8 @@ const ChatWindow = () => {
   } else {
     loggedInUser = employers
   }
+
+  console.log(selectedUser)
 
   useEffect(() => {
     console.log(messages)
@@ -60,20 +62,11 @@ const ChatWindow = () => {
   const handleFetchHistory = async (e, selectedUser) => {
     e.preventDefault()
     setSelectedUser(selectedUser)
-    console.log('heeeeeeeee', selectedUser)
+    const { success, response } = await getChatHistory(selectedUser.userID._id)
+    console.log(response)
 
-    try {
-      const response = await axiosInstance.get(
-        `/api/common/fetchChatHistory/${selectedUser.userID._id}`,
-        {
-          withCredentials: true
-        }
-      )
-      console.log(response.data.chatHistory)
-
+    if (success) {
       setMessages(response.data.chatHistory)
-    } catch (error) {
-      console.error('Error fetching chat history:', error)
     }
   }
   return (
@@ -83,8 +76,8 @@ const ChatWindow = () => {
         {userType === 'employer' && <Navbar />}
         <Toaster></Toaster>
 
-        <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-[75vh] pb-6 bg-gray-50'>
-          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white '>
+        <div className='flex flex-col lg:flex-row justify-center pt-6 min-h-[700px]   pb-6 bg-gray-50 '>
+          <div className='flex flex-col items-center  w-full lg:w-1/4 border-r border-t border-gray-200 bg-white h-[700px] overflow-y-auto '>
             <div className='flex justify-center items-center min-h-[8vh] w-full gap-2 p-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -100,8 +93,8 @@ const ChatWindow = () => {
             {userType === 'candidate'
               ? employer?.map(item => (
                   <div
-                    key={item.userID._id}
-                    className='p-2 w-full  overflow-auto'
+                    key={item.userID.id}
+                    className='p-2 w-full overflow-y-auto'
                     onClick={e => handleFetchHistory(e, item)}
                   >
                     <div
@@ -137,8 +130,8 @@ const ChatWindow = () => {
                 ))
               : candidates?.map(item => (
                   <div
-                    key={item.userID._id}
-                    className='p-2 w-full  overflow-auto'
+                    key={item._id}
+                    className='p-2 w-full  '
                     onClick={e => handleFetchHistory(e, item)}
                   >
                     <div
@@ -153,7 +146,7 @@ const ChatWindow = () => {
                         <img
                           src={item.userID?.profilePic || ''}
                           alt=''
-                          className='w-12 h-12 rounded-full'
+                          className='w-12 h-12 rounded-full object-cover'
                         />
                       </div>
                       <div>
@@ -210,7 +203,7 @@ const ChatWindow = () => {
                 </div>
               </div>
 
-              <div className=' flex-1 overflow-y-auto max-h-[60vh] p-4'>
+              <div className=' flex-1 overflow-y-auto h-[600px] p-4'>
                 {messages.map(message =>
                   message.sender?.toString() ===
                   loggedInUser._id?.toString() ? (
