@@ -7,8 +7,7 @@ import authPoster from '../../../assets/authimg.png'
 import logo from '../../../assets/lightlogo.png'
 import { setEmployerDetails } from '../../../Redux/EmployerSlice'
 import { useDispatch } from 'react-redux'
-import GoogleButton from '../../../Components/GoogleAuth/GoogleButton'
-import { authRedirect } from '../../../Components/GoogleAuth/googleAuth'
+import GoogleButton from '../../common/GoogleAuth/GoogleButton'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import useAuth from '../../../hooks/employer/useAuth'
@@ -136,7 +135,6 @@ const Employerlogin = () => {
 
             <div className='flex justify-center mt-4 w-full'>
               <GoogleButton
-                onClick={authRedirect}
                 role='employer'
               ></GoogleButton>
             </div>

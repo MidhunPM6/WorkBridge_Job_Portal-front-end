@@ -4,8 +4,7 @@ import { registerValidation } from './Validation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import logo from '../../../assets/lightlogo.png'
-import GoogleButton from '../../GoogleAuth/GoogleButton'
-import { authRedirect } from '../../GoogleAuth/googleAuth'
+import GoogleButton from '../../common/GoogleAuth/GoogleButton'
 import useAuth from '../../../hooks/candidate/useAuth'
 import loadingImg from '../../../assets/rotate.png'
 import Input from '../../ui/Input'
@@ -157,10 +156,7 @@ const SignUp = () => {
                 <hr class='h-px my-2 w-20  bg-gray-200 border-0 dark:bg-gray-700'></hr>
               </div>
               <div className='w-full  mt-4 '>
-                <GoogleButton
-                  onClick={() => authRedirect()}
-                  role='candidate'
-                ></GoogleButton>
+                <GoogleButton role='candidate' />
               </div>
             </form>
           </div>

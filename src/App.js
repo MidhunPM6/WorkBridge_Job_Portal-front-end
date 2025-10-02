@@ -6,7 +6,7 @@ import EmployerLogin from './Pages/EmployerPages/EmployerLogin'
 import EmployerSignup from './Pages/EmployerPages/EmployerSignup'
 import ProfileMainpage from './Pages/EmployerPages/ProfileMainpage'
 import AccountSettings from './Pages/EmployerPages/AccountSettings'
-import GoogleAuth from './Pages/common/Googleauth'
+
 import JobMenu from './Pages/EmployerPages/JobMenu'
 import Candidateprofile from './Pages/EmployerPages/Candidateprofile'
 import ChattingWindow from './Pages/common/ChattingWindow'
@@ -44,7 +44,6 @@ function App () {
           <Route path='/candidateProfile' element={<Candidateprofile />} />
           <Route path='/profile/accountsetting' element={<AccountSettings />} />
           <Route path='/profile/jobmenu' element={<JobMenu />} />
-          <Route path='/callback' element={<GoogleAuth></GoogleAuth>} />
         </Routes>
       </Suspense>
     </>

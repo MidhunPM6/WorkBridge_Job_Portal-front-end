@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { registerValidation } from './Validation'
 import authPoster from '../../../assets/authimg.png'
 import logo from '../../../assets/lightlogo.png'
-import GoogleButton from '../../../Components/GoogleAuth/GoogleButton'
-import { authRedirect } from '../../../Components/GoogleAuth/googleAuth'
+import GoogleButton from '../../common/GoogleAuth/GoogleButton'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import useAuth from '../../../hooks/employer/useAuth'
@@ -133,7 +132,6 @@ const Employersignup = () => {
 
             <div className='mt-4 w-full'>
               <GoogleButton
-                onClick={authRedirect}
                 role='employer'
               ></GoogleButton>
             </div>
