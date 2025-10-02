@@ -31,7 +31,8 @@ const JobMain = () => {
       if (success) {
         const { jobsRes, appliedRes } = response
         setJobs(jobsRes.data.jobs)
-        dispatch(setAppliedJobs(appliedRes.data.appliedJobs))
+          dispatch(setAppliedJobs(appliedRes.data.appliedJobs))
+        
       }
     }
     fetchJobsAndApplied()

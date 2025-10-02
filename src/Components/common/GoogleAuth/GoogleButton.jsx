@@ -16,8 +16,6 @@ const GoogleButton = ({ role }) => {
 
     // Send Google token to backend
     const { success, response } = await handleGoogleAuth(googleToken, role)
-    console.log(success);
-    
     if (success) {
       if (response.data.User.role === 'candidate') {
         dispatch(setUserDetails(response.data.User))

@@ -1,28 +1,42 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import useJobList from '../../../hooks/candidate/useJobList'
+import { setAppliedJobs } from '../../../Redux/UserSlice'
 
 const ConfirmModal = ({ setIsOpen }) => {
   const selectedJob = useSelector(state => state.selectedjob.jobSelected)
-
+  const { fetchJobsAndAppliedStatus } = useJobList()
   const { handleConfirm } = useJobList()
+  const dispatch = useDispatch()
 
+  const handleModalClose = async () => {
+    setIsOpen(false)
+
+    const { response, success } = await fetchJobsAndAppliedStatus()
+    if (success) {
+      const { appliedRes } = response
+      dispatch(setAppliedJobs(appliedRes.data.appliedJobs))
+    }
+  }
   const handleConfirmation = async () => {
     const job = {
       employerId: selectedJob.userID._id,
       jobId: selectedJob.id
     }
     const { response, success, error } = await handleConfirm(job)
+
     if (success) {
       toast.success(response.data.message, {
         duration: 1300
       })
     }
     if (error) {
-      console.error(error)
+      toast.error(error.response.data.message, {
+        duration: 1300
+      })
     }
     setTimeout(() => {
-      setIsOpen(false)
+      handleModalClose()
     }, 1300)
   }
 
