@@ -31,7 +31,7 @@ const ChatWindow = () => {
     loggedInUser = employers
   }
 
-  console.log(selectedUser)
+ 
 
   useEffect(() => {
     console.log(messages)

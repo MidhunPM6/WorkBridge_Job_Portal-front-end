@@ -10,7 +10,8 @@ import usePlacesAutocomplete, {
 import toast, { Toaster } from 'react-hot-toast'
 import SelectDrop from 'react-select'
 import useJob from '../../../../hooks/employer/useJob'
-
+import Button from '../../../ui/Button'
+import Input from '../../../ui/Input'
 const PostJob = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -20,6 +21,8 @@ const PostJob = () => {
     job_type: '',
     job_description: ''
   })
+
+  console.log(formData)
   const [jobTitle, setJobTitle] = useState([])
   const { postJob, getDesignationData } = useJob()
   const options = ['Full-time', 'Part-time', 'Remote']
@@ -32,9 +35,11 @@ const PostJob = () => {
   }
   useEffect(() => {
     const fetchDesignationdata = async () => {
-      const { success, mapped } = await getDesignationData()
+      const { success, response } = await getDesignationData()
+      console.log(response)
+
       if (success) {
-        setJobTitle(mapped)
+        setJobTitle(response)
       }
     }
     fetchDesignationdata()
@@ -117,7 +122,7 @@ const PostJob = () => {
   return (
     <div className='flex justify-center items-center p-6 '>
       <Toaster position='top-center' reverseOrder={false} />
-      <div className='flex flex-col lg:p-6 p-6 lg:w-[40vw] rounded-md  shadow-[0px_0px_5px_0px_rgba(181,181,181,1)]  hover:shadow-[0px_0px_10px_0px_rgba(181,181,181,1)] bg-white transition-all duration-300'>
+      <div className='flex flex-col lg:p-6 p-6 lg:w-10/12 rounded-md  shadow-[0px_0px_5px_0px_rgba(181,181,181,1)]  hover:shadow-[0px_0px_10px_0px_rgba(181,181,181,1)] bg-white transition-all duration-300'>
         <div className='flex flex-col justify-center items-center w-full'>
           <h1 className='text-2xl font-semibold text-center'>
             Publish a Job Opening
@@ -143,23 +148,23 @@ const PostJob = () => {
                 placeholder='Select Designation'
               />
             </div>
-            <input
+            <Input
               type='text'
               name='company_name'
               placeholder='Company Name'
-              onChange={handleChange}
-              className='  p-2 w-full   rounded-md border border-gray-300'
+              handleOnchange={handleChange}
+              className='  py-3 w-full'
             />
           </div>
 
           <div className='lg:flex-row flex flex-col gap-6 mt-4'>
             <div className='relative w-full'>
-              <input
+              <Input
                 type='text'
                 value={value}
-                onChange={e => setValue(e.target.value)}
+                handleOnchange={e => setValue(e.target.value)}
                 placeholder='Enter a location'
-                className=' p-2 w-full   rounded-md border border-gray-300'
+                className=' py-3 w-full '
               />
               {status === 'OK' && (
                 <ul className='absolute bg-white border border-gray-200 rounded mt-1 z-10 max-h-40 overflow-auto w-full'>
@@ -176,12 +181,12 @@ const PostJob = () => {
               )}
             </div>
 
-            <input
+            <Input
               type='text'
               name='salary'
               placeholder='Salary Range'
-              onChange={handleChange}
-              className='  p-2 w-full   rounded-md border border-gray-300'
+              handleOnchange={handleChange}
+              className='  py-3 w-full   '
             />
           </div>
 
@@ -207,12 +212,12 @@ const PostJob = () => {
         </div>
 
         <div className='flex flex-col items-center mt-6'>
-          <button
-            onClick={handlePost}
-            className='lg:w-[10vw] w-full py-3 mt-8 text-white bg-violet-900 hover:bg-violet-950 rounded-md shadow-lg'
+          <Button
+            handleClick={handlePost}
+            className=' w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white '
           >
             Post Job
-          </button>
+          </Button>
           <div className='flex justify-end mt-6 text-xs text-slate-600'>
             <p>
               <span className='font-semibold'>Please Note:</span> All job

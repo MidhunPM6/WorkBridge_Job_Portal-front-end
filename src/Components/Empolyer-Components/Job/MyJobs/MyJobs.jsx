@@ -50,6 +50,9 @@ const MyJobs = () => {
   useEffect(() => {
     const fetchMyJobs = async () => {
       const { success, response } = await getMyJobs()
+      console.log(response)
+
+      if (!success) return
       if (success) {
         setJobs(response.data.jobs)
       }
@@ -73,7 +76,7 @@ const MyJobs = () => {
       <h1 className='text-2xl font-semibold  text-center'>
         Edit or Manage Posts
       </h1>
-      {jobs &&
+      {jobs.length > 0 ? (
         jobs.map(job => (
           <div
             key={job.id}
@@ -133,7 +136,13 @@ const MyJobs = () => {
               </button>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <p className='text-center text-gray-500 mt-10'>
+          No jobs have been posted yet. Please create a job posting to get
+          started.{' '}
+        </p>
+      )}
 
       {editModelOpen && (
         <EditModal

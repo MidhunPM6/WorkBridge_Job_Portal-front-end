@@ -11,6 +11,8 @@ import JobMenu from './Pages/EmployerPages/JobMenu'
 import Candidateprofile from './Pages/EmployerPages/Candidateprofile'
 import ChattingWindow from './Pages/common/ChattingWindow'
 import CompanyProfileView from './Pages/UserPages/CompanyProfileView'
+import { SocketProvider } from './socket-io/socketContext'
+import { ToastContainer } from 'react-toastify'
 
 //Lazy Loading seeker pages
 const Home = lazy(() => import('./Pages/UserPages/Home'))
@@ -22,30 +24,39 @@ const Jobview = lazy(() => import('./Pages/UserPages/Jobview'))
 function App () {
   return (
     <>
-      <Suspense fallback={<LazyLoad></LazyLoad>}>
-        <Routes>
-          {/* common routes */}
+      <SocketProvider>
+        <ToastContainer position="top-right" autoClose={3000} />
+        <Suspense fallback={<LazyLoad></LazyLoad>}>
+          <Routes>
+            {/* common routes */}
 
-          <Route path='/chatWindow' element={<ChattingWindow />} />
+            <Route path='/chatWindow' element={<ChattingWindow />} />
 
-          {/*User routes */}
-          <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Siginup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/profile' element={<Userprofile />} />
-          <Route path='/jobview' element={<Jobview />} />
-          <Route path='/companyProfileView' element={<CompanyProfileView />} />
+            {/*User routes */}
+            <Route path='/' element={<Home />} />
+            <Route path='/signup' element={<Siginup />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/profile' element={<Userprofile />} />
+            <Route path='/jobview' element={<Jobview />} />
+            <Route
+              path='/companyProfileView'
+              element={<CompanyProfileView />}
+            />
 
-          {/*Empolyer routes*/}
-          <Route path='/employer' element={<EmployerHome />} />
-          <Route path='/employerlogin' element={<EmployerLogin />} />
-          <Route path='/employersignup' element={<EmployerSignup />} />
-          <Route path='/employerprofile' element={<ProfileMainpage />} />
-          <Route path='/candidateProfile' element={<Candidateprofile />} />
-          <Route path='/profile/accountsetting' element={<AccountSettings />} />
-          <Route path='/profile/jobmenu' element={<JobMenu />} />
-        </Routes>
-      </Suspense>
+            {/*Empolyer routes*/}
+            <Route path='/employer' element={<EmployerHome />} />
+            <Route path='/employerlogin' element={<EmployerLogin />} />
+            <Route path='/employersignup' element={<EmployerSignup />} />
+            <Route path='/employerprofile' element={<ProfileMainpage />} />
+            <Route path='/candidateProfile' element={<Candidateprofile />} />
+            <Route
+              path='/profile/accountsetting'
+              element={<AccountSettings />}
+            />
+            <Route path='/profile/jobmenu' element={<JobMenu />} />
+          </Routes>
+        </Suspense>
+      </SocketProvider>
     </>
   )
 }

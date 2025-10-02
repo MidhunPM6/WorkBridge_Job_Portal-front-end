@@ -37,7 +37,8 @@ const useJob = () => {
 
   const getMyJobs = () => {
     return apiCall(async () => {
-      return await axiosInstance.get('api/employer/myjobs')
+     return await axiosInstance.get('api/employer/myjobs')
+
     })
   }
 

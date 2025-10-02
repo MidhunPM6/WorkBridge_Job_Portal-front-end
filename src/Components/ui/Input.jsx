@@ -9,7 +9,7 @@ const Input = ({ handleOnchange, className, placeholder, name, type,value }) => 
       placeholder={placeholder}
       onChange={handleOnchange}
       value={value}
-      className={` p-3 rounded-md  w-full flex text-start border border-gray-300  bg-gray-50 transition-all duration-300 ${className}`}
+      className={` p-3 rounded-md  w-full flex text-start border border-gray-300  transition-all duration-300 ${className}`}
     />
   )
 }

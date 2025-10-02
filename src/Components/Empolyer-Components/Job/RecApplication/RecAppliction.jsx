@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { axiosInstance } from '../../../../Axios/Axios-instance'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUserProfile } from '../../../../Redux/EmployerSlice'
 import useJob from '../../../../hooks/employer/useJob'
+import socket from '../../../../socket-io/socket-io'
 
 const RecAppliction = () => {
   const [applications, setApplications] = useState('')
@@ -30,17 +30,15 @@ const RecAppliction = () => {
     navigate('/candidateProfile')
   }
 
-  // const handleApplicationStatus = async (application, status) => {
-  //   let data = {
-  //     application,
-  //     status
-  //   }
-  //   try {
-  //     const response = await axiosInstance.post('/api/employer/shortList', data)
-  //   } catch (error) {
-  //     alert(error.response.message)
-  //   }
-  // }
+  const handleApplicationShortlist = async (status, application) => {
+    let data = {
+      candidateId : application?.candidateData._id,
+      status,
+      jobId: application?.jobData._id,
+      jobTitle : application?.jobData.title
+    }
+    socket.emit('application-shortlist', data)
+  }
 
   return (
     <>
@@ -162,7 +160,15 @@ const RecAppliction = () => {
                   </svg>
                   Profile
                 </button>
-                <button className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm'>
+                <button
+                  onClick={() =>
+                    handleApplicationShortlist(
+                      'shortlisted',
+                      application
+                    )
+                  }
+                  className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors shadow-sm'
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
