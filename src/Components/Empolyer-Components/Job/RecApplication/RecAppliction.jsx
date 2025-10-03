@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setUserProfile } from '../../../../Redux/EmployerSlice'
 import useJob from '../../../../hooks/employer/useJob'
 import socket from '../../../../socket-io/socket-io'
-
+import Button from '../../../ui/Button'
 const RecAppliction = () => {
   const [applications, setApplications] = useState('')
   const navigate = useNavigate()
@@ -31,13 +31,15 @@ const RecAppliction = () => {
   }
 
   const handleApplicationShortlist = async (status, application) => {
+    
+    
     let data = {
       candidateId : application?.candidateData._id,
       status,
       jobId: application?.jobData._id,
       jobTitle : application?.jobData.title
     }
-    socket.emit('application-shortlist', data)
+    socket.emit('application-status', data)
   }
 
   return (
@@ -142,8 +144,8 @@ const RecAppliction = () => {
               </div>
 
               <div className='flex flex-wrap justify-center gap-3 mt-6'>
-                <button
-                  onClick={() => viewProfile(application)}
+                <Button
+                  handleClick={() => viewProfile(application)}
                   className='flex gap-1 px-4 py-2 text-sm font-medium rounded-md bg-green-100 text-green-600 hover:bg-green-200 transition-colors shadow-sm items-center'
                 >
                   <svg
@@ -159,9 +161,9 @@ const RecAppliction = () => {
                     />
                   </svg>
                   Profile
-                </button>
-                <button
-                  onClick={() =>
+                </Button>
+                <Button
+                  handleClick={() =>
                     handleApplicationShortlist(
                       'shortlisted',
                       application
@@ -182,7 +184,7 @@ const RecAppliction = () => {
                     />
                   </svg>
                   Shortlist
-                </button>
+                </Button>
 
                 <a
                   href={`mailto:${application?.candidateData?.email}`}
@@ -201,7 +203,12 @@ const RecAppliction = () => {
                   Send Email
                 </a>
 
-                <button className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-red-100 text-red-600 hover:bg-red-200 transition-colors shadow-sm'>
+                <Button handleClick={() =>
+                    handleApplicationShortlist(
+                      'rejected',
+                      application
+                    )
+                  } className='flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md bg-red-100 text-red-600 hover:bg-red-200 transition-colors shadow-sm'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -215,7 +222,7 @@ const RecAppliction = () => {
                     />
                   </svg>
                   Reject
-                </button>
+                </Button>
               </div>
             </div>
           ))}

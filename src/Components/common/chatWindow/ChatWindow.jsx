@@ -52,7 +52,7 @@ const ChatWindow = () => {
 
   const handleSendMessage = () => {
     const newMessage = {
-      toUserId: selectedUser.userID._id,
+      toUserId: selectedUser.userID._id, 
       message: message
     }
     socket.emit('send-message', newMessage)
@@ -206,7 +206,7 @@ const ChatWindow = () => {
               <div className=' flex-1 overflow-y-auto h-[600px] p-4'>
                 {messages.map(message =>
                   message.sender?.toString() ===
-                  loggedInUser._id?.toString() ? (
+                  loggedInUser?._id?.toString() ? (
                     <div className='flex flex-col  '>
                       <p className='ml-auto bg-indigo-600 text-white p-3 rounded-bl-lg rounded-tr shadow-md max-w-xs break-words'>
                         {message.message}

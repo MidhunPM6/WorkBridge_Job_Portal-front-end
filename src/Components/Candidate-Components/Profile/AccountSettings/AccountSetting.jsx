@@ -8,6 +8,7 @@ import useAccountSetting from '../../../../hooks/candidate/useAccountSettting'
 import UpdateNameModel from './UpdateNameModal'
 import ChangePasswordModal from './ChangePasswordModal'
 import DeleteAccountModal from './DeleteAccountModal'
+import socket from '../../../../socket-io/socket-io'
 
 const AccountSetting = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -23,6 +24,7 @@ const AccountSetting = () => {
     e.preventDefault()
     const { success, response } = await logoutUser()
     if (success) {
+      socket.disconnect()
       toast.success(response.data.message)
       navigate('/')
     }

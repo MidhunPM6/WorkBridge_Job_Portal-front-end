@@ -10,6 +10,8 @@ import useAuth from '../../../hooks/candidate/useAuth'
 import loadingImg from '../../../assets/rotate.png'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
+import socket from '../../../socket-io/socket-io'
+
 
 
 axios.defaults.withCredentials = true
@@ -51,6 +53,9 @@ const Login = () => {
       toast.success(response.data.message, {
         onClose: () => navigate('/')
       })
+      console.log(response);
+       socket.auth = { userId: response.data.account._id };  
+  socket.connect();  
     
     }else{
       toast.error(error.response.data.message)

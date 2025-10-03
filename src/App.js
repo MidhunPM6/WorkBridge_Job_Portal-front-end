@@ -25,7 +25,7 @@ function App () {
   return (
     <>
       <SocketProvider>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={3000}/>
         <Suspense fallback={<LazyLoad></LazyLoad>}>
           <Routes>
             {/* common routes */}
@@ -33,15 +33,16 @@ function App () {
             <Route path='/chatWindow' element={<ChattingWindow />} />
 
             {/*User routes */}
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home />} /> 
             <Route path='/signup' element={<Siginup />} />
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Userprofile />} />
             <Route path='/jobview' element={<Jobview />} />
             <Route
               path='/companyProfileView'
-              element={<CompanyProfileView />}
+              element={<CompanyProfileView />} 
             />
+           
 
             {/*Empolyer routes*/}
             <Route path='/employer' element={<EmployerHome />} />
